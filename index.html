@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ptbr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,19 +9,21 @@
     body {
         margin: 0;
         padding: 0;
-        background-color: black;
+        background-color: rgb(0, 0, 0);
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 100vh;
+        font-family: 'Roboto Mono', monospace;
     }
 
     h1 {
-        font-family: 'Roboto Mono', monospace;
         font-size: 3em;
-        color: white;
+        color: rgb(255, 255, 255);
         animation: textAnimation 2s ease-in-out infinite alternate;
+        pointer-events: none;
+        user-select: none;
     }
 
     @keyframes textAnimation {
@@ -50,7 +52,34 @@
         margin-right: 10px;
     }
 
-    /* Adicionando regras de mídia queries para tornar o site responsivo */
+    .languages {
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        pointer-events: none;
+        user-select: none;
+    }
+
+    .language {
+        margin: 5px;
+        padding: 5px 10px;
+        color: white;
+        border-radius: 5px;
+        display: flex; /* Adicionado */
+        justify-content: center; /* Adicionado */
+        align-items: center; /* Adicionado */
+        position: relative;
+        top: 100px;
+    }
+
+
+    .a1::before {
+        content: "\2605"; /* Código Unicode para estrela */
+        color: yellow; /* Cor da estrela */
+        margin-right: 5px;
+    }
+
     @media only screen and (max-width: 600px) {
         h1 {
             font-size: 2em;
@@ -67,5 +96,15 @@
     <a href="https://github.com/Marcelobernard" target="_blank" class="github-button">
         <i class="fab fa-github github-icon"></i>GitHub
     </a>
+    <div class="languages">
+        <div class="language a1" style="margin-top: -60px; background-color: #4b0082;">C++</div>
+        <div class="language a1" style="margin-top: -60px; background-color: #4b8bbe;">Python</div>
+        <div class="language" style="margin-top: -40px; background-color: #e34c26;">HTML</div>
+        <div class="language" style="margin-top: -40px; background-color: #2965f1;">CSS</div>
+        <div class="language" style="margin-top: -30px; background-color: #000080;">LUA</div>
+        <div class="language" style="margin-top: -30px; background-color: #007f00;">Papyrus</div>
+        <div class="language" style="margin-top: -10px; background-color: #4F5D95;">PhP</div>
+        <div class="language" style="margin-top: -5px; background-color: #f7de1ebe;">JavaScript</div>
+    </div>
 </body>
 </html>
