@@ -123,9 +123,10 @@
         }
 
         .tooltip {
-            right: 120px;
-            top: 0px;
-            width: 200px;
+            right: 60px;
+            top: auto;
+            width: 300px;
+            bottom: 35px;
         }
     }
 </style>
@@ -165,6 +166,8 @@
         </div>
     </div>
 
+    <div id="tooltip-container"></div>
+
     <script>
         document.querySelectorAll('.language').forEach(item => {
             item.addEventListener('mouseover', event => {
@@ -172,6 +175,23 @@
                 item.querySelector('.tooltip').style.backgroundColor = backgroundColor;
             })
         })
+
+        document.querySelectorAll('.language').forEach(item => {
+            item.addEventListener('click', event => {
+                const tooltip = item.querySelector('.tooltip');
+                const container = document.getElementById('tooltip-container');
+                
+                // Remove o tooltip anterior se houver um
+                const existingTooltip = container.querySelector('.tooltip');
+                if (existingTooltip) {
+                    existingTooltip.remove();
+                }
+
+                container.appendChild(tooltip);
+                tooltip.style.display = 'block';
+            })
+        })
+        
     </script>
 </body>
 </html>
