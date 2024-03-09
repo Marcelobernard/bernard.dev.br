@@ -123,10 +123,9 @@
         }
 
         .tooltip {
-            right: 60px;
-            top: auto;
-            width: 300px;
-            bottom: 35px;
+            right: 120px;
+            top: 0px;
+            width: 200px;
         }
     }
 </style>
@@ -141,7 +140,7 @@
             <span class="tooltip">É uma linguagem que gostei demais apesar de ser considerada uma linguagem de aprendizado</span>
         </div>
         <div class="language a1" style="background-color: #4b8bbe;">Python
-            <span class="tooltip">Criei um sistema/aplicativo capaz de identificar dados dentro de um arquivo PDF, reorganizá-lo, analisá-lo e usá-lo para criar e manusear estatísticas reais e precisas para uma instituição, com todo um sistema de gráficos sendo gerado dentro dele mesmo</span>
+            <span class="tooltip">Eu e mais 2 amigos criamos um sistema/aplicativo capaz de identificar dados dentro de um arquivo PDF, reorganizá-lo, analisá-lo e usá-lo para criar e manusear estatísticas reais e precisas para uma instituição, com todo um sistema de gráficos sendo gerado dentro dele mesmo</span>
         </div>
         <div class="language" style="background-color: #ff0000;">Java
             <span class="tooltip">É a linguagem que aprendi mais recentemente, achei muito semelhante a C++, um ponto positivo para mim</span>
@@ -166,8 +165,6 @@
         </div>
     </div>
 
-    <div id="tooltip-container"></div>
-
     <script>
         document.querySelectorAll('.language').forEach(item => {
             item.addEventListener('mouseover', event => {
@@ -175,23 +172,6 @@
                 item.querySelector('.tooltip').style.backgroundColor = backgroundColor;
             })
         })
-
-        document.querySelectorAll('.language').forEach(item => {
-            item.addEventListener('click', event => {
-                const tooltip = item.querySelector('.tooltip');
-                const container = document.getElementById('tooltip-container');
-                
-                // Remove o tooltip anterior se houver um
-                const existingTooltip = container.querySelector('.tooltip');
-                if (existingTooltip) {
-                    existingTooltip.remove();
-                }
-
-                container.appendChild(tooltip);
-                tooltip.style.display = 'block';
-            })
-        })
-        
     </script>
 </body>
 </html>
