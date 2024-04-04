@@ -165,6 +165,12 @@
         </div>
     </div>
 
+     <form id="formulario-comando">
+        <input type="text" id="comando" placeholder="Digite o comando aqui...">
+        <button type="submit">Enviar</button>
+    </form>
+    <div id="resultado"></div>
+
     <script>
         document.querySelectorAll('.language').forEach(item => {
             item.addEventListener('mouseover', event => {
@@ -172,6 +178,22 @@
                 item.querySelector('.tooltip').style.backgroundColor = backgroundColor;
             })
         })
+        document.getElementById("formulario-comando").addEventListener("submit", function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+            var comando = document.getElementById("comando").value;
+
+            // Faz uma solicitação AJAX POST para a API Flask
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/api/comandos", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var resposta = JSON.parse(xhr.responseText);
+                    document.getElementById("resultado").innerHTML = resposta.resultado;
+                }
+            };
+            xhr.send(JSON.stringify({ comando: comando }));
+        });
     </script>
 </body>
 </html>
