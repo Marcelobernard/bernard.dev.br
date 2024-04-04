@@ -184,7 +184,7 @@
 
             // Faz uma solicitação AJAX POST para a API Flask
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/api/comandos", true);
+            xhr.open("POST", "/", true);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
