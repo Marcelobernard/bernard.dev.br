@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 # Rota para receber comandos dos bots
-@app.route('/api/comandos', methods=['POST'])
+@app.route('/', methods=['POST'])
 def receber_comandos():
     dados = request.json  # Recebe os dados JSON enviados pelo bot
     print("Comando recebido:", dados['comando'])
