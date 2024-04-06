@@ -164,5 +164,14 @@
             <span class="tooltip">Por mais que não seja difícil, eu não consegui ter afinidade por ela, não achei agradável visualmente, mas nada que apenas 1 dia de prática constante resolva</span>
         </div>
     </div>
+
+    <script>
+        document.querySelectorAll('.language').forEach(item => {
+            item.addEventListener('mouseover', event => {
+                const backgroundColor = window.getComputedStyle(item).backgroundColor;
+                item.querySelector('.tooltip').style.backgroundColor = backgroundColor;
+            })
+        })
+    </script>
 </body>
 </html>
