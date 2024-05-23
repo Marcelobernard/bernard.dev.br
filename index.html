@@ -116,6 +116,30 @@
         background-color: #c4c4c4;
     }
 
+    footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #33333305;
+    padding: 20px 0;
+    text-align: center;
+    color: white;
+    }
+
+    footer p {
+    margin: 5px;
+    }
+
+    footer a {
+    color: white;
+    text-decoration: none;
+    }
+
+    footer a:hover {
+    text-decoration: underline;
+    }
+
     @media only screen and (max-width: 600px) {
         h1 {
             font-size: 2em;
@@ -148,6 +172,7 @@
             width: 200px;
         }
     }
+
 </style>
 </head>
 <body>
@@ -176,7 +201,11 @@
         </div>
     </div>
     <a id="download-link" href="https://www.mediafire.com/file/svaa4r997za0k0e/Cliente15.rar/file" target="_blank">Download</a>
-
+    <footer>
+        <p><i class="fas fa-envelope"></i> <a href="mailto:marcelobernardv@gmail.com">marcelobernardv@gmail.com</a></p>
+        <p><i class="fas fa-mobile-alt"></i> <a href="tel:+5521993345401">(21) 99334-5401</a></p>
+    </footer>
+    
     <script>
         document.querySelectorAll('.language').forEach(item => {
             item.addEventListener('mouseover', event => {
