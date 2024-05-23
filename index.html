@@ -72,8 +72,8 @@
     }
 
     .a1::before {
-        content: "\2605"; /* Código Unicode para estrela */
-        color: yellow; /* Cor da estrela */
+        content: "\2605";
+        color: yellow;
         margin-right: 5px;
     }
 
@@ -96,7 +96,6 @@
         display: block;
     }
 
-    /* Estilo para o botão de download */
     #download-link {
         background-color: #333;
         border: none;
@@ -139,6 +138,27 @@
     footer a:hover {
     text-decoration: underline;
     }
+    .tooltip {
+    position: absolute;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1;
+    margin-left: 350px;
+    }
+
+    #help-icon {
+    position: relative;
+    cursor: pointer;
+    color: white;
+    }
+
+    #help-icon:hover + #tooltip {
+    display: block;
+    }
+
 
     @media only screen and (max-width: 600px) {
         h1 {
@@ -177,6 +197,11 @@
 </head>
 <body>
     <h1>bernard.dev.br</h1>
+    <i class="fas fa-question-circle" id="help-icon"></i>
+    <div class="tooltip" id="tooltip">
+    <p>Este site, sob o nome de Marcelo Bernard, serve como um hub pessoal destinado a fornecer um ambiente versátil para interação, manipulação, teste e até mesmo como um repositório de dados. Sua função é semelhante à do GitHub, mas com maior liberdade e flexibilidade.
+    </p>
+    </div>
     <a href="https://github.com/Marcelobernard" target="_blank" class="github-button">
         <i class="fab fa-github github-icon"></i>GitHub
     </a>
@@ -213,6 +238,14 @@
                 item.querySelector('.tooltip').style.backgroundColor = backgroundColor;
             })
         });
+        document.getElementById('help-icon').addEventListener('mouseover', function() {
+        document.getElementById('tooltip').style.display = 'block';
+    });
+
+    document.getElementById('help-icon').addEventListener('mouseout', function() {
+        document.getElementById('tooltip').style.display = 'none';
+    });
+
     </script>
 </body>
 </html>
