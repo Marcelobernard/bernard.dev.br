@@ -46,6 +46,7 @@
         <div id="question"></div>
         <div id="answer"></div>
         <button onclick="revealAnswer()">Revelar Resposta</button>
+        <button onclick="loadQuestion()">Próxima Questão</button>
     </div>
 
     <script>
@@ -90,6 +91,7 @@
             const question = getRandomQuestion();
             document.getElementById('question').innerText = question.question;
             document.getElementById('answer').innerText = question.answer;
+            document.getElementById('answer').style.display = 'none';
         }
 
         window.onload = loadQuestion;
