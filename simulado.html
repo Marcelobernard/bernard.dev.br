@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Aviação</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        #answer {
+            display: none;
+            margin-top: 10px;
+            color: #007BFF;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="question"></div>
+        <div id="answer"></div>
+        <button onclick="revealAnswer()">Revelar Resposta</button>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "A convenção de Chicago ocorreu em que ano?", answer: "1944" },
+            { question: "A CINA foi criada em qual convenção?", answer: "Paris" },
+            { question: "Qual convenção estabeleceu a responsabilidade do transportador, regulando de maneira uniforme as condições do transporte aéreo?", answer: "Varsóvia" },
+            { question: "A criação da OACI em substituição da CINA foi em qual convenção?", answer: "Chicago 1944" },
+            { question: "Qual o nome dos acordos feitos entre os países para facilitar o trânsito aéreo?", answer: "Liberdade do ar" },
+            { question: "Como são chamados os membros da OACI?", answer: "Estados contratantes" },
+            { question: "Quais as características da assembleia e conselho da OACI respectivamente?", answer: "Assembleia - Soberania; Conselho - Permanente" },
+            { question: "A OACI possui quantas repartições regionais (filiais)?", answer: "7 filiais" },
+            { question: "Onde é a repartição regional da OACI na América do Sul?", answer: "Lima" },
+            { question: "Quais são as entidades privadas (associações) que defendem os interesses das empresas aéreas mundiais e da América Latina?", answer: "IATA, AITAL" },
+            { question: "Qual a convenção da paz e quando ocorreu?", answer: "Paris 1919" },
+            { question: "A CLAC (Comissão Latino Americana da Aviação Civil) fica em qual local?", answer: "Lima - Peru" },
+            { question: "Cite 2 objetivos da OACI.", answer: "Preservar a paz e tratar com igualdade" },
+            { question: "Quantos são os anexos que tratam de assuntos específicos da OACI?", answer: "19 anexos" },
+            { question: "A convenção de 1928 tratou da liberdade de passagem pelo espaço aéreo de outros países. Qual seu nome?", answer: "Havana" },
+            { question: "A assembleia se reúne ao menos uma vez de quanto em quanto tempo?", answer: "3 anos" },
+            { question: "Quais são as entidades públicas que falam sobre as regras da aviação civil mundial e latino-americana?", answer: "OACI, CLAC" },
+            { question: "Qual o anexo que fala sobre 'licença de pessoal'?", answer: "Anexo 1" },
+            { question: "Qual o anexo que fala sobre 'Sistema de Gerenciamento da Segurança Operacional'?", answer: "Anexo 19" },
+            { question: "Qual o anexo que fala sobre 'acidentes aeronáuticos'?", answer: "Anexo 13" },
+            { question: "Qual a superintendência da ANAC responsável pelo credenciamento de clínicas de saúde e pela emissão do CMA?", answer: "SPO" },
+            { question: "A ANAC substituiu o DAC em que ano?", answer: "2006" },
+            { question: "A ANAC está vinculada diretamente a qual entidade governamental?", answer: "Ministério da Infraestrutura" },
+            { question: "Qual órgão pertence à estrutura regional da ANAC?", answer: "NURAC" },
+            { question: "Qual departamento do COMAER é responsável pelo controle do tráfego aéreo brasileiro?", answer: "DECEA" }
+        ];
+
+        function getRandomQuestion() {
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            return questions[randomIndex];
+        }
+
+        function revealAnswer() {
+            document.getElementById('answer').style.display = 'block';
+        }
+
+        function loadQuestion() {
+            const question = getRandomQuestion();
+            document.getElementById('question').innerText = question.question;
+            document.getElementById('answer').innerText = question.answer;
+        }
+
+        window.onload = loadQuestion;
+    </script>
+</body>
+</html>
