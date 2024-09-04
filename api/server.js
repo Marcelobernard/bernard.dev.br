@@ -1,8 +1,7 @@
 const express = require('express');
-const app = express();
+const app = require('./server');
 const bodyParser = require('body-parser');
-const port = 3000;
-
+const app = express();
 app.use(bodyParser.json());
 
 let orders = [];
@@ -17,6 +16,6 @@ app.get('/orders', (req, res) => {
     res.json(orders);
 });
 
-app.listen(port, () => {
-    console.log(`Servidor rodando em http://localhost:${port}`);
-});
+module.exports = (req, res) => {
+    app(req, res);
+};
