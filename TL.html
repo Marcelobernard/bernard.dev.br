@@ -12,14 +12,14 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #000000; /* Fundo preto */
-            color: #ffffff; /* Texto branco */
+            background-color: #000000;
+            color: #ffffff;
         }
         h1 {
             text-align: center;
             margin-top: 20px;
             font-size: 2.5em;
-            color: #00ff00; /* Verde */
+            color: #00ff00;
         }
         .calculator-container {
             display: flex;
@@ -33,7 +33,7 @@
             width: 100%;
             max-width: 400px;
             padding: 60px;
-            background-color: #1f1f1f; /* Cinza escuro para diferenciar do fundo */
+            background-color: #1f1f1f;
             border-radius: 8px;
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
@@ -46,7 +46,7 @@
         .calculator h2 {
             margin-bottom: 15px;
             font-size: 1.8em;
-            color: #00ff00; /* Verde */
+            color: #00ff00;
         }
         label {
             display: block;
@@ -79,7 +79,7 @@
             transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #00cc00; /* Tom mais escuro de verde para o hover */
+            background-color: #00cc00;
         }
         h3 {
             margin-top: 15px;
@@ -91,35 +91,25 @@
 <body>
     <h1>Throne and Liberty Stats Calculator</h1>
     <div class="calculator-container">
-        <!-- Evasion Calculator -->
         <div class="calculator">
             <h2>Evasion Calculator</h2>
             <label for="evasion1">Evasion:</label>
             <input type="number" id="evasion1" placeholder="Evasion amount"><br>
-            
             <label for="hitChance1">Hit:</label>
             <input type="number" id="hitChance1" placeholder="Hit Chance amount"><br>
-            
             <button onclick="calculateEvasion('evasion1', 'hitChance1', 'result1')">Calculate</button>
-            
             <h3 id="result1"></h3>
         </div>
-
-        <!-- Crit Chance Calculator -->
         <div class="calculator">
             <h2>Crit Calculator</h2>
             <label for="endurance">Endurance:</label>
             <input type="number" id="endurance" placeholder="Endurance amount"><br>
-
             <label for="crit">Crit:</label>
             <input type="number" id="crit" placeholder="Crit amount"><br>
-            
             <button onclick="calculateCrit('crit', 'endurance', 'result2')">Calculate</button>
-            
             <h3 id="result2"></h3>
         </div>
     </div>
-
     <script>
         function calculateEvasion(evasionId, hitChanceId, resultId) {
             const evasion = parseFloat(document.getElementById(evasionId).value);
@@ -128,16 +118,11 @@
                 document.getElementById(resultId).innerText = "Please enter numbers.";
                 return;
             }
-            
             let evasionChance = ((evasion - hitChance) / (evasion - hitChance + 1000)) * 100;
-            
-            // Limit the evasionChance to be between 0% and 100%
             if (evasionChance < 0) evasionChance = 0;
             if (evasionChance > 100) evasionChance = 100;
-
             document.getElementById(resultId).innerText = "Evasion chance: " + evasionChance.toFixed(2) + "%";
         }
-
         function calculateCrit(critId, enduranceId, resultId) {
             const crit = parseFloat(document.getElementById(critId).value);
             const endurance = parseFloat(document.getElementById(enduranceId).value);
@@ -145,18 +130,14 @@
                 document.getElementById(resultId).innerText = "Please enter numbers.";
                 return;
             }
-            
             let critChance;
             if (crit <= endurance) {
-                critChance = 0; // Crit chance is zero if endurance is greater than or equal to crit
+                critChance = 0;
             } else {
                 critChance = ((crit - endurance) / (crit - endurance + 1000)) * 100;
             }
-            
-            // Limit the critChance to be between 0% and 100%
             if (critChance < 0) critChance = 0;
             if (critChance > 100) critChance = 100;
-
             document.getElementById(resultId).innerText = "Crit chance: " + critChance.toFixed(2) + "%";
         }
     </script>
