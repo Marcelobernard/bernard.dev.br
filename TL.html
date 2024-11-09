@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T&L Stats</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000000; /* Fundo preto */
+            color: #ffffff; /* Texto branco */
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 2.5em;
+            color: #00ff00; /* Verde */
+        }
+        .calculator-container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin-top: 20px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .calculator {
+            width: 100%;
+            max-width: 400px;
+            padding: 60px;
+            background-color: #1f1f1f; /* Cinza escuro para diferenciar do fundo */
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .calculator:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+        }
+        .calculator h2 {
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            color: #00ff00; /* Verde */
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #ffffff;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #00ff00;
+            border-radius: 4px;
+            font-size: 1em;
+            outline: none;
+            background-color: #000000;
+            color: #ffffff;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            background-color: #00ff00;
+            color: #000000;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #00cc00; /* Tom mais escuro de verde para o hover */
+        }
+        h3 {
+            margin-top: 15px;
+            font-size: 1.2em;
+            color: #00ff00;
+        }
+    </style>
+</head>
+<body>
+    <h1>Evasion & Crit Calculators</h1>
+    <div class="calculator-container">
+        <!-- Evasion Calculator -->
+        <div class="calculator">
+            <h2>Evasion Calculator</h2>
+            <label for="evasion1">Evasion:</label>
+            <input type="number" id="evasion1" placeholder="Evasion amount"><br>
+            
+            <label for="hitChance1">Hit:</label>
+            <input type="number" id="hitChance1" placeholder="Hit Chance amount"><br>
+            
+            <button onclick="calculateEvasion('evasion1', 'hitChance1', 'result1')">Calculate</button>
+            
+            <h3 id="result1"></h3>
+        </div>
+
+        <!-- Crit Chance Calculator -->
+        <div class="calculator">
+            <h2>Crit Calculator</h2>
+            <label for="endurance">Endurance:</label>
+            <input type="number" id="endurance" placeholder="Endurance amount"><br>
+
+            <label for="crit">Crit:</label>
+            <input type="number" id="crit" placeholder="Crit amount"><br>
+            
+            <button onclick="calculateCrit('crit', 'endurance', 'result2')">Calculate</button>
+            
+            <h3 id="result2"></h3>
+        </div>
+    </div>
+
+    <script>
+        function calculateEvasion(evasionId, hitChanceId, resultId) {
+            const evasion = parseFloat(document.getElementById(evasionId).value);
+            const hitChance = parseFloat(document.getElementById(hitChanceId).value);
+            if (isNaN(evasion) || isNaN(hitChance)) {
+                document.getElementById(resultId).innerText = "Please enter numbers.";
+                return;
+            }
+            
+            let evasionChance = ((evasion - hitChance) / (evasion - hitChance + 1000)) * 100;
+            
+            // Limit the evasionChance to be between 0% and 100%
+            if (evasionChance < 0) evasionChance = 0;
+            if (evasionChance > 100) evasionChance = 100;
+
+            document.getElementById(resultId).innerText = "Evasion chance: " + evasionChance.toFixed(2) + "%";
+        }
+
+        function calculateCrit(critId, enduranceId, resultId) {
+            const crit = parseFloat(document.getElementById(critId).value);
+            const endurance = parseFloat(document.getElementById(enduranceId).value);
+            if (isNaN(crit) || isNaN(endurance)) {
+                document.getElementById(resultId).innerText = "Please enter numbers.";
+                return;
+            }
+            
+            let critChance;
+            if (crit <= endurance) {
+                critChance = 0; // Crit chance is zero if endurance is greater than or equal to crit
+            } else {
+                critChance = ((crit - endurance) / (crit - endurance + 1000)) * 100;
+            }
+            
+            // Limit the critChance to be between 0% and 100%
+            if (critChance < 0) critChance = 0;
+            if (critChance > 100) critChance = 100;
+
+            document.getElementById(resultId).innerText = "Crit chance: " + critChance.toFixed(2) + "%";
+        }
+    </script>
+</body>
+</html>
