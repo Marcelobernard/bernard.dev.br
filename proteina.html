@@ -105,18 +105,18 @@
       
       <label for="bodytype">Biotipo:</label>
       <select id="bodytype">
-        <option value="2.2">Ectomorfo</option>
-        <option value="2.0">Entre ectomorfo e mesomorfo</option>
-        <option value="1.8">Mesomorfo</option>
-        <option value="1.7">Entre mesomorfo e endomorfo</option>
-        <option value="1.6">Endomorfo</option>
+        <option value="1.6">Ectomorfo</option>
+        <option value="1.8">Entre ectomorfo e mesomorfo</option>
+        <option value="2.0">Mesomorfo</option>
+        <option value="2.2">Entre mesomorfo e endomorfo</option>
+        <option value="2.4">Endomorfo</option>
       </select>
       
       <label for="fluid-retention">Líquido Retido:</label>
       <select id="fluid-retention">
-        <option value="0.75">Bastante Inflamado</option>
-        <option value="0.9">Pouco Inflamado</option>
         <option value="1">Normal</option>
+        <option value="0.9">Pouco Inflamado</option>
+        <option value="0.75">Bastante Inflamado</option>
         <option value="1.05">Seco</option>
       </select>
       
@@ -133,12 +133,16 @@
       const activity = parseFloat(document.getElementById('activity').value);
       const bodytype = parseFloat(document.getElementById('bodytype').value);
       const fluidRetention = parseFloat(document.getElementById('fluid-retention').value);
-      const idealWeight = 22 * (height ** 2);
       const leanMass = weight * (1 - fat / 100);
       const adjustedLeanMass = leanMass * fluidRetention;
-      const idealLeanMass = idealWeight * 0.8;
-      const muscleDifference = adjustedLeanMass - idealLeanMass;
-      let proteinFactor = bodytype + (muscleDifference > 0 ? 0.2 : -0.2);
+      let proteinFactor;
+      
+      if (bodytype === 1.6) proteinFactor = 1.6;
+      else if (bodytype === 1.8) proteinFactor = 1.8;
+      else if (bodytype === 2.0) proteinFactor = 2.0;
+      else if (bodytype === 2.2) proteinFactor = 2.2;
+      else proteinFactor = 2.4;
+
       const protein = adjustedLeanMass * proteinFactor * activity;
       document.getElementById('result').innerHTML = 
         `<h2>Você precisa de <span style="color: #007BFF;">${protein.toFixed(2)}g</span> de proteína por dia.</h2>`;
