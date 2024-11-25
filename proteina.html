@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bernard Protein</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #7c7c7c;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #007BFF;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select, button {
+      width: 95%;
+      margin-top: 5px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 18px;
+      color: #333;
+    }
+    @media (max-width: 768px) {
+      body {
+        margin: 10px;
+      }
+      .container {
+        padding: 15px;
+      }
+      input, select, button {
+        font-size: 14px;
+      }
+      button {
+        padding: 8px;
+      }
+    }
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 20px;
+      }
+      input, select, button {
+        font-size: 12px;
+      }
+      button {
+        padding: 6px;
+      }
+      label {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Calculadora ampla de proteína</h1>
+    <form id="protein-form">
+      <label for="weight">Peso (kg):</label>
+      <input type="number" id="weight" placeholder="Digite seu peso em kg" required>
+      
+      <label for="height">Altura (cm):</label>
+      <input type="number" id="height" placeholder="Digite sua altura em cm" required>
+      
+      <label for="fat">Percentual de Gordura (%):</label>
+      <input type="number" id="fat" placeholder="Digite seu percentual de gordura" required>
+      
+      <label for="activity">Nível de Atividade:</label>
+      <select id="activity">
+        <option value="1.2">Sedentária</option>
+        <option value="1.375">Casual</option>
+        <option value="1.55">Frequentemente</option>
+        <option value="1.725">Pesado</option>
+      </select>
+      
+      <label for="bodytype">Biotipo:</label>
+      <select id="bodytype">
+        <option value="2.2">Ectomorfo</option>
+        <option value="2.0">Entre ectomorfo e mesomorfo</option>
+        <option value="1.8">Mesomorfo</option>
+        <option value="1.7">Entre mesomorfo e endomorfo</option>
+        <option value="1.6">Endomorfo</option>
+      </select>
+      
+      <label for="fluid-retention">Líquido Retido:</label>
+      <select id="fluid-retention">
+        <option value="0.75">Bastante Inflamado</option>
+        <option value="0.9">Pouco Inflamado</option>
+        <option value="1">Normal</option>
+        <option value="1.05">Seco</option>
+      </select>
+      
+      <button type="submit">Calcular</button>
+    </form>
+    <div id="result"></div>
+  </div>
+  <script>
+    document.getElementById('protein-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const weight = parseFloat(document.getElementById('weight').value);
+      const height = parseFloat(document.getElementById('height').value) / 100;
+      const fat = parseFloat(document.getElementById('fat').value);
+      const activity = parseFloat(document.getElementById('activity').value);
+      const bodytype = parseFloat(document.getElementById('bodytype').value);
+      const fluidRetention = parseFloat(document.getElementById('fluid-retention').value);
+      const idealWeight = 22 * (height ** 2);
+      const leanMass = weight * (1 - fat / 100);
+      const adjustedLeanMass = leanMass * fluidRetention;
+      const idealLeanMass = idealWeight * 0.8;
+      const muscleDifference = adjustedLeanMass - idealLeanMass;
+      let proteinFactor = bodytype + (muscleDifference > 0 ? 0.2 : -0.2);
+      const protein = adjustedLeanMass * proteinFactor * activity;
+      document.getElementById('result').innerHTML = 
+        `<h2>Você precisa de <span style="color: #007BFF;">${protein.toFixed(2)}g</span> de proteína por dia.</h2>`;
+    });
+  </script>
+</body>
+</html>
