@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6939953032536749"
-     crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
     <title>About - Path of Exile 2 Currency Drop Rate</title>
     <style>
         body {
-            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             background: url('wallpp2.jpg') no-repeat center center fixed; /* A URL do arquivo de imagem */
             background-size: cover; /* Garante que a imagem cubra todo o fundo */
@@ -18,17 +17,20 @@
             font-size: 12px;
         }
         .navbar {
-            background-color: #2F0606;
+            background-color: #2f0606;
             padding: 10px 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
+            position: relative;
         }
+
+        .navbar .nav-links {
+            display: flex;
+            justify-content: center;
+            flex: 1;
+        }
+
         .navbar button {
             background-color: transparent;
             color: white;
@@ -36,9 +38,19 @@
             padding: 15px 20px;
             cursor: pointer;
             font-size: 16px;
+            border-radius: 5px;
+            text-align: left;
         }
+
         .navbar button:hover {
             color: #ff0000;
+        }
+
+        .navbar .support-btn {
+            position: absolute;
+            right: 20px;
+            background-color: transparent;
+            color: yellow;
         }
         .content {
             padding: 100px 20px 40px;
@@ -87,11 +99,13 @@
     </style>
 </head>
 <body>
-
     <div class="navbar">
-        <button onclick="location.href='home.html'">Home</button>
-        <button onclick="location.href='tool.html'">Tool</button>
-        <button onclick="location.href='about.html'">About</button>
+        <div class="nav-links">
+            <button onclick="location.href='home.html'">Home</button>
+            <button onclick="location.href='tool.html'">Tool</button>
+            <button onclick="location.href='about.html'">About</button>
+        </div>
+        <button class="support-btn" onclick="window.location.href='https://direct-link.net/1278153/thanks'">Support me just by click here 😊</button>
     </div>
 
     <div class="content">

@@ -22,6 +22,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            justify-content: center;
+            flex: 1;
         }
 
         .navbar button {
@@ -37,6 +44,13 @@
 
         .navbar button:hover {
             color: #ff0000;
+        }
+
+        .navbar .support-btn {
+            position: absolute;
+            right: 20px;
+            background-color: transparent;
+            color: yellow;
         }
 
         .main-content {
@@ -126,7 +140,6 @@
             color: #2F0606;
         }
 
-        /* Responsividade para dispositivos móveis */
         @media (max-width: 1024px) {
             .inputs-container, .table-container {
                 width: 100%;
@@ -177,9 +190,12 @@
 <body>
 
     <div class="navbar">
-        <button onclick="location.href='home.html'">Home</button>
-        <button onclick="location.href='tool.html'">Tool</button>
-        <button onclick="location.href='about.html'">About</button>
+        <div class="nav-links">
+            <button onclick="location.href='home.html'">Home</button>
+            <button onclick="location.href='tool.html'">Tool</button>
+            <button onclick="location.href='about.html'">About</button>
+        </div>
+        <button class="support-btn" onclick="window.location.href='https://direct-link.net/1278153/thanks'">Support me just by click here 😊</button>
     </div>
 
     <div class="main-content">

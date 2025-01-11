@@ -21,12 +21,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
+            position: relative;
         }
+
+        .navbar .nav-links {
+            display: flex;
+            justify-content: center;
+            flex: 1;
+        }
+
         .navbar button {
             background-color: transparent;
             color: white;
@@ -34,10 +37,19 @@
             padding: 15px 20px;
             cursor: pointer;
             font-size: 16px;
-            transition: color 0.3s ease;
+            border-radius: 5px;
+            text-align: left;
         }
+
         .navbar button:hover {
             color: #ff0000;
+        }
+
+        .navbar .support-btn {
+            position: absolute;
+            right: 20px;
+            background-color: transparent;
+            color: yellow;
         }
         .content {
             padding: 100px 20px 40px; /* Ajuste o padding superior para dar espaço para a navbar fixa */
@@ -82,9 +94,12 @@
 </head>
 <body>
     <div class="navbar">
-        <button onclick="location.href='home.html'">Home</button>
-        <button onclick="location.href='tool.html'">Tool</button>
-        <button onclick="location.href='about.html'">About</button>
+        <div class="nav-links">
+            <button onclick="location.href='home.html'">Home</button>
+            <button onclick="location.href='tool.html'">Tool</button>
+            <button onclick="location.href='about.html'">About</button>
+        </div>
+        <button class="support-btn" onclick="window.location.href='https://direct-link.net/1278153/thanks'">Support me just by click here 😊</button>
     </div>
 
     <div class="content">
