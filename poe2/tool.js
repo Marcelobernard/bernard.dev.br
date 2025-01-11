@@ -8,14 +8,37 @@ document.getElementById('calculate').addEventListener('click', function () {
 
     // Ajustar o Rarity total baseado no Map Tier
     let adjustedRarity = totalRarity;
-    if (mapTier >= 1 && mapTier <= 5) {
-        adjustedRarity += 50; // Map Tier 1-5: +50
-    } else if (mapTier >= 6 && mapTier <= 10) {
-        adjustedRarity += 100; // Map Tier 6-10: +100
-    } else if (mapTier >= 11) {
-        adjustedRarity += 150; // Map Tier 11+: +150
+    if (mapTier == 1) {
+        adjustedRarity += 5;
+    } else if (mapTier == 2) {
+        adjustedRarity += 10;
+    } else if (mapTier == 3) {
+        adjustedRarity += 15;
+    } else if (mapTier == 4) {
+        adjustedRarity += 20;
+    } else if (mapTier == 5) {
+        adjustedRarity += 25;
+    } else if (mapTier == 6) {
+        adjustedRarity += 55;
+    } else if (mapTier == 7) {
+        adjustedRarity += 60;
+    } else if (mapTier == 8) {
+        adjustedRarity += 65;
+    } else if (mapTier == 9) {
+        adjustedRarity += 70;
+    } else if (mapTier == 10) {
+        adjustedRarity += 75;
+    } else if (mapTier == 11) {
+        adjustedRarity += 105;
+    } else if (mapTier == 12) {
+        adjustedRarity += 110;
+    } else if (mapTier == 13) {
+        adjustedRarity += 115;
+    } else if (mapTier == 14) {
+        adjustedRarity += 120;
+    } else if (mapTier >= 15) {
+        adjustedRarity += 125;
     }
-
     // Base drop rates
     const baseRates = [
         31.246,  // Orb of Augmentation
@@ -47,7 +70,7 @@ document.getElementById('calculate').addEventListener('click', function () {
                     let adjustedRarity2 = adjustedRarity - 120;
                     let newRate1 = (base / 100 + (120 * position) / 10**6) * (100 * 1.005**(adjustedRarity));
                     let newRate2 = (base / 100 + (adjustedRarity * position) / 10**6) * (100 * 1.005**(adjustedRarity));
-                    newRate = (newRate1 + newRate2) / 2;
+                    newRate = (5*newRate1 + newRate2) / 6;
                     newRate = Math.max(newRate, 0).toFixed(3);
                 } else {
                     newRate = (base / 100 + (adjustedRarity * position) / 10**6) * (100 * 1.005**(adjustedRarity));
@@ -58,7 +81,7 @@ document.getElementById('calculate').addEventListener('click', function () {
                     let adjustedRarity2 = adjustedRarity - 200;
                     let newRate1 = (base / 100 + (120 * position) / 10**6) * 100;
                     let newRate2 = (base / 100 + (adjustedRarity * position) / 10**6) * 100;
-                    newRate = (newRate1 + newRate2) / 2;
+                    newRate = (5*newRate1 + newRate2) / 6;
                     newRate = Math.max(newRate, 0).toFixed(3);
                 } else {
                     newRate = (base / 100 + (adjustedRarity * position) / 10**6) * 100;
