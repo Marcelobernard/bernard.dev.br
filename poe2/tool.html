@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Path of Exile 2 Currency Drop Rate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .inputs-container {
+            width: 50%;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .inputs-container h1 {
+            text-align: center;
+        }
+        .inputs-container label {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .inputs-container input {
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .inputs-container button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .inputs-container button:hover {
+            background-color: #555;
+        }
+        .table-container {
+            width: 50%;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        .table-container h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+            color: white;
+        }
+        .icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            background-color: #ccc;
+            display: inline-block;
+            border-radius: 4px;
+        }
+        .arrow {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="inputs-container">
+        <h1>Map Configuration</h1>
+        <label for="map-tier">Map Tier:</label>
+        <input type="number" id="map-tier" placeholder="Enter map tier">
+
+        <label for="item-rarity">Total Item Rarity:</label>
+        <input type="number" id="item-rarity" placeholder="Enter item rarity">
+
+        <label for="map-rarity">Rarity from Map:</label>
+        <input type="number" id="map-rarity" placeholder="Enter map rarity">
+
+        <button id="calculate">Calculate</button>
+    </div>
+
+    <div class="table-container">
+        <h1>Currency Drop Rate</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Currency</th>
+                    <th>Drop Rate</th>
+                </tr>
+            </thead>
+            <tbody id="currency-table">
+                <tr><td><div class="icon"></div>Orb of Augmentation</td><td>31.246% <span class="arrow">→</span> <span id="new-value-1">N/A</span></td></tr>
+                <tr><td><div class="icon"></div>Orb of Transmutation</td><td>15.195% <span class="arrow">→</span> <span id="new-value-2">N/A</span></td></tr>
+                <tr><td><div class="icon"></div>Armourer's Scrap</td><td>5.547% <span class="arrow">→</span> <span id="new-value-3">N/A</span></td></tr>
+                <tr><td><div class="icon"></div>Blacksmith's Whetstone</td><td>5.013% <span class="arrow">→</span> <span id="new-value-4">N/A</span></td></tr>
+                <tr><td><div class="icon"></div>Regal Orb</td><td>2.754% <span class="arrow">→</span> <span id="new-value-5">N/A</span></td></tr>
+                <tr><td><div class="icon"></div>Exalted Orb</td><td>1.864% <span class="arrow">→</span> <span id="new-value-6">N/A</span></td></tr>
+                <tr><td><div class="icon"></div>Arcanist's Etcher</td><td>1.652% <span class="arrow">→</span> <span id="new-value-7">N/A</span></td></tr>
+                <tr><td><div class="icon"></div>Orb of Alchemy</td><td>0.689% <span class="arrow">→</span> <span id="new-value-8">N/A</span></td></tr>
+                <tr><td><div class="icon"></div>Vaal Orb</td><td>0.685% <span class="arrow">→</span> <span id="new-value-9">N/A</span></td></tr>
+                <tr><td><div class="icon"></div>Glassblower's Bauble</td><td>0.578% <span class="arrow">→</span> <span id="new-value-10">N/A</span></td></tr>
+                <tr><td><div class="icon"></div>Gemcutter's Prism</td><td>0.275% <span class="arrow">→</span> <span id="new-value-11">N/A</span></td></tr>
+                <tr><td><div class="icon"></div>Chaos Orb</td><td>0.207% <span class="arrow">→</span> <span id="new-value-12">N/A</span></td></tr>
+                <tr><td><div class="icon"></div>Divine Orb</td><td>0.055% <span class="arrow">→</span> <span id="new-value-13">N/A</span></td></tr>
+                <tr><td><div class="icon"></div>Mirror of Kalandra</td><td>0.001% <span class="arrow">→</span> <span id="new-value-14">N/A</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.getElementById('calculate').addEventListener('click', function () {
+            const mapTier = parseInt(document.getElementById('map-tier').value) || 0;
+            const itemRarity = parseFloat(document.getElementById('item-rarity').value) || 0;
+            const mapRarity = parseFloat(document.getElementById('map-rarity').value) || 0;
+            
+            // Calcular o Rarity total
+            const totalRarity = itemRarity + mapRarity;
+            
+            // Ajustar o Rarity total baseado no Map Tier
+            let adjustedRarity = totalRarity;
+            if (mapTier >= 1 && mapTier <= 5) {
+                adjustedRarity *= 1.5; // 50% de aumento
+            } else if (mapTier >= 6 && mapTier <= 10) {
+                adjustedRarity *= 2; // 100% de aumento
+            } else if (mapTier >= 11) {
+                adjustedRarity *= 3; // 200% de aumento
+            }
+
+            // Base drop rates
+            const baseRates = [31.246, 15.195, 5.547, 5.013, 2.754, 1.864, 1.652, 0.689, 0.685, 0.578, 0.275, 0.207, 0.055];
+            
+            // Atualizar os drop rates
+            baseRates.forEach((rate, index) => {
+                let newRate = rate;
+                const position = index + 1;
+
+                // Se o Map Tier for entre 1 e 5, as moedas de 1 a 5 irão perder % e as de 6 a 13 irão ganhar %
+                if (mapTier >= 1 && mapTier <= 5) {
+                    if (position <= 5) {
+                        newRate -= (0.1 * position * adjustedRarity) / 100;
+                    } else {
+                        newRate += (0.1 * position * adjustedRarity) / 100;
+                    }
+                } else {
+                    newRate += (0.1 * position * adjustedRarity) / 100;
+                }
+
+                // Atualiza o valor da moeda na tabela
+                newRate = Math.max(newRate, 0).toFixed(3); // Evitar valores negativos
+                document.getElementById(`new-value-${position}`).textContent = `${newRate}%`;
+            });
+        });
+    </script>
+</body>
+</html>
