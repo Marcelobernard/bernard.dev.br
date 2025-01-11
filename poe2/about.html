@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Path of Exile 2 Currency Drop Rate</title>
+    <style>
+        body {
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            background: url('wallpp2.jpg') no-repeat center center fixed; /* A URL do arquivo de imagem */
+            background-size: cover; /* Garante que a imagem cubra todo o fundo */
+            color: white;
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+        }
+        .navbar {
+            background-color: #2F0606;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        .navbar button {
+            background-color: transparent;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .navbar button:hover {
+            color: #ff0000;
+        }
+        .content {
+            padding: 100px 20px 40px;
+            text-align: left;
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(to bottom, rgba(48, 3, 3, 0.949), rgba(0, 0, 0, 0.7)), url('your-background-image.jpg');
+            background-size: cover;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        h2 {
+            font-size: 2.0em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        p {
+            line-height: 1.8;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #dcdcdc;
+        }
+        .highlight {
+            color: #ffee00;
+            font-style: italic;
+        }
+        .highlight1 {
+            color: #ff0000;
+            font-size: 20px;
+        }
+        .important {
+            color: #ff0000;
+            font-weight: bold;
+        }
+        .italic {
+            font-style: italic;
+        }
+        .section-title {
+            font-size: 1.5em;
+            margin-top: 40px;
+            color: #ff6347;
+        }
+        .section-content {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <button onclick="location.href='home.html'">Home</button>
+        <button onclick="location.href='tool.html'">Tool</button>
+        <button onclick="location.href='about.html'">About</button>
+    </div>
+
+    <div class="content">
+        <h2>About the Drop Chance Formula</h2>
+
+        <p><span class="highlight1">Disclaimer:</span> Please note that this information is speculative. While we have gathered data through <span class="highlight">datamining</span>, much of it remains hidden and can only be identified based on patterns observed in the game. The numbers presented here are likely close to reality, as patterns tend to become clear over time, though <span class="important">exceptions</span> can and do occur (for example, the drop rate of the Mirror of Kalandra is always an exception).</p>
+
+        <div class="section-title">Factors Influencing Drop Chance</div>
+        <div class="section-content">
+            <p>The formula behind the drop chance calculations is influenced by various factors, most notably the <span class="highlight">Increased Rarity Drop Rate</span>. However, not all currencies interact with this modifier in the same way. Currencies like the <span class="highlight">Exalted Orb</span>, <span class="highlight">Chaos Orb</span>, and <span class="highlight">Divine Orb</span> are more heavily affected by the Increased Rarity than others, even if their individual drop rates might appear low compared to these specific examples.</p>
+        </div>
+
+        <div class="section-title">Diminishing Returns Effect</div>
+        <div class="section-content">
+            <p>Additionally, a <span class="italic">diminishing return</span> effect has been observed once the total rarity reaches around 120, encompassing all sources including gear, maps, and modifiers. This explains why farming high-tier maps may not be as effective as one might expect, especially compared to grinding low-tier maps with a higher overall rarity setup.</p>
+        </div>
+
+        <div class="section-title">Machine Learning Model</div>
+        <div class="section-content">
+            <p>In order to create an accurate representation of these dynamics, I combined my own mathematical knowledge with the power of <span class="highlight">machine learning</span>. Using a Python-based machine learning model, I was able to identify patterns, analyze data, and convert these insights into actionable numbers. The training of the model is similar to a form of engineering reverse applied to data. Instead of dismantling a physical object, the model "reverses" the hidden processes behind the drop system by learning from existing examples and inferring the rules that govern the behavior of the system. This method allows us to uncover complex relationships that are not explicitly documented but are observable through patterns in the data.</p>
+        </div>
+
+        <div class="section-title">Data Sources</div>
+        <div class="section-content">
+            <p>Due to the difficulty of finding clear exemplars and the time-consuming nature of producing data for the model to "study," I also gathered every piece of information available from Reddit and firsthand player reports. These reports included data from tests conducted with various rarity setups, including gear, maps, and tier adjustments.</p>
+        </div>
+
+        <div class="section-title">Accuracy and Exceptions</div>
+        <div class="section-content">
+            <p>The resulting calculations aim to reflect these complex relationships and provide a reliable estimate of your drop chances, but remember that as in any game, there may be occasional <span class="important">exceptions</span> or changes to the pattern.</p>
+        </div>
+    </div>
+
+</body>
+</html>
