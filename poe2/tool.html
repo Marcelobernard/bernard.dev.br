@@ -141,14 +141,24 @@
         }
 
         @media (max-width: 1024px) {
+            .navbar {
+                flex-direction: row;
+                padding: 10px;
+            }
+            .navbar .nav-links {
+                flex-direction: row;
+                align-items: center;
+            }
+            .navbar button {
+                margin-bottom: 10px;
+            }
+            .navbar .support-btn {
+                position: static;
+                margin-top: 10px;
+            }
             .inputs-container, .table-container {
                 width: 100%;
                 margin: 10px 0;
-            }
-
-            .navbar button {
-                font-size: 14px;
-                padding: 12px 15px;
             }
 
             .main-content {
@@ -172,9 +182,20 @@
         }
 
         @media (max-width: 768px) {
+            .navbar {
+                flex-direction: row;
+                padding: 10px;
+            }
+            .navbar .nav-links {
+                flex-direction: row;
+                align-items: center;
+            }
             .navbar button {
-                font-size: 12px;
-                padding: 10px 12px;
+                margin-bottom: 10px;
+            }
+            .navbar .support-btn {
+                position: static;
+                margin-top: 10px;
             }
 
             label, input {

@@ -88,11 +88,11 @@
         }
         @media (max-width: 1024px) {
             .navbar {
-                flex-direction: column;
+                flex-direction: row;
                 padding: 10px;
             }
             .navbar .nav-links {
-                flex-direction: column;
+                flex-direction: row;
                 align-items: center;
             }
             .navbar button {
@@ -118,11 +118,19 @@
         }
         @media (max-width: 768px) {
             .navbar {
-                padding: 5px;
+                flex-direction: row;
+                padding: 10px;
+            }
+            .navbar .nav-links {
+                flex-direction: row;
+                align-items: center;
             }
             .navbar button {
-                font-size: 14px;
-                padding: 10px 15px;
+                margin-bottom: 10px;
+            }
+            .navbar .support-btn {
+                position: static;
+                margin-top: 10px;
             }
             .content {
                 padding: 30px 15px 15px;
