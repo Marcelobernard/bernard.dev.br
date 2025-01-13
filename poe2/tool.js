@@ -87,8 +87,8 @@ document.getElementById('calculate').addEventListener('click', function () {
                 }
             }
             increasedPercent = ((newRate*100)/base)-100;
-            increasedPercent = Math.max(increasedPercent, 0).toFixed(3);
-            document.getElementById(`new-percent-${position}`).textContent = `${increasedPercent}`;
+            increasedPercent = Math.max(increasedPercent, 0).toFixed(2);
+            document.getElementById(`new-percent-${position}`).textContent = "+ "+`${increasedPercent}`+"%";
             document.getElementById(`new-value-${position}`).textContent = `${newRate}`;
         }
     });
