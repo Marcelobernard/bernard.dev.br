@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="preload" href="wall1.jpg" as="image">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GDWN0YXECW"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -15,15 +15,15 @@
     <title>Home</title>
     <style>
         body {
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-            background: url('wall1.jpg') no-repeat center center fixed;
-            background-size: cover;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom, #2f0606 0%, black 100%);
             color: white;
             margin: 0;
             padding: 0;
+            font-size: 14px;
         }
         .navbar {
-            background-color: #2f0606;
+            background-color: transparent;
             padding: 10px 20px;
             display: flex;
             justify-content: center;
@@ -55,33 +55,35 @@
             color: yellow;
         }
         .content {
-            padding: 100px 20px 40px;
+            padding: 20px;
             text-align: left;
-            max-width: 800px;
-            margin: auto;
-            background: linear-gradient(to bottom, rgb(48, 3, 3), rgb(0, 0, 0)), url('wall1.jpg');
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(to bottom, rgb(48, 3, 3), rgb(0, 0, 0)), url('your-background-image.jpg');
+            background-size: cover;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             margin-top: 50px;
         }
         h1 {
-            font-size: 2.0em;
+            font-size: 2em;
             margin-bottom: 20px;
             text-align: center;
         }
         h2 {
             font-size: 1.6em;
-            margin-top: 30px;
-            color: #ff0000;
+            margin-top: 40px;
+            color: #ff6347;
         }
         h3 {
-            font-size: 1.2em;
+            font-size: 1.4em;
             margin-top: 20px;
         }
         p {
-            font-size: 0.8em;
-            line-height: 1.6;
-            margin: 15px 0;
+            line-height: 1.8;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #dcdcdc;
         }
         ul {
             list-style-type: none;
@@ -93,6 +95,10 @@
         }
         strong {
             color: #ff0000;
+        }
+        .highlight {
+            color: #ffee00;
+            font-style: italic;
         }
         @media (max-width: 1024px) {
             .navbar {
@@ -166,7 +172,7 @@
             <button onclick="location.href='tool.html'">Tool</button>
             <button onclick="location.href='about.html'">About</button>
         </div>
-        <button class="support-btn" onclick="window.location.href='https://direct-link.net/1278153/thanks'">Support me just by click here 😊</button>
+        <button class="support-btn" onclick="window.location.href='https://direct-link.net/1278153/thanks'">Support the site (just by clicking) 😊</button>
     </nav>
 
     <div class="content">
@@ -194,9 +200,9 @@
         </ul>
 
         <h2>5. Understand the Results</h2>
-        <p>If you’d like to learn more about how the drop chances are calculated, click on the <strong>About</strong> page. It will provide detailed explanations. Please note that the exact formulas are not disclosed, as the calculation process involved extensive datamining, internet research, and player testing, all supported by an AI system written in Python.</p>
+        <p>If you’d like to learn more about how the drop chances are estimated, click on the <strong>About</strong> page. It will provide detailed explanations. Please note that the exact formulas are not disclosed, as the calculation process is based on extensive data analysis and research within the community.</p>
 
-        <p>Start using the <strong>Path of Exile 2 Rarity Drop Calculator</strong> now to optimize your gameplay and increase your chances of acquiring valuable currencies!</p>
+        <p>This tool is created for players who want to optimize their gameplay and improve their chances of acquiring valuable currencies. Your feedback and suggestions are greatly appreciated!</p>
     </div>
 </body>
 </html>
