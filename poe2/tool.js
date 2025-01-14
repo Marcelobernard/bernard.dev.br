@@ -90,6 +90,8 @@ document.getElementById('calculate').addEventListener('click', function () {
             increasedPercent = Math.max(increasedPercent, 0).toFixed(2);
             document.getElementById(`new-percent-${position}`).textContent = "+ "+`${increasedPercent}`+"%";
             document.getElementById(`new-value-${position}`).textContent = `${newRate}`;
+            document.getElementById(`new-value-${position}`).style.color = 'lightgreen';
+            document.getElementById(`new-percent-${position}`).style.color = 'lightblue';
         }
     });
 }});
