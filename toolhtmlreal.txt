@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GDWN0YXECW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-GDWN0YXECW');
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoE2 Tool</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            letter-spacing: 2px;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-y: scroll;
+            background-color: #2F0606;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            color: white;
+        }
+
+        .navbar {
+            user-select: none;
+            background-color: transparent;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .navbar button {
+            background-color: transparent;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        .navbar button:hover {
+            color: #ff0000;
+        }
+
+        .navbar .support-btn {
+            position: absolute;
+            right: 20px;
+            background-color: transparent;
+            color: yellow;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            padding: 20px;
+            justify-content: space-between;
+        }
+
+        .inputs-container, .table-container {
+            background-color: #462b2b;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 48%;
+            margin: 0 10px;
+        }
+        
+        .aviso {
+            margin-top: 20px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.268);
+            user-select: none;
+        }
+
+        label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        label[for="map-tier"] {
+            margin-top: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #2F0606;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .main-content button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #2F0606;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .main-content button:hover {
+            background-color: #770c0c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #2F0606;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #2f060677;
+        }
+
+        .arrow {
+            margin: 0 10px;
+            color: rgb(255, 186, 186);
+        }
+
+        .arrow:hover {
+            cursor: pointer;
+            color: #2F0606;
+        }
+
+        @media (max-width: 1024px) {
+            .navbar {
+                flex-direction: row;
+                padding: 10px;
+            }
+            .navbar .nav-links {
+                flex-direction: row;
+                align-items: center;
+            }
+            .navbar button {
+                margin-bottom: 10px;
+            }
+            .navbar .support-btn {
+                position: static;
+                margin-top: 10px;
+            }
+            .inputs-container, .table-container {
+                width: 100%;
+                margin: 10px 0;
+            }
+
+            .main-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .main-content button {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            table, th, td {
+                font-size: 10px;
+                padding: 8px;
+            }
+
+            .arrow {
+                margin: 0 5px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: row;
+                padding: 10px;
+            }
+            .navbar .nav-links {
+                flex-direction: row;
+                align-items: center;
+            }
+            .navbar button {
+                margin-bottom: 10px;
+            }
+            .navbar .support-btn {
+                position: static;
+                margin-top: 10px;
+            }
+
+            label, input {
+                font-size: 12px;
+            }
+
+            .main-content button {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="nav-links">
+            <button onclick="location.href='home.html'">Home</button>
+            <button onclick="location.href='tool.html'">Tool</button>
+            <button onclick="location.href='about.html'">About</button>
+        </div>
+        <button class="support-btn" onclick="window.location.href='https://direct-link.net/1278153/thanks'">Support the site (just by clicking) 😊</button>
+    </div>
+
+    <div class="main-content">
+        <div class="inputs-container">
+            <label for="map-tier">Map Tier:</label>
+            <input type="number" id="map-tier" placeholder="Enter map tier">
+
+            <label for="item-rarity">Total Item Rarity:</label>
+            <input type="number" id="item-rarity" placeholder="Enter item rarity">
+
+            <label for="map-rarity">Rarity from Map:</label>
+            <input type="number" id="map-rarity" placeholder="Enter map rarity">
+
+            <button id="calculate">Calculate</button>
+            <div class="aviso">Field not filled = 0</div>
+            <div class="aviso">Getting +100% does not mean you are getting double total loot if the drop rate is low</div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Currency</th>
+                        <th>Drop Rate</th>
+                        <th>Increased %</th>
+                    </tr>
+                </thead>
+                <tbody id="currency-table">
+                    <tr><td>Exalted Orb</td><td>3.547 <span class="arrow">→</span> <span id="new-value-1">...</span></td><td><span id="new-percent-1"></span></td></tr>
+                    <tr><td>Regal Orb</td><td>3.013 <span class="arrow">→</span> <span id="new-value-2">...</span></td><td><span id="new-percent-2"></span></td></tr>
+                    <tr><td>Arcanist/Armourer/Blacksmith</td><td>2.754 <span class="arrow">→</span> <span id="new-value-3">...</span></td><td><span id="new-percent-3"></span></td></tr>
+                    <tr><td>Chaos Orb</td><td>1.689 <span class="arrow">→</span> <span id="new-value-4">...</span></td><td><span id="new-percent-4"></span></td></tr>
+                    <tr><td>Vaal Orb</td><td>0.625 <span class="arrow">→</span> <span id="new-value-5">...</span></td><td><span id="new-percent-5"></span></td></tr>
+                    <tr><td>Orb of Alchemy</td><td>0.578 <span class="arrow">→</span> <span id="new-value-6">...</span></td><td><span id="new-percent-6"></span></td></tr>
+                    <tr><td>Gemcutter's Prism</td><td>0.275 <span class="arrow">→</span> <span id="new-value-7">...</span></td><td><span id="new-percent-7"></span></td></tr>
+                    <tr><td>Glassblower's Bauble</td><td>0.207 <span class="arrow">→</span> <span id="new-value-8">...</span></td><td><span id="new-percent-8"></span></td></tr>
+                    <tr><td>Divine Orb</td><td>0.055 <span class="arrow">→</span> <span id="new-value-9">...</span></td><td><span id="new-percent-9"></span></td></tr>
+                    <tr><td>Mirror of Kalandra</td><td>&#x1F480; <span class="arrow">→</span> <span id="new-value-10">...</span></td><td><span id="new-percent-10"></span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="toolmbo.js"></script>
+</body>
+</html>
