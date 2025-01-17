@@ -1,5 +1,15 @@
 let lastScrollY = 0;
-let scrollThreshold = 50; // Valor de rolagem necessário para esconder o header
+let scrollThreshold = 50; 
+
+window.onload = function() {
+    if (window.innerWidth <= 1026) {  
+        document.getElementById('content').style.display = 'none';
+        document.getElementById('mobile-message').style.display = 'block';
+    } else {
+        document.getElementById('content').style.display = 'block';
+        document.getElementById('mobile-message').style.display = 'none';
+    }
+};
 
 document.addEventListener('scroll', () => {
   const elements = document.querySelectorAll('.fade-in');
