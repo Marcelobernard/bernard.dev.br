@@ -1,4 +1,5 @@
 let lastScrollY = 0;
+let scrollThreshold = 50; // Valor de rolagem necessário para esconder o header
 
 document.addEventListener('scroll', () => {
   const elements = document.querySelectorAll('.fade-in');
@@ -12,7 +13,7 @@ document.addEventListener('scroll', () => {
   });
 
   const header = document.querySelector('header');
-  if (window.scrollY > lastScrollY) {
+  if (window.scrollY > lastScrollY && window.scrollY > scrollThreshold) {
     header.classList.add('hidden');
   } else {
     header.classList.remove('hidden');

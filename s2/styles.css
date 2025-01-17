@@ -134,3 +134,11 @@ header p {
 .emoji-container.show {
   opacity: 1;
 }
+
+@media (max-width: 1026px) {
+  .parallax .parallax2 .parallax3 {
+    background-attachment: scroll;
+    background-position: center;
+    background-size: cover;
+  }
+}
