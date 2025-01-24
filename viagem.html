@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=drawing,geometry"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viagem ao Paraguai</title>
+    <script>
+        function initMap() {
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 7,
+            center: {lat: 37.7749, lng: -122.4194}
+          });
+  
+          var directionsService = new google.maps.DirectionsService();
+          var directionsRenderer = new google.maps.DirectionsRenderer();
+          directionsRenderer.setMap(map);
+  
+          var request = {
+            origin: 'Guadalupe, RJ, Brazil',
+            destination: 'Ciudad del Este, PY',
+            travelMode: 'DRIVING'
+          };
+  
+          directionsService.route(request, function(result, status) {
+            if (status === 'OK') {
+              directionsRenderer.setDirections(result);
+            }
+          });
+        }
+    </script>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-size: 8px;
+        }
+
+        .Rota {
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="Rota">
+        <div>A rota será baseada no seguinte trajeto, podendo ele mudar conforme algo me chame atenção no caminho:</div>
+        <div id="map" style="height: 500px;"></div>
+    <footer>
+        <p>&copy; 2025 Marcelo Bernard | Planejamentos perfeitos desde que nasceu</p>
+    </footer>
+</body>
+</html>

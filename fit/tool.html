@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            background-color: rgb(0, 0, 40);
+            font-family: 'Roboto', sans-serif;
+            letter-spacing: 2px;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow-x: hidden;
+        }
+
+        nav {
+            user-select: none;
+            background-color: transparent;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            color: white;
+        }
+
+        nav a {
+            background-color: transparent;
+            text-decoration: none;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+            text-align: center;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ff6347;
+        }
+
+        .container {
+            display: flex;
+            width: 80%;
+            max-width: 1200px;
+            gap: 100px;
+            justify-content: space-between;
+            font-size: 10px;
+            margin-top: 700px;
+        }
+
+        .calculator,
+        .result {
+            background-color: rgba(0, 0, 40, 0.8);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.712);
+            width: 48%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .calculator label,
+        .result label {
+            margin-bottom: 3px;
+        }
+
+        .calculator input[type="number"],
+        .calculator input[type="radio"],
+        .calculator select {
+            background-color: transparent;
+            color: white;
+            border: 2px solid #444;
+            padding: 8px 12px;
+            border-radius: 5px;
+            width: 50%;
+            margin-bottom: 10px;
+        }
+
+        .calculator select {
+            width: 80%;
+            font-family: 'Roboto', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .calculator input[type="radio"] {
+            width: auto;
+        }
+
+        .calculator input[type="number"]:focus,
+        .calculator select:focus {
+            border-color: #ff6347;
+            outline: none;
+        }
+
+        .calculator input[type="radio"]:checked + label {
+            color: #ff6347;
+        }
+
+        .calculator input[type="radio"]:focus {
+            outline: none;
+        }
+
+        .calculator div {
+            display: flex;
+            gap: 15px;
+        }
+
+        .calculator .radio-group label {
+            color: white;
+        }
+
+        .calculator button {
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .calculator button:hover {
+            background-color: #ff4500;
+        }
+
+        option {
+            background-color: black;
+            font-family: 'Roboto', sans-serif;
+            letter-spacing: 2px; 
+        }
+
+        .result {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 40, 0.8);
+            color: white;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/fit/home.html">Home</a>
+        <a href="/fit/tool.html">Calculator</a>
+        <a href="/fit/formula.html">Your Ideal Formula</a>
+        <a href="/fit/about.html">About</a>
+    </nav>
+
+    <div class="container">
+        <div class="calculator">
+            <label for="height">Height (cm)</label>
+            <input type="number" id="height" placeholder="Ex.: 182">
+
+            <label for="weight">Weight (kg)</label>
+            <input type="number" id="weight" placeholder="Ex.: 75">
+
+            <label for="age">Age (y.o)</label>
+            <input type="number" id="weight" placeholder="Ex.: 18">
+
+            <label for="sleep">Sleeping time (h)</label>
+            <input type="number" id="sleep" placeholder="Ex.: 8">
+
+            <label for="sex">Select your biological sex</label>
+            <div class="radio-group">
+                <input type="radio" id="male" name="sex" value="male">
+                <label for="male">XY (male)</label>
+                <input type="radio" id="female" name="sex" value="female">
+                <label for="female">XX (female)</label>
+            </div>
+
+            <label for="steroid">Do you use anabolizant?</label>
+            <div class="radio-group">
+                <input type="radio" id="male" name="steroid" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="female" name="steroid" value="no">
+                <label for="no">No</label>
+            </div>
+
+            <label for="bodyfat">Bodyfat % (optional - if known)</label>
+            <input type="number" id="bodyfat" placeholder="Ex.: 20">
+            <label for="goal">Goal</label>
+            <select id="goal">
+                <option value="loss">Weight Loss</option>
+                <option value="maintenance">Maintenance</option>
+                <option value="gain">Wieght Gain</option>
+            </select>
+
+            <label for="exercise-frequency">Exercise Frequency (days per week)</label>
+            <select id="exercise-frequency">
+                <option value="1">1 day per week</option>
+                <option value="2">2 days per week</option>
+                <option value="3">3 days per week</option>
+                <option value="4">4 days per week</option>
+                <option value="5">5 days per week</option>
+                <option value="6">6 days per week</option>
+                <option value="7">Every day</option>
+            </select>
+
+            <label for="exercise-intensity">Exercise Intesity</label>
+            <select id="exercise-intensity">
+                <option value="low">Low</option>
+                <option value="normal">Normal</option>
+                <option value="high">High</option>
+                <option value="hardcore">Hardcore</option>
+            </select>
+
+            <label for="exercise-duration">Exercise Duration (minutes)</label>
+            <input type="number" id="exercise-duration" placeholder="Ex.: 30">
+
+            <button type="submit">Calculate</button>
+        </div>
+        <div class="result">
+            <div>Result will appear here</div>
+        </div>
+    </div>
+
+</body>
+</html>
