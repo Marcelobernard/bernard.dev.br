@@ -101,26 +101,45 @@
             background-color: rgba(144, 73, 73, 0.118);
             font-family: 'robot', sans-serif;
             border-color: rgba(187, 187, 187, 0.223);
-            }
+        }
 
         .overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            bottom: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background-color: transparent;
             z-index: 9999;
             justify-content: center;
             align-items: center;
+            animation: espiando 2s ease-out forwards;
         }
 
         .image {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
+            border-radius: 50%;
         }
+
+        @keyframes espiando {
+            0% {
+                bottom: -200px;
+                opacity: 0;
+            }
+            50% {
+                bottom: 20px;
+                opacity: 1;
+            }
+            100% {
+                bottom: -200px;
+                opacity: 0;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -130,9 +149,9 @@
             <p>A rota será baseada no seguinte trajeto, podendo ele mudar conforme algo me chame atenção no caminho:</p>
             <div class="mapng"></div>
         </div>
-        <button id="showImageBtn">Não clique aqui</button>
+        <button id="showImageBtn">Chamar Pandora</button>
         <div id="overlay" class="overlay">
-            <img src="pandora.jpeg" alt="Imagem" class="image">
+            <img src="pandora.png" alt="Imagem" class="image">
         </div>
 
         <div class="Financeiro">
@@ -234,15 +253,21 @@
             </table>
         </div>
     </div>
+
+    <script>
+        document.getElementById('showImageBtn').addEventListener('click', function() {
+            const overlay = document.getElementById('overlay');
+            overlay.style.display = 'flex';
+            
+            // Reiniciar a animação
+            overlay.style.animation = 'none';
+            overlay.offsetHeight; // Forçar a reflow para reiniciar a animação
+            overlay.style.animation = 'espiando 2s ease-out forwards';
+
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 2000); // Tempo igual ao da animação
+        });
+    </script>
 </body>
-<script>
-    document.getElementById('showImageBtn').addEventListener('click', function() {
-  const overlay = document.getElementById('overlay');
-  overlay.style.display = 'flex';
-  
-  setTimeout(() => {
-    overlay.style.display = 'none';
-  }, 1000);
-});
-</script>
 </html>
