@@ -2,51 +2,197 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=drawing,geometry"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Viagem ao Paraguai</title>
-    <script>
-        function initMap() {
-          var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 7,
-            center: {lat: 37.7749, lng: -122.4194}
-          });
-  
-          var directionsService = new google.maps.DirectionsService();
-          var directionsRenderer = new google.maps.DirectionsRenderer();
-          directionsRenderer.setMap(map);
-  
-          var request = {
-            origin: 'Guadalupe, RJ, Brazil',
-            destination: 'Ciudad del Este, PY',
-            travelMode: 'DRIVING'
-          };
-  
-          directionsService.route(request, function(result, status) {
-            if (status === 'OK') {
-              directionsRenderer.setDirections(result);
-            }
-          });
-        }
-    </script>
     <style>
         body {
-            background-color: black;
-            color: white;
-            font-size: 8px;
+            background-color: #f4f4f4;
+            color: #333;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-family: 'roboto', sans-serif;
+            letter-spacing: 2px;
         }
 
-        .Rota {
-            margin-top: 100px;
+        h1, h2 {
+            color: #222;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .Rota, .Financeiro, .Paradas, .Razao {
+            margin-bottom: 30px;
+        }
+
+        .mapng {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background-image: url("mapa.png");
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .Razao div {
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .Razao ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .Razao ul li {
+            margin-bottom: 8px;
+        }
+
+        .parada-pontos {
+            font-size: 14px;
+            margin-left: 20px;
+        }
+
+        .Financeiro, .Razao {
+            font-size: 14px;
+        }
+
+        .subtitulo {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .parada-pontos {
+            margin-top: 5px;
         }
     </style>
 </head>
 <body>
-    <div class="Rota">
-        <div>A rota será baseada no seguinte trajeto, podendo ele mudar conforme algo me chame atenção no caminho:</div>
-        <div id="map" style="height: 500px;"></div>
-    <footer>
-        <p>&copy; 2025 Marcelo Bernard | Planejamentos perfeitos desde que nasceu</p>
-    </footer>
+    <div class="container">
+        <div class="Rota">
+            <h2 class="subtitulo">Rota da Viagem</h2>
+            <p>A rota será baseada no seguinte trajeto, podendo ele mudar conforme algo me chame atenção no caminho:</p>
+            <div class="mapng"></div>
+        </div>
+
+        <div class="Financeiro">
+            <h2 class="subtitulo">Custos Financeiros</h2>
+            <table>
+                <tr>
+                    <th>Custo</th>
+                    <th>Valor</th>
+                </tr>
+                <tr>
+                    <td>Combustível (ida e volta + pedágio)</td>
+                    <td>R$1500,00</td>
+                </tr>
+                <tr>
+                    <td>Hospedagem</td>
+                    <td>Flexível, vou pagar do meu próprio dinheiro</td>
+                </tr>
+                <tr>
+                    <td>Consumo (alimentos)</td>
+                    <td>Máximo de R$80,00/dia</td>
+                </tr>
+                <tr>
+                    <td>Carta Verde</td>
+                    <td>R$144,00</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="Paradas">
+            <h2 class="subtitulo">Pontos de Parada</h2>
+            <p>Algumas paradas genéricas serão feitas, caso eu passe em algum mirante ou algo do gênero. Pontos de parada garantidos:</p>
+            <div class="parada-pontos">
+                <ul>
+                    <li>São José dos Campos/SP</li>
+                    <li>São Paulo/SP</li>
+                    <li>Londrina/PR</li>
+                    <li>Maringá/PR</li>
+                    <li>Foz do Iguaçu/PR</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="Razao">
+            <h2 class="subtitulo">Por que uma viagem dessa?</h2>
+            <div>Eu decidi fazer essa viagem porque:</div>
+            <ul>
+                <li>Não quero viajar de avião, é chato, caro e burocrático.</li>
+                <li>Quero passar em mais de um lugar na mesma viagem.</li>
+                <li>É uma oportunidade de sair do sudeste e do país ao mesmo tempo, aproveitando outra região e outro país.</li>
+                <li>A data é excelente para realizar a viagem.</li>
+                <li>O custo-benefício é extremamente elevado.</li>
+                <li>Vou fazer tudo no meu tempo, sem stress.</li>
+                <li>Sou responsável o suficiente para saber que sou capaz e cauteloso para saber que estou preparado.</li>
+                <li>Os pontos turísticos são exatamente do jeito que minha personalidade gosta.</li>
+                <li>Eu nunca viajei para longe porque nunca quis; gosto de viajar de carro e da independência de fazer tudo no meu tempo. Essa viagem combina todos esses aspectos.</li>
+                <li>Já sei viajar de carro, e minha saúde está muito boa, então preciso aproveitar.</li>
+            </ul>
+        </div>
+
+        <div class="Necessidades">
+            <h2 class="subtitulo">O que eu preciso?</h2>
+            <ul>
+                <li>Uma autorização impressa do dono do carro.</li>
+                <li>A documentação do carro mas acredito que já esteja nele (a que fica no espelho do teto)</li>
+                <li>Um cartão internacional para efetuar compras fora do país sem precisar lidar com cambista e golpista.</li>
+            </ul>
+        </div>
+        <div class="Tempo">
+            <h2 class="subtitulo">Duração:</h2>
+            <table>
+                <tr>
+                    <th>Ato</th>
+                    <th>Data</th>
+                </tr>
+                <tr>
+                    <td>Retorno de Marataízes</td>
+                    <td>28/01/2025 ou 29/01/2025</td>
+                </tr>
+                <tr>
+                    <td>Preparo pré-viagem</td>
+                    <td>28/01/2025 <span>&rarr;</span> 30/01/2025</td>
+                </tr>
+                <tr>
+                    <td>Viagem</td>
+                    <td>31/01/2025 <span>&rarr;</span> 14/02/2025</td>
+                </tr>
+                <tr>
+                    <td>Retorno das aulas</td>
+                    <td>18/02/2025</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </body>
 </html>
