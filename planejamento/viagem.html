@@ -130,6 +130,25 @@
             border-radius: 50%;
         }
 
+        #downloadBtn {
+            padding: 10px 20px;
+            font-size: 12px;
+            cursor: pointer;
+            background-color: rgba(137, 168, 206, 0.118);
+            font-family: 'roboto', sans-serif;
+            letter-spacing: 2px;
+            border-color: rgba(196, 196, 196, 0.223);
+            color: black;
+            margin: 20px 0;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+    }
+
+        #downloadBtn:hover {
+            background-color: rgba(137, 168, 206, 0.2);
+        }
+
         @keyframes espiando {
             0% {
                 bottom: -200px;
@@ -228,9 +247,13 @@
             <h2 class="subtitulo">O que eu preciso?</h2>
             <ul>
                 <li>Uma autorização impressa do dono do carro.</li>
+                <a href="AFF.pdf" download="AFF.pdf" style="text-decoration: none;">
+                    <button id="downloadBtn">Baixar PDF de Autorização</button>
+                </a>
                 <li>A documentação do carro mas acredito que já esteja nele (a que fica no espelho do teto)</li>
                 <li>Um cartão internacional para efetuar compras fora do país sem precisar lidar com cambista e golpista.</li>
             </ul>
+            
         </div>
         <div class="Tempo">
             <h2 class="subtitulo">Duração:</h2>
