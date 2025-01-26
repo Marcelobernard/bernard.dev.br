@@ -102,11 +102,26 @@
             background-color: rgba(137, 168, 206, 0.118);
             font-family: 'roboto', sans-serif;
             letter-spacing: 2px;
-            border-color: rgba(196, 196, 196, 0.223);
+            border-color: rgba(196, 196, 196, 0.338);
             color: black;
             margin: 0 auto;
             display: block;
             margin-bottom: 20px;
+            animation: pandoraColor 5s ease infinite;
+        }
+
+        @keyframes pandoraColor {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.0625);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         .overlay {
@@ -144,6 +159,7 @@
             display: block;
             text-align: center;
             text-decoration: none;
+            animation: pandoraColor 5s ease infinite;
     }
 
         #downloadBtn:hover {
