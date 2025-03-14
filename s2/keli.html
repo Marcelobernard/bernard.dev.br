@@ -16,6 +16,7 @@
             background: linear-gradient(135deg, #003d38, #550049);
             overflow: hidden;
             font-family: Arial, sans-serif;
+            user-select: none;
         }
 
         .warning {
@@ -113,6 +114,13 @@
             background: #555;
             cursor: not-allowed;
         }
+
+        .emoji {
+            z-index: 0;
+        }
+        * {
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
@@ -132,6 +140,41 @@
         let counter = 0;
         let lastUpdateTime = Date.now();
 
+        function showEmoji(emoji) {
+  const numberOfEmojis = 1;
+
+  for (let i = 0; i < numberOfEmojis; i++) {
+    const emojiElement = document.createElement('div');
+    emojiElement.textContent = emoji;
+
+    const randomX = Math.random() * window.innerWidth;
+    const randomY = Math.random() * window.innerHeight;
+    const randomRotation = Math.random() * 360;
+
+    emojiElement.style.position = 'absolute';
+    emojiElement.style.left = `${randomX}px`;
+    emojiElement.style.top = `${randomY}px`;
+    emojiElement.style.fontSize = '1rem';
+    emojiElement.style.transform = `rotate(${randomRotation}deg)`;
+    emojiElement.style.opacity = 1;
+    emojiElement.style.transition = 'opacity 1s ease-in-out';
+    emojiElement.style.zIndex = 0;
+
+    document.body.appendChild(emojiElement);
+
+    setTimeout(() => {
+      emojiElement.style.opacity = 1;
+    }, 10);
+
+    setTimeout(() => {
+      emojiElement.style.opacity = 0;
+      setTimeout(() => {
+        emojiElement.remove();
+      }, 1000);
+    }, 2000);
+  }
+}
+
         document.addEventListener('dblclick', function(e) {
         e.preventDefault();
         }, { passive: false });
@@ -147,7 +190,7 @@
     }
 
     if (counter === "El retorno!") {
-        document.getElementById("counter").textContent = counter;  // Exibe a string "El retorno!"
+        document.getElementById("counter").textContent = counter;
     } else {
         document.getElementById("counter").textContent = Math.round(counter);
     }
@@ -200,6 +243,7 @@ function updateImages() {
                 document.getElementById("click-button").textContent = "Es impossible nos separar 😉";
                 img4.style.opacity = "0";
                 img3.style.opacity = "0";
+                showEmoji('❤️');
             }, 3000);
         }, 7000);
     } else if (counter !== "El retorno!") {
