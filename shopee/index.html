@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light">
+    <title>Shopee Hub</title>
+    <style>
+        body {
+            background-color: #cdcdcd;
+            color: #000000;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .navbar {
+            background-color: #560000;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .logo {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 80%;
+            min-height: 100vh;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #fafafa;
+            box-shadow: 0 4px 12px rgba(27, 0, 0, 0.500);
+        }
+
+        .tools-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .tools-header h2 {
+            color: #333;
+            font-size: 28px;
+        }
+
+        .search-box {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-box input {
+            padding: 10px;
+            width: 60%;
+            font-size: 16px;
+            border-radius: 25px;
+            border: 2px solid #ddd;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            border-color: #47ba00;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .tool-card {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+            height: 400px;
+            width: 125px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .tool-card:hover {
+            transform: scale(1.05);
+        }
+
+        .tool-card img {
+            width: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .tool-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .tool-card p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#" class="logo">SHOPEE HUB</a>
+    </div>
+
+    <div class="container">
+        <div class="tools-header">
+            <h2>O lugar em que você encontrará os melhores produtos pelos melhores preços!</h2>
+            <p>Digite aqui o nome do produto caso não o encontre.</p>
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="search" placeholder="Procurar produtos..." oninput="searchProducts()">
+        </div>
+
+        <div class="tools-grid" id="productsGrid">
+        </div>
+    </div>
+
+    <script>
+        async function loadProducts() {
+            const response = await fetch('produtos.json');
+            const products = await response.json();
+
+            const productsGrid = document.getElementById('productsGrid');
+            
+            products.forEach((product, index) => {
+                const productCard = document.createElement('a');
+                productCard.href = product.link;
+                
+                let title = product.nome;
+                
+                if (index < 6) {
+                    title = `🔥<br>${title}`;
+                }
+                
+                productCard.innerHTML = `
+                    <div class="tool-card">
+                        <img src="${product.imagem}" alt="${product.nome}">
+                        <h3>${title}</h3>
+                        <p>${product.descricao}</p>
+                    </div>
+                `;
+                productsGrid.appendChild(productCard);
+            });
+        }
+
+        function searchProducts() {
+            const searchQuery = document.getElementById('search').value.toLowerCase();
+            const productCards = document.querySelectorAll('.tool-card');
+            productCards.forEach(card => {
+                const productName = card.querySelector('h3').textContent.toLowerCase();
+                if (productName.includes(searchQuery)) {
+                    card.parentElement.style.display = 'block';
+                } else {
+                    card.parentElement.style.display = 'none';
+                }
+            });
+        }
+
+        window.onload = loadProducts;
+    </script>
+</body>
+</html>

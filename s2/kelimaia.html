@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="HandheldFriendly" content="true">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>Nosso Fevereiro de 2025 ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8A2BE2; /* Violeta */
+            --secondary-color: #FF69B4; /* Rosa */
+            --background-color: #FFF0F5; /* Lavanda claro */
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            padding: 0 15px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-size: clamp(1.8em, 5vw, 2.5em);
+        }
+
+        .cube-container {
+            position: relative;
+            width: min(200px, 60vw);
+            height: min(200px, 60vw);
+            margin: 0 auto;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .cube {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: clamp(32px, 8vw, 48px);
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            backface-visibility: hidden;
+            overflow: hidden;
+        }
+
+        .cube-face img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+        }
+
+        .cube-face .number-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .cube-face.front { transform: translateZ(100px); }
+        .cube-face.back { transform: translateZ(-100px) rotateY(180deg); }
+        .cube-face.right { transform: translateX(100px) rotateY(90deg); }
+        .cube-face.left { transform: translateX(-100px) rotateY(-90deg); }
+        .cube-face.top { transform: translateY(-100px) rotateX(90deg); }
+        .cube-face.bottom { transform: translateY(100px) rotateX(-90deg); }
+
+        .content-container {
+            margin-top: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            min-height: 200px;
+            width: 100%;
+        }
+
+        .week-title {
+            color: var(--primary-color);
+            font-size: clamp(20px, 5vw, 28px);
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .week-content {
+            color: #333;
+            font-size: clamp(16px, 4vw, 18px);
+            line-height: 1.8;
+            text-align: left;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .week-content p {
+            margin-bottom: 20px;
+            text-indent: 2em;
+        }
+
+        .week-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 30px auto;
+            display: block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            max-height: 70vh;
+            object-fit: contain;
+        }
+
+        .instructions {
+            color: var(--primary-color);
+            font-style: italic;
+            margin: 20px 0;
+            font-size: clamp(14px, 3.5vw, 16px);
+        }
+
+        .navigation-hints {
+            display: flex;
+            justify-content: space-between;
+            width: min(200px, 60vw);
+            margin: 20px auto;
+            color: var(--primary-color);
+            font-size: clamp(12px, 3vw, 14px);
+        }
+
+        .navigation-hints span {
+            opacity: 0.7;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .content-container {
+                padding: 15px;
+            }
+
+            .week-content p {
+                text-indent: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nosso Fevereiro de 2025 ❤️</h1>
+        <div class="cube-container" id="cube-container">
+            <div class="cube" id="cube">
+                <div class="cube-face front">
+                    <img src="fotos/d1.jpg" alt="Semana 1">
+                    <div class="number-overlay">1</div>
+                </div>
+                <div class="cube-face right">
+                    <img src="fotos/d2.jpg" alt="Semana 2">
+                    <div class="number-overlay">2</div>
+                </div>
+                <div class="cube-face back">
+                    <img src="fotos/d3.jpg" alt="Semana 3">
+                    <div class="number-overlay">3</div>
+                </div>
+                <div class="cube-face left">
+                    <img src="fotos/d4.jpg" alt="Semana 4">
+                    <div class="number-overlay">4</div>
+                </div>
+                <div class="cube-face top">❤️</div>
+                <div class="cube-face bottom">❤️</div>
+            </div>
+        </div>
+        <div class="navigation-hints">
+            <span>←</span>
+            <span>→</span>
+        </div>
+        <div class="content-container">
+            <div class="week-title" id="week-title">Semana 1</div>
+            <div class="week-content" id="week-content">
+                <!-- Conteúdo será inserido via JavaScript -->
+            </div>
+        </div>
+        <p class="instructions">Eu te amo, Keli Maia!</p>
+    </div>
+
+    <script>
+        const weeks = {
+            1: {
+                title: "Primeira Semana - A chegada da viagem",
+                content: `<p>O dia que cheguei foi algo surreal. Você tentando usar como ponto de referência uma santa na parede de uma delegacia, ao invés de simplesmente dizer que a delegacia era o ponto de referência. Você sumindo do nada porque foi tomar banho quente e superaqueceu o disjuntor ao ponto de ficar sem energia. Você saindo na rua com o celular no viva-voz em chamada comigo, mais desnorteada que uma barata com inseticida... inesquecível.</p>
+
+                <p>Já na primeira semana, eu conseguia enxergar um futuro para nós com clareza. A confiança que senti em tão pouco tempo, a preocupação, o carinho, o respeito... tudo veio de forma tão natural que parecia que nos conhecíamos de vidas passadas.</p>
+
+                <p>Quando você me levou para conhecer o país, lembro de sentir que tudo era irreal. Não entrava na minha cabeça que eu estava em outro país, a ~1600 km de casa, onde as pessoas ao nosso redor não falavam minha língua. Foi minha primeira experiência como estrangeiro, e ter vivido isso ao seu lado tornou tudo incrível.</p>
+
+                <p>Conhecer aquela padaria, onde fomos praticamente TODOS OS DIAS desde que cheguei, foi seu maior acerto de recomendação. Lá, percebi que o povo paraguaio é extremamente educado e feliz, uma imagem totalmente diferente daquela que o Brasil tem do seu país.</p>`,
+                image: "fotos/s1.jpg"
+            },
+            2: {
+                title: "Segunda Semana - O parque e mil vídeos",
+                content: `<p>Nessa semana, começamos a andar mais pela cidade e eu já estava criando familiaridade com a região. Saíamos para caminhar ao ar livre como se estivéssemos fazendo algo extraordinário. O simples ato de passear contigo em um parque que mal fica a 50 metros da sua casa era tão divertido que me fazia perceber o tamanho do amor que sentia por você. Nenhuma viagem minha, sozinho, para qualquer lugar do mundo, superaria essa paixão que senti ao darmos uma volta em um simples parque, sob um calor anormal e um sol afiado que fazia minha pele parecer estar sendo torrada.</p>
+
+                <p>Foi nessa semana que conheci a igreja local pela primeira vez (por fora), que compramos nossas alianças de namoro no Shopping Espacio1, que descobrimos que eu sabia mais sobre a geografia do Paraguai do que você mesma, e que entrei em desespero ao ver vários gatos na frente da igreja, temendo que você decidisse levar um para casa.</p>
+
+                <p>Essa semana foi triste porque ainda não sabíamos que eu ficaria até o dia 25. Em teoria, seria a última semana, e lidar com a sensação de despedida não foi fácil. Parecia que essas duas semanas tinham passado em apenas dois dias.</p>`,
+                image: "fotos/s2.jpg"
+            },
+            3: {
+                title: "Terceira Semana - Uma semana não planejada",
+                content: `<p>Essa semana começou da melhor maneira possível. Achávamos que eu iria embora, e quando percebemos que eu ficaria por mais sete dias, a felicidade foi inevitável.</p>
+
+                <p>Foi nessa semana que tiramos nossas melhores fotos, passeamos por Ciudad Del Este, fomos a três shoppings e, por muita sorte do destino, não paguei estacionamento em nenhum deles.</p>
+
+                <p>Demos uma volta em um parque enorme, ao redor de um grande lago cheio de sapos. E que volta... você decidiu fazer isso usando um sapato nada confortável! Já estava me vendo te carregando nas costas, pois uma hora você não conseguiria mais andar. Mas não, você ainda fez a proeza de pegar uma flor no caminho e, frequentemente, tinha ideias duvidosas de querer se aproximar da beirada do lago — mesmo parecendo extremamente perigoso, ainda mais à noite, tudo escuro e com a ameaça de um jacaré surgindo do nada. Foi incrível esse momento; a paz de espírito que senti é inexplicável.</p>
+
+                <p>Também conhecemos o shopping que, na minha opinião, você deveria ter me levado desde o primeiro dia! A melhor praça de alimentação da região, com opções para todos os gostos. O lugar era lindo e transmitia conforto e segurança — o oposto da rua do Shopping Paris, kkkkk.</p>
+
+                <p>Essa semana era para ter terminado com uma despedida triste, mas, por incidentes infelizes, ela deu origem à quarta semana.</p>`,
+                image: "fotos/s3.jpg"
+            },
+            4: {
+                title: "Quarta Semana - A busca pelo óleo 0W-20",
+                content: `<p>Essa semana foi puro estresse. Não era para ter acontecido e me fez perder algumas aulas na faculdade. O óleo do carro venceu e, como a viagem era longa, precisei dar um jeito de trocá-lo, pois não havia como dirigir por quase 30 horas com o óleo vencido no motor.</p>
+
+                <p>A Honda no Paraguai praticamente não existe, então fazer a revisão na concessionária deixou de ser uma opção. O tipo de óleo que meu carro precisava não era comum no seu país, o que me fez rodar por tudo quanto é canto. No sábado, tudo fechou cedo. No domingo, nada abriu. Só me restava segunda-feira e, mesmo assim, depois de muita procura, finalmente encontrei o óleo — poucas horas antes de iniciar a viagem.</p>
+
+                <p>Esse período foi extremamente estressante, mas, em minhas memórias, foi algo lindo. Ver você me acompanhando para lá e para cá, me ajudando, demonstrando companheirismo e boa vontade, me fez perceber que, mesmo quando as coisas não estivessem dando certo, eu poderia contar com você. Esse sentimento foi tão reconfortante que eu jamais poderia imaginar experimentá-lo dessa forma. E graças a Deus experimentei, porque foi uma prova de amor incrível.</p>
+
+                <p>Infelizmente, essa foi a última semana. Terminou triste porque a despedida era inevitável, mas também foi a semana que me deu a garantia de que tudo o que eu sentia por você era real e recíproco. Se o preço por essa certeza foi aquele estresse, eu pagaria 1000 vezes aquilo por tal recompensa.</p>`,
+                image: "fotos/s4.jpg"
+            }
+        };
+
+        let currentRotation = { x: 0, y: 0 };
+        let selectedWeek = 1;
+
+        function updateContent() {
+            const week = weeks[selectedWeek];
+            document.getElementById('week-title').textContent = week.title;
+            document.getElementById('week-content').innerHTML = `
+                ${week.content}
+                ${week.image ? `<img src="${week.image}" alt="${week.title}" class="week-image">` : ''}
+            `;
+        }
+
+        function rotateCube(event) {
+            const cube = document.getElementById('cube');
+            const rect = cube.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const isLeftSide = x < rect.width / 2;
+
+            if (isLeftSide) {
+                currentRotation.y += 90;
+                selectedWeek = selectedWeek === 1 ? 4 : selectedWeek - 1;
+            } else {
+                currentRotation.y -= 90;
+                selectedWeek = selectedWeek === 4 ? 1 : selectedWeek + 1;
+            }
+
+            cube.style.transform = `rotateX(${currentRotation.x}deg) rotateY(${currentRotation.y}deg)`;
+            updateContent();
+        }
+
+        // Eventos
+        document.getElementById('cube-container').addEventListener('click', rotateCube);
+
+        // Inicializar quando a página carregar
+        window.onload = updateContent;
+    </script>
+</body>
+</html>
