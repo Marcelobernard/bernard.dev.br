@@ -5,253 +5,831 @@
      crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bernard</title>
+<title>MBernard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <style>
+    :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #0aa069;
+        --accent-color: #e74c3c;
+        --text-color: #ecf0f1;
+        --background-color: #1a1a1a;
+    }
+
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+
     body {
         margin: 0;
         padding: 0;
-        background-color: rgb(0, 0, 0);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        font-family: 'Roboto Mono', monospace;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        font-weight: 300;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: 600;
+    }
+
+    .section-title {
+        font-weight: 500;
+    }
+
+    .project-title {
+        font-weight: 500;
+    }
+
+    .skill-card h3 {
+        font-weight: 500;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    header {
+        text-align: center;
+        padding: 4rem 0;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     }
 
     h1 {
-        font-size: 3em;
-        color: rgb(255, 255, 255);
-        animation: textAnimation 2s ease-in-out infinite alternate;
-        pointer-events: none;
-        user-select: none;
+        font-size: 3.5em;
+        margin: 0;
+        color: var(--text-color);
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
 
-    @keyframes textAnimation {
-        0% { transform: scale(1); }
-        100% { transform: scale(1.1); }
+    .subtitle {
+        font-size: 1.5em;
+        margin-top: 1rem;
+        color: rgba(255,255,255,0.9);
     }
 
-    .github-button, .site-button {
-        margin-top: 20px;
-        background-color: #333;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 1.2em;
-        transition: background-color 0.3s ease;
+    .section {
+        background-color: rgba(255,255,255,0.05);
+        border-radius: 10px;
+        padding: 2rem;
+        margin: 2rem 0;
+    }
+
+    .section-title {
+        color: var(--secondary-color);
+        font-size: 1.8em;
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid var(--secondary-color);
+        padding-bottom: 0.5rem;
+    }
+
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .project-card {
+        background-color: rgba(255,255,255,0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
         text-decoration: none;
+        color: var(--text-color);
+        max-width: 500px;
+        margin: 0 auto;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
-    .github-button:hover, .site-button:hover {
-        background-color: #6e5494;
-    }
-
-    .github-icon {
-        margin-right: 10px;
-    }
-
-    .language {
-        margin: 5px;
-        padding: 5px 10px;
-        color: white;
-        border-radius: 5px;
+    .project-image-container {
+        width: 100%;
+        height: 300px;
+        background-color: rgba(0,0,0,0.2);
         display: flex;
         justify-content: center;
         align-items: center;
-        position: relative;
-        transition: background-color 0.3s ease;
+        padding: 1rem;
     }
 
-    .languages {
-        margin-top: 20px;
+    .project-image {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    .project-title {
+        padding: 1rem;
+        margin: 0;
+        font-size: 1.2em;
+        text-align: center;
+        background-color: rgba(0,0,0,0.2);
+        width: 100%;
+    }
+
+    .skill-card {
+        background-color: rgba(255,255,255,0.1);
+        padding: 1.5rem;
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+    }
+
+    .skill-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .skill-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .skill-icon {
+        font-size: 2rem;
+        color: var(--secondary-color);
+    }
+
+    .skill-title {
+        margin: 0;
+        font-size: 1.4em;
+        color: var(--secondary-color);
+    }
+
+    .skill-list {
         display: flex;
         flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .skill-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background-color: rgba(255,255,255,0.05);
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .skill-item:hover {
+        background-color: rgba(255,255,255,0.1);
+        transform: translateY(-2px);
+    }
+
+    .skill-item i {
+        color: var(--secondary-color);
+    }
+
+    .skill-item span {
+        font-size: 0.9em;
+    }
+
+    .contact-info {
+        display: flex;
         justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
     }
 
-    .a1::before {
-        content: "\2605";
-        color: yellow;
-        margin-right: 5px;
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
 
-    .language:hover {
-        background-color: rgba(255, 255, 255, 0.2);
-        cursor: pointer;
-    }
-
-    .tooltip {
-        position: absolute;
-        color: white;
-        padding: 5px;
-        border-radius: 5px;
-        display: none;
-        top: 60px;
-        width: 300px;
-    }
-
-    .language:hover .tooltip {
-        display: block;
-    }
-
-    #bttn {
-        background-color: #333;
-        border: none;
-        color: white;
-        padding: 10px 20px;
-        text-align: center;
+    .contact-item a {
+        color: var(--text-color);
         text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin-top: 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
+        transition: color 0.3s ease;
     }
 
-    #bttn:hover {
-        background-color: #c4c4c4;
-        color: black;
-        font-size: 17px;
+    .contact-item a:hover {
+        color: var(--secondary-color);
+    }
+
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .social-link {
+        color: var(--text-color);
+        font-size: 1.5rem;
+        transition: color 0.3s ease;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .social-link:hover {
+        color: var(--secondary-color);
+    }
+
+    .social-link span {
+        font-size: 1rem;
+    }
+
+    .about-content {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .about-text {
+        margin-bottom: 10px;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .container {
+            padding: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+        }
+
+        .contact-info {
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .project-image-container {
+            height: 195px;
+        }
     }
 
     footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #33333305;
-    padding: 20px 0;
-    text-align: center;
-    color: white;
+        background-color: rgba(255,255,255,0.05);
+        border-radius: 10px;
+        padding: 2rem 0;
+        margin-top: 4rem;
     }
 
-    footer p {
-    margin: 5px;
+    .footer-content {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        align-items: start;
     }
 
-    footer a {
-    color: white;
-    text-decoration: none;
+    .footer-section {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
 
-    footer a:hover {
-    text-decoration: underline;
-    }
-    .tooltip {
-    position: absolute;
-    display: none;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    z-index: 1;
-    margin-left: 350px;
+    .footer-section h3 {
+        color: var(--secondary-color);
+        font-size: 1.2em;
+        margin-bottom: 0.5rem;
     }
 
-    #help-icon {
-    position: relative;
-    cursor: pointer;
-    color: white;
+    .footer-section p {
+        margin: 0;
+        font-size: 0.9em;
+        color: rgba(255,255,255,0.8);
     }
 
-    #help-icon:hover + #tooltip {
-    display: block;
+    .footer-contact {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
     }
 
+    .footer-contact a {
+        color: var(--text-color);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: color 0.3s ease;
+    }
 
-    @media only screen and (max-width: 600px) {
-        h1 {
-            font-size: 2em;
+    .footer-contact a:hover {
+        color: var(--secondary-color);
+    }
+
+    .footer-social {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .footer-social a {
+        color: var(--text-color);
+        font-size: 1.5rem;
+        transition: color 0.3s ease;
+    }
+
+    .footer-social a:hover {
+        color: var(--secondary-color);
+    }
+
+    .footer-bottom {
+        text-align: center;
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        font-size: 0.9em;
+        color: rgba(255,255,255,0.6);
+    }
+
+    @media only screen and (max-width: 768px) {
+        .footer-content {
+            grid-template-columns: 1fr;
+            text-align: center;
         }
 
-        .languages {
-            flex-direction: column;
-            align-items:center;
-        }
-
-        .language {
-            margin: 5px;
-            padding: 5px 10px;
-            color: white;
-            border-radius: 5px;
-            display: flex;
+        .footer-contact a {
             justify-content: center;
-            align-items: center;
-            position: relative;
-            width: auto;
         }
 
-        .github-button {
-            font-size: 1em;
-        }
-
-        .tooltip {
-            right: 120px;
-            top: 0px;
-            width: 200px;
+        .footer-social {
+            justify-content: center;
         }
     }
 
+    .controls-bar {
+        background-color: rgba(255,255,255,0.05);
+        border-radius: 10px;
+        padding: 1rem;
+        margin: 2rem 0;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .control-button {
+        background-color: var(--secondary-color);
+        color: var(--text-color);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .control-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .control-button i {
+        font-size: 1.2em;
+    }
+
+    .color-picker {
+        display: none;
+    }
+
+    .shake {
+        animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    }
+
+    @keyframes shake {
+        10%, 90% { transform: translate3d(-1px, 0, 0); }
+        20%, 80% { transform: translate3d(2px, 0, 0); }
+        30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+        40%, 60% { transform: translate3d(4px, 0, 0); }
+    }
+
+    body.light-mode {
+        --primary-color: #3498db;
+        --secondary-color: #2ecc71;
+        --accent-color: #e74c3c;
+        --text-color: #2c3e50;
+        --background-color: #f5f6fa;
+    }
+
+    body.light-mode .section,
+    body.light-mode .skill-card,
+    body.light-mode .project-card,
+    body.light-mode .skill-item,
+    body.light-mode footer {
+        background-color: rgba(0,0,0,0.05);
+    }
+
+    body.light-mode .skill-item {
+        background-color: rgba(0,0,0,0.1);
+    }
+
+    body.light-mode .footer-section p,
+    body.light-mode .footer-contact a,
+    body.light-mode .footer-social a {
+        color: var(--text-color);
+    }
+
+    body.light-mode .footer-bottom {
+        color: var(--text-color);
+    }
+
+    body.light-mode .footer-bottom p {
+        color: var(--text-color);
+    }
+
+    .broken-site {
+        animation: glitch 0.3s infinite;
+    }
+
+    .broken-site * {
+        position: relative;
+    }
+
+    .broken-site *:nth-child(odd) {
+        transform: translate(-2px, 2px);
+    }
+
+    .broken-site *:nth-child(even) {
+        transform: translate(2px, -2px);
+    }
+
+    .broken-site .section {
+        transform: rotate(random(-5deg, 5deg));
+    }
+
+    .broken-site .skill-card {
+        transform: scale(0.9) rotate(random(-10deg, 10deg));
+    }
+
+    .broken-site .project-card {
+        transform: translate(random(-20px, 20px), random(-20px, 20px));
+    }
+
+    .broken-site .footer-section {
+        transform: translateX(random(-50px, 50px));
+    }
+
+    @keyframes glitch {
+        0% {
+            transform: translate(0);
+        }
+        20% {
+            transform: translate(-2px, 2px);
+        }
+        40% {
+            transform: translate(-2px, -2px);
+        }
+        60% {
+            transform: translate(2px, 2px);
+        }
+        80% {
+            transform: translate(2px, -2px);
+        }
+        100% {
+            transform: translate(0);
+        }
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.8);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background-color: var(--background-color);
+        padding: 2rem;
+        border-radius: 10px;
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+    }
+
+    .modal-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1.5rem;
+    }
+
+    .modal-button {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        transition: all 0.3s ease;
+    }
+
+    .modal-button.confirm {
+        background-color: var(--accent-color);
+        color: var(--text-color);
+    }
+
+    .modal-button.cancel {
+        background-color: var(--secondary-color);
+        color: var(--text-color);
+    }
+
+    .modal-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
 </style>
 </head>
 <body>
-    <h1>bernard.dev.br</h1>
-    <i class="fas fa-question-circle" id="help-icon"></i>
-    <div class="tooltip" id="tooltip">
-    <p>Este site é apenas meu hub, onde coloco algumas coisas, faço alguns testes básicos etc
-    </p>
+    <header>
+        <div class="container">
+            <h1>Marcelo Bernard</h1>
+            <p class="subtitle">Desenvolvedor Full Stack</p>
+        </div>
+    </header>
+
+    <div class="controls-bar">
+        <button class="control-button" onclick="toggleColorPicker()">
+            <i class="fas fa-palette"></i>
+            Mudar Cor
+        </button>
+        <input type="color" class="color-picker" id="colorPicker" onchange="changeColor(this.value)">
+        <button class="control-button" onclick="resetColor()">
+            <i class="fas fa-undo"></i>
+            Resetar Cor
+        </button>
+        <button class="control-button" onclick="toggleTheme()">
+            <i class="fas fa-moon"></i>
+            Modo Escuro/Claro
+        </button>
+        <button class="control-button" onclick="shakeSite()">
+            <i class="fas fa-bomb"></i>
+            Tremer Site
+        </button>
+        <button class="control-button" onclick="showBreakConfirmation()">
+            <i class="fas fa-skull"></i>
+            Quebrar Site
+        </button>
     </div>
-    <a href="https://github.com/Marcelobernard" target="_blank" class="github-button">
-        <i class="fab fa-github github-icon"></i>GitHub
-    </a>
-    <div class="languages">
-        <div class="language a1" style="background-color: #4b0082;">C++
-        </div>
-        <div class="language a1" style="background-color: #4b8bbe;">Python
-        </div>
-        <div class="language a1" style="background-color: #000080;">LUA
-        </div>
-        <div class="language" style="background-color: #ff0000;">Java
-        </div>
-        <div class="language" style="background-color: #e34c26;">HTML
-        </div>
-        <div class="language" style="background-color: #2965f1;">CSS
-        </div>
-        <div class="language" style="background-color: #007f00;">Papyrus
-        </div>
-        <div class="language" style="background-color: #4F5D95;">PhP
-        </div>
-        <div class="language" style="background-color: #f7de1ebe;">JavaScript
+
+    <div class="modal" id="breakModal">
+        <div class="modal-content">
+            <h3>⚠️ Aviso ⚠️</h3>
+            <p>Você tem certeza que deseja prosseguir? Será necessário dar reload no site para voltar ao normal.</p>
+            <div class="modal-buttons">
+                <button class="modal-button confirm" onclick="breakSite()">Sim, quebrar!</button>
+                <button class="modal-button cancel" onclick="hideBreakConfirmation()">Cancelar</button>
+            </div>
         </div>
     </div>
-    <a id="bttn" href="www.google.com" target="_blank">Download (empty)</a>
-    <a id="bttn" href="https://bernard.dev.br/TL.html" target="_blank" class="site-button">Website Throne and Liberty Stats Calculator</a>
-    <a id="bttn" href="https://bernard.dev.br/poe2/home.html" target="_blank" class="site-button">Website Path of Exile 2 Currency Drop Rating</a>
+
+    <main class="container">
+        <section class="section">
+            <h2 class="section-title">Sobre Mim</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        Sempre fui do tipo que, quando não encontra uma solução, cria uma. Antes mesmo de seguir carreira na programação, já desenvolvia scripts e modificações para facilitar meu dia a dia, principalmente em jogos, meu maior hobby.  
+                        Tenho prazer em transformar ideias em realidade, seja criando ferramentas web, modificando jogos para expandir possibilidades ou automatizando tarefas com Python e C++. Para mim, a computação é mais do que uma profissão — é um meio de integrar criatividade e tecnologia na rotina.
+                    </p>
+                    <p>
+                        Trabalhar com o que gosto significa que cada desafio não é tempo perdido, mas uma oportunidade de evolução. Cada aprendizado tem um propósito, e cada conquista alimenta uma nova ambição.
+                    </p>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/Marcelobernard" target="_blank" class="social-link">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Habilidades Técnicas</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <i class="fas fa-code skill-icon"></i>
+                        <h3 class="skill-title">Linguagens de Programação</h3>
+                    </div>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <i class="fas fa-microchip"></i>
+                            <span>C++</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-python"></i>
+                            <span>Python</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-java"></i>
+                            <span>Java</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-js"></i>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-code"></i>
+                            <span>Lua</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <i class="fas fa-globe skill-icon"></i>
+                        <h3 class="skill-title">Desenvolvimento Web</h3>
+                    </div>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <i class="fab fa-html5"></i>
+                            <span>HTML5</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-css3-alt"></i>
+                            <span>CSS3</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-js"></i>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-php"></i>
+                            <span>PHP</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <i class="fas fa-tools skill-icon"></i>
+                        <h3 class="skill-title">Outras Tecnologias</h3>
+                    </div>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <i class="fas fa-scroll"></i>
+                            <span>Papyrus Script</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-git-alt"></i>
+                            <span>Git</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-gamepad"></i>
+                            <span>Addons e Mods</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <i class="fas fa-server skill-icon"></i>
+                        <h3 class="skill-title">Infraestrutura e Sistemas</h3>
+                    </div>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <i class="fab fa-aws"></i>
+                            <span>AWS Cloud</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-linux"></i>
+                            <span>Linux</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Projetos</h2>
+            <div class="projects-grid">
+                <a href="https://bernard.dev.br/TL.html" class="project-card">
+                    <div class="project-image-container">
+                        <img src="fotos/t1.png" alt="Throne and Liberty Stats Calculator" class="project-image">
+                    </div>
+                    <h3 class="project-title">Throne and Liberty Stats Calculator</h3>
+                </a>
+                <a href="https://bernard.dev.br/poe2/home.html" class="project-card">
+                    <div class="project-image-container">
+                        <img src="fotos/t2.png" alt="Path of Exile 2 Currency Drop Rating" class="project-image">
+                    </div>
+                    <h3 class="project-title">Path of Exile 2 Currency Drop Rating</h3>
+                </a>
+            </div>
+        </section>
+    </main>
+
     <footer>
-        <p><i class="fas fa-envelope"></i> <a href="mailto:marcelobernardv@gmail.com">marcelobernardv@gmail.com</a></p>
-        <p><i class="fas fa-mobile-alt"></i> <a href="tel:+5521993345401">(21) 99334-5401</a></p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p>Fique à vontade para entrar em contato através de qualquer um dos canais disponíveis. Estou sempre aberto a novas oportunidades e parcerias!</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Canais</h3>
+                    <div class="footer-contact">
+                        <a href="mailto:marcelobernardv@gmail.com">
+                            <i class="fas fa-envelope"></i>
+                            marcelobernardv@gmail.com
+                        </a>
+                        <a href="tel:+5521993345401">
+                            <i class="fas fa-mobile-alt"></i>
+                            (21) 99334-5401
+                        </a>
+                        <a href="https://wa.me/5521993345401" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            WhatsApp
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Redes Sociais</h3>
+                    <div class="footer-social">
+                        <a href="https://www.linkedin.com/in/marcelobernard/" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://instagram.com/marcelobernardv" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Marcelo Bernard. Todos os direitos reservados.</p>
+            </div>
+        </div>
     </footer>
-    
+
     <script>
-        document.querySelectorAll('.language').forEach(item => {
-            item.addEventListener('mouseover', event => {
-                const backgroundColor = window.getComputedStyle(item).backgroundColor;
-                item.querySelector('.tooltip').style.backgroundColor = backgroundColor;
-            })
-        });
-        document.getElementById('help-icon').addEventListener('mouseover', function() {
-        document.getElementById('tooltip').style.display = 'block';
-    });
+        function toggleColorPicker() {
+            const colorPicker = document.getElementById('colorPicker');
+            colorPicker.style.display = colorPicker.style.display === 'block' ? 'none' : 'block';
+        }
 
-    document.getElementById('help-icon').addEventListener('mouseout', function() {
-        document.getElementById('tooltip').style.display = 'none';
-    });
+        function changeColor(color) {
+            document.documentElement.style.setProperty('--secondary-color', color);
+            document.getElementById('colorPicker').style.display = 'none';
+        }
 
+        function resetColor() {
+            document.documentElement.style.setProperty('--secondary-color', '#0aa069');
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const themeButton = document.querySelector('.control-button:nth-child(4) i');
+            themeButton.classList.toggle('fa-moon');
+            themeButton.classList.toggle('fa-sun');
+        }
+
+        function shakeSite() {
+            document.body.classList.add('shake');
+            setTimeout(() => {
+                document.body.classList.remove('shake');
+            }, 500);
+        }
+
+        function showBreakConfirmation() {
+            document.getElementById('breakModal').style.display = 'flex';
+        }
+
+        function hideBreakConfirmation() {
+            document.getElementById('breakModal').style.display = 'none';
+        }
+
+        function breakSite() {
+            document.body.classList.add('broken-site');
+            hideBreakConfirmation();
+            
+            // Adiciona efeitos aleatórios a cada 100ms
+            setInterval(() => {
+                const elements = document.querySelectorAll('.section, .skill-card, .project-card, .footer-section');
+                elements.forEach(el => {
+                    el.style.transform = `translate(${Math.random() * 40 - 20}px, ${Math.random() * 40 - 20}px) rotate(${Math.random() * 20 - 10}deg)`;
+                });
+            }, 100);
+        }
     </script>
 </body>
 </html>
