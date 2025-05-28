@@ -1,0 +1,57 @@
+[
+    {
+        "item_name": "Vermillion Antitoxin",
+        "thumb": "items/images/en/thumbs/vermillion_antitoxin.6ec1479a51b6f761b5e6e6673db4a578.128x128.png",
+        "url_name": "vermillion_antitoxin",
+        "id": "5d6ea6757ea27b05d929cbf9",
+        "avg_price": null,
+        "min_price": null,
+        "max_price": null
+    },
+    {
+        "item_name": "Lokan Knee Spurs",
+        "thumb": "items/images/en/thumbs/lokan_knee_spurs.8a7c25d472af612432b65790c6fec05a.128x128.png",
+        "url_name": "lokan_knee_spurs",
+        "id": "60e70f7a479445008f272579",
+        "avg_price": null,
+        "min_price": null,
+        "max_price": null
+    },
+    {
+        "item_name": "Lokan Arm Plates",
+        "thumb": "items/images/en/thumbs/lokan_arm_plates.2f95530445f9c3c5d696ac5b5a39fd73.128x128.png",
+        "url_name": "lokan_arm_plates",
+        "id": "60e70f7b479445008f27257e",
+        "avg_price": null,
+        "min_price": null,
+        "max_price": null
+    },
+    {
+        "item_name": "Hexis Arm Plates",
+        "thumb": "items/images/en/thumbs/hexis_arm_plates.aaf6be0c9918abf318d0c9f819333366.128x128.png",
+        "url_name": "hexis_arm_plates",
+        "id": "60e70f7d479445008f27258a",
+        "avg_price": null,
+        "min_price": null,
+        "max_price": null
+    },
+    {
+        "item_name": "Lokan Chest Piece",
+        "thumb": "items/images/en/thumbs/lokan_chest_piece.6bc7f18d86eeb472bf20f0f708bd7ff1.128x128.png",
+        "url_name": "lokan_chest_piece",
+        "id": "60e70f7e479445008f272596",
+        "avg_price": null,
+        "min_price": null,
+        "max_price": null
+    },
+    {
+        "item_name": "Lith D6 Relic",
+        "vaulted": true,
+        "thumb": "items/unknown.thumb.png",
+        "url_name": "lith_d6_relic",
+        "id": "672229f51ce4caca2fe98667",
+        "avg_price": null,
+        "min_price": null,
+        "max_price": null
+    }
+]

@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warframe Value - Calculadora de Inventário</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, transparent 48%, rgba(60, 135, 156, 0.1) 50%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(60, 135, 156, 0.1) 50%, transparent 52%);
+            background-size: 100px 100px;
+            animation: depthEffect 15s linear infinite;
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, transparent 48%, rgba(60, 135, 156, 0.05) 50%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(60, 135, 156, 0.05) 50%, transparent 52%);
+            background-size: 50px 50px;
+            animation: depthEffectSmall 10s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes depthEffect {
+            0% {
+                background-position: 0 0;
+                transform: scale(1);
+            }
+            50% {
+                background-position: 50px 50px;
+                transform: scale(1.1);
+            }
+            100% {
+                background-position: 0 0;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes depthEffectSmall {
+            0% {
+                background-position: 0 0;
+                transform: scale(1.1);
+            }
+            50% {
+                background-position: 25px 25px;
+                transform: scale(1);
+            }
+            100% {
+                background-position: 0 0;
+                transform: scale(1.1);
+            }
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00f3ff;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            flex: 1;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .title h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #00f3ff;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+
+        .title p {
+            font-size: 1.1rem;
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        .input-section {
+            margin-bottom: 2rem;
+        }
+
+        .textarea-container {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .line-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: transparent;
+            z-index: 1;
+        }
+
+        .line-container span {
+            display: block;
+            line-height: 1.5;
+        }
+
+        .neon-text {
+            color: #00f3ff;
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 1rem;
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(0, 243, 255, 0.3);
+            border-radius: 5px;
+            color: #ffffff;
+            font-size: 1rem;
+            line-height: 1.5;
+            resize: vertical;
+            position: relative;
+            z-index: 2;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #00f3ff;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+        }
+
+        .suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .suggestion-item {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            color: #ffffff;
+        }
+
+        .suggestion-item:hover {
+            background-color: rgba(0, 243, 255, 0.1);
+        }
+
+        .button-container {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        button {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #00f3ff;
+            color: #000000;
+        }
+
+        button:hover {
+            background-color: #00d4e0;
+            transform: translateY(-2px);
+        }
+
+        .result-section {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .result-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #00f3ff;
+        }
+
+        .total-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00f3ff;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+            margin: 1rem 0;
+        }
+
+        .items-list {
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        .items-list h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #00f3ff;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .item-card {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 5px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .item-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+        }
+
+        .item-name {
+            font-weight: bold;
+            color: #00f3ff;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-quantity {
+            color: #cccccc;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-value {
+            color: #00f3ff;
+            font-weight: bold;
+        }
+
+        .warning {
+            background-color: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 5px;
+            padding: 1rem;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .warning i {
+            color: #ffc107;
+            font-size: 1.5rem;
+        }
+
+        .warning p {
+            color: #ffc107;
+            line-height: 1.5;
+        }
+
+        .tips {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 5px;
+        }
+
+        .tips h3 {
+            color: #00f3ff;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .tips ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tips li {
+            margin-bottom: 0.8rem;
+            color: #cccccc;
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .tips li i {
+            color: #00f3ff;
+            margin-top: 0.2rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: rgba(0, 0, 0, 0.8);
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-content p {
+            color: #cccccc;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #00f3ff;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #00d4e0;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 600px) {
+            .title h1 {
+                font-size: 2rem;
+            }
+
+            .title p {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-container {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Warframe Value</div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="title">
+                <h1>Calculadora de Inventário Warframe</h1>
+                <p>Calcule o valor total do seu inventário usando dados atualizados do Warframe Market.</p>
+            </div>
+
+            <div class="input-section">
+                <div class="textarea-container">
+                    <div class="line-container"></div>
+                    <textarea id="inventoryInput" placeholder="Cole seu inventário aqui..."></textarea>
+                    <div class="suggestions"></div>
+                </div>
+                <div class="button-container">
+                    <button onclick="calculateValue()">Calcular Valor</button>
+                    <button onclick="clearInput()">Limpar</button>
+                </div>
+            </div>
+
+            <div class="warning">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Observação: Os valores dos mods são baseados em ranks médios. Para valores mais precisos, especifique o rank do mod (ex: "Primed Flow R10").</p>
+            </div>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <h2>Valor Total do Inventário</h2>
+                <div class="total-value" id="totalValue">0</div>
+                <div class="items-list">
+                    <h3>Itens Encontrados</h3>
+                    <div class="items-grid" id="itemsGrid"></div>
+                </div>
+            </div>
+
+            <div class="tips">
+                <h3>Dicas de Uso</h3>
+                <ul>
+                    <li><i class="fas fa-check"></i>Cole seu inventário diretamente do jogo</li>
+                    <li><i class="fas fa-check"></i>O sistema reconhece automaticamente itens e quantidades</li>
+                    <li><i class="fas fa-check"></i>Para mods, especifique o rank para valores mais precisos</li>
+                    <li><i class="fas fa-check"></i>Os valores são baseados em dados do Warframe Market</li>
+                    <li><i class="fas fa-check"></i>Use o botão "Limpar" para começar novamente</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>Dados fornecidos pelo Warframe Market</p>
+            <div class="social-links">
+                <a href="https://github.com/bernarddevbr" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/bernarddevbr" target="_blank"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let itemsData = {};
+        let allItems = [];
+
+        async function loadItemsData() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/bernarddevbr/warframe-value/main/items.json');
+                itemsData = await response.json();
+                allItems = Object.keys(itemsData);
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+            }
+        }
+
+        function handleTextareaInput() {
+            const textarea = document.getElementById('inventoryInput');
+            const lineContainer = document.querySelector('.line-container');
+            const suggestions = document.querySelector('.suggestions');
+            const lines = textarea.value.split('\n');
+            
+            lineContainer.innerHTML = lines.map(line => {
+                const item = line.trim();
+                return `<span class="${itemsData[item] ? 'neon-text' : ''}">${line}</span>`;
+            }).join('\n');
+
+            const currentLine = lines[lines.length - 1];
+            if (currentLine) {
+                const matches = allItems.filter(item => 
+                    item.toLowerCase().includes(currentLine.toLowerCase())
+                ).slice(0, 5);
+
+                if (matches.length > 0) {
+                    suggestions.innerHTML = matches.map(item => 
+                        `<div class="suggestion-item">${item}</div>`
+                    ).join('');
+                    suggestions.style.display = 'block';
+                } else {
+                    suggestions.style.display = 'none';
+                }
+            } else {
+                suggestions.style.display = 'none';
+            }
+        }
+
+        function calculateValue() {
+            const input = document.getElementById('inventoryInput').value;
+            const lines = input.split('\n');
+            let totalValue = 0;
+            const foundItems = [];
+
+            lines.forEach(line => {
+                const match = line.match(/(.+?)\s*(\d+)/);
+                if (match) {
+                    const itemName = match[1].trim();
+                    const quantity = parseInt(match[2]);
+                    const itemValue = itemsData[itemName];
+
+                    if (itemValue) {
+                        const value = itemValue * quantity;
+                        totalValue += value;
+                        foundItems.push({
+                            name: itemName,
+                            quantity: quantity,
+                            value: value
+                        });
+                    }
+                }
+            });
+
+            document.getElementById('totalValue').textContent = totalValue.toLocaleString('pt-BR');
+            displayFoundItems(foundItems);
+            document.getElementById('resultSection').style.display = 'block';
+        }
+
+        function displayFoundItems(items) {
+            const grid = document.getElementById('itemsGrid');
+            grid.innerHTML = items.map(item => `
+                <div class="item-card">
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-quantity">Quantidade: ${item.quantity}</div>
+                    <div class="item-value">Valor: ${item.value.toLocaleString('pt-BR')}</div>
+                </div>
+            `).join('');
+        }
+
+        function clearInput() {
+            document.getElementById('inventoryInput').value = '';
+            document.querySelector('.line-container').innerHTML = '';
+            document.querySelector('.suggestions').style.display = 'none';
+            document.getElementById('resultSection').style.display = 'none';
+        }
+
+        document.getElementById('inventoryInput').addEventListener('input', handleTextareaInput);
+        document.getElementById('inventoryInput').addEventListener('scroll', function() {
+            document.querySelector('.line-container').scrollTop = this.scrollTop;
+        });
+
+        document.querySelector('.suggestions').addEventListener('click', function(e) {
+            if (e.target.classList.contains('suggestion-item')) {
+                const textarea = document.getElementById('inventoryInput');
+                const lines = textarea.value.split('\n');
+                lines[lines.length - 1] = e.target.textContent;
+                textarea.value = lines.join('\n');
+                handleTextareaInput();
+                this.style.display = 'none';
+            }
+        });
+
+        loadItemsData();
+    </script>
+</body>
+</html>

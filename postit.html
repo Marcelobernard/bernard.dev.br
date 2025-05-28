@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Post-it Público</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 20px; 
+      background-color: #fdfdfd;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    #descricao {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+      color: #333;
+    }
+    form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #ffcd00;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #f1c40f;
+    }
+    #postits {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .postit {
+      background: #fff9a8;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Post-it Público</h1>
+  <div id="descricao">
+    Diga algo aqui! Um post-it será criado de forma <strong>pública</strong> e exibido nessa página.
+  </div>
+
+  <form id="postit-form">
+    <input type="text" id="texto" placeholder="Escreva seu post-it aqui..." required />
+    <button type="submit">Enviar</button>
+  </form>
+
+  <div id="postits"></div>
+
+  <script>
+    const API_URL = "https://5fyex1o1ec.execute-api.sa-east-1.amazonaws.com/postit-api";
+
+    async function carregarPostits() {
+      try {
+        const res = await fetch(API_URL);
+        if (!res.ok) throw new Error("Erro ao buscar post-its");
+        const postits = await res.json();
+        const container = document.getElementById('postits');
+        container.innerHTML = '';
+        postits.reverse().forEach(p => {
+          const div = document.createElement('div');
+          div.className = 'postit';
+          div.textContent = p.texto;
+          container.appendChild(div);
+        });
+      } catch (e) {
+        alert(e.message);
+      }
+    }
+
+    document.getElementById('postit-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const texto = document.getElementById('texto').value.trim();
+      if (!texto) return alert("Digite algo.");
+
+      try {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ texto })
+        });
+
+        if (!res.ok) throw new Error("Erro ao criar post-it");
+
+        document.getElementById('texto').value = '';
+        carregarPostits();
+      } catch (e) {
+        alert(e.message);
+      }
+    });
+
+    carregarPostits();
+  </script>
+
+</body>
+</html>
