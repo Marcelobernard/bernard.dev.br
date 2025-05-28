@@ -559,14 +559,49 @@
         transform: translateY(-2px);
         box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
+
+    .postit-button {
+        display: block;
+        margin: 3.4rem auto 0.1rem;
+        padding: 0.6rem 1.0rem;
+        background-color: var(--secondary-color);
+        color: var(--text-color);
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        border: 2px solid var(--accent-color);
+        text-align: center;
+        max-width: 250px;
+    }
+
+    .postit-description {
+        text-align: center;
+        color: var(--secondary-color);
+        font-size: 0.9rem;
+        margin: 0.5rem auto 0.1rem;
+        opacity: 0.8;
+        max-width: 400px;
+    }
+
+    .postit-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        background-color: transparent;
+    }
+
+    .postit-button i {
+        margin-right: 5px;
+        font-size: 1em;
+    }
 </style>
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>Marcelo Bernard</h1>
-            <p class="subtitle">Desenvolvedor Full Stack</p>
-        </div>
+        <h1>MBernard</h1>
+        <div class="subtitle">Desenvolvedor Full Stack</div>
     </header>
 
     <div class="controls-bar">
@@ -592,6 +627,12 @@
             Quebrar Site
         </button>
     </div>
+
+    <a href="postit.html" class="postit-button">
+        <i class="fas fa-sticky-note"></i>
+        Post-it Público
+    </a>
+    <p class="postit-description">Clique aqui para entrar na seção de post-it, onde é possível deixar um comentário público</p>
 
     <div class="modal" id="breakModal">
         <div class="modal-content">
