@@ -105,40 +105,56 @@
         background-color: rgba(255,255,255,0.1);
         border-radius: 10px;
         overflow: hidden;
-        transition: transform 0.3s ease;
+        transition: all 0.3s ease;
         text-decoration: none;
         color: var(--text-color);
         max-width: 500px;
         margin: 0 auto;
         width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        border: 1px solid rgba(255,255,255,0.1);
     }
 
-    .project-image-container {
-        width: 100%;
-        height: 300px;
-        background-color: rgba(0,0,0,0.2);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 1rem;
+    .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        border-color: var(--secondary-color);
     }
 
-    .project-image {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
+    .project-content {
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .project-icon {
+        font-size: 2.5rem;
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
     }
 
     .project-title {
-        padding: 1rem;
-        margin: 0;
         font-size: 1.2em;
-        text-align: center;
-        background-color: rgba(0,0,0,0.2);
-        width: 100%;
+        margin: 0.5rem 0;
+        color: var(--text-color);
+    }
+
+    .project-description {
+        font-size: 0.9em;
+        color: rgba(255,255,255,0.7);
+        margin: 0;
+    }
+
+    body.light-mode .project-description {
+        color: rgba(0,0,0,0.7);
+    }
+
+    @media only screen and (max-width: 768px) {
+        .project-content {
+            padding: 1.5rem;
+        }
+        
+        .project-icon {
+            font-size: 2rem;
+        }
     }
 
     .skill-card {
@@ -765,16 +781,32 @@
             <h2 class="section-title">Projetos</h2>
             <div class="projects-grid">
                 <a href="https://bernard.dev.br/TL.html" class="project-card">
-                    <div class="project-image-container">
-                        <img src="fotos/t1.png" alt="Throne and Liberty Stats Calculator" class="project-image">
+                    <div class="project-content">
+                        <i class="fas fa-calculator project-icon"></i>
+                        <h3 class="project-title">Throne and Liberty Stats Calculator</h3>
+                        <p class="project-description">Calculadora de estatísticas para o jogo Throne and Liberty</p>
                     </div>
-                    <h3 class="project-title">Throne and Liberty Stats Calculator</h3>
                 </a>
                 <a href="https://bernard.dev.br/poe2/home.html" class="project-card">
-                    <div class="project-image-container">
-                        <img src="fotos/t2.png" alt="Path of Exile 2 Currency Drop Rating" class="project-image">
+                    <div class="project-content">
+                        <i class="fas fa-coins project-icon"></i>
+                        <h3 class="project-title">Path of Exile 2 Currency Drop Rating</h3>
+                        <p class="project-description">Sistema de avaliação de drops de moedas para Path of Exile 2</p>
                     </div>
-                    <h3 class="project-title">Path of Exile 2 Currency Drop Rating</h3>
+                </a>
+                <a href="https://github.com/Marcelobernard/JogoDaForca" class="project-card">
+                    <div class="project-content">
+                        <i class="fas fa-gamepad project-icon"></i>
+                        <h3 class="project-title">Jogo da Forca em Java</h3>
+                        <p class="project-description">Jogo da forca desenvolvido em Java com interface gráfica</p>
+                    </div>
+                </a>
+                <a href="https://github.com/Marcelobernard/app-mobile" class="project-card">
+                    <div class="project-content">
+                        <i class="fas fa-mobile-alt project-icon"></i>
+                        <h3 class="project-title">App Mobile em React Native</h3>
+                        <p class="project-description">Aplicativo mobile desenvolvido com React Native e Expo</p>
+                    </div>
                 </a>
             </div>
         </section>
