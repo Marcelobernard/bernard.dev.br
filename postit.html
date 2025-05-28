@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <!-- Configurações básicas da página -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Post-it Público</title>
+
+  <!-- Importação das fontes do Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Importação dos ícones do Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
   <style>
+    /* 🎨 Variáveis de cores do tema */
     :root {
-      --primary-color: #2c3e50;
-      --secondary-color: #0aa069;
-      --accent-color: #e74c3c;
-      --text-color: #ecf0f1;
-      --background-color: #1a1a1a;
+      --primary-color: #2c3e50;    /* Cor principal - azul escuro */
+      --secondary-color: #0aa069;  /* Cor secundária - verde */
+      --accent-color: #e74c3c;     /* Cor de destaque - vermelho */
+      --text-color: #ecf0f1;       /* Cor do texto - branco suave */
+      --background-color: #1a1a1a; /* Cor de fundo - preto suave */
     }
 
+    /* 📝 Configurações gerais de fonte */
     * {
       font-family: 'Poppins', sans-serif;
     }
 
+    /* 🎯 Estilos do corpo da página */
     body { 
       margin: 0;
       padding: 0;
@@ -30,22 +39,26 @@
       font-weight: 300;
     }
 
+    /* 📌 Estilos dos títulos */
     h1, h2, h3, h4, h5, h6 {
       font-weight: 600;
     }
 
+    /* 📦 Container principal */
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 2rem;
     }
 
+    /* 🎭 Cabeçalho da página */
     header {
       text-align: center;
       padding: 4rem 0;
       background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     }
 
+    /* 🏆 Título principal */
     h1 {
       font-size: 3.5em;
       margin: 0;
@@ -53,12 +66,14 @@
       text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
 
+    /* 📌 Subtítulo */
     .subtitle {
       font-size: 1.5em;
       margin-top: 1rem;
       color: rgba(255,255,255,0.9);
     }
 
+    /* 📝 Descrição */
     #descricao {
       margin: 1rem 0;
       font-size: 1.1rem;
@@ -66,10 +81,12 @@
       text-align: center;
     }
 
+    /* 🎮 Controles de visualização */
     .view-controls {
       display: none;
     }
 
+    /* 📝 Formulário de entrada */
     form {
       display: flex;
       gap: 10px;
@@ -79,6 +96,7 @@
       align-items: center;
     }
 
+    /* 📦 Wrapper do input */
     .input-wrapper {
       position: relative;
       flex: 1;
@@ -86,6 +104,7 @@
       align-items: center;
     }
 
+    /* ✏️ Campo de texto */
     input[type="text"] {
       width: 100%;
       padding: 12px 80px 12px 12px;
@@ -97,6 +116,7 @@
       box-sizing: border-box;
     }
 
+    /* 🔢 Contador de caracteres */
     .char-count {
       position: absolute;
       right: 12px;
@@ -105,6 +125,7 @@
       pointer-events: none;
     }
 
+    /* 🎯 Botão de envio */
     button {
       padding: 12px 24px;
       font-size: 1rem;
@@ -116,10 +137,12 @@
       transition: background-color 0.3s ease;
     }
 
+    /* 🎯 Efeito hover no botão */
     button:hover {
       background-color: #0b8c5d;
     }
 
+    /* 📑 Grid de post-its */
     #postits {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -128,24 +151,28 @@
       margin: 0 auto;
     }
 
+    /* 📱 Responsividade - Telas grandes */
     @media (max-width: 1200px) {
       #postits {
         grid-template-columns: repeat(3, 1fr);
       }
     }
 
+    /* 📱 Responsividade - Telas médias */
     @media (max-width: 900px) {
       #postits {
         grid-template-columns: repeat(2, 1fr);
       }
     }
 
+    /* 📱 Responsividade - Telas pequenas */
     @media (max-width: 600px) {
       #postits {
         grid-template-columns: 1fr;
       }
     }
 
+    /* 📝 Estilo individual do post-it */
     .postit {
       background: rgba(255,255,255,0.1);
       border: 1px solid rgba(255,255,255,0.1);
@@ -161,10 +188,12 @@
       word-break: break-word;
     }
 
+    /* 🎯 Efeito hover no post-it */
     .postit:hover {
       transform: translateY(-2px);
     }
 
+    /* 🏠 Botão de retorno */
     .return-button {
         display: inline-flex;
         align-items: center;
@@ -182,29 +211,36 @@
         margin-right: 1rem;
     }
 
+    /* 🎯 Efeito hover no botão de retorno */
     .return-button:hover {
         transform: translateY(-3px);
         box-shadow: 0 6px 20px rgba(13, 165, 5, 0.4);
         background-color: transparent;
     }
 
+    /* 🎯 Ícone do botão de retorno */
     .return-button i {
         margin-right: 6px;
     }
   </style>
 </head>
 <body>
+  <!-- 🎭 Cabeçalho da página -->
   <header>
     <h1>MBernard</h1>
     <div class="subtitle">Desenvolvedor Full Stack</div>
   </header>
 
+  <!-- 📦 Container principal -->
   <div class="container">
+    <!-- 📝 Formulário de entrada -->
     <form id="postit-form">
-      <a href="https://bernard.dev.br" class="return-button">
+      <!-- 🏠 Botão de retorno -->
+      <a href="index.html" class="return-button">
         <i class="fas fa-home"></i>
         Voltar
       </a>
+      <!-- 📦 Wrapper do input -->
       <div class="input-wrapper">
         <input type="text" id="texto" placeholder="Escreva seu post-it aqui..." maxlength="100" required />
         <span class="char-count">0/100</span>
@@ -212,22 +248,26 @@
       <button type="submit">Enviar</button>
     </form>
 
+    <!-- 📑 Container dos post-its -->
     <div id="postits"></div>
   </div>
 
   <script>
+    // 🔗 URL da API
     const API_URL = "https://5fyex1o1ec.execute-api.sa-east-1.amazonaws.com/postit-api";
     const MAX_CHARS = 100;
 
-    // Contador de caracteres
+    // 🔢 Configuração do contador de caracteres
     const textoInput = document.getElementById('texto');
     const charCount = document.querySelector('.char-count');
 
+    // 👂 Listener para atualizar o contador de caracteres
     textoInput.addEventListener('input', () => {
       const currentLength = textoInput.value.length;
       charCount.textContent = `${currentLength}/${MAX_CHARS}`;
     });
 
+    // 📥 Função para carregar os post-its
     async function carregarPostits() {
       try {
         const res = await fetch(API_URL);
@@ -246,6 +286,7 @@
       }
     }
 
+    // 📝 Listener do formulário de envio
     document.getElementById('postit-form').addEventListener('submit', async e => {
       e.preventDefault();
       const texto = document.getElementById('texto').value.trim();
@@ -269,6 +310,7 @@
       }
     });
 
+    // 🚀 Carrega os post-its ao iniciar a página
     carregarPostits();
   </script>
 </body>
