@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Talita Cumi's</title>
+    <title>Cores do Site</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -735,54 +735,14 @@
                 font-size: 1.8rem;
             }
         }
-
-        .language-selector {
-            display: flex;
-            gap: 0.5rem;
-            margin-left: 1rem;
-        }
-
-        .language-btn {
-            background: none;
-            border: 1px solid var(--cor-primaria);
-            color: var(--cor-primaria);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .language-btn:hover {
-            background-color: var(--cor-primaria);
-            color: white;
-        }
-
-        .language-btn.active {
-            background-color: var(--cor-primaria);
-            color: white;
-        }
-
-        @media (max-width: 768px) {
-            .language-selector {
-                margin: 0.5rem 0 0 0;
-                width: 100%;
-                justify-content: center;
-            }
-        }
     </style>
 </head>
 <body>
     <header>
         <a href="index.html" class="logo">Talita Cumi's</a>
         <div class="nav-buttons">
-            <a href="index.html" class="nav-button" data-i18n="nav-home">Página Principal</a>
-            <a href="cardapio.html" class="nav-button" data-i18n="nav-menu">Cardápio</a>
-            <div class="language-selector">
-                <button onclick="changeLanguage('pt-BR')" class="language-btn active">PT</button>
-                <button onclick="changeLanguage('es')" class="language-btn">ES</button>
-            </div>
+            <a href="index.html" class="nav-button">Página Principal</a>
+            <a href="cardapio.html" class="nav-button">Cardápio</a>
         </div>
     </header>
 
@@ -790,8 +750,8 @@
         <div class="section-content">
             <div class="quem-somos-grid">
                 <div class="quem-somos-texto">
-                    <h2 class="section-title" data-i18n="about-title">Quem Somos</h2>
-                    <p data-i18n="about-text">Somos um estabelecimento restaurante e cafeteria, com uma culinária brasileira, venha saborear a verdadeira essência do Brasil!</p>
+                    <h2 class="section-title">Quem Somos</h2>
+                    <p>Somos um estabelecimento restaurante e cafeteria, com uma culinária brasileira, venha saborear a verdadeira essência do Brasil!</p>
                 </div>
                 <img src="fotos/foto1.jpg" alt="Nossa cafeteria" class="section-image">
             </div>
@@ -799,7 +759,7 @@
     </section>
 
     <section id="localizacao">
-        <h2 class="section-title" data-i18n="location-title">Localização</h2>
+        <h2 class="section-title">Localização</h2>
         <div class="section-content">
             <img src="fotos/foto2.jpg" alt="Nossa localização" class="section-image2">
             <div>
@@ -819,16 +779,16 @@
                 <div class="localizacao-info">
                     <h3 class="localizacao-titulo">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span data-i18n="location-address">Nosso Endereço</span>
+                        Nosso Endereço
                     </h3>
-                    <p class="localizacao-endereco" data-i18n="location-text">
+                    <p class="localizacao-endereco">
                         C9XJ+GR7, Av. Ñeembucu,<br>
                         Pdte. Franco 100214,<br>
                         Paraguay
                     </p>
                     <p class="localizacao-referencia">
                         <i class="fas fa-info-circle"></i>
-                        <span data-i18n="location-reference">Próximo a Universidad Privada del Este</span>
+                        Próximo a Universidad Privada del Este
                     </p>
                 </div>
             </div>
@@ -836,18 +796,18 @@
     </section>
 
     <section id="horarios">
-        <h2 class="section-title" data-i18n="hours-title">Horários</h2>
+        <h2 class="section-title">Horários</h2>
         <div class="section-content">
             <div class="horarios-container">
                 <div class="horarios-aviso">
-                    <i class="fas fa-calendar-alt"></i> <span data-i18n="hours-notice">De segunda-feira a sábado</span>
+                    <i class="fas fa-calendar-alt"></i> De segunda-feira a sábado
                 </div>
                 <div class="horario-item">
                     <div class="horario-icon">
                         <i class="fas fa-coffee"></i>
                     </div>
                     <div class="horario-info">
-                        <h3 class="horario-titulo" data-i18n="hours-morning">Cafeteria - Manhã</h3>
+                        <h3 class="horario-titulo">Cafeteria - Manhã</h3>
                         <p class="horario-periodo">07:00 - 11:00</p>
                     </div>
                 </div>
@@ -856,7 +816,7 @@
                         <i class="fas fa-utensils"></i>
                     </div>
                     <div class="horario-info">
-                        <h3 class="horario-titulo" data-i18n="hours-lunch">Almoço</h3>
+                        <h3 class="horario-titulo">Almoço</h3>
                         <p class="horario-periodo">11:00 - 15:00</p>
                     </div>
                 </div>
@@ -865,7 +825,7 @@
                         <i class="fas fa-coffee"></i>
                     </div>
                     <div class="horario-info">
-                        <h3 class="horario-titulo" data-i18n="hours-afternoon">Cafeteria - Tarde</h3>
+                        <h3 class="horario-titulo">Cafeteria - Tarde</h3>
                         <p class="horario-periodo">15:00 - 19:00</p>
                     </div>
                 </div>
@@ -875,13 +835,13 @@
     </section>
 
     <section id="redes-sociais">
-        <h2 class="section-title" data-i18n="social-title">Redes Sociais</h2>
+        <h2 class="section-title">Redes Sociais</h2>
         <div class="section-content">
             <div class="redes-grid">
                 <div class="rede-item instagram">
                     <i class="fab fa-instagram"></i>
-                    <h3 data-i18n="instagram-title">Instagram</h3>
-                    <p data-i18n="instagram-text">Siga-nos no Instagram para ver nossas novidades e promoções</p>
+                    <h3>Instagram</h3>
+                    <p>Siga-nos no Instagram para ver nossas novidades e promoções</p>
                     <a href="https://www.instagram.com/talitacumis_/" class="rede-link" target="_blank">
                         <i class="fas fa-external-link-alt"></i>
                         @talitacumis_
@@ -889,8 +849,8 @@
                 </div>
                 <div class="rede-item whatsapp">
                     <i class="fab fa-whatsapp"></i>
-                    <h3 data-i18n="whatsapp-title">WhatsApp</h3>
-                    <p data-i18n="whatsapp-text">Entre em contato conosco pelo WhatsApp</p>
+                    <h3>WhatsApp</h3>
+                    <p>Entre em contato conosco pelo WhatsApp</p>
                     <a href="https://api.whatsapp.com/send/?phone=595993471021&text&type=phone_number&app_absent=0" class="rede-link" target="_blank">
                         <i class="fas fa-external-link-alt"></i>
                         +595 993 471 021
@@ -901,39 +861,11 @@
     </section>
 
     <footer>
-        <div class="copyright" data-i18n="footer-copyright">© 2024 Talita Cumi's. Todos os direitos reservados.</div>
+        <div class="copyright">© 2024 Talita Cumi's. Todos os direitos reservados.</div>
         <div class="social-links">
             <a href="https://www.instagram.com/talitacumis_/" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
             <a href="https://api.whatsapp.com/send/?phone=595993471021&text&type=phone_number&app_absent=0" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
         </div>
     </footer>
-
-    <script src="translations.js"></script>
-    <script>
-        function changeLanguage(lang) {
-            // Atualiza os botões de idioma
-            document.querySelectorAll('.language-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-
-            // Atualiza os textos
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                if (translations[lang][key]) {
-                    element.textContent = translations[lang][key];
-                }
-            });
-
-            // Salva a preferência de idioma
-            localStorage.setItem('preferred-language', lang);
-        }
-
-        // Carrega o idioma preferido ao iniciar a página
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedLanguage = localStorage.getItem('preferred-language') || 'pt-BR';
-            changeLanguage(savedLanguage);
-        });
-    </script>
 </body>
 </html>
