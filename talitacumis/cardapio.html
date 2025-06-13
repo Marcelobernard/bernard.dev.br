@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cores do Site</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --cor-primaria: rgb(186, 94, 32);
+            --cor-secundaria: rgb(150, 164, 61);
+            --cor-terciaria: rgb(196, 91, 39);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-image: url('fotos/logo.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 500px;
+            background-attachment: fixed;
+            background-color: white;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            z-index: -1;
+        }
+
+        header {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.95);
+            position: relative;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: var(--cor-primaria);
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 1px;
+            font-family: 'Dancing Script', cursive;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-button {
+            color: var(--cor-primaria);
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-button::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--cor-terciaria);
+            transition: width 0.3s;
+        }
+
+        .nav-button:hover {
+            color: var(--cor-terciaria);
+        }
+
+        .nav-button:hover::after {
+            width: 100%;
+        }
+
+        .cardapio-item:hover {
+            transform: translateY(-5px);
+        }
+
+        footer {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.95);
+            position: relative;
+            z-index: 1;
+            margin-top: -1px;
+        }
+
+        .copyright {
+            color: var(--cor-primaria);
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-link {
+            color: var(--cor-primaria);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-link:hover {
+            color: var(--cor-terciaria);
+        }
+
+        section {
+            padding: 2rem;
+            min-height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background-color: white;
+        }
+
+        .section-title {
+            color: var(--cor-primaria);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Dancing Script', cursive;
+            position: relative;
+            padding-bottom: 0.3rem;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 1px;
+            background: linear-gradient(to right, 
+                transparent 0%,
+                var(--cor-secundaria) 20%,
+                var(--cor-secundaria) 80%,
+                transparent 100%
+            );
+        }
+
+        .section-content {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0;
+            background: none;
+            box-shadow: none;
+        }
+
+        .cardapio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .cardapio-categoria {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .categoria-titulo {
+            color: var(--cor-primaria);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .categoria-titulo i {
+            font-size: 1.5rem;
+            color: var(--cor-secundaria);
+        }
+
+        .cardapio-sections {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cardapio-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            scroll-margin-top: 2rem;
+            width: 100%;
+        }
+
+        .cardapio-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            width: 100%;
+        }
+
+        .cardapio-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1.2rem;
+            background: rgba(186, 94, 32, 0.05);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .cardapio-item h4 {
+            color: var(--cor-primaria);
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-align: left;
+            flex: 1;
+            margin-right: 1rem;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .cardapio-item p {
+            color: var(--cor-secundaria);
+            font-weight: 600;
+            white-space: nowrap;
+            min-width: 80px;
+            text-align: right;
+        }
+
+        .cardapio-item:hover {
+            transform: translateY(-2px);
+            background: rgba(186, 94, 32, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .nav-buttons {
+                width: 100%;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .nav-button {
+                font-size: 1rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .cardapio-nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+                margin-bottom: 2rem;
+            }
+
+            .cardapio-nav-item {
+                width: 100%;
+                justify-content: center;
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .cardapio-sections {
+                max-width: 100%;
+                gap: 1.5rem;
+            }
+
+            .cardapio-section {
+                padding: 1rem;
+            }
+
+            .categoria-titulo {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .cardapio-item {
+                padding: 0.6rem 1rem;
+            }
+
+            .cardapio-item h4 {
+                font-size: 1rem;
+            }
+
+            .cardapio-item p {
+                font-size: 0.9rem;
+                min-width: 70px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            footer {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.8rem;
+            }
+
+            .nav-button {
+                font-size: 0.9rem;
+                padding: 0.3rem 0.6rem;
+            }
+
+            .cardapio-nav-item {
+                font-size: 0.85rem;
+            }
+
+            .categoria-titulo {
+                font-size: 1.6rem;
+            }
+
+            .cardapio-item h4 {
+                font-size: 0.9rem;
+            }
+
+            .cardapio-item p {
+                font-size: 0.85rem;
+                min-width: 60px;
+            }
+        }
+
+        .cardapio-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .cardapio-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: white;
+            color: var(--cor-primaria);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .cardapio-nav-item i {
+            font-size: 1.2rem;
+            color: var(--cor-secundaria);
+        }
+
+        .cardapio-nav-item:hover {
+            transform: translateY(-2px);
+            background: var(--cor-primaria);
+            color: white;
+        }
+
+        .cardapio-nav-item:hover i {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">Talita Cumi's</a>
+        <div class="nav-buttons">
+            <a href="index.html" class="nav-button">Página Principal</a>
+            <a href="cardapio.html" class="nav-button">Cardápio</a>
+        </div>
+    </header>
+
+    <section id="cardapio">
+        <h2 class="section-title">Cardápio</h2>
+        <div class="section-content">
+            <nav class="cardapio-nav">
+                <a href="#cafes" class="cardapio-nav-item">
+                    <i class="fas fa-coffee"></i>
+                    Cafés
+                </a>
+                <a href="#salgados" class="cardapio-nav-item">
+                    <i class="fas fa-bread-slice"></i>
+                    Salgados
+                </a>
+                <a href="#doces" class="cardapio-nav-item">
+                    <i class="fas fa-cookie"></i>
+                    Doces
+                </a>
+                <a href="#bebidas" class="cardapio-nav-item">
+                    <i class="fas fa-glass-martini-alt"></i>
+                    Bebidas
+                </a>
+                <a href="#outros" class="cardapio-nav-item">
+                    <i class="fas fa-utensils"></i>
+                    Outros
+                </a>
+            </nav>
+
+            <div class="cardapio-sections">
+                <section id="cafes" class="cardapio-section">
+                    <h3 class="categoria-titulo">
+                        <i class="fas fa-coffee"></i>
+                        Cafés
+                    </h3>
+                    <div class="cardapio-items">
+                        <div class="cardapio-item">
+                            <h4>Expresso</h4>
+                            <p>R$ 5,00</p>
+                        </div>
+                        <div class="cardapio-item">
+                            <h4>Cappuccino</h4>
+                            <p>R$ 8,00</p>
+                        </div>
+                        <div class="cardapio-item">
+                            <h4>Latte</h4>
+                            <p>R$ 9,00</p>
+                        </div>
+                        <div class="cardapio-item">
+                            <h4>Mocha</h4>
+                            <p>R$ 10,00</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="salgados" class="cardapio-section">
+                    <h3 class="categoria-titulo">
+                        <i class="fas fa-bread-slice"></i>
+                        Salgados
+                    </h3>
+                    <div class="cardapio-items">
+                        <div class="cardapio-item">
+                            <h4>Croissant</h4>
+                            <p>R$ 7,00</p>
+                        </div>
+                        <div class="cardapio-item">
+                            <h4>Sanduíche Natural</h4>
+                            <p>R$ 12,00</p>
+                        </div>
+                        <div class="cardapio-item">
+                            <h4>Quiche</h4>
+                            <p>R$ 9,00</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="doces" class="cardapio-section">
+                    <h3 class="categoria-titulo">
+                        <i class="fas fa-cookie"></i>
+                        Doces
+                    </h3>
+                    <div class="cardapio-items">
+                        <div class="cardapio-item">
+                            <h4>Bolo de Chocolate</h4>
+                            <p>R$ 8,00</p>
+                        </div>
+                        <div class="cardapio-item">
+                            <h4>Cheesecake</h4>
+                            <p>R$ 10,00</p>
+                        </div>
+                        <div class="cardapio-item">
+                            <h4>Tiramisu</h4>
+                            <p>R$ 12,00</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="bebidas" class="cardapio-section">
+                    <h3 class="categoria-titulo">
+                        <i class="fas fa-glass-martini-alt"></i>
+                        Bebidas
+                    </h3>
+                    <div class="cardapio-items">
+                        <div class="cardapio-item">
+                            <h4>Suco Natural</h4>
+                            <p>R$ 7,00</p>
+                        </div>
+                        <div class="cardapio-item">
+                            <h4>Água Mineral</h4>
+                            <p>R$ 3,00</p>
+                        </div>
+                        <div class="cardapio-item">
+                            <h4>Refrigerante</h4>
+                            <p>R$ 5,00</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="outros" class="cardapio-section">
+                    <h3 class="categoria-titulo">
+                        <i class="fas fa-utensils"></i>
+                        Outros
+                    </h3>
+                    <div class="cardapio-items">
+                        <div class="cardapio-item">
+                            <h4>Salada</h4>
+                            <p>R$ 15,00</p>
+                        </div>
+                        <div class="cardapio-item">
+                            <h4>Sopa do Dia</h4>
+                            <p>R$ 12,00</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="copyright">© 2024 Talita Cumi's. Todos os direitos reservados.</div>
+        <div class="social-links">
+            <a href="https://www.instagram.com/talitacumis_/" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://api.whatsapp.com/send/?phone=595993471021&text&type=phone_number&app_absent=0" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </footer>
+</body>
+</html>
