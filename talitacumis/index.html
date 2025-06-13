@@ -400,12 +400,13 @@
             }
 
             section {
-                padding: 2rem 1rem;
+                padding: 1.5rem 1rem;
+                min-height: auto;
             }
 
             .section-title {
-                font-size: 2rem;
-                margin-bottom: 1.5rem;
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
             }
 
             .quem-somos-grid {
@@ -843,6 +844,74 @@
                 margin: 0.5rem 0 0 0;
                 width: 100%;
                 justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .section-image {
+                width: 180px;
+                height: 180px;
+                max-width: 180px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin: 0 auto;
+            }
+
+            #localizacao .section-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            #localizacao .localizacao-direita {
+                order: 2;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            #localizacao .localizacao-info {
+                order: 1;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .section-image2 {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+
+            #quem-somos .section-image {
+                height: 180px;
+                width: 180px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            #horarios .section-image {
+                height: 180px;
+                width: 180px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            .quem-somos-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .horarios-container {
+                gap: 1.5rem;
             }
         }
     </style>
