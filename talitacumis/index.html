@@ -634,6 +634,52 @@
             .redes-grid {
                 grid-template-columns: 1fr;
             }
+
+            .rede-item {
+                padding: 1.5rem;
+                min-height: 300px;
+            }
+
+            .rede-item i.fab {
+                font-size: 3rem;
+            }
+
+            .rede-item h3 {
+                font-size: 1.5rem;
+            }
+
+            .rede-item p {
+                font-size: 1rem;
+            }
+
+            .rede-link {
+                font-size: 1rem;
+                padding: 0.8rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .rede-item {
+                padding: 1.2rem;
+                min-height: 250px;
+            }
+
+            .rede-item i.fab {
+                font-size: 2.5rem;
+            }
+
+            .rede-item h3 {
+                font-size: 1.3rem;
+            }
+
+            .rede-item p {
+                font-size: 0.9rem;
+            }
+
+            .rede-link {
+                font-size: 0.9rem;
+                padding: 0.6rem 1.2rem;
+            }
         }
 
         .localizacao-grid {
@@ -722,8 +768,11 @@
             }
 
             .section-image {
-                width: 100%;
-                max-width: 300px;
+                width: 180px;
+                height: 180px;
+                max-width: 180px;
+                border-radius: 50%;
+                object-fit: cover;
                 margin: 0 auto;
             }
 
@@ -752,6 +801,20 @@
 
             .section-title {
                 font-size: 1.8rem;
+            }
+
+            #quem-somos .section-image {
+                height: 180px;
+                width: 180px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            #horarios .section-image {
+                height: 180px;
+                width: 180px;
+                border-radius: 50%;
+                object-fit: cover;
             }
         }
 
@@ -829,7 +892,7 @@
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3602.9775644758847!2d-49.26712392347461!3d-25.42897797768661!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce472f8f33f81%3A0x720c6b3f0f1f0c0c!2sTalita%20Cumi&#39;s!5e0!3m2!1spt-BR!2sbr!4v1709661234567!5m2!1spt-BR!2sbr" 
                                 style="border:0; width:100%; height:300px;" 
                                 allowfullscreen="" 
-                                loading="lazy"
+                                loading="eager"
                                 referrerpolicy="no-referrer-when-downgrade">
                             </iframe>
                         </div>
@@ -929,6 +992,16 @@
 
     <script src="translations.js"></script>
     <script>
+        // Força o carregamento do mapa imediatamente
+        document.addEventListener('DOMContentLoaded', function() {
+            const mapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3602.9775644758847!2d-49.26712392347461!3d-25.42897797768661!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce472f8f33f81%3A0x720c6b3f0f1f0c0c!2sTalita%20Cumi&#39;s!5e0!3m2!1spt-BR!2sbr!4v1709661234567!5m2!1spt-BR!2sbr";
+            const preloadLink = document.createElement('link');
+            preloadLink.rel = 'preload';
+            preloadLink.as = 'document';
+            preloadLink.href = mapUrl;
+            document.head.appendChild(preloadLink);
+        });
+
         function changeLanguage(lang) {
             // Atualiza os botões de idioma
             document.querySelectorAll('.language-btn').forEach(btn => {
