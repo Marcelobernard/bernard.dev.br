@@ -98,7 +98,6 @@
 
         section {
             padding: 4rem 2rem;
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -401,12 +400,18 @@
 
             section {
                 padding: 1.5rem 1rem;
-                min-height: auto;
+                justify-content: flex-start;
             }
 
             .section-title {
                 font-size: 1.8rem;
                 margin-bottom: 1rem;
+            }
+
+            .section-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                width: 100%;
             }
 
             .quem-somos-grid {
