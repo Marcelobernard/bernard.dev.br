@@ -762,59 +762,51 @@
         }
 
         @media (max-width: 768px) {
-            .section-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .section-image {
-                width: 180px;
-                height: 180px;
-                max-width: 180px;
-                border-radius: 50%;
-                object-fit: cover;
-                margin: 0 auto;
-            }
-
             #localizacao .section-content {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
+                gap: 1rem;
+                padding: 0;
             }
 
             #localizacao .localizacao-direita {
                 order: 2;
                 width: 100%;
                 max-width: 300px;
+                margin: 0;
             }
 
             #localizacao .localizacao-info {
                 order: 1;
                 width: 100%;
                 max-width: 300px;
+                margin: 0;
+            }
+
+            .mapa-container {
+                width: 100%;
+                height: 200px;
+                margin: 0;
+            }
+
+            .localizacao-direita iframe {
+                height: 200px;
+                margin: 0;
+            }
+
+            section {
+                padding: 2rem 1rem;
+                gap: 1rem;
+            }
+
+            .section-content {
+                gap: 1rem;
             }
 
             .section-image2 {
                 display: none;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            #quem-somos .section-image {
-                height: 180px;
-                width: 180px;
-                border-radius: 50%;
-                object-fit: cover;
-            }
-
-            #horarios .section-image {
-                height: 180px;
-                width: 180px;
-                border-radius: 50%;
-                object-fit: cover;
             }
         }
 
