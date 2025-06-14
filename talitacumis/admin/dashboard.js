@@ -48,9 +48,7 @@ class CardapioManager {
             return;
         }
 
-        try {
-            console.log('Dados sendo enviados:', item);
-            
+        try {            
             const response = await fetch(this.apiUrl, {
                 method: 'POST',
                 headers: {
@@ -59,8 +57,6 @@ class CardapioManager {
                 },
                 body: JSON.stringify(item)
             });
-
-            console.log('Status da resposta:', response.status);
             
             if (!response.ok) {
                 const errorText = await response.text();
@@ -69,12 +65,9 @@ class CardapioManager {
             }
 
             const data = await response.json();
-            console.log('Dados recebidos:', data);
-            
             item.id = data.id;
             this.itens.push(item);
             this.atualizarGrid();
-            alert('Item adicionado com sucesso!');
         } catch (error) {
             console.error('Erro detalhado:', error);
             if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
@@ -94,6 +87,12 @@ class CardapioManager {
             body: JSON.stringify(novosDados)
         });
         
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Resposta de erro:', errorText);
+            throw new Error(`Erro ao editar item: ${response.status} ${response.statusText}\n${errorText}`);
+        }
+        
         await this.carregarItens();
     }
 
@@ -101,8 +100,6 @@ class CardapioManager {
         try {
             // Garante que o ID seja tratado como parâmetro na URL
             const url = `${this.apiUrl}/${id}`;
-            console.log('URL da requisição de exclusão:', url);
-
             const response = await fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -118,7 +115,6 @@ class CardapioManager {
 
             this.itens = this.itens.filter(item => item.id !== id);
             this.atualizarGrid();
-            alert('Item excluído com sucesso!');
         } catch (error) {
             console.error('Erro ao excluir item:', error);
             alert('Erro ao excluir item do cardápio: ' + error.message);
@@ -174,7 +170,7 @@ class CardapioManager {
                     <button class="action-btn edit-btn" onclick="cardapioManager.abrirModalEditar('${item.id}')" title="Editar item">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button class="action-btn delete-btn" onclick="cardapioManager.excluirItem('${item.id}')" title="Excluir item">
+                    <button class="action-btn delete-btn" onclick="abrirConfirmModal('${item.id}')" title="Excluir item">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
@@ -259,14 +255,10 @@ document.getElementById('itemForm').addEventListener('submit', async function(e)
     }
 
     try {
-        if (idEdicaoAtual) {
-            console.log('Editando item com ID:', idEdicaoAtual);
-            // Se estiver editando, atualiza o item existente mantendo o ID original
+        if (idEdicaoAtual) {            // Se estiver editando, atualiza o item existente mantendo o ID original
             await cardapioManager.editarItem(idEdicaoAtual, dados);
             idEdicaoAtual = null; // Reseta o ID de edição
-        } else {
-            console.log('Adicionando novo item');
-            // Se não estiver editando, adiciona um novo item
+        } else {            // Se não estiver editando, adiciona um novo item
             await cardapioManager.adicionarItem(dados);
         }
         fecharModal();

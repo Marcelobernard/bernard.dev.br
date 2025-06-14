@@ -593,31 +593,38 @@
                 return acc;
             }, {});
 
+            // Define a ordem das categorias
+            const ordemCategorias = ['cafe', 'salgados', 'doces', 'bebidas', 'outros'];
+
             container.innerHTML = '';
-            Object.entries(itensPorCategoria).forEach(([categoria, itens]) => {
-                const section = document.createElement('div');
-                section.className = 'cardapio-section';
-                section.innerHTML = `
-                    <h3 class="categoria-titulo">
-                        <i class="fas ${getCategoriaIcon(categoria)}"></i>
-                        ${formatarCategoria(categoria)}
-                    </h3>
-                    <div class="cardapio-items">
-                        ${itens.map(item => `
-                            <div class="cardapio-item">
-                                <div class="item-info">
-                                    <h4>${item.nomeES}</h4>
-                                    <p>${item.nomePT}</p>
+            
+            // Itera sobre as categorias na ordem especificada
+            ordemCategorias.forEach(categoria => {
+                if (itensPorCategoria[categoria]) {
+                    const section = document.createElement('div');
+                    section.className = 'cardapio-section';
+                    section.innerHTML = `
+                        <h3 class="categoria-titulo">
+                            <i class="fas ${getCategoriaIcon(categoria)}"></i>
+                            ${formatarCategoria(categoria)}
+                        </h3>
+                        <div class="cardapio-items">
+                            ${itensPorCategoria[categoria].map(item => `
+                                <div class="cardapio-item">
+                                    <div class="item-info">
+                                        <h4>${item.nomeES}</h4>
+                                        <p>${item.nomePT}</p>
+                                    </div>
+                                    <div class="precos">
+                                        <div class="preco">${parseInt(item.precoGuarani).toLocaleString()} ₲</div>
+                                        <div class="preco-secundario">R$ ${parseFloat(item.precoRS).toFixed(2)}</div>
+                                    </div>
                                 </div>
-                                <div class="precos">
-                                    <div class="preco">${parseInt(item.precoGuarani).toLocaleString()} ₲</div>
-                                    <div class="preco-secundario">R$ ${parseFloat(item.precoRS).toFixed(2)}</div>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-                container.appendChild(section);
+                            `).join('')}
+                        </div>
+                    `;
+                    container.appendChild(section);
+                }
             });
         }
 
