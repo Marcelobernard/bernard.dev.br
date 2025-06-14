@@ -582,7 +582,7 @@
         <h2 class="section-title" data-i18n="menu-title">Cardápio</h2>
         <div class="section-content">
             <nav class="cardapio-nav">
-                <a href="#cafes" class="cardapio-nav-item">
+                <a href="#cafe" class="cardapio-nav-item">
                     <i class="fas fa-coffee"></i>
                     <span data-i18n="menu-coffee">Cafés</span>
                 </a>
@@ -620,29 +620,11 @@
 
     <script src="menu-translations.js"></script>
     <script>
-        /*
-            Sistema de Gerenciamento do Cardápio
-            ----------------------------------
-            Este script gerencia a exibição dinâmica do cardápio, incluindo:
-            - Carregamento de dados da API
-            - Suporte a múltiplos idiomas
-            - Ordenação de categorias
-            - Formatação de preços
-        */
-
-        // Variáveis globais para controle do estado da aplicação
+        // Variáveis globais
         let idiomaAtual = 'PT';
         let dadosCardapio = [];
 
-        /**
-         * Altera o idioma da interface
-         * @param {string} lang - Código do idioma ('pt-BR' ou 'es')
-         * 
-         * Esta função:
-         * 1. Atualiza os botões de idioma visualmente
-         * 2. Traduz todos os textos da interface
-         * 3. Salva a preferência do usuário
-         */
+        // Função para mudar o idioma
         function changeLanguage(lang) {
             // Atualiza os botões de idioma
             document.querySelectorAll('.language-btn').forEach(btn => {
@@ -662,14 +644,13 @@
             localStorage.setItem('preferred-language', lang);
         }
 
-        /**
-         * Atualiza a exibição do cardápio
-         * 
-         * Esta função:
-         * 1. Agrupa os itens por categoria
-         * 2. Cria as seções do cardápio na ordem correta
-         * 3. Formata os preços e descrições
-         */
+        // Carrega o idioma preferido ao iniciar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLanguage = localStorage.getItem('preferred-language') || 'pt-BR';
+            changeLanguage(savedLanguage);
+        });
+
+        // Função para atualizar o cardápio com o idioma selecionado
         function atualizarCardapio() {
             if (dadosCardapio.length === 0) return;
 
@@ -692,6 +673,7 @@
                 if (itensPorCategoria[categoria]) {
                     const section = document.createElement('div');
                     section.className = 'cardapio-section';
+                    section.id = categoria;
                     section.innerHTML = `
                         <h3 class="categoria-titulo">
                             <i class="fas ${getCategoriaIcon(categoria)}"></i>
@@ -717,15 +699,7 @@
             });
         }
 
-        /**
-         * Carrega os dados do cardápio da API
-         * 
-         * Esta função:
-         * 1. Faz a requisição à API
-         * 2. Processa os dados recebidos
-         * 3. Atualiza a interface
-         * 4. Trata possíveis erros
-         */
+        // Função para carregar os itens do cardápio
         async function carregarCardapio() {
             const container = document.getElementById('cardapioContainer');
             
@@ -780,11 +754,7 @@
             }
         }
 
-        /**
-         * Formata o nome da categoria para exibição
-         * @param {string} categoria - Código da categoria
-         * @returns {string} Nome formatado da categoria
-         */
+        // Função para formatar o nome da categoria
         function formatarCategoria(categoria) {
             const categorias = {
                 'cafe': 'Café',
@@ -796,11 +766,7 @@
             return categorias[categoria] || categoria.charAt(0).toUpperCase() + categoria.slice(1);
         }
 
-        /**
-         * Retorna o ícone correspondente à categoria
-         * @param {string} categoria - Código da categoria
-         * @returns {string} Classe do ícone Font Awesome
-         */
+        // Função para retornar o ícone da categoria
         function getCategoriaIcon(categoria) {
             const icones = {
                 'cafe': 'fa-coffee',
@@ -812,15 +778,8 @@
             return icones[categoria] || 'fa-utensils';
         }
 
-        // Inicialização da página
-        document.addEventListener('DOMContentLoaded', () => {
-            // Carrega o idioma salvo ou usa o padrão
-            const savedLanguage = localStorage.getItem('preferred-language') || 'pt-BR';
-            changeLanguage(savedLanguage);
-            
-            // Carrega os dados do cardápio
-            carregarCardapio();
-        });
+        // Carrega o cardápio quando a página carregar
+        document.addEventListener('DOMContentLoaded', carregarCardapio);
     </script>
 </body>
 </html>
