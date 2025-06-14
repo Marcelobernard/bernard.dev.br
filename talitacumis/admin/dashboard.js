@@ -11,6 +11,8 @@ class ItemCardapio {
     }
 }
 
+let idEdicaoAtual = null; // controle global de edição
+
 // Gerenciador do cardápio
 class CardapioManager {
     constructor() {
@@ -21,7 +23,6 @@ class CardapioManager {
 
     async carregarItens() {
         try {
-            console.log('Iniciando carregamento dos itens...');
             const response = await fetch(this.apiUrl, {
                 method: 'GET',
                 headers: {
@@ -29,16 +30,10 @@ class CardapioManager {
                     'Accept': 'application/json'
                 }
             });
-            
-            console.log('Resposta da API:', response);
-            
-            if (!response.ok) {
-                throw new Error(`Erro ao carregar itens: ${response.status} ${response.statusText}`);
-            }
-            
+
+            if (!response.ok) throw new Error(`Erro ao carregar itens: ${response.status} ${response.statusText}`);
+
             const data = await response.json();
-            console.log('Dados recebidos:', data);
-            
             this.itens = Array.isArray(data) ? data : [];
             this.atualizarGrid();
         } catch (error) {
@@ -49,7 +44,6 @@ class CardapioManager {
 
     async adicionarItem(item) {
         try {
-            console.log('Adicionando item:', item);
             const response = await fetch(this.apiUrl, {
                 method: 'POST',
                 headers: {
@@ -59,15 +53,9 @@ class CardapioManager {
                 body: JSON.stringify(item)
             });
 
-            console.log('Resposta da API:', response);
-            
-            if (!response.ok) {
-                throw new Error(`Erro ao adicionar item: ${response.status} ${response.statusText}`);
-            }
-            
+            if (!response.ok) throw new Error(`Erro ao adicionar item: ${response.status} ${response.statusText}`);
+
             const data = await response.json();
-            console.log('Dados recebidos:', data);
-            
             item.id = data.id;
             this.itens.push(item);
             this.atualizarGrid();
@@ -80,7 +68,6 @@ class CardapioManager {
 
     async editarItem(id, novosDados) {
         try {
-            console.log('Editando item:', id, novosDados);
             const response = await fetch(`${this.apiUrl}/${id}`, {
                 method: 'PUT',
                 headers: {
@@ -90,11 +77,7 @@ class CardapioManager {
                 body: JSON.stringify(novosDados)
             });
 
-            console.log('Resposta da API:', response);
-            
-            if (!response.ok) {
-                throw new Error(`Erro ao editar item: ${response.status} ${response.statusText}`);
-            }
+            if (!response.ok) throw new Error(`Erro ao editar item: ${response.status} ${response.statusText}`);
 
             const index = this.itens.findIndex(item => item.id === id);
             if (index !== -1) {
@@ -112,7 +95,6 @@ class CardapioManager {
         if (!confirm('Tem certeza que deseja excluir este item?')) return;
 
         try {
-            console.log('Excluindo item:', id);
             const response = await fetch(`${this.apiUrl}/${id}`, {
                 method: 'DELETE',
                 headers: {
@@ -120,11 +102,7 @@ class CardapioManager {
                 }
             });
 
-            console.log('Resposta da API:', response);
-            
-            if (!response.ok) {
-                throw new Error(`Erro ao excluir item: ${response.status} ${response.statusText}`);
-            }
+            if (!response.ok) throw new Error(`Erro ao excluir item: ${response.status} ${response.statusText}`);
 
             this.itens = this.itens.filter(item => item.id !== id);
             this.atualizarGrid();
@@ -138,9 +116,8 @@ class CardapioManager {
     exportarCardapio() {
         const dataStr = JSON.stringify(this.itens, null, 2);
         const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-        
+
         const exportFileDefaultName = 'cardapio.json';
-        
         const linkElement = document.createElement('a');
         linkElement.setAttribute('href', dataUri);
         linkElement.setAttribute('download', exportFileDefaultName);
@@ -187,7 +164,6 @@ class CardapioManager {
     }
 
     atualizarGrid() {
-        console.log('Atualizando grid com itens:', this.itens);
         const gridContainer = document.querySelector('.grid-container');
         const addItemButton = gridContainer.querySelector('.add-item');
         gridContainer.innerHTML = '';
@@ -200,12 +176,9 @@ class CardapioManager {
 
     abrirModalEditar(id) {
         const item = this.itens.find(item => item.id === id);
-        if (!item) {
-            console.error('Item não encontrado:', id);
-            return;
-        }
+        if (!item) return;
 
-        console.log('Abrindo modal para editar item:', item);
+        idEdicaoAtual = id; // flag para saber que está editando
         const modal = document.getElementById('itemModal');
         const form = document.getElementById('itemForm');
         const modalTitle = modal.querySelector('.modal-title');
@@ -218,22 +191,6 @@ class CardapioManager {
         form.foto.value = item.foto;
         form.categoria.value = item.categoria;
 
-        form.onsubmit = async (e) => {
-            e.preventDefault();
-            const formData = new FormData(form);
-            const novosDados = {
-                nomePT: formData.get('nomePT'),
-                nomeES: formData.get('nomeES'),
-                precoRS: parseFloat(formData.get('precoRS')),
-                precoGuarani: parseInt(formData.get('precoGuarani')),
-                foto: formData.get('foto'),
-                categoria: formData.get('categoria')
-            };
-
-            await this.editarItem(id, novosDados);
-            fecharModal();
-        };
-
         modal.style.display = 'flex';
     }
 }
@@ -241,26 +198,39 @@ class CardapioManager {
 // Inicialização
 const cardapioManager = new CardapioManager();
 
-// Manipulação do formulário
+// Formulário
 document.getElementById('itemForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    
-    const formData = new FormData(e.target);
-    const item = new ItemCardapio(
-        null,
-        formData.get('nomePT'),
-        formData.get('nomeES'),
-        parseFloat(formData.get('precoRS')),
-        parseInt(formData.get('precoGuarani')),
-        formData.get('foto'),
-        formData.get('categoria')
-    );
 
-    await cardapioManager.adicionarItem(item);
+    const formData = new FormData(e.target);
+    const dados = {
+        nomePT: formData.get('nomePT'),
+        nomeES: formData.get('nomeES'),
+        precoRS: parseFloat(formData.get('precoRS')),
+        precoGuarani: parseInt(formData.get('precoGuarani')),
+        foto: formData.get('foto'),
+        categoria: formData.get('categoria')
+    };
+
+    if (idEdicaoAtual) {
+        await cardapioManager.editarItem(idEdicaoAtual, dados);
+    } else {
+        const novoItem = new ItemCardapio(
+            null,
+            dados.nomePT,
+            dados.nomeES,
+            dados.precoRS,
+            dados.precoGuarani,
+            dados.foto,
+            dados.categoria
+        );
+        await cardapioManager.adicionarItem(novoItem);
+    }
+
     fecharModal();
 });
 
-// Funções de exportação e importação
+// Funções extra
 function exportarCardapio() {
     cardapioManager.exportarCardapio();
 }
@@ -278,8 +248,8 @@ function importarCardapio() {
     input.click();
 }
 
-// Funções do modal
 function abrirModalAdicionar() {
+    idEdicaoAtual = null; // modo criação
     const modal = document.getElementById('itemModal');
     const form = document.getElementById('itemForm');
     const modalTitle = modal.querySelector('.modal-title');
@@ -294,10 +264,10 @@ function fecharModal() {
     modal.style.display = 'none';
 }
 
-// Fechar modal ao clicar fora dele
+// Fecha modal ao clicar fora
 window.onclick = function(event) {
     const modal = document.getElementById('itemModal');
     if (event.target === modal) {
         fecharModal();
     }
-} 
+}

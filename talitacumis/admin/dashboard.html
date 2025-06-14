@@ -236,6 +236,7 @@
         <div class="dashboard-actions">
             <button class="btn btn-primary" onclick="exportarCardapio()">Exportar Cardápio</button>
             <button class="btn btn-secondary" onclick="importarCardapio()">Importar Cardápio</button>
+            <button class="btn btn-secondary" onclick="logout()">Sair</button>
         </div>
     </header>
 
@@ -298,6 +299,24 @@
     </div>
 
     <script>
+        // Verificação de autenticação
+        function verificarAutenticacao() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+        }
+
+        // Função de logout
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = 'login.html';
+        }
+
+        // Verifica autenticação ao carregar a página
+        verificarAutenticacao();
+
         // Funções para manipulação do modal
         function abrirModalAdicionar() {
             document.getElementById('itemModal').style.display = 'flex';

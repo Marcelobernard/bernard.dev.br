@@ -195,16 +195,18 @@
 
         .categoria-titulo {
             color: var(--cor-primaria);
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 1rem;
             font-family: 'Dancing Script', cursive;
+            border-bottom: 2px solid var(--cor-secundaria);
+            padding-bottom: 0.5rem;
         }
 
         .categoria-titulo i {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: var(--cor-secundaria);
         }
 
@@ -237,32 +239,53 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.8rem 1.2rem;
+            padding: 1.2rem;
             background: rgba(186, 94, 32, 0.05);
-            border-radius: 8px;
+            border-radius: 12px;
             transition: all 0.3s ease;
             width: 100%;
+            margin-bottom: 1rem;
         }
 
-        .cardapio-item h4 {
-            color: var(--cor-primaria);
-            font-size: 1.1rem;
-            font-weight: 500;
-            text-align: left;
+        .item-info {
             flex: 1;
-            margin-right: 1rem;
-            min-width: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
         }
 
-        .cardapio-item p {
-            color: var(--cor-secundaria);
+        .item-info h4 {
+            color: var(--cor-primaria);
+            font-size: 1.2rem;
             font-weight: 600;
-            white-space: nowrap;
-            min-width: 80px;
+            margin-bottom: 0.3rem;
+        }
+
+        .item-info p {
+            color: var(--cor-secundaria);
+            font-size: 1rem;
+            font-style: italic;
+        }
+
+        .precos {
             text-align: right;
+            margin-left: 1rem;
+        }
+
+        .preco {
+            color: var(--cor-primaria);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .preco-guarani {
+            color: var(--cor-secundaria);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .preco-secundario {
+            color: var(--cor-secundaria);
+            font-size: 0.9rem;
+            font-weight: 500;
         }
 
         .cardapio-item:hover {
@@ -436,38 +459,29 @@
 
         .language-selector {
             display: flex;
-            gap: 0.5rem;
-            margin-left: 1rem;
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
 
         .language-btn {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid var(--cor-primaria);
+            border-radius: 25px;
             background: none;
-            border: 1px solid var(--cor-primaria);
             color: var(--cor-primaria);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
+            font-weight: 500;
             cursor: pointer;
-            font-size: 0.9rem;
             transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .language-btn:hover {
-            background-color: var(--cor-primaria);
-            color: white;
         }
 
         .language-btn.active {
-            background-color: var(--cor-primaria);
+            background: var(--cor-primaria);
             color: white;
         }
 
-        @media (max-width: 768px) {
-            .language-selector {
-                margin: 0.5rem 0 0 0;
-                width: 100%;
-                justify-content: center;
-            }
+        .language-btn:hover {
+            background: var(--cor-primaria);
+            color: white;
         }
     </style>
 </head>
@@ -478,8 +492,8 @@
             <a href="index.html" class="nav-button" data-i18n="nav-home">Página Principal</a>
             <a href="cardapio.html" class="nav-button" data-i18n="nav-menu">Cardápio</a>
             <div class="language-selector">
-                <button onclick="changeLanguage('pt-BR')" class="language-btn active">PT</button>
-                <button onclick="changeLanguage('es')" class="language-btn">ES</button>
+                <button onclick="mudarIdioma('pt-BR')" class="language-btn active">PT</button>
+                <button onclick="mudarIdioma('es')" class="language-btn">ES</button>
             </div>
         </div>
     </header>
@@ -510,111 +524,8 @@
                 </a>
             </nav>
 
-            <div class="cardapio-sections">
-                <section id="cafes" class="cardapio-section">
-                    <h3 class="categoria-titulo">
-                        <i class="fas fa-coffee"></i>
-                        Cafés
-                    </h3>
-                    <div class="cardapio-items">
-                        <div class="cardapio-item">
-                            <h4>Expresso</h4>
-                            <p>R$ 5,00</p>
-                        </div>
-                        <div class="cardapio-item">
-                            <h4>Cappuccino</h4>
-                            <p>R$ 8,00</p>
-                        </div>
-                        <div class="cardapio-item">
-                            <h4>Latte</h4>
-                            <p>R$ 9,00</p>
-                        </div>
-                        <div class="cardapio-item">
-                            <h4>Mocha</h4>
-                            <p>R$ 10,00</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="salgados" class="cardapio-section">
-                    <h3 class="categoria-titulo">
-                        <i class="fas fa-bread-slice"></i>
-                        Salgados
-                    </h3>
-                    <div class="cardapio-items">
-                        <div class="cardapio-item">
-                            <h4>Croissant</h4>
-                            <p>R$ 7,00</p>
-                        </div>
-                        <div class="cardapio-item">
-                            <h4>Sanduíche Natural</h4>
-                            <p>R$ 12,00</p>
-                        </div>
-                        <div class="cardapio-item">
-                            <h4>Quiche</h4>
-                            <p>R$ 9,00</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="doces" class="cardapio-section">
-                    <h3 class="categoria-titulo">
-                        <i class="fas fa-cookie"></i>
-                        Doces
-                    </h3>
-                    <div class="cardapio-items">
-                        <div class="cardapio-item">
-                            <h4>Bolo de Chocolate</h4>
-                            <p>R$ 8,00</p>
-                        </div>
-                        <div class="cardapio-item">
-                            <h4>Cheesecake</h4>
-                            <p>R$ 10,00</p>
-                        </div>
-                        <div class="cardapio-item">
-                            <h4>Tiramisu</h4>
-                            <p>R$ 12,00</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="bebidas" class="cardapio-section">
-                    <h3 class="categoria-titulo">
-                        <i class="fas fa-glass-martini-alt"></i>
-                        Bebidas
-                    </h3>
-                    <div class="cardapio-items">
-                        <div class="cardapio-item">
-                            <h4>Suco Natural</h4>
-                            <p>R$ 7,00</p>
-                        </div>
-                        <div class="cardapio-item">
-                            <h4>Água Mineral</h4>
-                            <p>R$ 3,00</p>
-                        </div>
-                        <div class="cardapio-item">
-                            <h4>Refrigerante</h4>
-                            <p>R$ 5,00</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="outros" class="cardapio-section">
-                    <h3 class="categoria-titulo">
-                        <i class="fas fa-utensils"></i>
-                        Outros
-                    </h3>
-                    <div class="cardapio-items">
-                        <div class="cardapio-item">
-                            <h4>Salada</h4>
-                            <p>R$ 15,00</p>
-                        </div>
-                        <div class="cardapio-item">
-                            <h4>Sopa do Dia</h4>
-                            <p>R$ 12,00</p>
-                        </div>
-                    </div>
-                </section>
+            <div id="cardapioContainer" class="cardapio-sections">
+                <!-- Os itens do cardápio serão carregados aqui -->
             </div>
         </div>
     </section>
@@ -629,30 +540,146 @@
 
     <script src="menu-translations.js"></script>
     <script>
-        function changeLanguage(lang) {
-            // Atualiza os botões de idioma
+        // Variáveis globais
+        let idiomaAtual = 'PT';
+        let dadosCardapio = [];
+
+        // Função para mudar o idioma
+        function mudarIdioma(idioma) {
+            idiomaAtual = idioma;
+            // Atualiza os botões
             document.querySelectorAll('.language-btn').forEach(btn => {
                 btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-
-            // Atualiza os textos
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                if (menuTranslations[lang][key]) {
-                    element.textContent = menuTranslations[lang][key];
+                if (btn.textContent.toLowerCase().includes(idioma.toLowerCase())) {
+                    btn.classList.add('active');
                 }
             });
-
-            // Salva a preferência de idioma
-            localStorage.setItem('preferred-language', lang);
+            // Atualiza o cardápio
+            atualizarCardapio();
         }
 
-        // Carrega o idioma preferido ao iniciar a página
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedLanguage = localStorage.getItem('preferred-language') || 'pt-BR';
-            changeLanguage(savedLanguage);
-        });
+        // Função para atualizar o cardápio com o idioma selecionado
+        function atualizarCardapio() {
+            if (dadosCardapio.length === 0) return;
+
+            const container = document.getElementById('cardapioContainer');
+            const itensPorCategoria = dadosCardapio.reduce((acc, item) => {
+                if (!acc[item.categoria]) {
+                    acc[item.categoria] = [];
+                }
+                acc[item.categoria].push(item);
+                return acc;
+            }, {});
+
+            container.innerHTML = '';
+            Object.entries(itensPorCategoria).forEach(([categoria, itens]) => {
+                const section = document.createElement('div');
+                section.className = 'cardapio-section';
+                section.innerHTML = `
+                    <h3 class="categoria-titulo">
+                        <i class="fas ${getCategoriaIcon(categoria)}"></i>
+                        ${formatarCategoria(categoria)}
+                    </h3>
+                    <div class="cardapio-items">
+                        ${itens.map(item => `
+                            <div class="cardapio-item">
+                                <div class="item-info">
+                                    <h4>${item.nomeES}</h4>
+                                    <p>${item.nomePT}</p>
+                                </div>
+                                <div class="precos">
+                                    <div class="preco">${parseInt(item.precoGuarani).toLocaleString()} ₲</div>
+                                    <div class="preco-secundario">R$ ${parseFloat(item.precoRS).toFixed(2)}</div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(section);
+            });
+        }
+
+        // Função para carregar os itens do cardápio
+        async function carregarCardapio() {
+            const container = document.getElementById('cardapioContainer');
+            
+            try {
+                console.log('Iniciando carregamento do cardápio...');
+                const response = await fetch('https://xgjheq2p0a.execute-api.sa-east-1.amazonaws.com/items', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                console.log('Status da resposta:', response.status);
+
+                let data;
+                try {
+                    data = await response.json();
+                    console.log('Dados recebidos:', data);
+                } catch (jsonError) {
+                    console.error('Erro ao processar JSON:', jsonError);
+                    throw new Error('Erro ao processar resposta da API: ' + jsonError.message);
+                }
+
+                if (!response.ok) {
+                    throw new Error(`Erro na API: ${response.status} - ${data.message || 'Erro desconhecido'}`);
+                }
+
+                dadosCardapio = Array.isArray(data) ? data : [];
+                console.log('Número de itens encontrados:', dadosCardapio.length);
+                
+                if (dadosCardapio.length === 0) {
+                    container.innerHTML = `
+                        <div class="error-message">
+                            Nenhum item encontrado no cardápio.
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Atualiza o cardápio com o idioma atual
+                atualizarCardapio();
+            } catch (error) {
+                console.error('Erro detalhado:', error);
+                container.innerHTML = `
+                    <div class="error-message">
+                        Erro ao carregar o cardápio
+                        <div class="error-details">
+                            <strong>Mensagem de erro:</strong> ${error.message}
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Função para formatar o nome da categoria
+        function formatarCategoria(categoria) {
+            const categorias = {
+                'cafe': 'Café',
+                'salgados': 'Salgados',
+                'doces': 'Doces',
+                'bebidas': 'Bebidas',
+                'outros': 'Outros'
+            };
+            return categorias[categoria] || categoria.charAt(0).toUpperCase() + categoria.slice(1);
+        }
+
+        // Função para retornar o ícone da categoria
+        function getCategoriaIcon(categoria) {
+            const icones = {
+                'cafe': 'fa-coffee',
+                'salgados': 'fa-pizza-slice',
+                'doces': 'fa-cookie',
+                'bebidas': 'fa-glass-martini-alt',
+                'outros': 'fa-utensils'
+            };
+            return icones[categoria] || 'fa-utensils';
+        }
+
+        // Carrega o cardápio quando a página carregar
+        document.addEventListener('DOMContentLoaded', carregarCardapio);
     </script>
 </body>
 </html>
