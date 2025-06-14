@@ -1,3 +1,29 @@
+/**
+ * Sistema de Traduções da Página Inicial
+ * ------------------------------------
+ * Este arquivo contém todas as traduções utilizadas na página inicial
+ * do site do restaurante Talita Cumi's.
+ * 
+ * Estrutura:
+ * - Cada idioma é uma chave principal ('pt-BR' ou 'es')
+ * - Cada texto tem uma chave única que o identifica
+ * - As chaves são organizadas por seção da página
+ * 
+ * Seções:
+ * - Navegação (nav-*)
+ * - Quem Somos (about-*)
+ * - Localização (location-*)
+ * - Horários (hours-*)
+ * - Redes Sociais (social-*, instagram-*, whatsapp-*)
+ * - Rodapé (footer-*)
+ * 
+ * Uso:
+ * Para adicionar uma nova tradução:
+ * 1. Adicione a chave em ambos os idiomas
+ * 2. Use a chave no HTML com o atributo data-i18n
+ * 3. A tradução será aplicada automaticamente ao mudar o idioma
+ */
+
 const translations = {
     'pt-BR': {
         'nav-home': 'Página Principal',

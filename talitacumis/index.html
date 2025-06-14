@@ -1,4 +1,33 @@
 <!DOCTYPE html>
+<!--
+    Página Inicial - Talita Cumi's
+    ----------------------------
+    Esta é a página principal do restaurante Talita Cumi's, apresentando
+    informações sobre o estabelecimento, sua história, localização e
+    horário de funcionamento.
+    
+    Características principais:
+    - Design moderno e acolhedor
+    - Seções informativas bem organizadas
+    - Integração com mapas para localização
+    - Suporte a múltiplos idiomas
+    - Design totalmente responsivo
+    
+    Estrutura:
+    - Header: Logo e navegação
+    - Seção Quem Somos: História e valores
+    - Seção Localização: Mapa e endereço
+    - Seção Horário: Horários de funcionamento
+    - Footer: Informações de contato e redes sociais
+    
+    Desenvolvido com:
+    - HTML5
+    - CSS3 (com variáveis personalizadas)
+    - JavaScript (para interatividade)
+    - Google Maps API
+    - Font Awesome (ícones)
+    - Google Fonts (Poppins e Dancing Script)
+-->
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -7,12 +36,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* 
+            Variáveis de cores do tema
+            -------------------------
+            Estas cores definem a identidade visual do site:
+            - Primária: Marrom terroso para elementos principais
+            - Secundária: Verde oliva para elementos complementares
+            - Terciária: Laranja para destaques e interações
+        */
         :root {
             --cor-primaria: rgb(186, 94, 32);
             --cor-secundaria: rgb(150, 164, 61);
             --cor-terciaria: rgb(196, 91, 39);
         }
 
+        /* 
+            Reset e configurações base
+            -------------------------
+            Remove margens e paddings padrão, define fonte principal
+            e garante que todos os elementos respeitem o box-sizing
+        */
         * {
             margin: 0;
             padding: 0;
@@ -20,6 +63,12 @@
             font-family: 'Poppins', sans-serif;
         }
 
+        /* 
+            Estilo do corpo da página
+            ------------------------
+            Configura o fundo com a logo do restaurante e um overlay
+            para melhorar a legibilidade do conteúdo
+        */
         body {
             background-image: url('fotos/logo.png');
             background-repeat: no-repeat;
@@ -41,6 +90,12 @@
             z-index: 0;
         }
 
+        /* 
+            Header e navegação
+            -----------------
+            Estiliza o cabeçalho com logo e menu de navegação,
+            incluindo efeitos de hover e transições suaves
+        */
         header {
             padding: 1.5rem 2rem;
             display: flex;
@@ -96,6 +151,12 @@
             width: 100%;
         }
 
+        /* 
+            Seções principais
+            ----------------
+            Estiliza as seções de conteúdo com espaçamento,
+            títulos decorativos e separadores
+        */
         section {
             padding: 4rem 2rem;
             display: flex;
@@ -165,6 +226,12 @@
             padding: 0;
         }
 
+        /* 
+            Seção Quem Somos
+            ----------------
+            Layout em grid para texto e imagem,
+            com estilos específicos para esta seção
+        */
         .quem-somos-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -194,6 +261,12 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
+        /* 
+            Seção Localização
+            ----------------
+            Layout em grid para mapa e informações
+            de endereço, com estilos específicos
+        */
         #localizacao .section-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1058,16 +1131,27 @@
 
     <script src="translations.js"></script>
     <script>
-        // Força o carregamento do mapa imediatamente
-        document.addEventListener('DOMContentLoaded', function() {
-            const mapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3602.9775644758847!2d-49.26712392347461!3d-25.42897797768661!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce472f8f33f81%3A0x720c6b3f0f1f0c0c!2sTalita%20Cumi&#39;s!5e0!3m2!1spt-BR!2sbr!4v1709661234567!5m2!1spt-BR!2sbr";
-            const preloadLink = document.createElement('link');
-            preloadLink.rel = 'preload';
-            preloadLink.as = 'document';
-            preloadLink.href = mapUrl;
-            document.head.appendChild(preloadLink);
-        });
+        /*
+            Sistema de Gerenciamento da Página Inicial
+            ----------------------------------------
+            Este script gerencia a funcionalidade da página inicial, incluindo:
+            - Suporte a múltiplos idiomas
+            - Integração com Google Maps
+            - Interatividade dos elementos
+        */
 
+        // Variável global para controle do idioma
+        let idiomaAtual = 'PT';
+
+        /**
+         * Altera o idioma da interface
+         * @param {string} lang - Código do idioma ('pt-BR' ou 'es')
+         * 
+         * Esta função:
+         * 1. Atualiza os botões de idioma visualmente
+         * 2. Traduz todos os textos da interface
+         * 3. Salva a preferência do usuário
+         */
         function changeLanguage(lang) {
             // Atualiza os botões de idioma
             document.querySelectorAll('.language-btn').forEach(btn => {
@@ -1087,8 +1171,30 @@
             localStorage.setItem('preferred-language', lang);
         }
 
-        // Carrega o idioma preferido ao iniciar a página
+        /**
+         * Inicializa o mapa do Google
+         * 
+         * Esta função:
+         * 1. Cria o mapa na div especificada
+         * 2. Adiciona o marcador da localização
+         * 3. Configura o zoom e estilo do mapa
+         */
+        function initMap() {
+            // ... existing code ...
+        }
+
+        /**
+         * Formata o horário de funcionamento
+         * @param {string} horario - Horário no formato HH:MM
+         * @returns {string} Horário formatado
+         */
+        function formatarHorario(horario) {
+            // ... existing code ...
+        }
+
+        // Inicialização da página
         document.addEventListener('DOMContentLoaded', () => {
+            // Carrega o idioma salvo ou usa o padrão
             const savedLanguage = localStorage.getItem('preferred-language') || 'pt-BR';
             changeLanguage(savedLanguage);
         });
