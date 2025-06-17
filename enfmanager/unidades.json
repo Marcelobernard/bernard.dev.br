@@ -1,0 +1,64 @@
+{
+    "unidades": [
+        {
+            "id": "BOTAFOGO06062025N130592",
+            "bairro": "BOTAFOGO",
+            "turno": "N",
+            "dia": "06062025"
+        },
+        {
+            "id": "COPACABANA06062025M245781",
+            "bairro": "COPACABANA",
+            "turno": "M",
+            "dia": "06062025"
+        },
+        {
+            "id": "LEBLON06062025T367891",
+            "bairro": "LEBLON",
+            "turno": "T",
+            "dia": "06062025"
+        },
+        {
+            "id": "IPANEMA07062025N456789",
+            "bairro": "IPANEMA",
+            "turno": "N",
+            "dia": "07062025"
+        },
+        {
+            "id": "LARANJEIRAS07062025M567890",
+            "bairro": "LARANJEIRAS",
+            "turno": "M",
+            "dia": "07062025"
+        },
+        {
+            "id": "FLAMENGO07062025T678901",
+            "bairro": "FLAMENGO",
+            "turno": "T",
+            "dia": "07062025"
+        },
+        {
+            "id": "BOTAFOGO08062025N789012",
+            "bairro": "BOTAFOGO",
+            "turno": "N",
+            "dia": "08062025"
+        },
+        {
+            "id": "COPACABANA08062025M890123",
+            "bairro": "COPACABANA",
+            "turno": "M",
+            "dia": "08062025"
+        },
+        {
+            "id": "LEBLON08062025T901234",
+            "bairro": "LEBLON",
+            "turno": "T",
+            "dia": "08062025"
+        },
+        {
+            "id": "IPANEMA08062025N012345",
+            "bairro": "IPANEMA",
+            "turno": "N",
+            "dia": "08062025"
+        }
+    ]
+} 
