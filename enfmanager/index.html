@@ -412,9 +412,21 @@
             header {
                 padding: 0.8rem 1rem;
                 margin: 0 auto;
-                width: 95%;
+                width: 100%;
                 border-radius: 0;
                 box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
+            }
+
+            .logo {
+                gap: 0.5rem;
+            }
+
+            .logo img {
+                height: 35px;
+            }
+
+            .logo .coren-text {
+                font-size: 1.2rem;
             }
 
             .menu-toggle {
@@ -451,22 +463,34 @@
                 justify-content: flex-start;
             }
 
-            .dashboard {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
+            main {
                 padding: 1rem;
+                width: 100%;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 0.5rem;
+                width: 100%;
+                max-width: 100%;
             }
 
             .card {
-                padding: 1rem;
+                padding: 1.2rem;
+                aspect-ratio: auto;
+                min-height: 150px;
             }
 
             .card h2 {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
+                margin-bottom: 0.5rem;
             }
 
             .card p {
                 font-size: 0.9rem;
+                line-height: 1.4;
+                margin-bottom: 0.5rem;
             }
 
             .dropdown-menu {
@@ -486,6 +510,35 @@
 
             .dropdown-menu a {
                 padding: 1rem 2rem;
+            }
+
+            footer {
+                width: 100%;
+                padding: 1rem 0.5rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                height: 30px;
+            }
+
+            .logo .coren-text {
+                font-size: 1.1rem;
+            }
+
+            .card {
+                min-height: 130px;
+                padding: 1rem;
+            }
+
+            .card h2 {
+                font-size: 1.1rem;
+            }
+
+            .card p {
+                font-size: 0.85rem;
             }
         }
     </style>
