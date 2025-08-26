@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Análise Lotofácil</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', 'Segoe UI', 'Roboto', Arial, sans-serif;
+      background: linear-gradient(120deg, #f3e5f5 0%, #e1f5fe 100%);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 700px;
+      margin: 32px auto;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(80,40,120,0.10);
+      padding: 24px 18px 32px 18px;
+    }
+    h1 {
+      text-align: center;
+      color: #6a1b9a;
+      font-size: 1.5em;
+      margin-bottom: 24px;
+    }
+    .analise-bloco {
+      margin: 24px 0 18px 0;
+      padding: 18px 16px;
+      background: #f7f7fa;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(124,77,255,0.04);
+    }
+    .analise-bloco h2 {
+      color: #4a148c;
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+    .analise-bloco ul {
+      margin: 0 0 0 18px;
+      padding: 0;
+    }
+    .analise-bloco li {
+      margin-bottom: 6px;
+      font-size: 1em;
+    }
+    #btnCarregar, #btnCSV {
+      display: inline-block;
+      margin: 0 8px 18px 0;
+      padding: 10px 28px;
+      font-size: 1em;
+      background: linear-gradient(90deg,#43cea2 0%,#7c4dff 100%);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 12px rgba(124,77,255,0.07);
+      transition: background 0.18s,transform 0.18s,box-shadow 0.18s;
+      outline: none;
+    }
+    #inputCSV { margin-bottom: 18px; }
+    @media (max-width: 700px) {
+      .container { padding: 6px 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Análise de Resultados Lotofácil</h1>
+    <input type="file" id="inputCSV" accept=".csv">
+    <button id="btnCarregar">Analisar CSV</button>
+    <button id="btnCSV">Usar últimos resultados online</button>
+    <div id="analises"></div>
+  </div>
+  <script src="analise.js"></script>
+  <script>
+    function exibirAnalises(res) {
+      const div = document.getElementById('analises');
+      div.innerHTML = '';
+      // Anomalias
+      div.innerHTML += `<div class='analise-bloco'><h2>Anomalias de Soma</h2><ul><li>Concursos com soma fora do intervalo 150-230: <b>${res.anomalias.count}</b></li></ul></div>`;
+      // Pares x Primos
+      div.innerHTML += `<div class='analise-bloco'><h2>Média de Primos por % de Pares</h2><ul>
+        <li>Baixo (&lt;40% pares): <b>${res.paresPrimos.baixo}</b></li>
+        <li>Médio (40-50% pares): <b>${res.paresPrimos.medio}</b></li>
+        <li>Alto (&gt;50% pares): <b>${res.paresPrimos.alto}</b></li>
+      </ul></div>`;
+      // Primos x Soma
+      div.innerHTML += `<div class='analise-bloco'><h2>Média da Soma por Quantidade de Primos</h2><ul>` +
+        Object.entries(res.primosSomas).map(([qtd, media]) => `<li>${qtd} primos: <b>${media}</b></li>`).join('') +
+        `</ul></div>`;
+      // Pares x Menos Frequentes
+      div.innerHTML += `<div class='analise-bloco'><h2>Média de % Pares em concursos com números menos frequentes</h2><ul><li><b>${res.paresMenosFreq}</b>%</li></ul></div>`;
+    }
+    document.getElementById('btnCarregar').onclick = async function() {
+      const file = document.getElementById('inputCSV').files[0];
+      if (!file) { alert('Selecione um arquivo CSV.'); return; }
+      const text = await file.text();
+      const res = await analisarCSV(text, [20,5,18,10]);
+      exibirAnalises(res);
+    };
+    document.getElementById('btnCSV').onclick = async function() {
+      // Busca os dados do endpoint igual tabela.html
+      const url = 'https://loteriascaixa-api.herokuapp.com/api/lotofacil';
+      const res = await fetch(url);
+      const dados = await res.json();
+      // Monta CSV igual tabela.html
+      const headers = ['Concurso','Soma','Números Primos','Qtd. Primos','% Pares','Faixa 1-5','Faixa 6-10','Faixa 11-15','Faixa 16-20','Faixa 21-25','Sequências','Saltos Médios'];
+      let csv = headers.join(';') + '\n';
+      dados.forEach(jogo => {
+        const dezenas = jogo.dezenas.map(Number);
+        const primos = [2,3,5,7,11,13,17,19,23];
+        const primosArr = dezenas.filter(n => primos.includes(n));
+        const qtdPrimos = primosArr.length;
+        const percPares = ((dezenas.filter(n=>n%2===0).length/15)*100).toFixed(0)+"%";
+        const faixas = [
+          dezenas.filter(n=>n>=1&&n<=5).length,
+          dezenas.filter(n=>n>=6&&n<=10).length,
+          dezenas.filter(n=>n>=11&&n<=15).length,
+          dezenas.filter(n=>n>=16&&n<=20).length,
+          dezenas.filter(n=>n>=21&&n<=25).length
+        ];
+        const nums = dezenas.slice().sort((a,b)=>a-b);
+        let seq = 0, atual = 1;
+        for (let i = 1; i < nums.length; i++) {
+          if (nums[i] === nums[i-1]+1) atual++;
+          else { if (atual >= 2) seq++; atual = 1; }
+        }
+        if (atual >= 2) seq++;
+        let saltos = 0;
+        for (let i = 1; i < nums.length; i++) saltos += nums[i] - nums[i-1];
+        const mediaSaltos = (saltos/(nums.length-1)).toFixed(2);
+        csv += [
+          jogo.concurso,
+          dezenas.reduce((a,b)=>a+b,0),
+          '"'+primosArr.join(', ')+'"',
+          qtdPrimos,
+          percPares,
+          faixas[0],faixas[1],faixas[2],faixas[3],faixas[4],
+          seq,
+          mediaSaltos
+        ].join(';') + '\n';
+      });
+      const resAnalise = await analisarCSV(csv, [20,5,18,10]);
+      exibirAnalises(resAnalise);
+    };
+  </script>
+</body>
+</html> 

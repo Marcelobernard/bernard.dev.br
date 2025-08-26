@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogos Aleatórios - Lotofácil</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', 'Segoe UI', 'Roboto', Arial, sans-serif;
+      background: linear-gradient(120deg, #f3e5f5 0%, #e1f5fe 100%);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 900px;
+      margin: 48px auto 32px auto;
+      padding: 32px 20px 32px 20px;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(80,40,120,0.10);
+    }
+    .titulo {
+      text-align: center;
+      margin-bottom: 36px;
+      color: #6a1b9a;
+      font-size: 1.5em;
+      letter-spacing: 1px;
+      font-weight: 700;
+      text-shadow: 0 2px 8px #ede7f6;
+    }
+    .info-total {
+      text-align: center;
+      font-size: 1.15em;
+      color: #3949ab;
+      margin-bottom: 24px;
+      font-weight: 500;
+    }
+    .jogo {
+      background: #f3e5f5;
+      border-radius: 10px;
+      padding: 18px 24px 12px 24px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 8px rgba(80,40,120,0.07);
+      border-left: 6px solid #7c4dff;
+      transition: box-shadow 0.2s;
+    }
+    .jogo:hover {
+      box-shadow: 0 6px 18px rgba(124,77,255,0.13);
+    }
+    .dezenas {
+      font-size: 1.13em;
+      color: #222;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+      word-break: break-word;
+      font-family: 'Consolas', 'Menlo', monospace;
+    }
+    .estatisticas {
+      font-size: 1em;
+      color: #333;
+      margin-bottom: 6px;
+    }
+    .acertos {
+      font-size: 1.1em;
+      color: #00897b;
+      font-weight: bold;
+    }
+    .voltar {
+      display: block;
+      margin: 32px auto 0 auto;
+      padding: 12px 36px;
+      font-size: 1.1em;
+      background: linear-gradient(90deg,#43cea2 0%,#7c4dff 100%);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 12px rgba(124,77,255,0.10);
+      text-decoration: none;
+      transition: background 0.18s,transform 0.18s,box-shadow 0.18s;
+      text-align: center;
+    }
+    @media (max-width: 700px) {
+      .container {
+        padding: 10px 2vw;
+      }
+      .jogo {
+        padding: 12px 8px 8px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="titulo">Jogos Aleatórios Gerados</h1>
+    <div id="infoTotal" class="info-total"></div>
+    <div id="listaJogos"></div>
+    <a href="index.html" class="voltar">Voltar</a>
+  </div>
+  <script>
+    // Lê os jogos do localStorage
+    const jogos = JSON.parse(localStorage.getItem('jogosAleatorios') || '[]');
+    const listaJogos = document.getElementById('listaJogos');
+    const infoTotal = document.getElementById('infoTotal');
+    infoTotal.textContent = `Total de jogos gerados até acertar ao menos 14: ${jogos.length}`;
+    if (jogos.length === 0) {
+      listaJogos.innerHTML = '<div style="color:#b71c1c;font-weight:bold;">Nenhum jogo encontrado.</div>';
+    } else {
+      jogos.forEach((jogo, idx) => {
+        const dezenas = jogo.aposta.slice().sort((a,b)=>a-b).map(n=>n.toString().padStart(2,'0')).join(', ');
+        const estatisticas = `Primos: <b>${jogo.stats.qtdPrimos}</b> &nbsp;|&nbsp; Pares: <b>${jogo.stats.qtdPares}</b> &nbsp;|&nbsp; Ímpares: <b>${jogo.stats.qtdImpares}</b> &nbsp;|&nbsp; Soma: <b>${jogo.stats.soma}</b> &nbsp;|&nbsp; Sequências: <b>${jogo.stats.seq}</b>`;
+        const acertos = `<span class='acertos'>Maior acerto nos 10 últimos: <b>${jogo.maxAcertos}</b></span>`;
+        const div = document.createElement('div');
+        div.className = 'jogo';
+        div.innerHTML = `<div style='font-weight:bold;margin-bottom:4px;'>Jogo ${idx+1}</div><div class='dezenas'>${dezenas}</div><div class='estatisticas'>${estatisticas}</div><div>${acertos}</div>`;
+        listaJogos.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html> 

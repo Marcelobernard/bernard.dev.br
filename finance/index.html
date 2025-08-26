@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanças Pessoais</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .header h1 {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .api-status {
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #4a5568;
+        }
+
+        .status-indicator {
+            font-size: 14px;
+        }
+
+        .api-status.connected {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .api-status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .api-status.offline {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .total-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .total-amount {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .total-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .currency-toggle {
+            margin-top: 15px;
+        }
+
+        .btn-currency {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-currency:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .btn-currency:active {
+            transform: translateY(0);
+        }
+
+        .add-expense-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .add-expense-section h3 {
+            margin-bottom: 15px;
+            color: #4a5568;
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #4a5568;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn-add {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-add:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-add:active {
+            transform: translateY(0);
+        }
+
+        .chart-section {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+
+        .chart-section h3 {
+            margin-bottom: 15px;
+            color: #4a5568;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+        .categories-list {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .categories-list h3 {
+            margin-bottom: 15px;
+            color: #4a5568;
+            font-size: 18px;
+        }
+
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .category-item:last-child {
+            border-bottom: none;
+        }
+
+        .category-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex: 1;
+            margin-right: 15px;
+        }
+
+        .category-name {
+            font-weight: 500;
+            color: #4a5568;
+        }
+
+        .category-amount {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .btn-delete {
+            background: #e53e3e;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-delete:hover {
+            background: #c53030;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 90%;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.show .modal {
+            transform: scale(1);
+        }
+
+        .modal h3 {
+            margin-bottom: 15px;
+            color: #4a5568;
+            font-size: 18px;
+        }
+
+        .modal p {
+            margin-bottom: 25px;
+            color: #718096;
+            line-height: 1.5;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn-cancel {
+            background: #e2e8f0;
+            color: #4a5568;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-cancel:hover {
+            background: #cbd5e0;
+        }
+
+        .btn-confirm {
+            background: #e53e3e;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-confirm:hover {
+            background: #c53030;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #718096;
+        }
+
+        .empty-state p {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .total-amount {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💰 Finanças Pessoais</h1>
+            <div class="api-status" id="apiStatus">
+                <span class="status-indicator">🔄</span>
+                <span class="status-text">Conectando...</span>
+            </div>
+        </div>
+
+        <div class="total-section">
+            <div class="total-amount" id="totalAmount">R$ 0,00</div>
+            <div class="total-label">Total de Gastos</div>
+            <div class="currency-toggle">
+                <button class="btn-currency" id="currencyToggle">🔄 Converter para Guarani</button>
+            </div>
+        </div>
+
+        <div class="add-expense-section">
+            <h3>➕ Adicionar Gasto</h3>
+            <form id="expenseForm">
+                <div class="form-group">
+                    <label for="amount">Valor (<span id="currencyLabel">R$</span>)</label>
+                    <input type="number" id="amount" step="0.01" min="0" placeholder="0,00" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Categoria</label>
+                    <select id="category" required>
+                        <option value="">Selecione uma categoria</option>
+                        <option value="farmacia">Farmácia</option>
+                        <option value="mercado">Mercado</option>
+                        <option value="padaria">Padaria</option>
+                        <option value="lanche">Lanche</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-add">Adicionar Gasto</button>
+            </form>
+        </div>
+
+        <div class="chart-section">
+            <h3>📊 Distribuição de Gastos</h3>
+            <div class="chart-container">
+                <canvas id="expenseChart"></canvas>
+            </div>
+        </div>
+
+        <div class="categories-list">
+            <h3>📋 Resumo por Categoria</h3>
+            <div id="categoriesList">
+                <div class="empty-state">
+                    <p>Nenhum gasto registrado ainda</p>
+                    <p>Adicione seu primeiro gasto acima!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div class="modal-overlay" id="deleteConfirmModal">
+        <div class="modal">
+            <h3>🗑️ Confirmar Exclusão</h3>
+            <p id="deleteModalText">Tem certeza que deseja excluir todos os gastos dessa categoria?</p>
+            <div class="modal-buttons">
+                <button class="btn-cancel" id="cancelDelete">Cancelar</button>
+                <button class="btn-confirm" id="confirmDelete">Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados das categorias
+        let expenses = {
+            farmacia: 0,
+            mercado: 0,
+            padaria: 0,
+            lanche: 0
+        };
+
+        // Cores para cada categoria
+        const colors = {
+            farmacia: '#FF6B6B',
+            mercado: '#4ECDC4',
+            padaria: '#45B7D1',
+            lanche: '#96CEB4'
+        };
+
+        // Nomes das categorias
+        const categoryNames = {
+            farmacia: 'Farmácia',
+            mercado: 'Mercado',
+            padaria: 'Padaria',
+            lanche: 'Lanche'
+        };
+
+        // Controle de moeda
+        let currentCurrency = 'BRL'; // BRL = Real, PYG = Guarani
+        const exchangeRate = 1000 / 0.75; // 1000 guaranis = 0.75 reais
+        const originalExpenses = {
+            farmacia: 0,
+            mercado: 0,
+            padaria: 0,
+            lanche: 0
+        };
+
+        // Configuração da API Lambda
+        const API_URL = 'https://4n9rcbvrug.execute-api.sa-east-1.amazonaws.com';
+        let tableName = 'tabela'; // Nome padrão da tabela
+
+        // Inicializar gráfico
+        let chart = null;
+
+        async function testAPIConnection() {
+            try {
+                console.log('Testando conexão com a API...');
+                const response = await fetch(`${API_URL}/${tableName}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                console.log('Status da resposta:', response.status);
+                console.log('Headers da resposta:', response.headers);
+
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('✅ Conexão com API bem-sucedida!');
+                    console.log('Dados recebidos:', result);
+                    return true;
+                } else {
+                    console.log('❌ Erro na API:', response.status, response.statusText);
+                    return false;
+                }
+            } catch (error) {
+                console.error('❌ Erro de conexão com a API:', error);
+                return false;
+            }
+        }
+
+        // Funções para comunicação com a API
+        async function saveExpensesToAPI() {
+            try {
+                // Para cada categoria com valor > 0, criar um item
+                const itemsToSave = [];
+                Object.keys(expenses).forEach(category => {
+                    if (expenses[category] > 0) {
+                        itemsToSave.push({
+                            descricao: categoryNames[category],
+                            valor: expenses[category]
+                        });
+                    }
+                });
+
+                // Salvar cada item individualmente
+                for (const item of itemsToSave) {
+                    const response = await fetch(`${API_URL}/${tableName}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(item)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Erro ao salvar dados');
+                    }
+                }
+
+                console.log('Dados salvos com sucesso');
+                return true;
+            } catch (error) {
+                console.error('Erro ao salvar dados:', error);
+                // Fallback para localStorage em caso de erro
+                localStorage.setItem('expenses', JSON.stringify(expenses));
+                return false;
+            }
+        }
+
+        async function loadExpensesFromAPI() {
+            try {
+                const response = await fetch(`${API_URL}/${tableName}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar dados');
+                }
+
+                const result = await response.json();
+                console.log('Resposta da API:', result);
+                
+                // A API retorna {items: [...]}
+                if (result.items && Array.isArray(result.items)) {
+                    // Resetar expenses
+                    expenses = {
+                        farmacia: 0,
+                        mercado: 0,
+                        padaria: 0,
+                        lanche: 0
+                    };
+                    
+                    // Processar cada item
+                    result.items.forEach(item => {
+                        const descricao = item.descricao.toLowerCase();
+                        const valor = parseFloat(item.valor);
+                        
+                        // Mapear descrição para categoria
+                        if (descricao.includes('farmácia') || descricao.includes('farmacia')) {
+                            expenses.farmacia += valor;
+                        } else if (descricao.includes('mercado')) {
+                            expenses.mercado += valor;
+                        } else if (descricao.includes('padaria')) {
+                            expenses.padaria += valor;
+                        } else if (descricao.includes('lanche')) {
+                            expenses.lanche += valor;
+                        }
+                    });
+                    
+                    console.log('Dados carregados com sucesso:', expenses);
+                    return true;
+                } else {
+                    console.log('Formato de resposta não reconhecido:', result);
+                    return false;
+                }
+            } catch (error) {
+                console.error('Erro ao carregar dados da API:', error);
+                // Fallback para localStorage em caso de erro
+                const saved = localStorage.getItem('expenses');
+                if (saved) {
+                    expenses = JSON.parse(saved);
+                    console.log('Dados carregados do localStorage:', expenses);
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        async function deleteCategoryFromAPI(category) {
+            try {
+                // Primeiro, buscar todos os itens da categoria
+                const response = await fetch(`${API_URL}/${tableName}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erro ao buscar dados para deletar');
+                }
+
+                const result = await response.json();
+                
+                // Deletar todos os itens da categoria
+                const itemsToDelete = result.items.filter(item => 
+                    item.descricao.toLowerCase().includes(categoryNames[category].toLowerCase())
+                );
+
+                for (const item of itemsToDelete) {
+                    const deleteResponse = await fetch(`${API_URL}/${tableName}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ id: item.id })
+                    });
+
+                    if (!deleteResponse.ok) {
+                        console.warn('Erro ao deletar item:', item.id);
+                    }
+                }
+
+                console.log('Categoria deletada com sucesso');
+                return true;
+            } catch (error) {
+                console.error('Erro ao deletar categoria:', error);
+                return false;
+            }
+        }
+
+        function initChart() {
+            const ctx = document.getElementById('expenseChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: [],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateChart() {
+            const labels = [];
+            const data = [];
+            const backgroundColor = [];
+
+            Object.keys(expenses).forEach(category => {
+                if (expenses[category] > 0) {
+                    labels.push(categoryNames[category]);
+                    data.push(expenses[category]);
+                    backgroundColor.push(colors[category]);
+                }
+            });
+
+            chart.data.labels = labels;
+            chart.data.datasets[0].data = data;
+            chart.data.datasets[0].backgroundColor = backgroundColor;
+            chart.update();
+        }
+
+        function updateTotal() {
+            const total = Object.values(expenses).reduce((sum, value) => sum + value, 0);
+            document.getElementById('totalAmount').textContent = formatCurrency(total);
+        }
+
+        function convertCurrency() {
+            if (currentCurrency === 'BRL') {
+                // Converter de Real para Guarani
+                currentCurrency = 'PYG';
+                Object.keys(expenses).forEach(category => {
+                    expenses[category] = expenses[category] * exchangeRate;
+                });
+                document.getElementById('currencyToggle').textContent = '🔄 Converter para Real';
+                document.getElementById('currencyLabel').textContent = '₲';
+            } else {
+                // Converter de Guarani para Real
+                currentCurrency = 'BRL';
+                Object.keys(expenses).forEach(category => {
+                    expenses[category] = expenses[category] / exchangeRate;
+                });
+                document.getElementById('currencyToggle').textContent = '🔄 Converter para Guarani';
+                document.getElementById('currencyLabel').textContent = 'R$';
+            }
+            updateTotal();
+            updateChart();
+            updateCategoriesList();
+        }
+
+        function formatCurrency(value) {
+            if (currentCurrency === 'BRL') {
+                return `R$ ${value.toFixed(2).replace('.', ',')}`;
+            } else {
+                return `₲ ${Math.round(value).toLocaleString('pt-BR')}`;
+            }
+        }
+
+        function updateCategoriesList() {
+            const categoriesList = document.getElementById('categoriesList');
+            const total = Object.values(expenses).reduce((sum, value) => sum + value, 0);
+
+            if (total === 0) {
+                categoriesList.innerHTML = `
+                    <div class="empty-state">
+                        <p>Nenhum gasto registrado ainda</p>
+                        <p>Adicione seu primeiro gasto acima!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            Object.keys(expenses).forEach(category => {
+                if (expenses[category] > 0) {
+                    const percentage = total > 0 ? ((expenses[category] / total) * 100).toFixed(1) : 0;
+                    html += `
+                        <div class="category-item">
+                            <div class="category-info">
+                                <span class="category-name">${categoryNames[category]}</span>
+                                <span class="category-amount">${formatCurrency(expenses[category])} (${percentage}%)</span>
+                            </div>
+                            <button class="btn-delete" data-category="${category}" title="Excluir ${categoryNames[category]}">🗑️</button>
+                        </div>
+                    `;
+                }
+            });
+
+            categoriesList.innerHTML = html;
+        }
+
+        async function addExpense(amount, category) {
+            // Sempre adicionar em Real (valor original)
+            if (currentCurrency === 'PYG') {
+                // Se estiver em Guarani, converter o valor de entrada para Real
+                amount = amount / exchangeRate;
+            }
+            
+            expenses[category] += amount;
+            updateTotal();
+            updateChart();
+            updateCategoriesList();
+            
+            // Salvar o novo gasto na API
+            try {
+                const response = await fetch(`${API_URL}/${tableName}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        descricao: categoryNames[category],
+                        valor: amount
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erro ao salvar gasto');
+                }
+
+                console.log('Gasto adicionado com sucesso na API');
+            } catch (error) {
+                console.error('Erro ao salvar na API:', error);
+                // Fallback para localStorage
+                localStorage.setItem('expenses', JSON.stringify(expenses));
+            }
+        }
+
+        async function loadExpenses() {
+            const success = await loadExpensesFromAPI();
+            if (success) {
+                updateTotal();
+                updateChart();
+                updateCategoriesList();
+            }
+        }
+
+        // Variáveis para controle da modal
+        let categoryToDelete = null;
+
+        function showDeleteModal(category) {
+            categoryToDelete = category;
+            const modal = document.getElementById('deleteConfirmModal');
+            const modalText = document.getElementById('deleteModalText');
+            modalText.textContent = `Tem certeza que deseja excluir todos os gastos da categoria "${categoryNames[category]}"?`;
+            modal.classList.add('show');
+        }
+
+        function hideDeleteModal() {
+            const modal = document.getElementById('deleteConfirmModal');
+            modal.classList.remove('show');
+            categoryToDelete = null;
+        }
+
+        async function confirmDelete() {
+            if (categoryToDelete) {
+                // Deletar da API
+                const apiSuccess = await deleteCategoryFromAPI(categoryToDelete);
+                
+                // Se a API falhar, ainda deletar localmente
+                if (!apiSuccess) {
+                    console.log('Falha na API, deletando apenas localmente');
+                }
+                
+                // Deletar localmente
+                expenses[categoryToDelete] = 0;
+                updateTotal();
+                updateChart();
+                updateCategoriesList();
+                
+                // Salvar estado atual no localStorage como backup
+                localStorage.setItem('expenses', JSON.stringify(expenses));
+                hideDeleteModal();
+            }
+        }
+
+        // Event listeners
+        document.getElementById('expenseForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const amount = parseFloat(document.getElementById('amount').value);
+            const category = document.getElementById('category').value;
+            
+            if (amount > 0 && category) {
+                await addExpense(amount, category);
+                
+                // Limpar formulário
+                document.getElementById('amount').value = '';
+                document.getElementById('category').value = '';
+                
+                // Feedback visual
+                const btn = document.querySelector('.btn-add');
+                btn.textContent = '✅ Adicionado!';
+                setTimeout(() => {
+                    btn.textContent = 'Adicionar Gasto';
+                }, 1500);
+            }
+        });
+
+        // Event listener para botões de deletar
+        document.getElementById('categoriesList').addEventListener('click', function(e) {
+            if (e.target.classList.contains('btn-delete')) {
+                const category = e.target.dataset.category;
+                showDeleteModal(category);
+            }
+        });
+
+        // Event listeners para a modal
+        document.getElementById('cancelDelete').addEventListener('click', hideDeleteModal);
+        document.getElementById('confirmDelete').addEventListener('click', confirmDelete);
+
+        // Fechar modal ao clicar fora dela
+        document.getElementById('deleteConfirmModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideDeleteModal();
+            }
+        });
+
+        // Event listener para conversão de moeda
+        document.getElementById('currencyToggle').addEventListener('click', convertCurrency);
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('🚀 Iniciando aplicação...');
+            console.log('URL da API:', API_URL);
+            console.log('Nome da tabela:', tableName);
+            
+            // Inicializar gráfico
+            initChart();
+            
+            // Testar conexão com a API
+            const apiConnected = await testAPIConnection();
+            
+            // Atualizar status visual
+            const apiStatus = document.getElementById('apiStatus');
+            const statusIndicator = apiStatus.querySelector('.status-indicator');
+            const statusText = apiStatus.querySelector('.status-text');
+            
+            if (apiConnected) {
+                apiStatus.className = 'api-status connected';
+                statusIndicator.textContent = '✅';
+                statusText.textContent = 'Conectado à API';
+                
+                // Carregar dados da API
+                await loadExpenses();
+            } else {
+                apiStatus.className = 'api-status offline';
+                statusIndicator.textContent = '⚠️';
+                statusText.textContent = 'Modo offline';
+                
+                console.log('⚠️ Usando dados locais (localStorage)');
+                // Tentar carregar do localStorage
+                const saved = localStorage.getItem('expenses');
+                if (saved) {
+                    expenses = JSON.parse(saved);
+                    updateTotal();
+                    updateChart();
+                    updateCategoriesList();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

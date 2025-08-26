@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabela Lotofácil</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', 'Segoe UI', 'Roboto', Arial, sans-serif;
+      background: linear-gradient(120deg, #f3e5f5 0%, #e1f5fe 100%);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 98vw;
+      margin: 32px auto;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(80,40,120,0.10);
+      padding: 24px 10px 24px 10px;
+      overflow-x: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #6a1b9a;
+      font-size: 1.5em;
+      margin-bottom: 24px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 1100px;
+      background: #fff;
+    }
+    th, td {
+      border: 1px solid #e0e0e0;
+      padding: 8px 6px;
+      text-align: center;
+      font-size: 0.98em;
+    }
+    th {
+      background: #ede7f6;
+      color: #4a148c;
+      font-weight: 600;
+    }
+    tr:nth-child(even) { background: #f7f7fa; }
+    tr:hover { background: #e3f2fd; }
+    @media (max-width: 700px) {
+      .container { padding: 6px 0; }
+      table { font-size: 0.92em; }
+    }
+    /* Estilo para os botões de filtro */
+    #filtros {
+      margin-bottom: 18px;
+    }
+    .btnFiltro {
+      background: #ede7f6;
+      color: #6a1b9a;
+      border: none;
+      border-radius: 22px;
+      padding: 8px 22px;
+      font-size: 1em;
+      font-family: inherit;
+      font-weight: 500;
+      margin: 0 6px 8px 0;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(124,77,255,0.07);
+      transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.15s;
+      outline: none;
+      position: relative;
+    }
+    .btnFiltro.selected, .btnFiltro:active {
+      background: linear-gradient(90deg,#43cea2 0%,#7c4dff 100%);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(124,77,255,0.13);
+      transform: translateY(-2px) scale(1.04);
+    }
+    .btnFiltro:hover:not(.selected) {
+      background: #d1c4e9;
+      color: #4a148c;
+      transform: translateY(-1px) scale(1.03);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Tabela de Resultados Lotofácil</h1>
+    <div id="filtros" style="text-align:center;margin-bottom:18px;">
+      <button class="btnFiltro" data-qtd="todos" style="margin:0 4px 8px 0;">Todos</button>
+      <button class="btnFiltro" data-qtd="100" style="margin:0 4px 8px 0;">100</button>
+      <button class="btnFiltro" data-qtd="50" style="margin:0 4px 8px 0;">50</button>
+      <button class="btnFiltro" data-qtd="20" style="margin:0 4px 8px 0;">20</button>
+      <button class="btnFiltro" data-qtd="10" style="margin:0 4px 8px 0;">10</button>
+    </div>
+    <button id="btnDownloadCSV" style="margin:18px auto 18px auto;display:block;padding:10px 28px;font-size:1em;background:linear-gradient(90deg,#43cea2 0%,#7c4dff 100%);color:#fff;border:none;border-radius:10px;cursor:pointer;font-weight:500;letter-spacing:0.5px;box-shadow:0 2px 12px rgba(124,77,255,0.07);transition:background 0.18s,transform 0.18s,box-shadow 0.18s;outline:none;">Download CSV</button>
+    <table id="tabelaResultados">
+      <thead>
+        <tr>
+          <th>Concurso</th>
+          <th>Soma</th>
+          <th>Números Primos</th>
+          <th>Qtd. Primos</th>
+          <th>% Pares</th>
+          <th>Faixa 1-5</th>
+          <th>Faixa 6-10</th>
+          <th>Faixa 11-15</th>
+          <th>Faixa 16-20</th>
+          <th>Faixa 21-25</th>
+          <th>Sequências</th>
+          <th>Saltos Médios</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="12">Carregando...</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    // Funções utilitárias (primos, faixas, sequências, etc)
+    const primos = [2, 3, 5, 7, 11, 13, 17, 19, 23];
+    const faixas = [
+      { nome: '1-5', ini: 1, fim: 5 },
+      { nome: '6-10', ini: 6, fim: 10 },
+      { nome: '11-15', ini: 11, fim: 15 },
+      { nome: '16-20', ini: 16, fim: 20 },
+      { nome: '21-25', ini: 21, fim: 25 }
+    ];
+    function contaFaixa(dezenas, ini, fim) {
+      return dezenas.filter(n => n >= ini && n <= fim).length;
+    }
+    function contaSequencias(dezenas) {
+      const nums = dezenas.slice().sort((a,b)=>a-b);
+      let seq = 0, atual = 1;
+      for (let i = 1; i < nums.length; i++) {
+        if (nums[i] === nums[i-1]+1) atual++;
+        else { if (atual >= 2) seq++; atual = 1; }
+      }
+      if (atual >= 2) seq++;
+      return seq;
+    }
+    function mediaSaltos(dezenas) {
+      const nums = dezenas.slice().sort((a,b)=>a-b);
+      let saltos = 0;
+      for (let i = 1; i < nums.length; i++) saltos += nums[i] - nums[i-1];
+      return (saltos/(nums.length-1)).toFixed(2);
+    }
+    // Carrega dados
+    let todosJogos = [];
+    let jogosFiltrados = [];
+    let qtdFiltro = 'todos';
+    async function carregarResultados() {
+      const url = 'https://loteriascaixa-api.herokuapp.com/api/lotofacil';
+      const res = await fetch(url);
+      const dados = await res.json();
+      return dados.map(jogo => ({
+        concurso: jogo.concurso,
+        dezenas: jogo.dezenas.map(Number),
+      }));
+    }
+    function renderTabela(jogos) {
+      const tbody = document.querySelector('#tabelaResultados tbody');
+      tbody.innerHTML = '';
+      jogos.forEach(jogo => {
+        const soma = jogo.dezenas.reduce((a,b)=>a+b,0);
+        const primosArr = jogo.dezenas.filter(n => primos.includes(n));
+        const qtdPrimos = primosArr.length;
+        const percPares = ((jogo.dezenas.filter(n=>n%2===0).length/15)*100).toFixed(0)+"%";
+        const faixasArr = faixas.map(f => contaFaixa(jogo.dezenas, f.ini, f.fim));
+        const seq = contaSequencias(jogo.dezenas);
+        const saltos = mediaSaltos(jogo.dezenas);
+        const linha = `<tr>
+          <td>${jogo.concurso}</td>
+          <td>${soma}</td>
+          <td>${primosArr.join(', ')}</td>
+          <td>${qtdPrimos}</td>
+          <td>${percPares}</td>
+          <td>${faixasArr[0]}</td>
+          <td>${faixasArr[1]}</td>
+          <td>${faixasArr[2]}</td>
+          <td>${faixasArr[3]}</td>
+          <td>${faixasArr[4]}</td>
+          <td>${seq}</td>
+          <td>${saltos}</td>
+        </tr>`;
+        tbody.insertAdjacentHTML('beforeend', linha);
+      });
+    }
+    function aplicarFiltro() {
+      let jogos = [...todosJogos];
+      if (qtdFiltro !== 'todos') {
+        const qtd = parseInt(qtdFiltro);
+        jogos = jogos.slice(0, qtd);
+      }
+      jogosFiltrados = jogos;
+      renderTabela(jogosFiltrados);
+    }
+    carregarResultados().then(jogos => {
+      todosJogos = jogos;
+      aplicarFiltro();
+    });
+    document.querySelectorAll('.btnFiltro').forEach(btn => {
+      btn.addEventListener('click', function() {
+        qtdFiltro = this.getAttribute('data-qtd');
+        document.querySelectorAll('.btnFiltro').forEach(b => b.classList.remove('selected'));
+        this.classList.add('selected');
+        aplicarFiltro();
+      });
+    });
+    // Seleciona o botão 'Todos' como padrão ao carregar
+    document.querySelector('.btnFiltro[data-qtd="todos"]').classList.add('selected');
+    document.getElementById('btnDownloadCSV').addEventListener('click', function() {
+      const table = document.getElementById('tabelaResultados');
+      let csv = '';
+      // Cabeçalho
+      const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
+      csv += headers.join(';') + '\n';
+      // Linhas
+      // Usar jogosFiltrados para exportar apenas os dados visíveis
+      jogosFiltrados.forEach(jogo => {
+        const soma = jogo.dezenas.reduce((a,b)=>a+b,0);
+        const primosArr = jogo.dezenas.filter(n => primos.includes(n));
+        const qtdPrimos = primosArr.length;
+        const percPares = ((jogo.dezenas.filter(n=>n%2===0).length/15)*100).toFixed(0)+"%";
+        const faixasArr = faixas.map(f => contaFaixa(jogo.dezenas, f.ini, f.fim));
+        const seq = contaSequencias(jogo.dezenas);
+        const saltos = mediaSaltos(jogo.dezenas);
+        const cols = [
+          jogo.concurso,
+          soma,
+          '"' + primosArr.join(', ') + '"',
+          qtdPrimos,
+          percPares,
+          faixasArr[0],
+          faixasArr[1],
+          faixasArr[2],
+          faixasArr[3],
+          faixasArr[4],
+          seq,
+          saltos
+        ];
+        csv += cols.join(';') + '\n';
+      });
+      // Download
+      const blob = new Blob([csv], {type: 'text/csv'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'tabela_lotofacil.csv';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 100);
+    });
+  </script>
+</body>
+</html> 

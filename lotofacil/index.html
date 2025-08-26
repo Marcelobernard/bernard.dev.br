@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lotofácil</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', 'Segoe UI', 'Roboto', Arial, sans-serif;
+      background: linear-gradient(120deg, #f3e5f5 0%, #e1f5fe 100%);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 900px;
+      margin: 48px auto 32px auto;
+      padding: 32px 20px 32px 20px;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(80,40,120,0.10);
+    }
+    .titulo {
+      text-align: center;
+      margin-bottom: 36px;
+      color: #6a1b9a;
+      font-size: 1.5em;
+      letter-spacing: 1px;
+      font-weight: 700;
+      text-shadow: 0 2px 8px #ede7f6;
+    }
+    .botoes-iniciais {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 24px;
+      width: 100%;
+      max-width: 340px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .botoes-iniciais button {
+      width: 100%;
+      min-width: 180px;
+      max-width: 340px;
+      padding: 15px 0;
+      font-size: 1.13em;
+      background: linear-gradient(90deg, #7c4dff 0%, #00bcd4 100%);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 12px rgba(124,77,255,0.07);
+      transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+      outline: none;
+    }
+    .botoes-iniciais button:hover, .botoes-iniciais button:focus {
+      background: linear-gradient(90deg, #00bcd4 0%, #7c4dff 100%);
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 4px 18px rgba(33,150,243,0.13);
+    }
+    #resultados {
+      margin-top: 18px;
+    }
+    .resultado {
+      display: flex;
+      flex-direction: column;
+      background: #f3e5f5;
+      border-radius: 10px;
+      padding: 18px 24px 12px 24px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 8px rgba(80,40,120,0.07);
+      border-left: 6px solid #7c4dff;
+      transition: box-shadow 0.2s;
+    }
+    .resultado:hover {
+      box-shadow: 0 6px 18px rgba(124,77,255,0.13);
+    }
+    .info {
+      font-size: 1.18em;
+      font-weight: bold;
+      color: #4a148c;
+      margin-bottom: 8px;
+    }
+    .dezenas {
+      font-size: 1.13em;
+      color: #222;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+      word-break: break-word;
+      font-family: 'Consolas', 'Menlo', monospace;
+    }
+    .resultado div {
+      margin-top: 2px;
+    }
+    #maisResultados {
+      text-align: center;
+      color: #7c4dff;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-top: 10px;
+      letter-spacing: 1px;
+    }
+    #analiseResultados, #parimparResultados, #primosResultados {
+      margin-top: 32px;
+      padding: 24px 18px;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(80,40,120,0.07);
+    }
+    #analiseResultados {
+      background: linear-gradient(90deg, #e1bee7 0%, #b2ebf2 100%);
+    }
+    #parimparResultados {
+      background: linear-gradient(90deg, #fff3e0 0%, #b2ebf2 100%);
+    }
+    #primosResultados {
+      background: linear-gradient(90deg, #ede7f6 0%, #b2ebf2 100%);
+    }
+    #somasResultados {
+      background: linear-gradient(90deg, #e0f7fa 0%, #fffde7 100%);
+    }
+    #sequenciaResultados {
+      background: linear-gradient(90deg, #ede7f6 0%, #e3f2fd 100%);
+    }
+    #faixaResultados {
+      margin-top: 32px;
+      padding: 24px 18px;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(80,40,120,0.07);
+    }
+    @media (max-width: 700px) {
+      .container {
+        padding: 10px 2vw;
+      }
+      .resultado {
+        padding: 12px 8px 8px 12px;
+      }
+      #analiseResultados, #parimparResultados, #primosResultados {
+        padding: 12px 4vw;
+      }
+    }
+  </style>
+</head>
+<script src="frequencia.js"></script>
+<script src="parimpar.js"></script>
+<script src="primos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="somas.js"></script>
+<script src="sequencia.js"></script>
+<script src="faixa.js"></script>
+<script src="testar.js"></script>
+<script src="randomizar.js"></script>
+<body>
+  <div id="loadingOverlay" style="position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(120deg,#f3e5f5 0%,#e1f5fe 100%);display:flex;align-items:center;justify-content:center;transition:opacity 0.4s;">
+    <div style="text-align:center;">
+      <div style="margin-bottom:18px;">
+        <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="27" cy="27" r="24" stroke="#7c4dff" stroke-width="6" opacity="0.2"/>
+          <circle cx="27" cy="27" r="24" stroke="#7c4dff" stroke-width="6" stroke-linecap="round" stroke-dasharray="120" stroke-dashoffset="60">
+            <animateTransform attributeName="transform" type="rotate" from="0 27 27" to="360 27 27" dur="1s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
+      <span style="font-size:1.2em;color:#7c4dff;font-weight:500;letter-spacing:1px;">Carregando...</span>
+    </div>
+  </div>
+  <div class="container" style="display:none;">
+    <h1 class="titulo"></h1>
+    <div class="botoes-iniciais">
+      <button id="toggleResultados">Mostrar resultados</button>
+      <button id="btnAnalise">Iniciar análise</button>
+      <button id="btnGrafico">Exibir gráfico</button>
+      <button id="btnDownload" style="width:100%;max-width:340px;margin:0 auto 24px auto;display:block;padding:10px 0;font-size:1em;background:linear-gradient(90deg,#8e24aa 0%,#7c4dff 100%);color:#fff;border:none;border-radius:10px;cursor:pointer;font-weight:500;letter-spacing:0.5px;box-shadow:0 2px 12px rgba(124,77,255,0.07);transition:background 0.18s,transform 0.18s,box-shadow 0.18s;outline:none;">Download Análise (JSON)</button>
+      <button id="btnTestarAposta" style="width:100%;max-width:340px;margin:0 auto 24px auto;display:block;padding:10px 0;font-size:1em;background:linear-gradient(90deg,#43cea2 0%,#7c4dff 100%);color:#fff;border:none;border-radius:10px;cursor:pointer;font-weight:500;letter-spacing:0.5px;box-shadow:0 2px 12px rgba(124,77,255,0.07);transition:background 0.18s,transform 0.18s,box-shadow 0.18s;outline:none;">Testar Aposta</button>
+      <button id="btnTabela" style="width:100%;max-width:340px;margin:0 auto 24px auto;display:block;padding:10px 0;font-size:1em;background:linear-gradient(90deg,#3949ab 0%,#7c4dff 100%);color:#fff;border:none;border-radius:10px;cursor:pointer;font-weight:500;letter-spacing:0.5px;box-shadow:0 2px 12px rgba(124,77,255,0.07);transition:background 0.18s,transform 0.18s,box-shadow 0.18s;outline:none;">Ir para Tabela</button>
+      <button id="btnRandomizar10" style="width:100%;max-width:340px;margin:0 auto 24px auto;display:block;padding:10px 0;font-size:1em;background:linear-gradient(90deg,#00bcd4 0%,#7c4dff 100%);color:#fff;border:none;border-radius:10px;cursor:pointer;font-weight:500;letter-spacing:0.5px;box-shadow:0 2px 12px rgba(124,77,255,0.07);transition:background 0.18s,transform 0.18s,box-shadow 0.18s;outline:none;">Randomizar 10 jogos e testar nos 10 últimos</button>
+    </div>
+    <div id="resultados"></div>
+    <div id="maisResultados" style="text-align:center;color:#4a148c;font-weight:bold;font-size:1.1em;margin-top:10px;display:none;"></div>
+    <div id="analiseResultados" style="max-width:700px;margin:30px auto 0 auto;padding:20px;background:#e0f2f1;border-radius:8px;display:none;"></div>
+    <div id="parimparResultados" style="max-width:700px;margin:30px auto 0 auto;padding:20px;background:#fff3e0;border-radius:8px;display:none;"></div>
+    <div id="primosResultados" style="max-width:700px;margin:30px auto 0 auto;padding:20px;background:#ede7f6;border-radius:8px;display:none;"></div>
+    <div id="somasResultados" style="max-width:700px;margin:24px auto 0 auto;padding:18px 8px;background:linear-gradient(90deg, #e0f7fa 0%, #fffde7 100%);border-radius:8px;box-shadow:none;display:none;"></div>
+    <div id="sequenciaResultados" style="max-width:700px;margin:24px auto 0 auto;padding:18px 8px;background:linear-gradient(90deg, #ede7f6 0%, #e3f2fd 100%);border-radius:8px;box-shadow:none;display:none;"></div>
+    <div id="faixaResultados" style="max-width:700px;margin:24px auto 0 auto;padding:18px 8px;background:linear-gradient(90deg,#f3e5f5 0%,#fffde7 100%);border-radius:8px;box-shadow:none;display:none;"></div>
+    <div id="graficoContainer" style="max-width:900px;margin:32px auto 0 auto;display:none;background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(80,40,120,0.07);padding:24px 18px;">
+      <div id="filtrosGrafico" style="text-align:center;margin-bottom:18px;">
+        <button class="filtroGrafico" data-qtd="100" style="margin:0 6px 8px 6px;padding:7px 18px;font-size:1em;background:#43cea2;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:500;">100 últimos</button>
+        <button class="filtroGrafico" data-qtd="50" style="margin:0 6px 8px 6px;padding:7px 18px;font-size:1em;background:#43cea2;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:500;">50 últimos</button>
+        <button class="filtroGrafico" data-qtd="20" style="margin:0 6px 8px 6px;padding:7px 18px;font-size:1em;background:#43cea2;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:500;">20 últimos</button>
+        <button class="filtroGrafico" data-qtd="10" style="margin:0 6px 8px 6px;padding:7px 18px;font-size:1em;background:#43cea2;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:500;">10 últimos</button>
+      </div>
+      <canvas id="graficoParesPrimos" height="120"></canvas>
+    </div>
+    <div id="tecladoApostaContainer" style="display:none;justify-content:center;align-items:center;flex-direction:column;margin-bottom:24px;"></div>
+  </div>
+  <div style="text-align:center;margin:32px 0;">
+    <a href="resultado.html" style="display:inline-block;padding:14px 36px;font-size:1.1em;background:linear-gradient(90deg,#43cea2 0%,#7c4dff 100%);color:#fff;border:none;border-radius:12px;cursor:pointer;font-weight:600;letter-spacing:0.5px;box-shadow:0 2px 12px rgba(124,77,255,0.10);text-decoration:none;transition:background 0.18s,transform 0.18s,box-shadow 0.18s;">Ver Análise de Resultados</a>
+  </div>
+</body>
+<script>
+    async function puxarDadosLotofacil() {
+      const url = 'https://loteriascaixa-api.herokuapp.com/api/lotofacil';
+      const res = await fetch(url);
+      const dados = await res.json();
+
+      // Ordena do mais recente para o mais antigo (caso não venha ordenado)
+      dados.sort((a, b) => b.concurso - a.concurso);
+
+      // Pega apenas os 100 mais recentes
+      const dadosRecentes = dados.slice(0, 100);
+
+      // Para cada concurso, pega só o concurso, data e dezenas ordenadas
+      const resultadoFiltrado = dadosRecentes.map(concurso => ({
+        numeroConcurso: concurso.concurso,
+        data: concurso.data,
+        dezenas: concurso.dezenas, // já vem ordenada
+      }));
+
+      return resultadoFiltrado;
+    }
+
+    function exibirResultados(resultados, mostrarTodos = false) {
+      const container = document.getElementById('resultados');
+      const maisResultados = document.getElementById('maisResultados');
+      container.innerHTML = '';
+      maisResultados.style.display = 'none';
+
+      // Lista de primos para referência
+      const primosLista = [2, 3, 5, 7, 11, 13, 17, 19, 23];
+
+      // Função para contar repetições do jogo
+      function contarRepeticoes(jogo, lista) {
+        const dezenasStr = jogo.dezenas.slice().sort((a,b)=>a-b).join(',');
+        return lista.filter(j => j.dezenas.slice().sort((a,b)=>a-b).join(',') === dezenasStr).length;
+      }
+
+      if (mostrarTodos) {
+        resultados.forEach((item, idx) => {
+          // Conta primos, pares, ímpares, soma
+          const dezenasNum = item.dezenas.map(Number);
+          const qtdPrimos = dezenasNum.filter(n => primosLista.includes(n)).length;
+          const qtdPares = dezenasNum.filter(n => n % 2 === 0).length;
+          const qtdImpares = dezenasNum.filter(n => n % 2 !== 0).length;
+          const somaDezenas = dezenasNum.reduce((acc, n) => acc + n, 0);
+
+          // Conta repetições
+          const ultimos100 = resultados.slice(0, 100);
+          const ultimos50 = resultados.slice(0, 50);
+          const ultimos20 = resultados.slice(0, 20);
+          const ultimos10 = resultados.slice(0, 10);
+          const rep100 = contarRepeticoes(item, ultimos100);
+          const rep50 = contarRepeticoes(item, ultimos50);
+          const rep20 = contarRepeticoes(item, ultimos20);
+          const rep10 = contarRepeticoes(item, ultimos10);
+
+          const div = document.createElement('div');
+          div.className = 'resultado';
+          div.innerHTML = `
+            <span class="info">${item.numeroConcurso} - ${item.data}</span>
+            <span class="dezenas">${item.dezenas.join(', ')}</span>
+            <div style='font-size:0.95em;margin-top:6px;color:#555;'>
+              <span style='color:#c62828'>Ímpares: <b>${qtdImpares}</b></span> &nbsp;|
+              <span style='color:#0277bd'>Pares: <b>${qtdPares}</b></span> &nbsp;|
+              <span style='color:#6a1b9a'>Primos: <b>${qtdPrimos}/9</b></span> &nbsp;|
+              <span style='color:#388e3c'>Soma: <b>${somaDezenas}</b></span>
+            </div>
+            <div style='font-size:0.93em;margin-top:4px;color:#7c4dff;display:flex;gap:18px;flex-wrap:wrap;'>
+              <span>100u = <b>${rep100}x</b></span>
+              <span>50u = <b>${rep50}x</b></span>
+              <span>20u = <b>${rep20}x</b></span>
+              <span>10u = <b>${rep10}x</b></span>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+      } else {
+        // Só o mais recente
+        const item = resultados[0];
+        const dezenasNum = item.dezenas.map(Number);
+        const qtdPrimos = dezenasNum.filter(n => primosLista.includes(n)).length;
+        const qtdPares = dezenasNum.filter(n => n % 2 === 0).length;
+        const qtdImpares = dezenasNum.filter(n => n % 2 !== 0).length;
+        const somaDezenas = dezenasNum.reduce((acc, n) => acc + n, 0);
+
+        // Conta repetições
+        const ultimos100 = resultados.slice(0, 100);
+        const ultimos50 = resultados.slice(0, 50);
+        const ultimos20 = resultados.slice(0, 20);
+        const ultimos10 = resultados.slice(0, 10);
+        const rep100 = contarRepeticoes(item, ultimos100);
+        const rep50 = contarRepeticoes(item, ultimos50);
+        const rep20 = contarRepeticoes(item, ultimos20);
+        const rep10 = contarRepeticoes(item, ultimos10);
+
+        const div = document.createElement('div');
+        div.className = 'resultado';
+        div.innerHTML = `
+          <span class="info">${item.numeroConcurso} - ${item.data}</span>
+          <span class="dezenas">${item.dezenas.join(', ')}</span>
+          <div style='font-size:0.95em;margin-top:6px;color:#555;'>
+            <span style='color:#c62828'>Ímpares: <b>${qtdImpares}</b></span> &nbsp;|
+            <span style='color:#0277bd'>Pares: <b>${qtdPares}</b></span> &nbsp;|
+            <span style='color:#6a1b9a'>Primos: <b>${qtdPrimos}/9</b></span> &nbsp;|
+            <span style='color:#388e3c'>Soma: <b>${somaDezenas}</b></span>
+          </div>
+          <div style='font-size:0.93em;margin-top:4px;color:#7c4dff;display:flex;gap:18px;flex-wrap:wrap;'>
+            <span>100u = <b>${rep100}x</b></span>
+            <span>50u = <b>${rep50}x</b></span>
+            <span>20u = <b>${rep20}x</b></span>
+            <span>10u = <b>${rep10}x</b></span>
+          </div>
+        `;
+        container.appendChild(div);
+        if (!mostrarTodos) {
+          maisResultados.textContent = `+${resultados.length - 1}`;
+          maisResultados.style.display = 'block';
+        }
+      }
+    }
+
+    let resultadosGlobais = [];
+    let mostrandoTodos = false;
+    let mostrandoAnalise = false;
+    let mostrandoGrafico = false;
+    let chartInstance = null;
+
+    // Chama a função e exibe o mais recente ao carregar
+    puxarDadosLotofacil().then(resultados => {
+      resultadosGlobais = resultados;
+      window.resultadosGlobais = resultados;
+      document.querySelector('.titulo').textContent = 'Lotofácil';
+      exibirResultados(resultadosGlobais, false);
+      // Esconde o loading e mostra a página
+      setTimeout(() => {
+        document.getElementById('loadingOverlay').style.opacity = 0;
+        setTimeout(() => {
+          document.getElementById('loadingOverlay').style.display = 'none';
+          document.querySelector('.container').style.display = '';
+        }, 400);
+      }, 200);
+    });
+
+    // Botão de mostrar/ocultar
+    document.addEventListener('DOMContentLoaded', function() {
+      const btn = document.getElementById('toggleResultados');
+      const btnAnalise = document.getElementById('btnAnalise');
+      const btnGrafico = document.getElementById('btnGrafico');
+      const btnDownload = document.getElementById('btnDownload');
+      const btnRandomizar10 = document.getElementById('btnRandomizar10');
+      const divAnalise = document.getElementById('analiseResultados');
+      const divParImpar = document.getElementById('parimparResultados');
+      const divPrimos = document.getElementById('primosResultados');
+      const graficoContainer = document.getElementById('graficoContainer');
+      const divSomas = document.getElementById('somasResultados');
+      const divSequencia = document.getElementById('sequenciaResultados');
+      const divFaixa = document.getElementById('faixaResultados');
+      const btnTestarAposta = document.getElementById('btnTestarAposta');
+      const tecladoApostaContainer = document.getElementById('tecladoApostaContainer');
+      const btnTabela = document.getElementById('btnTabela');
+      let mostrandoTodos = false;
+      let mostrandoAnalise = false;
+      let mostrandoGrafico = false;
+
+      btn.addEventListener('click', function() {
+        mostrandoTodos = !mostrandoTodos;
+        exibirResultados(resultadosGlobais, mostrandoTodos);
+        btn.textContent = mostrandoTodos ? 'Ocultar resultados' : 'Mostrar resultados';
+      });
+
+      btnAnalise.addEventListener('click', function() {
+        mostrandoAnalise = !mostrandoAnalise;
+        if (mostrandoAnalise) {
+          if (!window.analisarFrequencias) {
+            alert('Função de análise não carregada!');
+            mostrandoAnalise = false;
+            return;
+          }
+          const resultado = window.analisarFrequencias(resultadosGlobais);
+          let html = '';
+          html += `<h2 style='color:#00695c'>Análise de Frequência</h2>`;
+          html += `<b>10 menos frequentes (100 concursos):</b> ${resultado.menos100.join(', ')}<br>`;
+          html += `<b>10 menos frequentes (50 concursos):</b> ${resultado.menos50.join(', ')}<br>`;
+          html += `<b>10 menos frequentes (20 concursos):</b> ${resultado.menos20.join(', ')}<br>`;
+          html += `<b>10 menos frequentes (10 concursos):</b> ${resultado.menos10.join(', ')}<br>`;
+          html += `<b>Menos comuns em pelo menos 2 listas:</b> <span style='color:#d84315'>${resultado.menosComum.join(', ')}</span><br>`;
+          if (resultado.anomalia) {
+            html += `<div style='color:#b71c1c;font-weight:bold;margin-top:10px;'>Anomalia detectada: poucos números "menos frequentes" saíram nos últimos 10 jogos.</div>`;
+          } else {
+            html += `<div style='color:#388e3c;font-weight:bold;margin-top:10px;'>Nenhuma anomalia detectada nos últimos 10 jogos.</div>`;
+          }
+          divAnalise.innerHTML = html;
+          divAnalise.style.display = 'block';
+
+          // Análise Par/Ímpar
+          if (window.analisarParImpar) {
+            const parimpar = window.analisarParImpar(resultadosGlobais);
+            let htmlParImpar = '';
+            htmlParImpar += `<h2 style='color:#e65100'>Análise Par/Ímpar</h2>`;
+            htmlParImpar += `<b>Últimos 100 concursos:</b> Pares: <span style='color:#0277bd'>${parimpar.perc100.parPercent}%</span> &nbsp; Ímpares: <span style='color:#c62828'>${parimpar.perc100.imparPercent}%</span><br>`;
+            htmlParImpar += `<b>Últimos 50 concursos:</b> Pares: <span style='color:#0277bd'>${parimpar.perc50.parPercent}%</span> &nbsp; Ímpares: <span style='color:#c62828'>${parimpar.perc50.imparPercent}%</span><br>`;
+            htmlParImpar += `<b>Últimos 20 concursos:</b> Pares: <span style='color:#0277bd'>${parimpar.perc20.parPercent}%</span> &nbsp; Ímpares: <span style='color:#c62828'>${parimpar.perc20.imparPercent}%</span><br>`;
+            htmlParImpar += `<b>Últimos 10 concursos:</b> Pares: <span style='color:#0277bd'>${parimpar.perc10.parPercent}%</span> &nbsp; Ímpares: <span style='color:#c62828'>${parimpar.perc10.imparPercent}%</span><br>`;
+            divParImpar.innerHTML = htmlParImpar;
+            divParImpar.style.display = 'block';
+          }
+
+          // Análise Primos
+          if (window.analisarPrimos) {
+            const primos = window.analisarPrimos(resultadosGlobais);
+            let htmlPrimos = '';
+            htmlPrimos += `<h2 style='color:#6a1b9a'>Análise de Primos</h2>`;
+            htmlPrimos += `<b>Média de primos por concurso (100):</b> <span style='color:#283593'>${primos.media100}</span> de ${primos.totalPrimos}<br>`;
+            htmlPrimos += `<b>Média de primos por concurso (50):</b> <span style='color:#283593'>${primos.media50}</span> de ${primos.totalPrimos}<br>`;
+            htmlPrimos += `<b>Média de primos por concurso (20):</b> <span style='color:#283593'>${primos.media20}</span> de ${primos.totalPrimos}<br>`;
+            htmlPrimos += `<b>Média de primos por concurso (10):</b> <span style='color:#283593'>${primos.media10}</span> de ${primos.totalPrimos}<br>`;
+            divPrimos.innerHTML = htmlPrimos;
+            divPrimos.style.display = 'block';
+          }
+
+          // Análise Somas
+          if (window.analisarSomaDezenas) {
+            const somas = window.analisarSomaDezenas(resultadosGlobais);
+            let htmlSomas = '';
+            htmlSomas += `<h2 style='color:#388e3c'>Análise de Soma das Dezenas</h2>`;
+            function linhaFaixaSoma(faixas) {
+              return Object.entries(faixas)
+                .map(([faixa, qtd]) => `<span style='margin-right:10px;'>${faixa}: <b style='color:${qtd>0? (qtd>2?'#d32f2f':'#ffb300'):'#333'}'>${qtd}</b></span>`)
+                .join('');
+            }
+            htmlSomas += `<b>100 concursos:</b> Média: <span style='color:#388e3c'>${somas.media100}</span><br><div style='font-size:0.97em;margin-bottom:8px;'>${linhaFaixaSoma(somas.faixas100)}</div>`;
+            htmlSomas += `<b>50 concursos:</b> Média: <span style='color:#388e3c'>${somas.media50}</span><br><div style='font-size:0.97em;margin-bottom:8px;'>${linhaFaixaSoma(somas.faixas50)}</div>`;
+            htmlSomas += `<b>20 concursos:</b> Média: <span style='color:#388e3c'>${somas.media20}</span><br><div style='font-size:0.97em;margin-bottom:8px;'>${linhaFaixaSoma(somas.faixas20)}</div>`;
+            htmlSomas += `<b>10 concursos:</b> Média: <span style='color:#388e3c'>${somas.media10}</span><br><div style='font-size:0.97em;margin-bottom:8px;'>${linhaFaixaSoma(somas.faixas10)}</div>`;
+            divSomas.innerHTML = htmlSomas;
+            divSomas.style.display = 'block';
+          }
+
+          // Análise Sequências
+          if (window.analisarSequencias) {
+            const seq = window.analisarSequencias(resultadosGlobais);
+            let htmlSeq = '';
+            htmlSeq += `<h2 style='color:#3949ab'>Análise de Sequências</h2>`;
+            htmlSeq += `<b>100 concursos:</b> Sequências: <span style='color:#3949ab'>${seq.ultimos100.mediaSequencias}</span> &nbsp;|&nbsp; Saltos médios: <span style='color:#00897b'>${seq.ultimos100.mediaSaltos}</span><br>`;
+            htmlSeq += `<b>50 concursos:</b> Sequências: <span style='color:#3949ab'>${seq.ultimos50.mediaSequencias}</span> &nbsp;|&nbsp; Saltos médios: <span style='color:#00897b'>${seq.ultimos50.mediaSaltos}</span><br>`;
+            htmlSeq += `<b>20 concursos:</b> Sequências: <span style='color:#3949ab'>${seq.ultimos20.mediaSequencias}</span> &nbsp;|&nbsp; Saltos médios: <span style='color:#00897b'>${seq.ultimos20.mediaSaltos}</span><br>`;
+            htmlSeq += `<b>10 concursos:</b> Sequências: <span style='color:#3949ab'>${seq.ultimos10.mediaSequencias}</span> &nbsp;|&nbsp; Saltos médios: <span style='color:#00897b'>${seq.ultimos10.mediaSaltos}</span><br>`;
+            divSequencia.innerHTML = htmlSeq;
+            divSequencia.style.display = 'block';
+          }
+
+          // Análise Faixas
+          if (window.analisarFaixas) {
+            const faixas = window.analisarFaixas(resultadosGlobais);
+            let htmlFaixa = '';
+            htmlFaixa += `<h2 style='color:#8e24aa'>Análise de Faixas</h2>`;
+            function linhaFaixa(faixa, obj) {
+              return `<b>${faixa}:</b> <span style='color:#8e24aa'>${obj[faixa].media}</span> <span style='font-size:0.95em;color:#333;'>(5/5: <b style='color:#ffb300'>${obj[faixa].todos5}</b> | 0/5: <b style='color:#039be5'>${obj[faixa].nenhum}</b>)</span>`;
+            }
+            htmlFaixa += `<b>100 concursos:</b> ${linhaFaixa('1-5',faixas.ultimos100)} | ${linhaFaixa('6-10',faixas.ultimos100)} | ${linhaFaixa('11-15',faixas.ultimos100)} | ${linhaFaixa('16-20',faixas.ultimos100)} | ${linhaFaixa('21-25',faixas.ultimos100)}<br>`;
+            htmlFaixa += `<b>50 concursos:</b> ${linhaFaixa('1-5',faixas.ultimos50)} | ${linhaFaixa('6-10',faixas.ultimos50)} | ${linhaFaixa('11-15',faixas.ultimos50)} | ${linhaFaixa('16-20',faixas.ultimos50)} | ${linhaFaixa('21-25',faixas.ultimos50)}<br>`;
+            htmlFaixa += `<b>20 concursos:</b> ${linhaFaixa('1-5',faixas.ultimos20)} | ${linhaFaixa('6-10',faixas.ultimos20)} | ${linhaFaixa('11-15',faixas.ultimos20)} | ${linhaFaixa('16-20',faixas.ultimos20)} | ${linhaFaixa('21-25',faixas.ultimos20)}<br>`;
+            htmlFaixa += `<b>10 concursos:</b> ${linhaFaixa('1-5',faixas.ultimos10)} | ${linhaFaixa('6-10',faixas.ultimos10)} | ${linhaFaixa('11-15',faixas.ultimos10)} | ${linhaFaixa('16-20',faixas.ultimos10)} | ${linhaFaixa('21-25',faixas.ultimos10)}<br>`;
+            divFaixa.innerHTML = htmlFaixa;
+            divFaixa.style.display = 'block';
+          }
+
+          btnAnalise.textContent = 'Ocultar análise';
+        } else {
+          divAnalise.style.display = 'none';
+          divParImpar.style.display = 'none';
+          divPrimos.style.display = 'none';
+          divSomas.style.display = 'none';
+          divSequencia.style.display = 'none';
+          divFaixa.style.display = 'none';
+          btnAnalise.textContent = 'Iniciar análise';
+        }
+      });
+
+      function renderizarGrafico(qtd) {
+        const ultimos = resultadosGlobais.slice(0, qtd);
+        const primosLista = [2, 3, 5, 7, 11, 13, 17, 19, 23];
+        const pares = ultimos.map(jogo => jogo.dezenas.map(Number).filter(n => n % 2 === 0).length);
+        const primos = ultimos.map(jogo => jogo.dezenas.map(Number).filter(n => primosLista.includes(n)).length);
+        const labels = ultimos.map(jogo => jogo.numeroConcurso);
+        if (chartInstance) chartInstance.destroy();
+        const ctx = document.getElementById('graficoParesPrimos').getContext('2d');
+        chartInstance = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels.reverse(),
+            datasets: [
+              {
+                label: 'Quantidade de Pares',
+                data: pares.reverse(),
+                backgroundColor: 'rgba(33, 150, 243, 0.6)',
+                borderColor: 'rgba(33, 150, 243, 1)',
+                borderWidth: 1
+              },
+              {
+                label: 'Quantidade de Primos',
+                data: primos.reverse(),
+                backgroundColor: 'rgba(156, 39, 176, 0.6)',
+                borderColor: 'rgba(156, 39, 176, 1)',
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { position: 'top' },
+              title: { display: true, text: `Distribuição de Pares e Primos nos ${qtd} Últimos Concursos` }
+            },
+            scales: {
+              x: { title: { display: true, text: 'Concurso' }, ticks: { maxTicksLimit: 20 } },
+              y: { title: { display: true, text: 'Quantidade' }, beginAtZero: true, max: 15 }
+            }
+          }
+        });
+      }
+
+      btnGrafico.addEventListener('click', function() {
+        mostrandoGrafico = !mostrandoGrafico;
+        if (mostrandoGrafico) {
+          graficoContainer.style.display = 'block';
+          renderizarGrafico(100);
+          btnGrafico.textContent = 'Ocultar gráfico';
+        } else {
+          graficoContainer.style.display = 'none';
+          btnGrafico.textContent = 'Exibir gráfico';
+        }
+      });
+
+      document.getElementById('filtrosGrafico').addEventListener('click', function(e) {
+        if (e.target.classList.contains('filtroGrafico')) {
+          const qtd = parseInt(e.target.getAttribute('data-qtd'));
+          renderizarGrafico(qtd);
+        }
+      });
+
+      btnDownload.addEventListener('click', function() {
+        // Gera os dados das análises
+        const analise = window.analisarFrequencias ? window.analisarFrequencias(resultadosGlobais) : null;
+        const parimpar = window.analisarParImpar ? window.analisarParImpar(resultadosGlobais) : null;
+        const primos = window.analisarPrimos ? window.analisarPrimos(resultadosGlobais) : null;
+        const somas = window.analisarSomaDezenas ? window.analisarSomaDezenas(resultadosGlobais) : null;
+        const sequencia = window.analisarSequencias ? window.analisarSequencias(resultadosGlobais) : null;
+        const faixas = window.analisarFaixas ? window.analisarFaixas(resultadosGlobais) : null;
+        const dados = {
+          frequencias: analise,
+          parimpar,
+          primos,
+          somas,
+          sequencia,
+          faixas
+        };
+        const blob = new Blob([JSON.stringify(dados, null, 2)], {type: 'text/plain'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'analise_lotofacil.txt';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }, 100);
+      });
+
+      btnTestarAposta.addEventListener('click', function() {
+        tecladoApostaContainer.innerHTML = '';
+        tecladoApostaContainer.style.display = 'flex';
+        let selecionados = [];
+        // Cria container flex para teclado e painel
+        const containerFlex = document.createElement('div');
+        containerFlex.style.display = 'flex';
+        containerFlex.style.alignItems = 'flex-start';
+        // Cria teclado virtual
+        const teclado = document.createElement('div');
+        teclado.style.display = 'grid';
+        teclado.style.gridTemplateColumns = 'repeat(5, 44px)';
+        teclado.style.gap = '10px';
+        teclado.style.margin = '18px 0 12px 0';
+        for (let i = 1; i <= 25; i++) {
+          const btn = document.createElement('button');
+          btn.textContent = i.toString().padStart(2, '0');
+          btn.style.width = '44px';
+          btn.style.height = '44px';
+          btn.style.fontSize = '1.1em';
+          btn.style.borderRadius = '8px';
+          btn.style.border = '1.5px solid #7c4dff';
+          btn.style.background = '#fff';
+          btn.style.color = '#7c4dff';
+          btn.style.fontWeight = '600';
+          btn.style.cursor = 'pointer';
+          btn.style.transition = 'background 0.15s, color 0.15s, border 0.15s';
+          btn.addEventListener('click', function() {
+            if (selecionados.includes(i)) {
+              selecionados = selecionados.filter(n => n !== i);
+              btn.style.background = '#fff';
+              btn.style.color = '#7c4dff';
+              btn.style.border = '1.5px solid #7c4dff';
+            } else {
+              if (selecionados.length >= 15) return;
+              selecionados.push(i);
+              btn.style.background = '#7c4dff';
+              btn.style.color = '#fff';
+              btn.style.border = '1.5px solid #43cea2';
+            }
+            atualizarPainelInfoAposta();
+          });
+          teclado.appendChild(btn);
+        }
+        containerFlex.appendChild(teclado);
+        // Painel de informações
+        const painel = document.createElement('div');
+        painel.id = 'painelInfoAposta';
+        painel.style.marginLeft = '24px';
+        painel.style.minWidth = '180px';
+        painel.innerHTML = `
+          <div><b>Primos:</b> <span id="infoPrimos">0</span></div>
+          <div><b>Pares:</b> <span id="infoPares">0%</span></div>
+          <div><b>Ímpares:</b> <span id="infoImpares">0%</span></div>
+          <div><b>Soma:</b> <span id="infoSoma">0</span></div>
+          <div><b>Saltos:</b> <span id="infoSaltos">0</span></div>
+          <div><b>Sequências:</b> <span id="infoSequencias">0</span></div>
+        `;
+        containerFlex.appendChild(painel);
+        tecladoApostaContainer.appendChild(containerFlex);
+        // Info
+        const info = document.createElement('div');
+        info.style.margin = '10px 0 8px 0';
+        info.style.fontSize = '1em';
+        info.style.color = '#7c4dff';
+        info.textContent = 'Selecione 15 números';
+        tecladoApostaContainer.appendChild(info);
+        // Botão de confirmar
+        const btnConfirmar = document.createElement('button');
+        btnConfirmar.textContent = 'Confirmar aposta';
+        btnConfirmar.style.margin = '14px 0 0 0';
+        btnConfirmar.style.padding = '10px 24px';
+        btnConfirmar.style.fontSize = '1em';
+        btnConfirmar.style.background = 'linear-gradient(90deg,#43cea2 0%,#7c4dff 100%)';
+        btnConfirmar.style.color = '#fff';
+        btnConfirmar.style.border = 'none';
+        btnConfirmar.style.borderRadius = '8px';
+        btnConfirmar.style.cursor = 'pointer';
+        btnConfirmar.style.fontWeight = '500';
+        btnConfirmar.disabled = true;
+        tecladoApostaContainer.appendChild(btnConfirmar);
+        // Botão de randomizar
+        const btnRandomizar = document.createElement('button');
+        btnRandomizar.textContent = 'Randomizar dentro dos critérios';
+        btnRandomizar.style.margin = '14px 0 0 0';
+        btnRandomizar.style.padding = '10px 24px';
+        btnRandomizar.style.fontSize = '1em';
+        btnRandomizar.style.background = 'linear-gradient(90deg,#3949ab 0%,#43cea2 100%)';
+        btnRandomizar.style.color = '#fff';
+        btnRandomizar.style.border = 'none';
+        btnRandomizar.style.borderRadius = '8px';
+        btnRandomizar.style.cursor = 'pointer';
+        btnRandomizar.style.fontWeight = '500';
+        tecladoApostaContainer.appendChild(btnRandomizar);
+
+        // Formulário de critérios (inicialmente oculto)
+        const formCrit = document.createElement('form');
+        formCrit.style.display = 'none';
+        formCrit.style.margin = '16px 0 0 0';
+        formCrit.style.padding = '12px 16px';
+        formCrit.style.background = '#f3e5f5';
+        formCrit.style.borderRadius = '8px';
+        formCrit.style.boxShadow = '0 2px 8px rgba(80,40,120,0.07)';
+        formCrit.innerHTML = `
+          <div style='margin-bottom:8px;'><b>Critérios para randomizar:</b></div>
+          <label>Pares: <input type='number' id='minPares' min='0' max='15' value='6' style='width:40px;'> a <input type='number' id='maxPares' min='0' max='15' value='10' style='width:40px;'></label><br>
+          <label>Ímpares: <input type='number' id='minImpares' min='0' max='15' value='5' style='width:40px;'> a <input type='number' id='maxImpares' min='0' max='15' value='9' style='width:40px;'></label><br>
+          <label>Primos: <input type='number' id='minPrimos' min='0' max='9' value='2' style='width:40px;'> a <input type='number' id='maxPrimos' min='0' max='9' value='7' style='width:40px;'></label><br>
+          <label>Sequências: <input type='number' id='minSeq' min='0' max='15' value='1' style='width:40px;'> a <input type='number' id='maxSeq' min='0' max='15' value='5' style='width:40px;'></label><br>
+          <button type='submit' style='margin-top:8px;padding:6px 18px;background:#7c4dff;color:#fff;border:none;border-radius:6px;cursor:pointer;'>Sortear</button>
+          <button type='button' id='cancelarCrit' style='margin-left:8px;padding:6px 18px;background:#aaa;color:#fff;border:none;border-radius:6px;cursor:pointer;'>Cancelar</button>
+        `;
+        tecladoApostaContainer.appendChild(formCrit);
+
+        btnRandomizar.addEventListener('click', function() {
+          formCrit.style.display = 'block';
+        });
+        formCrit.querySelector('#cancelarCrit').addEventListener('click', function(e) {
+          e.preventDefault();
+          formCrit.style.display = 'none';
+        });
+
+        formCrit.addEventListener('submit', function(e) {
+          e.preventDefault();
+          // Lê critérios
+          const minPares = parseInt(formCrit.querySelector('#minPares').value);
+          const maxPares = parseInt(formCrit.querySelector('#maxPares').value);
+          const minImpares = parseInt(formCrit.querySelector('#minImpares').value);
+          const maxImpares = parseInt(formCrit.querySelector('#maxImpares').value);
+          const minPrimos = parseInt(formCrit.querySelector('#minPrimos').value);
+          const maxPrimos = parseInt(formCrit.querySelector('#maxPrimos').value);
+          const minSeq = parseInt(formCrit.querySelector('#minSeq').value);
+          const maxSeq = parseInt(formCrit.querySelector('#maxSeq').value);
+          // Função para validar critérios
+          function validarSelecao(sel) {
+            const primosLista = [2, 3, 5, 7, 11, 13, 17, 19, 23];
+            const pares = sel.filter(n => n % 2 === 0).length;
+            const impares = sel.filter(n => n % 2 !== 0).length;
+            const primos = sel.filter(n => primosLista.includes(n)).length;
+            // Sequências
+            let seq = 0;
+            const ordenado = sel.slice().sort((a, b) => a - b);
+            for (let i = 1; i < ordenado.length; i++) {
+              if (ordenado[i] === ordenado[i - 1] + 1) {
+                if (i === 1 || ordenado[i - 1] !== ordenado[i - 2] + 1) {
+                  seq++;
+                }
+              }
+            }
+            return (
+              pares >= minPares && pares <= maxPares &&
+              impares >= minImpares && impares <= maxImpares &&
+              primos >= minPrimos && primos <= maxPrimos &&
+              seq >= minSeq && seq <= maxSeq
+            );
+          }
+          // Tenta randomizar até 2000 vezes
+          let tentativa = 0;
+          let achou = false;
+          let sorteio = [];
+          while (tentativa < 2000 && !achou) {
+            // Sorteia 15 números únicos de 1 a 25
+            const pool = Array.from({length:25}, (_,i)=>i+1);
+            for (let i = pool.length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              [pool[i], pool[j]] = [pool[j], pool[i]];
+            }
+            const sel = pool.slice(0, 15);
+            if (validarSelecao(sel)) {
+              sorteio = sel;
+              achou = true;
+            }
+            tentativa++;
+          }
+          if (!achou) {
+            alert('Não foi possível encontrar uma combinação dentro dos critérios. Tente ajustar os valores.');
+            return;
+          }
+          // Preenche o teclado
+          selecionados = sorteio;
+          // Atualiza botões do teclado
+          const botoes = teclado.querySelectorAll('button');
+          botoes.forEach((btn, idx) => {
+            const valor = idx+1;
+            if (selecionados.includes(valor)) {
+              btn.style.background = '#7c4dff';
+              btn.style.color = '#fff';
+              btn.style.border = '1.5px solid #43cea2';
+            } else {
+              btn.style.background = '#fff';
+              btn.style.color = '#7c4dff';
+              btn.style.border = '1.5px solid #7c4dff';
+            }
+          });
+          atualizarPainelInfoAposta();
+          formCrit.style.display = 'none';
+        });
+
+        // Atualiza painel ao iniciar
+        function atualizarPainelInfoAposta() {
+          const primosLista = [2, 3, 5, 7, 11, 13, 17, 19, 23];
+          const selecionadosOrdenados = selecionados.slice().sort((a, b) => a - b);
+          // Primos
+          const qtdPrimos = selecionadosOrdenados.filter(n => primosLista.includes(n)).length;
+          document.getElementById('infoPrimos').textContent = qtdPrimos;
+          // Pares e Ímpares
+          const qtdPares = selecionadosOrdenados.filter(n => n % 2 === 0).length;
+          const qtdImpares = selecionadosOrdenados.filter(n => n % 2 !== 0).length;
+          const total = selecionadosOrdenados.length;
+          document.getElementById('infoPares').textContent = total ? ((qtdPares / total) * 100).toFixed(0) + '%' : '0%';
+          document.getElementById('infoImpares').textContent = total ? ((qtdImpares / total) * 100).toFixed(0) + '%' : '0%';
+          // Soma
+          const soma = selecionadosOrdenados.reduce((acc, n) => acc + n, 0);
+          document.getElementById('infoSoma').textContent = soma;
+          // Saltos
+          let saltos = 0;
+          for (let i = 1; i < selecionadosOrdenados.length; i++) {
+            if (selecionadosOrdenados[i] !== selecionadosOrdenados[i - 1] + 1) saltos++;
+          }
+          document.getElementById('infoSaltos').textContent = saltos;
+          // Sequências
+          let sequencias = 0;
+          for (let i = 1; i < selecionadosOrdenados.length; i++) {
+            if (selecionadosOrdenados[i] === selecionadosOrdenados[i - 1] + 1) {
+              if (i === 1 || selecionadosOrdenados[i - 1] !== selecionadosOrdenados[i - 2] + 1) {
+                sequencias++;
+              }
+            }
+          }
+          document.getElementById('infoSequencias').textContent = sequencias;
+          // Atualiza botão de confirmar
+          btnConfirmar.disabled = selecionados.length !== 15;
+          info.textContent = `Selecionados: ${selecionados.length}/15`;
+        }
+        atualizarPainelInfoAposta();
+
+        // Ao confirmar, pergunta quantos concursos analisar
+        btnConfirmar.addEventListener('click', function() {
+          let qtd = prompt('Quantos últimos concursos deseja analisar? (máx: ' + resultadosGlobais.length + ')', '100');
+          qtd = parseInt(qtd);
+          if (isNaN(qtd) || qtd < 1 || qtd > resultadosGlobais.length) {
+            alert('Quantidade inválida.');
+            return;
+          }
+          // Chama a função de teste
+          const resultado = window.testarAposta(
+            selecionados.map(n => n.toString().padStart(2, '0')),
+            resultadosGlobais,
+            qtd
+          );
+          tecladoApostaContainer.style.display = 'none';
+          // Exibe resultado em popup
+          setTimeout(() => {
+            alert(`Nos últimos ${qtd} concursos, sua aposta teria feito:\n\n15 acertos: ${resultado.acertou15} vez(es)\n14 acertos: ${resultado.acertou14} vez(es)\n13 acertos: ${resultado.acertou13} vez(es)`);
+          }, 100);
+        });
+      });
+
+      btnTabela.addEventListener('click', function() {
+        window.location.href = 'tabela.html';
+      });
+
+      btnRandomizar10.addEventListener('click', async function() {
+        // Garante que resultadosGlobais está carregado
+        if (!window.resultadosGlobais || window.resultadosGlobais.length < 10) {
+          alert('Resultados ainda não carregados. Aguarde.');
+          return;
+        }
+        // Pega os 10 últimos resultados reais
+        const ultimos10 = window.resultadosGlobais.slice(0, 10).map(j => j.dezenas.map(Number));
+        // Função para gerar aposta aleatória de 15 dezenas únicas
+        function gerarAposta() {
+          const nums = new Set();
+          while(nums.size < 15) {
+            nums.add(Math.floor(Math.random() * 25) + 1);
+          }
+          return Array.from(nums);
+        }
+        // Função para contar acertos
+        function contarAcertos(aposta, resultado) {
+          return aposta.filter(n => resultado.includes(n)).length;
+        }
+        // Função para calcular estatísticas
+        function analisarAposta(aposta) {
+          const primosLista = [2,3,5,7,11,13,17,19,23];
+          const qtdPrimos = aposta.filter(n => primosLista.includes(n)).length;
+          const qtdPares = aposta.filter(n => n % 2 === 0).length;
+          const qtdImpares = aposta.filter(n => n % 2 !== 0).length;
+          const soma = aposta.reduce((a,b) => a + b, 0);
+          // Sequências
+          const ordenado = aposta.slice().sort((a, b) => a - b);
+          let seq = 0;
+          for (let i = 1; i < ordenado.length; i++) {
+            if (ordenado[i] === ordenado[i - 1] + 1) {
+              if (i === 1 || ordenado[i - 1] !== ordenado[i - 2] + 1) {
+                seq++;
+              }
+            }
+          }
+          return {qtdPrimos, qtdPares, qtdImpares, soma, seq};
+        }
+        // Gera jogos até pelo menos um acertar 14+
+        let jogos = [];
+        let encontrou14 = false;
+        while (!encontrou14) {
+          const aposta = gerarAposta();
+          let maxAcertos = 0;
+          ultimos10.forEach(resultado => {
+            const acertos = contarAcertos(aposta, resultado);
+            if (acertos > maxAcertos) maxAcertos = acertos;
+          });
+          const stats = analisarAposta(aposta);
+          jogos.push({
+            aposta,
+            maxAcertos,
+            stats
+          });
+          if (maxAcertos >= 14) encontrou14 = true;
+        }
+        // Salva no localStorage
+        localStorage.setItem('jogosAleatorios', JSON.stringify(jogos));
+        // Redireciona para jogos.html
+        window.location.href = 'jogos.html';
+      });
+    });
+</script>
+</html>

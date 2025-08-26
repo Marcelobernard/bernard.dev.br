@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>UPE - Universidad Privada del Este</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<style>
+		:root { --upe-blue: #0d47a1; --upe-blue-dark: #0b3d8a; }
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		html, body { overflow-x: hidden; }
+		body { font-family: 'Poppins', sans-serif; color: #1f2937; padding-top: 0; }
+
+		header {
+			padding: 1.5rem 2rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 10;
+			color: #ffffff;
+			user-select: none;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.logo {
+			color: #ffffff;
+			font-size: 2.5rem;
+			font-weight: 700;
+			text-decoration: none;
+			letter-spacing: 1px;
+			text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+		}
+
+		.nav-buttons {
+			display: flex;
+			gap: 1.5rem;
+		}
+
+		.nav-button {
+			color: #ffffff;
+			padding: 0.5rem 1rem;
+			text-decoration: none;
+			font-weight: 500;
+			font-size: 1.1rem;
+			transition: color 0.3s;
+			position: relative;
+			text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+		}
+
+		.nav-button::after {
+			content: '';
+			position: absolute;
+			width: 0;
+			height: 2px;
+			bottom: 0;
+			left: 0;
+			background-color: #ffffff;
+			transition: width 0.3s;
+		}
+
+
+
+		main { padding: 0; }
+
+		/* Landpages */
+		
+		.section {
+			min-height: 100vh;
+			display: grid;
+			place-items: center;
+			padding: 48px 16px;
+		}
+		.section__inner {
+			width: 100%;
+			max-width: 1100px;
+			margin: 0 auto;
+			text-align: center;
+		}
+		.section__inner h1, .section__inner h2 { 
+			letter-spacing: 0.2px; 
+			font-family: 'Poppins', sans-serif;
+		}
+		.section__inner p { color: #4b5563; margin-top: 8px; }
+
+		/* Hero with background */
+		.section--hero {
+			position: relative;
+			color: #ffffff;
+			overflow: hidden;
+			isolation: isolate;
+		}
+		.section--hero .section__inner { position: relative; z-index: 1; padding-top: 120px; }
+		.section--hero .bg {
+			position: absolute;
+			inset: 0;
+			background-image: url('img/mulherupe.png');
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			z-index: -2;
+			/* Aplicando filtros para melhorar legibilidade */
+			filter: blur(1.5px) brightness(0.8) contrast(1.1) saturate(0.9);
+		}
+		.section--hero .overlay {
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(135deg, rgba(13,71,161,0.6), rgba(0,0,0,0.4));
+			z-index: -1;
+		}
+
+		.section--hero .section__inner h1 { font-size: 34px; }
+		.section--hero .section__inner p { color: #e5e7eb; }
+
+		/* Second section */
+		.section--info { 
+			background: #f8fafc; 
+			position: relative;
+			overflow: hidden;
+		}
+		
+		/* Trail Canvas */
+		#trailCanvas {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 1;
+			pointer-events: none;
+		}
+		
+		/* Background text */
+		.section--info::before {
+			content: "Explore mais sobre a UPE";
+			position: absolute;
+			top: 10dvh;
+			left: 50%;
+			transform: translateX(-50%);
+			font-size: 60px;
+			font-weight: 300;
+			color: #00000000;
+			opacity: 0.6;
+			white-space: nowrap;
+			user-select: none;
+			pointer-events: none;
+			z-index: 2;
+			letter-spacing: 2px;
+			text-shadow: 
+				0 0 1px #ffffff,
+				0 0 2px #000000,
+				0 0 3px #646464,
+				0 0 4px #000000;
+		}
+		
+
+		
+		/* Expand inner container to use full viewport and center the menu */
+		.section--info .section__inner {
+			max-width: none;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-height: calc(100vh - 140px);
+			padding: 0 16px;
+			position: relative;
+			z-index: 1;
+		}
+
+		/* Third section dynamic */
+		.section--dynamic { 
+			position: relative; 
+			color: #ffffff; 
+			overflow: hidden; 
+			isolation: isolate; 
+		}
+		
+		/* Content formatting for all sections */
+		.content-container {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 20px;
+			text-align: center;
+		}
+		
+		.content-title {
+			font-size: 2.2rem;
+			font-weight: 600;
+			margin-bottom: 25px;
+			text-align: center;
+			position: relative;
+			padding-bottom: 15px;
+		}
+		
+		.content-title::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 60px;
+			height: 2px;
+			background: linear-gradient(90deg, var(--upe-blue), rgba(255, 255, 255, 0.3));
+			border-radius: 1px;
+		}
+		
+		.content-description {
+			font-size: 1.1rem;
+			line-height: 1.8;
+			color: #f8fafc;
+			text-align: center;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+		
+
+		
+		/* Highlight formatting */
+		.highlight {
+			color: #ffffff;
+			font-weight: 700;
+		}
+		
+		/* Feature cards for specific sections */
+		.features-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			gap: 20px;
+			margin-top: 25px;
+		}
+		
+		.feature-card {
+			background: rgba(255, 255, 255, 0.08);
+			backdrop-filter: blur(10px);
+			border-radius: 15px;
+			padding: 25px;
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		}
+		
+
+		
+
+		
+		.feature-title {
+			font-size: 1.3rem;
+			font-weight: 600;
+			color: #ffffff;
+			margin-bottom: 15px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		
+		.feature-title::before {
+			content: '';
+			width: 10px;
+			height: 10px;
+			background: var(--upe-blue);
+			border-radius: 50%;
+			margin-right: 12px;
+			box-shadow: 0 0 8px rgba(13, 71, 161, 0.4);
+		}
+		
+		.feature-text {
+			font-size: 1rem;
+			line-height: 1.6;
+			color: #e5e7eb;
+		}
+		
+		/* Info boxes for specific content */
+		.info-box {
+			background: rgba(255, 255, 255, 0.08);
+			backdrop-filter: blur(10px);
+			border-radius: 15px;
+			padding: 25px;
+			margin: 20px 0;
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		}
+		
+
+		
+		.info-box::before {
+			content: '';
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			width: 8px;
+			height: 8px;
+			background: var(--upe-blue);
+			border-radius: 50%;
+			box-shadow: 0 0 10px rgba(13, 71, 161, 0.3);
+		}
+		
+		/* Price highlight */
+		.price-highlight {
+			color: #10b981;
+			font-weight: 700;
+		}
+		
+		/* Location highlight */
+		.location-highlight {
+			color: #3b82f6;
+			font-weight: 700;
+		}
+		
+		/* Safety highlight */
+		.safety-highlight {
+			color: #10b981;
+			font-weight: 700;
+		}
+		
+		/* Modern section divider for dynamic section */
+		.section--dynamic::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 1px;
+			background: linear-gradient(90deg, 
+				transparent 0%, 
+				rgba(255, 255, 255, 0.1) 20%, 
+				rgba(255, 255, 255, 0.3) 50%, 
+				rgba(255, 255, 255, 0.1) 80%, 
+				transparent 100%);
+			box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+		}
+		.section--dynamic .bg {
+			position: absolute;
+			inset: 0;
+			background-image: url('img/localizacao.png');
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			z-index: -2;
+			/* Aplicando filtros para melhorar legibilidade */
+			filter: blur(2px) brightness(0.7) contrast(1.2) saturate(0.8);
+		}
+		.section--dynamic .overlay { 
+			position: absolute; 
+			inset: 0; 
+			background: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(13,71,161,0.4)); 
+			z-index: -1; 
+		}
+		.section--dynamic .section__inner h2 { font-size: 28px; }
+		.section--dynamic .section__inner p { color: #f3f4f6; }
+		
+		/* Depoimentos Layout */
+		.depoimentos-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: 1fr 1fr;
+			gap: 25px;
+			width: 100%;
+			max-width: 1400px;
+			margin: 0 auto;
+			height: 100%;
+			min-height: 500px;
+			padding: 20px;
+		}
+		
+		.depoimento {
+			background: rgba(255, 255, 255, 0.12);
+			backdrop-filter: blur(12px);
+			border-radius: 18px;
+			padding: 25px;
+			border: 1px solid rgba(255, 255, 255, 0.25);
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+			transition: all 0.3s ease;
+		}
+		
+
+		
+
+		
+		.depoimento:nth-child(1) {
+			grid-column: 1;
+			grid-row: 1;
+		}
+		
+		.depoimento:nth-child(2) {
+			grid-column: 2;
+			grid-row: 1 / 3;
+			align-self: center;
+			min-height: 400px;
+		}
+		
+		.depoimento:nth-child(3) {
+			grid-column: 1;
+			grid-row: 2;
+		}
+		
+		.depoimento-texto {
+			font-size: 15px;
+			line-height: 1.8;
+			margin-bottom: 25px;
+			color: #f8fafc;
+			text-align: left;
+			flex-grow: 1;
+			display: flex;
+			align-items: flex-start;
+		}
+		
+
+		
+
+		
+		.depoimento-autor {
+			font-size: 16px;
+			font-weight: 700;
+			color: #ffffff;
+			margin-bottom: 8px;
+		}
+		
+
+		
+		.depoimento-curso {
+			font-size: 14px;
+			color: #e5e7eb;
+			font-weight: 500;
+			opacity: 0.9;
+		}
+
+		.horizontal-menu-nav {
+			/* Largura total para centralizar */
+			width: 100%;
+			padding: 40px 0;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+			background-color: #f7f7f7;
+			position: relative;
+			user-select: none;
+		}
+
+		.nav-scroll-container {
+			/* Sem rolagem horizontal */
+			overflow-x: hidden;
+			-webkit-overflow-scrolling: touch;
+			padding: 0 20px;
+		}
+		/* Remover estilos de barra de rolagem (mantidos sem efeito) */
+		.nav-scroll-container::-webkit-scrollbar { display: none; }
+
+		.nav-list {
+			/* Grid geométrico simétrico */
+			display: grid;
+			grid-template-columns: repeat(5, 1fr);
+			grid-template-rows: repeat(2, 1fr);
+			gap: 20px;
+			list-style: none;
+			padding: 0;
+			margin: 0 auto;
+			max-width: 900px;
+			min-height: 120px;
+			align-items: center;
+			justify-items: center;
+		}
+
+		.nav-item {
+			width: 100%;
+			height: 100%;
+			padding: 0;
+			margin: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.nav-item a {
+			text-decoration: none;
+			color: #333;
+			font-size: 15px;
+			font-weight: 600;
+			white-space: nowrap;
+			padding: 16px 12px;
+			border-radius: 12px;
+			transition: all 0.3s ease;
+			opacity: 0.7;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			height: 100%;
+			text-align: center;
+			position: relative;
+			border: 2px solid transparent;
+			line-height: 1.2;
+		}
+
+		
+		/* Garantir que o conteúdo principal da seção não seja afetado */
+		.section--info .section__inner {
+			position: relative;
+			z-index: 2;
+		}
+		.nav-item.is-active a {
+			color: var(--upe-blue);
+			opacity: 1;
+			background: rgba(13, 71, 161, 0.12);
+			border-color: var(--upe-blue);
+			box-shadow: 0 4px 12px rgba(13, 71, 161, 0.2);
+		}
+
+		@media (max-width: 767px) {
+			.nav-list {
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: repeat(4, 1fr);
+				gap: 16px;
+				max-width: 600px;
+				min-height: 160px;
+			}
+			.nav-item a {
+				font-size: 13px;
+				font-weight: 600;
+				padding: 12px 8px;
+				line-height: 1.2;
+			}
+		}
+		
+		@media (min-width: 768px) {
+			.nav-list {
+				gap: 24px;
+				max-width: 1000px;
+			}
+			.nav-item a {
+				font-size: 15px;
+				font-weight: 600;
+				padding: 18px 16px;
+				line-height: 1.2;
+			}
+		}
+		
+		@media (min-width: 1024px) {
+			.nav-list {
+				gap: 28px;
+				max-width: 1100px;
+			}
+			.nav-item a {
+				font-size: 16px;
+				font-weight: 600;
+				padding: 20px 18px;
+				line-height: 1.2;
+			}
+		}
+
+
+		/* Botões de navegação (setas) */
+		.nav-arrow {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 44px;
+			height: 44px;
+			border-radius: 50%;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			background: rgba(255,255,255,0.95);
+			border: 1px solid rgba(0,0,0,0.08);
+			box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+			cursor: pointer;
+			z-index: 3;
+			font-size: 20px;
+			line-height: 1;
+			transition: all 0.2s ease;
+		}
+		.nav-arrow--left { left: 20px; }
+		.nav-arrow--right { right: 20px; }
+
+		.nav-arrow[disabled] { 
+			opacity: 0.3; 
+			pointer-events: none;
+			transform: translateY(-50%) scale(0.95);
+		}
+
+		/* Desktop adjustments for hero spacing */
+		@media (min-width: 1024px) {
+			.section--hero .section__inner { padding-top: 180px; padding-bottom: 120px; }
+			.section--hero .bg { background-position: center 40%; }
+			.section--dynamic .bg { background-position: center 80%; }
+		}
+		
+		/* Responsive adjustments for background text */
+		@media (max-width: 1200px) {
+			.section--info::before {
+				font-size: 40px;
+			}
+		}
+		
+		@media (max-width: 768px) {
+			.section--info::before {
+				font-size: 25px;
+				letter-spacing: 1px;
+			}
+		}
+		
+		@media (max-width: 480px) {
+			.section--info::before {
+				font-size: 18px;
+				letter-spacing: 0.5px;
+			}
+		}
+		
+		/* Responsive adjustments for depoimentos */
+		@media (max-width: 1200px) {
+			.depoimentos-container {
+				max-width: 1000px;
+				gap: 20px;
+				padding: 15px;
+			}
+			
+			.depoimento {
+				padding: 25px;
+			}
+			
+			.depoimento-texto {
+				font-size: 14px;
+			}
+		}
+		
+		@media (max-width: 768px) {
+			.depoimentos-container {
+				grid-template-columns: 1fr;
+				grid-template-rows: auto auto auto;
+				gap: 20px;
+				max-width: 600px;
+			}
+			
+			.depoimento:nth-child(2) {
+				grid-column: 1;
+				grid-row: 2;
+				min-height: auto;
+			}
+			
+			.depoimento-texto {
+				font-size: 13px;
+				line-height: 1.6;
+			}
+			
+			.depoimento-autor {
+				font-size: 15px;
+			}
+			
+			.depoimento-curso {
+				font-size: 13px;
+			}
+		}
+		
+		@media (max-width: 480px) {
+			.depoimentos-container {
+				padding: 10px;
+				gap: 15px;
+			}
+			
+			.depoimento {
+				padding: 20px;
+			}
+			
+			.depoimento-texto {
+				font-size: 12px;
+				line-height: 1.5;
+			}
+		}
+		
+		/* Responsive adjustments for new content formatting */
+		@media (max-width: 1200px) {
+			.content-container {
+				padding: 30px 15px;
+			}
+			
+			.content-title {
+				font-size: 2rem;
+			}
+			
+			.features-grid {
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 20px;
+			}
+		}
+		
+		@media (max-width: 768px) {
+			.content-container {
+				padding: 20px 10px;
+			}
+			
+			.content-title {
+				font-size: 1.8rem;
+				margin-bottom: 20px;
+			}
+			
+			.content-description {
+				font-size: 1rem;
+				padding: 20px;
+			}
+			
+			.features-grid {
+				grid-template-columns: 1fr;
+				gap: 15px;
+			}
+			
+			.feature-card {
+				padding: 20px;
+			}
+			
+			.feature-title {
+				font-size: 1.2rem;
+			}
+			
+			.info-box {
+				padding: 15px;
+				margin: 15px 0;
+			}
+		}
+		
+		@media (max-width: 480px) {
+			.content-title {
+				font-size: 1.5rem;
+			}
+			
+			.content-description {
+				font-size: 0.95rem;
+				padding: 15px;
+			}
+			
+			.feature-card {
+				padding: 15px;
+			}
+			
+			.feature-title {
+				font-size: 1.1rem;
+			}
+			
+			.feature-text {
+				font-size: 0.9rem;
+			}
+		}
+	</style>
+	
+</head>
+<body>
+	<main>
+		<!-- Landpage 1: Hero com imagem de fundo -->
+		<section class="section section--hero">
+			<header>
+				<a href="index.html" class="logo">UPE</a>
+				<div class="nav-buttons">
+					<a href="#explorar" class="nav-button">Explorar</a>
+					<a href="#contato" class="nav-button">Contato</a>
+				</div>
+			</header>
+			<div class="bg"></div>
+			<div class="overlay"></div>
+			<div class="section__inner">
+				<h1>Universidad Privada del Este</h1>
+				<p>Seu futuro começa aqui. Inscreva-se e venha estudar na UPE.</p>
+			</div>
+		</section>
+
+		<!-- Landpage 2: Informações/resumo -->
+		<section id="explorar" class="section section--info">
+			<canvas id="trailCanvas"></canvas>
+			<div class="section__inner">
+				<nav class="horizontal-menu-nav">
+					<div class="nav-scroll-container">
+						<ul class="nav-list">
+							<li class="nav-item is-active"><a href="#">Localização da UPE</a></li>
+							<li class="nav-item"><a href="#">Como Chegar</a></li>
+							<li class="nav-item"><a href="#">Preços e Financiamento</a></li>
+							<li class="nav-item"><a href="#">Segurança Local</a></li>
+							<li class="nav-item"><a href="#">Onde Morar</a></li>
+							<li class="nav-item"><a href="#">O que Fazer em Volta</a></li>
+							<li class="nav-item"><a href="#">Diferenciais da UPE</a></li>
+							<li class="nav-item"><a href="#">Vida Acadêmica e Social</a></li>
+							<li class="nav-item"><a href="#">Depoimentos de Alunos</a></li>
+							<li class="nav-item"><a href="#">Guia de Matrícula</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+
+		</section>
+
+		<!-- Landpage 3: Dinâmica conforme menu -->
+		<section id="contato" class="section section--dynamic">
+			<div class="bg" id="dynamicBg"></div>
+			<div class="overlay"></div>
+			<div class="section__inner">
+				<h2 id="dynamicTitle">Localização da UPE</h2>
+				<p id="dynamicText">Localização da UPE</p>
+			</div>
+			<button class="nav-arrow nav-arrow--left" aria-label="Anterior" type="button">‹</button>
+			<button class="nav-arrow nav-arrow--right" aria-label="Próximo" type="button">›</button>
+		</section>
+	</main>
+
+	<script>
+		(function() {
+			const nav = document.querySelector('.horizontal-menu-nav');
+			if (!nav) return;
+			const items = Array.from(nav.querySelectorAll('.nav-item'));
+			const leftBtn = document.querySelector('.nav-arrow--left');
+			const rightBtn = document.querySelector('.nav-arrow--right');
+			const desc = document.getElementById('navDescription');
+			const dynamicBg = document.getElementById('dynamicBg');
+			const dynamicTitle = document.getElementById('dynamicTitle');
+			const dynamicText = document.getElementById('dynamicText');
+
+			// Mapeamento personalizado de imagens de fundo
+			const backgroundMapping = {
+				'Localização da UPE': 'localizacao.png',
+				'Como Chegar': 'comochegar.png',
+				'Preços e Financiamento': 'precos.png',
+				'Segurança Local': 'seguranca.png',
+				'Onde Morar': 'moradia.png',
+				'O que Fazer em Volta': 'lazer.png',
+				'Diferenciais da UPE': 'diferenciais.png',
+				'Vida Acadêmica e Social': 'vidaacademica.png',
+				'Depoimentos de Alunos': 'depoimentos.png',
+				'Guia de Matrícula': 'matricula.png'
+			};
+
+			// Carregar conteúdo do arquivo JSON
+			let contentMapping = {};
+			
+			async function loadContent() {
+				try {
+					const response = await fetch('secao3.json');
+					contentMapping = await response.json();
+					// Inicializar após carregar o conteúdo
+					setActive(activeIndex);
+				} catch (error) {
+					console.error('Erro ao carregar conteúdo:', error);
+					// Fallback com conteúdo básico
+					contentMapping = {};
+				}
+			}
+
+			let activeIndex = Math.max(0, items.findIndex(i => i.classList.contains('is-active')));
+			if (activeIndex === -1) activeIndex = 0;
+
+			function updateDynamic(title) {
+				const content = contentMapping[title];
+				
+				// Verificar se é a seção de depoimentos
+				if (title === 'Depoimentos de Alunos' && content && content.depoimentos) {
+					// Renderizar depoimentos
+					if (dynamicTitle) dynamicTitle.textContent = content.title;
+					renderDepoimentos(content.depoimentos);
+				} else {
+					// Renderizar conteúdo normal com nova formatação
+					if (dynamicTitle) dynamicTitle.textContent = content ? content.title : title;
+					if (dynamicText) {
+						const formattedContent = `
+							<div class="content-container">
+								<div class="content-description">
+									${content ? content.description : title}
+								</div>
+							</div>
+						`;
+						dynamicText.innerHTML = formattedContent;
+					}
+				}
+				
+				if (dynamicBg) {
+					// Usar o mapeamento personalizado ou fallback para slugify
+					const imageFile = backgroundMapping[title] || title.toLowerCase().replace(/[^a-z0-9]+/g, '') + '.png';
+					dynamicBg.style.backgroundImage = "url('img/" + imageFile + "')";
+				}
+			}
+			
+			function renderDepoimentos(depoimentos) {
+				if (!dynamicText) return;
+				
+				const depoimentosHTML = `
+					<div class="depoimentos-container">
+						<div class="depoimento">
+							<div class="depoimento-texto">${depoimentos[0].texto}</div>
+							<div>
+								<div class="depoimento-autor">${depoimentos[0].nome}</div>
+								<div class="depoimento-curso">${depoimentos[0].curso} - ${depoimentos[0].ano}</div>
+							</div>
+						</div>
+						<div class="depoimento">
+							<div class="depoimento-texto">${depoimentos[1].texto}</div>
+							<div>
+								<div class="depoimento-autor">${depoimentos[1].nome}</div>
+								<div class="depoimento-curso">${depoimentos[1].curso} - ${depoimentos[1].ano}</div>
+							</div>
+						</div>
+						<div class="depoimento">
+							<div class="depoimento-texto">${depoimentos[2].texto}</div>
+							<div>
+								<div class="depoimento-autor">${depoimentos[2].nome}</div>
+								<div class="depoimento-curso">${depoimentos[2].curso} - ${depoimentos[2].ano}</div>
+							</div>
+						</div>
+					</div>
+				`;
+				
+				dynamicText.innerHTML = depoimentosHTML;
+			}
+
+			function setActive(index) {
+				const max = items.length - 1;
+				const clamped = Math.max(0, Math.min(index, max));
+				items.forEach((li, i) => {
+					if (i === clamped) li.classList.add('is-active');
+					else li.classList.remove('is-active');
+				});
+				activeIndex = clamped;
+				const a = items[clamped].querySelector('a');
+				const title = a ? a.textContent.trim() : '';
+				if (desc) desc.textContent = title;
+				updateArrows();
+				updateDynamic(title);
+				
+				// Navegar automaticamente para a seção
+				document.getElementById('contato').scrollIntoView({ 
+					behavior: 'smooth',
+					block: 'start'
+				});
+			}
+
+			function updateArrows() {
+				if (leftBtn) leftBtn.disabled = activeIndex <= 0;
+				if (rightBtn) rightBtn.disabled = activeIndex >= items.length - 1;
+			}
+
+			items.forEach((li, i) => {
+				li.addEventListener('click', (e) => {
+					e.preventDefault();
+					setActive(i);
+				});
+				const a = li.querySelector('a');
+				if (a) {
+					a.addEventListener('click', (e) => {
+						e.preventDefault();
+						setActive(i);
+					});
+				}
+				
+
+			});
+
+			if (leftBtn) leftBtn.addEventListener('click', () => setActive(activeIndex - 1));
+			if (rightBtn) rightBtn.addEventListener('click', () => setActive(activeIndex + 1));
+
+			// Carregar conteúdo e inicializar
+			loadContent();
+		})();
+		
+		// Trail System - Modified for autonomous movement
+		(function() {
+			var SCREEN_WIDTH = window.innerWidth;
+			var SCREEN_HEIGHT = window.innerHeight;
+			
+			var RADIUS = 70;
+			var RADIUS_SCALE = 1;
+			var RADIUS_SCALE_MIN = 1;
+			var RADIUS_SCALE_MAX = 1.5;
+			var QUANTITY = 2;
+			
+			var canvas;
+			var context;
+			var particles;
+			
+			// Autonomous movement variables
+			var centerX = SCREEN_WIDTH * 0.5;
+			var centerY = SCREEN_HEIGHT * 0.5;
+			var time = 0;
+			
+			function initTrail() {
+				canvas = document.getElementById('trailCanvas');
+				
+				if (canvas && canvas.getContext) {
+					context = canvas.getContext('2d');
+					
+					window.addEventListener('resize', windowResizeHandler, false);
+					
+					createParticles();
+					windowResizeHandler();
+					
+					setInterval(loop, 1000 / 60);
+				}
+			}
+			
+			function createParticles() {
+				particles = [];
+				
+				for (var i = 0; i < QUANTITY; i++) {
+					// Avoid center vertical area for initial positions
+					var centerArea = SCREEN_HEIGHT * 0.3;
+					var topArea = centerArea;
+					var bottomArea = SCREEN_HEIGHT - centerArea;
+					
+					var initialY;
+					if (Math.random() < 0.5) {
+						// Start in top area
+						initialY = Math.random() * topArea;
+					} else {
+						// Start in bottom area
+						initialY = bottomArea + Math.random() * centerArea;
+					}
+					
+					var targetY;
+					if (Math.random() < 0.5) {
+						// Target top area
+						targetY = Math.random() * topArea;
+					} else {
+						// Target bottom area
+						targetY = bottomArea + Math.random() * centerArea;
+					}
+					
+					var particle = {
+						size: 1,
+						position: { x: Math.random() * SCREEN_WIDTH, y: initialY },
+						offset: { x: 0, y: 0 },
+						shift: { x: Math.random() * SCREEN_WIDTH, y: initialY },
+						speed: 0.02 + Math.random() * 0.03,
+						targetSize: 1,
+						fillColor: '#0d47a1', // UPE Blue
+						// Random movement properties
+						targetX: Math.random() * SCREEN_WIDTH,
+						targetY: targetY,
+						moveSpeed: 0.005 + Math.random() * 0.01,
+						changeTargetTime: 0,
+						targetChangeInterval: 3 + Math.random() * 4 // Change target every 3-7 seconds
+					};
+					
+					particles.push(particle);
+				}
+			}
+			
+			function windowResizeHandler() {
+				var section = document.querySelector('.section--info');
+				if (section) {
+					SCREEN_WIDTH = section.offsetWidth;
+					SCREEN_HEIGHT = section.offsetHeight;
+					centerX = SCREEN_WIDTH * 0.5;
+					centerY = SCREEN_HEIGHT * 0.5;
+					
+					canvas.width = SCREEN_WIDTH;
+					canvas.height = SCREEN_HEIGHT;
+				}
+			}
+			
+			function loop() {
+				time += 0.01;
+				
+				// Clear with fade effect
+				context.fillStyle = 'rgba(255, 255, 255, 0.05)'; // Very light white fade
+				context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+				
+				for (i = 0, len = particles.length; i < len; i++) {
+					var particle = particles[i];
+					
+					var lp = { x: particle.position.x, y: particle.position.y };
+					
+					// Update change target timer
+					particle.changeTargetTime += 0.016; // Approximately 60fps
+					
+					// Change target position randomly
+					if (particle.changeTargetTime >= particle.targetChangeInterval) {
+						particle.targetX = Math.random() * SCREEN_WIDTH;
+						
+						// Avoid center vertical area (top 30% to bottom 30%)
+						var centerArea = SCREEN_HEIGHT * 0.3;
+						var topArea = centerArea;
+						var bottomArea = SCREEN_HEIGHT - centerArea;
+						
+						if (Math.random() < 0.5) {
+							// Target top area
+							particle.targetY = Math.random() * topArea;
+						} else {
+							// Target bottom area
+							particle.targetY = bottomArea + Math.random() * centerArea;
+						}
+						
+						particle.changeTargetTime = 0;
+						particle.targetChangeInterval = 3 + Math.random() * 4; // New random interval
+					}
+					
+					// Move towards target
+					var dx = particle.targetX - particle.position.x;
+					var dy = particle.targetY - particle.position.y;
+					var distance = Math.sqrt(dx * dx + dy * dy);
+					
+					if (distance > 1) {
+						particle.position.x += (dx / distance) * particle.moveSpeed * 60; // Adjust for frame rate
+						particle.position.y += (dy / distance) * particle.moveSpeed * 60;
+					}
+					
+					// Keep within bounds
+					particle.position.x = Math.max(0, Math.min(particle.position.x, SCREEN_WIDTH));
+					particle.position.y = Math.max(0, Math.min(particle.position.y, SCREEN_HEIGHT));
+					
+					// Dynamic size
+					particle.size += (particle.targetSize - particle.size) * 0.05;
+					
+					if (Math.round(particle.size) == Math.round(particle.targetSize)) {
+						particle.targetSize = 1 + Math.random() * 5;
+					}
+					
+					// Draw trail
+					context.beginPath();
+					context.fillStyle = particle.fillColor;
+					context.strokeStyle = particle.fillColor;
+					context.lineWidth = particle.size;
+					context.moveTo(lp.x, lp.y);
+					context.lineTo(particle.position.x, particle.position.y);
+					context.stroke();
+					
+					// Draw particle
+					context.beginPath();
+					context.arc(particle.position.x, particle.position.y, particle.size/2, 0, Math.PI*2, true);
+					context.fill();
+				}
+			}
+			
+			// Initialize trail when page loads
+			window.addEventListener('load', initTrail);
+		})();
+	</script>
+</body>
+</html>
