@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Dados Gerais - UPE</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<style>
+		:root { --upe-blue: #0d47a1; --upe-blue-dark: #0b3d8a; }
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		html, body { overflow-x: hidden; }
+		body { font-family: 'Poppins', sans-serif; color: #1f2937; padding-top: 0; }
+
+		header {
+			padding: 1rem 1.5rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			background: transparent;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 10;
+			user-select: none;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.logo {
+			color: #ffffff;
+			font-size: 2rem;
+			font-weight: 700;
+			text-decoration: none;
+			letter-spacing: 1px;
+		}
+
+		.nav-buttons {
+			display: flex;
+			gap: 1rem;
+		}
+
+		.nav-button {
+			color: #ffffff;
+			padding: 0.4rem 0.8rem;
+			text-decoration: none;
+			font-weight: 500;
+			font-size: 0.9rem;
+			transition: color 0.3s;
+			position: relative;
+		}
+
+		.nav-button::after {
+			content: '';
+			position: absolute;
+			width: 0;
+			height: 2px;
+			bottom: 0;
+			left: 0;
+			background-color: #ffffff;
+			transition: width 0.3s;
+		}
+		
+		.nav-button:hover {
+			color: #ffffff;
+		}
+		
+		.nav-button:hover::after {
+			width: 100%;
+		}
+
+		/* Linha decorativa no bottom do header */
+		header::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 80%;
+			height: 1px;
+			background: #ffffff;
+		}
+
+		main { padding-top: 0; }
+
+		/* Hero section com mesmo fundo da seção1 */
+		.hero-section {
+			background-image: url('img/bgb1.png');
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			position: relative;
+			overflow: hidden;
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #ffffff;
+		}
+
+		.hero-section::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: inherit;
+			background-image: url('img/bgb1.png');
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			filter: blur(20px);
+			z-index: 0;
+			opacity: 0.8;
+		}
+
+		.hero-section::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba(0, 0, 0, 0.3);
+			z-index: 1;
+			pointer-events: none;
+		}
+
+		.hero-content {
+			text-align: center;
+			position: relative;
+			z-index: 2;
+			max-width: 800px;
+			padding: 0 20px;
+		}
+
+		.hero-title {
+			font-size: 3.5rem;
+			font-weight: 700;
+			margin-bottom: 20px;
+			letter-spacing: 1px;
+		}
+
+		.hero-subtitle {
+			font-size: 1.3rem;
+			color: #e5e7eb;
+			line-height: 1.6;
+		}
+
+		/* Seção de dados */
+		.data-section {
+			padding: 80px 20px;
+			background: #f8fafc;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		.section-title {
+			text-align: center;
+			font-size: 2.5rem;
+			font-weight: 600;
+			margin-bottom: 60px;
+			color: var(--upe-blue);
+		}
+
+		.data-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+			gap: 30px;
+			margin-bottom: 60px;
+		}
+
+		.data-card {
+			background: #ffffff;
+			border-radius: 20px;
+			padding: 30px;
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+			border: 1px solid rgba(13, 71, 161, 0.1);
+			transition: all 0.3s ease;
+		}
+
+		/* Removido o efeito hover que movia os cards para cima */
+
+		.card-header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 25px;
+			padding-bottom: 15px;
+			border-bottom: 2px solid var(--upe-blue);
+		}
+
+		.card-icon {
+			width: 50px;
+			height: 50px;
+			background: linear-gradient(135deg, var(--upe-blue), var(--upe-blue-dark));
+			border-radius: 12px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-right: 15px;
+			color: #ffffff;
+			font-size: 1.5rem;
+			filter: saturate(0);
+		}
+
+		.card-title {
+			font-size: 1.4rem;
+			font-weight: 600;
+			color: var(--upe-blue);
+		}
+
+		.data-list {
+			list-style: none;
+		}
+
+		.data-item {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 12px 0;
+			border-bottom: 1px solid #f1f5f9;
+		}
+
+		.data-item:last-child {
+			border-bottom: none;
+		}
+
+		.data-label {
+			font-weight: 500;
+			color: #64748b;
+			font-size: 0.95rem;
+		}
+
+		.data-value {
+			font-weight: 600;
+			color: #1e293b;
+			text-align: right;
+			font-size: 0.95rem;
+		}
+
+		.highlight-value {
+			color: var(--upe-blue);
+			font-weight: 700;
+		}
+
+		.price-value {
+			color: #10b981;
+			font-weight: 700;
+		}
+
+		/* Seção de custos */
+		.costs-section {
+			background: linear-gradient(135deg, var(--upe-blue), var(--upe-blue-dark));
+			color: #ffffff;
+			padding: 80px 20px;
+		}
+
+		.costs-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+			gap: 30px;
+			margin-top: 40px;
+		}
+
+		.cost-card {
+			background: rgba(255, 255, 255, 0.1);
+			backdrop-filter: blur(15px);
+			border-radius: 15px;
+			padding: 25px;
+			text-align: center;
+			border: 1px solid rgba(255, 255, 255, 0.2);
+		}
+
+		.cost-amount {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-bottom: 10px;
+			color: #ffffff;
+		}
+
+		.cost-label {
+			font-size: 1.1rem;
+			color: #e5e7eb;
+		}
+
+		.total-cost {
+			background: rgba(255, 255, 255, 0.2);
+			border: 2px solid rgba(255, 255, 255, 0.3);
+		}
+
+		/* Responsive */
+		@media (max-width: 768px) {
+			header {
+				padding: 0.8rem 1rem;
+			}
+
+			.logo {
+				font-size: 1.8rem;
+			}
+
+			.nav-buttons {
+				gap: 0.5rem;
+			}
+
+			.nav-button {
+				padding: 0.3rem 0.6rem;
+				font-size: 0.8rem;
+			}
+
+			.hero-title {
+				font-size: 2.5rem;
+			}
+
+			.hero-subtitle {
+				font-size: 1.1rem;
+			}
+
+			.section-title {
+				font-size: 2rem;
+			}
+
+			.data-grid {
+				grid-template-columns: 1fr;
+				gap: 20px;
+			}
+
+			.data-card {
+				padding: 20px;
+			}
+
+			.costs-grid {
+				grid-template-columns: 1fr;
+				gap: 20px;
+			}
+
+			.cost-amount {
+				font-size: 2rem;
+			}
+		}
+
+		@media (max-width: 480px) {
+			header {
+				padding: 0.6rem 0.8rem;
+				flex-direction: column;
+				gap: 0.5rem;
+			}
+
+			.logo {
+				font-size: 1.5rem;
+			}
+
+			.nav-buttons {
+				gap: 0.3rem;
+			}
+
+			.nav-button {
+				padding: 0.2rem 0.4rem;
+				font-size: 0.7rem;
+			}
+
+			.hero-title {
+				font-size: 2rem;
+			}
+
+			.section-title {
+				font-size: 1.8rem;
+			}
+
+			.data-card {
+				padding: 15px;
+			}
+
+			.card-header {
+				flex-direction: column;
+				text-align: center;
+			}
+
+			.card-icon {
+				margin-right: 0;
+				margin-bottom: 10px;
+			}
+
+
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<!-- Hero Section -->
+		<section class="hero-section">
+			<header>
+				<a href="index.html" class="logo">UPE</a>
+				<div class="nav-buttons">
+					<a href="index.html#explorar" class="nav-button">Explorar</a>
+					<a href="index.html#contato" class="nav-button">Contato</a>
+					<a href="dados-gerais.html" class="nav-button">Dados Gerais</a>
+				</div>
+			</header>
+			<div class="hero-content">
+				<h1 class="hero-title">Dados Gerais</h1>
+				<p class="hero-subtitle">Informações completas sobre a Universidad Privada del Este</p>
+			</div>
+		</section>
+
+		<!-- Seção de Dados -->
+		<section class="data-section">
+			<div class="container">
+				<h2 class="section-title">Ficha Técnica da Faculdade</h2>
+				
+				<div class="data-grid">
+					<!-- Informações Gerais -->
+					<div class="data-card">
+						<div class="card-header">
+							<div class="card-icon">🏛️</div>
+							<h3 class="card-title">Informações Gerais</h3>
+						</div>
+						<ul class="data-list">
+							<li class="data-item">
+								<span class="data-label">Nome da instituição</span>
+								<span class="data-value">Universidad Particular del Este</span>
+							</li>
+							<li class="data-item">
+								<span class="data-label">Sigla</span>
+								<span class="data-value">UPE</span>
+							</li>
+							<li class="data-item">
+								<span class="data-label">Organização Acadêmica</span>
+								<span class="data-value">Universidade</span>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Localização -->
+					<div class="data-card">
+						<div class="card-header">
+							<div class="card-icon">📍</div>
+							<h3 class="card-title">Localização</h3>
+						</div>
+						<ul class="data-list">
+							<li class="data-item">
+								<span class="data-label">País</span>
+								<span class="data-value">Paraguai</span>
+							</li>
+							<li class="data-item">
+								<span class="data-label">Cidade</span>
+								<span class="data-value">Presidente Franco</span>
+							</li>
+							<li class="data-item">
+								<span class="data-label">Endereço</span>
+								<span class="data-value">Av. San Bilás</span>
+							</li>
+							<li class="data-item">
+								<span class="data-label">Bairro</span>
+								<span class="data-value">Área 5</span>
+							</li>
+							<li class="data-item">
+								<span class="data-label">Estado Brasileiro mais próximo</span>
+								<span class="data-value">Paraná</span>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Contato -->
+					<div class="data-card">
+						<div class="card-header">
+							<div class="card-icon">📞</div>
+							<h3 class="card-title">Contato</h3>
+						</div>
+						<ul class="data-list">
+							<li class="data-item">
+								<span class="data-label">Telefone</span>
+								<span class="data-value highlight-value">59561-571876</span>
+							</li>
+							<li class="data-item">
+								<span class="data-label">E-mail</span>
+								<span class="data-value highlight-value">59561-571876</span>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Dados Financeiros -->
+					<div class="data-card">
+						<div class="card-header">
+							<div class="card-icon">💰</div>
+							<h3 class="card-title">Dados Financeiros</h3>
+						</div>
+						<ul class="data-list">
+							<li class="data-item">
+								<span class="data-label">Mensalidade</span>
+								<span class="data-value price-value">R$ 900,00</span>
+							</li>
+							<li class="data-item">
+								<span class="data-label">Moeda Local</span>
+								<span class="data-value">Guarani, Real, Dólar e Peso Argentino</span>
+							</li>
+							<li class="data-item">
+								<span class="data-label">Administração</span>
+								<span class="data-value">Particular</span>
+							</li>
+							<li class="data-item">
+								<span class="data-label">Forma de Ingresso</span>
+								<span class="data-value">Pagamento da matrícula</span>
+							</li>
+							<li class="data-item">
+								<span class="data-label">Vagas</span>
+								<span class="data-value highlight-value">300</span>
+							</li>
+							<li class="data-item">
+								<span class="data-label">Processo Seletivo</span>
+								<span class="data-value">Não há vestibular</span>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Estrutura e Ensino -->
+					<div class="data-card">
+						<div class="card-header">
+							<div class="card-icon">🎓</div>
+							<h3 class="card-title">Estrutura e Ensino</h3>
+						</div>
+						<ul class="data-list">
+							<li class="data-item">
+								<span class="data-label">Idioma das Aulas</span>
+								<span class="data-value">Espanhol</span>
+							</li>
+							<li class="data-item">
+								<span class="data-label">Período de Aula</span>
+								<span class="data-value">Integral</span>
+							</li>
+							<li class="data-item">
+								<span class="data-label">Hospital Universitário</span>
+								<span class="data-value">Integral</span>
+							</li>
+							<li class="data-item">
+								<span class="data-label">Estágio no Brasil</span>
+								<span class="data-value highlight-value">Sim</span>
+							</li>
+							<li class="data-item">
+								<span class="data-label">Atividade Extracurricular</span>
+								<span class="data-value">Programa de intercâmbio (sim)</span>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Convivência e Cidade -->
+					<div class="data-card">
+						<div class="card-header">
+							<div class="card-icon">🏙️</div>
+							<h3 class="card-title">Convivência e Cidade</h3>
+						</div>
+						<ul class="data-list">
+							<li class="data-item">
+								<span class="data-label">Área de Esportes</span>
+								<span class="data-value highlight-value">Sim</span>
+							</li>
+							<li class="data-item">
+								<span class="data-label">Comércio Próximo</span>
+								<span class="data-value highlight-value">Sim</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Seção de Custos -->
+		<section class="costs-section">
+			<div class="container">
+				<h2 class="section-title" style="color: #ffffff;">Custos Médios na Cidade</h2>
+				<div class="costs-grid">
+					<div class="cost-card">
+						<div class="cost-amount">R$ 450</div>
+						<div class="cost-label">Moradia</div>
+					</div>
+					<div class="cost-card">
+						<div class="cost-amount">R$ 450</div>
+						<div class="cost-label">Alimentação</div>
+					</div>
+					<div class="cost-card total-cost">
+						<div class="cost-amount">R$ 2.500</div>
+						<div class="cost-label">Total Mensal Estimado</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+</body>
+</html> 

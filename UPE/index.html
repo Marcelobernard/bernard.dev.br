@@ -14,16 +14,16 @@
 		body { font-family: 'Poppins', sans-serif; color: #1f2937; padding-top: 0; }
 
 		header {
-			padding: 1.5rem 2rem;
+			padding: 1rem 1.5rem;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+			background: transparent;
 			position: absolute;
 			top: 0;
 			left: 0;
 			right: 0;
 			z-index: 10;
-			color: #ffffff;
 			user-select: none;
 			-webkit-user-select: none;
 			-moz-user-select: none;
@@ -32,27 +32,25 @@
 
 		.logo {
 			color: #ffffff;
-			font-size: 2.5rem;
+			font-size: 2rem;
 			font-weight: 700;
 			text-decoration: none;
 			letter-spacing: 1px;
-			text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 		}
 
 		.nav-buttons {
 			display: flex;
-			gap: 1.5rem;
+			gap: 1rem;
 		}
 
 		.nav-button {
 			color: #ffffff;
-			padding: 0.5rem 1rem;
+			padding: 0.4rem 0.8rem;
 			text-decoration: none;
 			font-weight: 500;
-			font-size: 1.1rem;
+			font-size: 0.9rem;
 			transition: color 0.3s;
 			position: relative;
-			text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 		}
 
 		.nav-button::after {
@@ -65,10 +63,18 @@
 			background-color: #ffffff;
 			transition: width 0.3s;
 		}
+		
+		.nav-button:hover {
+			color: #ffffff;
+		}
+		
+		.nav-button:hover::after {
+			width: 100%;
+		}
 
 
 
-		main { padding: 0; }
+		main { padding-top: 0; }
 
 		/* Landpages */
 		
@@ -90,74 +96,71 @@
 		}
 		.section__inner p { color: #4b5563; margin-top: 8px; }
 
-		/* Hero with background */
-		.section--hero {
-			position: relative;
-			color: #ffffff;
-			overflow: hidden;
-			isolation: isolate;
-		}
-		.section--hero .section__inner { position: relative; z-index: 1; padding-top: 120px; }
-		.section--hero .bg {
-			position: absolute;
-			inset: 0;
-			background-image: url('img/mulherupe.png');
+
+
+		/* First section (formerly second) */
+		.section--info { 
+			background-image: url('img/bgb1.png');
 			background-size: cover;
 			background-position: center;
 			background-repeat: no-repeat;
-			z-index: -2;
-			/* Aplicando filtros para melhorar legibilidade */
-			filter: blur(1.5px) brightness(0.8) contrast(1.1) saturate(0.9);
-		}
-		.section--hero .overlay {
-			position: absolute;
-			inset: 0;
-			background: linear-gradient(135deg, rgba(13,71,161,0.6), rgba(0,0,0,0.4));
-			z-index: -1;
-		}
-
-		.section--hero .section__inner h1 { font-size: 34px; }
-		.section--hero .section__inner p { color: #e5e7eb; }
-
-		/* Second section */
-		.section--info { 
-			background: #f8fafc; 
 			position: relative;
 			overflow: hidden;
+			padding-top: 80px; /* Compensar o header */
 		}
 		
-		/* Trail Canvas */
-		#trailCanvas {
+		/* Overlay com blur para melhorar legibilidade */
+		.section--info::after {
+			content: '';
 			position: absolute;
 			top: 0;
 			left: 0;
-			width: 100%;
-			height: 100%;
+			right: 0;
+			bottom: 0;
+			background: inherit;
+			background-image: url('img/bgb1.png');
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			filter: blur(20px);
+			z-index: 0;
+			opacity: 0.8;
+		}
+		
+		/* Overlay adicional para garantir o efeito de desfoque */
+		.section--info::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba(0, 0, 0, 0.3);
 			z-index: 1;
 			pointer-events: none;
 		}
 		
+
+		
 		/* Background text */
-		.section--info::before {
+		.section--info .background-text {
 			content: "Explore mais sobre a UPE";
 			position: absolute;
-			top: 10dvh;
+			top: 25vh;
 			left: 50%;
 			transform: translateX(-50%);
 			font-size: 60px;
-			font-weight: 300;
-			color: #00000000;
-			opacity: 0.6;
+			font-weight: 400;
+			color: rgba(255, 255, 255, 0.86);
+			opacity: 1;
 			white-space: nowrap;
 			user-select: none;
 			pointer-events: none;
-			z-index: 2;
+			z-index: 5;
 			letter-spacing: 2px;
 			text-shadow: 
-				0 0 1px #ffffff,
-				0 0 2px #000000,
-				0 0 3px #646464,
-				0 0 4px #000000;
+				0 0 10px rgba(255, 255, 255, 0.3),
+				0 0 20px rgba(255, 255, 255, 0.2);
 		}
 		
 
@@ -169,18 +172,30 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			min-height: calc(100vh - 140px);
+			min-height: 100vh;
 			padding: 0 16px;
 			position: relative;
-			z-index: 1;
+			z-index: 4;
 		}
 
-		/* Third section dynamic */
+		/* Second section dynamic (formerly third) */
 		.section--dynamic { 
 			position: relative; 
 			color: #ffffff; 
 			overflow: hidden; 
 			isolation: isolate; 
+		}
+		
+		/* Linha decorativa no bottom do header */
+		header::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 80%;
+			height: 1px;
+			background: #ffffff;
 		}
 		
 		/* Content formatting for all sections */
@@ -189,6 +204,21 @@
 			margin: 0 auto;
 			padding: 20px;
 			text-align: center;
+		}
+
+		/* Ajuste de padding para seção dinâmica em mobile */
+		@media (max-width: 768px) {
+			.section--dynamic .section__inner {
+				padding-left: 60px;
+				padding-right: 60px;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.section--dynamic .section__inner {
+				padding-left: 50px;
+				padding-right: 50px;
+			}
 		}
 		
 		.content-title {
@@ -238,12 +268,24 @@
 		}
 		
 		.feature-card {
-			background: rgba(255, 255, 255, 0.08);
-			backdrop-filter: blur(10px);
+			background: linear-gradient(135deg, rgba(13, 71, 161, 0.9), rgba(11, 61, 138, 0.95));
+			backdrop-filter: blur(15px);
 			border-radius: 15px;
 			padding: 25px;
-			border: 1px solid rgba(255, 255, 255, 0.2);
-			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+			border: 1px solid rgba(255, 255, 255, 0.15);
+			box-shadow: 
+				0 8px 25px rgba(0, 0, 0, 0.3),
+				0 4px 10px rgba(0, 0, 0, 0.2),
+				0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+			transition: all 0.3s ease;
+		}
+		
+		.feature-card:hover {
+			transform: translateY(-3px);
+			box-shadow: 
+				0 12px 35px rgba(0, 0, 0, 0.4),
+				0 6px 15px rgba(0, 0, 0, 0.3),
+				0 0 0 1px rgba(255, 255, 255, 0.2) inset;
 		}
 		
 
@@ -255,51 +297,47 @@
 			font-weight: 600;
 			color: #ffffff;
 			margin-bottom: 15px;
-			display: flex;
-			align-items: center;
-			gap: 10px;
+			text-align: center;
+			padding-bottom: 10px;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 		}
 		
-		.feature-title::before {
-			content: '';
-			width: 10px;
-			height: 10px;
-			background: var(--upe-blue);
-			border-radius: 50%;
-			margin-right: 12px;
-			box-shadow: 0 0 8px rgba(13, 71, 161, 0.4);
-		}
+		/* Removido o pseudo-elemento que criava as bolinhas azuis */
 		
 		.feature-text {
 			font-size: 1rem;
-			line-height: 1.6;
+			line-height: 1.7;
 			color: #e5e7eb;
+			text-align: justify;
+			text-align-last: center;
 		}
 		
 		/* Info boxes for specific content */
 		.info-box {
-			background: rgba(255, 255, 255, 0.08);
-			backdrop-filter: blur(10px);
+			background: linear-gradient(135deg, rgba(13, 71, 161, 0.9), rgba(11, 61, 138, 0.95));
+			backdrop-filter: blur(15px);
 			border-radius: 15px;
 			padding: 25px;
 			margin: 20px 0;
-			border: 1px solid rgba(255, 255, 255, 0.2);
-			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+			border: 1px solid rgba(255, 255, 255, 0.15);
+			box-shadow: 
+				0 8px 25px rgba(0, 0, 0, 0.3),
+				0 4px 10px rgba(0, 0, 0, 0.2),
+				0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+			transition: all 0.3s ease;
+		}
+		
+		.info-box:hover {
+			transform: translateY(-2px);
+			box-shadow: 
+				0 12px 35px rgba(0, 0, 0, 0.4),
+				0 6px 15px rgba(0, 0, 0, 0.3),
+				0 0 0 1px rgba(255, 255, 255, 0.2) inset;
 		}
 		
 
 		
-		.info-box::before {
-			content: '';
-			position: absolute;
-			top: 20px;
-			right: 20px;
-			width: 8px;
-			height: 8px;
-			background: var(--upe-blue);
-			border-radius: 50%;
-			box-shadow: 0 0 10px rgba(13, 71, 161, 0.3);
-		}
+		/* Removido o pseudo-elemento que criava as bolinhas azuis nos info-box */
 		
 		/* Price highlight */
 		.price-highlight {
@@ -438,8 +476,14 @@
 			/* Largura total para centralizar */
 			width: 100%;
 			padding: 40px 0;
-			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
-			background-color: #f7f7f7;
+			box-shadow: 
+				0 8px 32px rgba(0, 0, 0, 0.15),
+				0 20px 60px rgba(0, 0, 0, 0.1),
+				0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+			background: rgba(255, 255, 255, 0.95);
+			backdrop-filter: blur(20px);
+			border-radius: 20px;
+			border: 1px solid rgba(255, 255, 255, 0.2);
 			position: relative;
 			user-select: none;
 		}
@@ -499,6 +543,10 @@
 			line-height: 1.2;
 		}
 
+		.nav-item a:hover {
+			color: #0d47a1;
+		}
+
 		
 		/* Garantir que o conteúdo principal da seção não seja afetado */
 		.section--info .section__inner {
@@ -515,11 +563,11 @@
 
 		@media (max-width: 767px) {
 			.nav-list {
-				grid-template-columns: repeat(3, 1fr);
-				grid-template-rows: repeat(4, 1fr);
+				grid-template-columns: repeat(2, 1fr);
+				grid-template-rows: repeat(5, 1fr);
 				gap: 16px;
-				max-width: 600px;
-				min-height: 160px;
+				max-width: 500px;
+				min-height: 200px;
 			}
 			.nav-item a {
 				font-size: 13px;
@@ -585,31 +633,237 @@
 			transform: translateY(-50%) scale(0.95);
 		}
 
-		/* Desktop adjustments for hero spacing */
+		/* Ajustes para mobile nas setas de navegação */
+		@media (max-width: 768px) {
+			.nav-arrow {
+				width: 36px;
+				height: 36px;
+				font-size: 16px;
+			}
+			.nav-arrow--left { left: 10px; }
+			.nav-arrow--right { right: 10px; }
+		}
+
+		@media (max-width: 480px) {
+			.nav-arrow {
+				width: 32px;
+				height: 32px;
+				font-size: 14px;
+			}
+			.nav-arrow--left { left: 5px; }
+			.nav-arrow--right { right: 5px; }
+		}
+
+		/* Desktop adjustments for dynamic section */
 		@media (min-width: 1024px) {
-			.section--hero .section__inner { padding-top: 180px; padding-bottom: 120px; }
-			.section--hero .bg { background-position: center 40%; }
 			.section--dynamic .bg { background-position: center 80%; }
+		}
+		
+		/* Nova seção minimalista */
+		.section--minimal {
+			background-image: url('img/bgb.png');
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			position: relative;
+			overflow: hidden;
+			color: #ffffff;
+		}
+		
+		.section--minimal .bg {
+			position: absolute;
+			inset: 0;
+			background-image: url('img/bgb.png');
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			z-index: -2;
+			filter: blur(2px) brightness(0.7) contrast(1.2) saturate(0.8);
+		}
+		
+		.section--minimal .overlay {
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(13,71,161,0.3));
+			z-index: -1;
+		}
+		
+		.minimal-content {
+			width: 100%;
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 60px 20px;
+		}
+		
+		.minimal-header {
+			text-align: center;
+			margin-bottom: 60px;
+		}
+		
+		.minimal-header h2 {
+			font-size: 3rem;
+			font-weight: 700;
+			margin-bottom: 20px;
+			letter-spacing: 1px;
+		}
+		
+		.minimal-header p {
+			font-size: 1.2rem;
+			color: #e5e7eb;
+			max-width: 600px;
+			margin: 0 auto;
+			line-height: 1.6;
+		}
+		
+		.minimal-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+			gap: 30px;
+			margin-bottom: 60px;
+		}
+		
+		.minimal-card {
+			background: rgba(255, 255, 255, 0.1);
+			backdrop-filter: blur(15px);
+			border-radius: 20px;
+			overflow: hidden;
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			transition: all 0.3s ease;
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+		}
+		
+		.minimal-card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+			border-color: rgba(255, 255, 255, 0.3);
+		}
+		
+		.card-image {
+			height: 200px;
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			position: relative;
+		}
+		
+		.card-image::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 100%);
+		}
+		
+		.card-content {
+			padding: 25px;
+		}
+		
+		.card-content h3 {
+			font-size: 1.4rem;
+			font-weight: 600;
+			margin-bottom: 15px;
+			color: #ffffff;
+		}
+		
+		.card-content p {
+			font-size: 1rem;
+			line-height: 1.6;
+			color: #e5e7eb;
+		}
+		
+		.minimal-cta {
+			text-align: center;
+			background: rgba(255, 255, 255, 0.1);
+			backdrop-filter: blur(15px);
+			border-radius: 20px;
+			padding: 40px;
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+		}
+		
+		.minimal-cta h3 {
+			font-size: 2rem;
+			font-weight: 600;
+			margin-bottom: 15px;
+			color: #ffffff;
+		}
+		
+		.minimal-cta p {
+			font-size: 1.1rem;
+			color: #e5e7eb;
+			margin-bottom: 30px;
+			max-width: 500px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		
+		.cta-button {
+			background: linear-gradient(135deg, var(--upe-blue), var(--upe-blue-dark));
+			color: #ffffff;
+			border: none;
+			padding: 15px 40px;
+			font-size: 1.1rem;
+			font-weight: 600;
+			border-radius: 50px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			box-shadow: 0 4px 15px rgba(13, 71, 161, 0.3);
+		}
+		
+		.cta-button:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 8px 25px rgba(13, 71, 161, 0.4);
+		}
+		
+		/* Botão de matrícula */
+		.matricula-button {
+			background: #ffffff;
+			color: #8B0000;
+			border: 2px solid #8B0000;
+			padding: 15px 40px;
+			font-size: 1.1rem;
+			font-weight: 600;
+			border-radius: 50px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			box-shadow: 0 4px 15px rgba(139, 0, 0, 0.2);
+			margin-top: 20px;
+		}
+		
+		.matricula-button:hover {
+			background: #8B0000;
+			color: #ffffff;
+			transform: translateY(-2px);
+			box-shadow: 0 8px 25px rgba(139, 0, 0, 0.3);
 		}
 		
 		/* Responsive adjustments for background text */
 		@media (max-width: 1200px) {
-			.section--info::before {
+			.section--info .background-text {
 				font-size: 40px;
 			}
 		}
 		
 		@media (max-width: 768px) {
-			.section--info::before {
+			.section--info .background-text {
 				font-size: 25px;
 				letter-spacing: 1px;
+				white-space: normal;
+				text-align: center;
+				max-width: 90%;
 			}
 		}
 		
 		@media (max-width: 480px) {
-			.section--info::before {
+			.section--info .background-text {
 				font-size: 18px;
 				letter-spacing: 0.5px;
+				white-space: normal;
+				text-align: center;
+				max-width: 95%;
+				top: 20vh;
 			}
 		}
 		
@@ -746,31 +1000,191 @@
 				font-size: 0.9rem;
 			}
 		}
+		
+		/* Responsive adjustments for minimal section */
+		@media (max-width: 1200px) {
+			.minimal-grid {
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				gap: 25px;
+			}
+			
+			.minimal-header h2 {
+				font-size: 2.5rem;
+			}
+		}
+		
+		@media (max-width: 768px) {
+			.minimal-content {
+				padding: 40px 15px;
+			}
+			
+			.minimal-header {
+				margin-bottom: 40px;
+			}
+			
+			.minimal-header h2 {
+				font-size: 2rem;
+			}
+			
+			.minimal-header p {
+				font-size: 1.1rem;
+			}
+			
+			.minimal-grid {
+				grid-template-columns: 1fr;
+				gap: 20px;
+			}
+			
+			.minimal-card {
+				max-width: 400px;
+				margin: 0 auto;
+			}
+			
+			.card-content {
+				padding: 20px;
+			}
+			
+			.card-content h3 {
+				font-size: 1.3rem;
+			}
+			
+			.minimal-cta {
+				padding: 30px 20px;
+			}
+			
+			.minimal-cta h3 {
+				font-size: 1.6rem;
+			}
+			
+			.minimal-cta p {
+				font-size: 1rem;
+			}
+			
+			.cta-button {
+				padding: 12px 30px;
+				font-size: 1rem;
+			}
+		}
+
+		@media (max-width: 768px) {
+			header {
+				padding: 0.8rem 1rem;
+			}
+
+			.logo {
+				font-size: 1.8rem;
+			}
+
+			.nav-buttons {
+				gap: 0.5rem;
+			}
+
+			.nav-button {
+				padding: 0.3rem 0.6rem;
+				font-size: 0.8rem;
+			}
+		}
+
+		@media (max-width: 480px) {
+			header {
+				padding: 0.6rem 0.8rem;
+				flex-direction: column;
+				gap: 0.5rem;
+			}
+
+			.logo {
+				font-size: 1.5rem;
+			}
+
+			.nav-buttons {
+				gap: 0.3rem;
+			}
+
+			.nav-button {
+				padding: 0.2rem 0.4rem;
+				font-size: 0.7rem;
+			}
+
+			.nav-list {
+				grid-template-columns: repeat(2, 1fr);
+				grid-template-rows: repeat(5, 1fr);
+				gap: 12px;
+				max-width: 400px;
+				min-height: 180px;
+			}
+
+			.nav-item a {
+				font-size: 12px;
+				padding: 10px 6px;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.minimal-content {
+				padding: 30px 10px;
+			}
+
+			.minimal-header h2 {
+				font-size: 1.8rem;
+			}
+
+			.minimal-header p {
+				font-size: 1rem;
+			}
+
+			.minimal-grid {
+				gap: 15px;
+			}
+
+			.card-image {
+				height: 150px;
+			}
+
+			.card-content {
+				padding: 15px;
+			}
+
+			.card-content h3 {
+				font-size: 1.2rem;
+			}
+
+			.card-content p {
+				font-size: 0.9rem;
+			}
+
+			.minimal-cta {
+				padding: 25px 15px;
+			}
+
+			.minimal-cta h3 {
+				font-size: 1.4rem;
+			}
+
+			.minimal-cta p {
+				font-size: 0.9rem;
+			}
+
+			.cta-button {
+				padding: 10px 25px;
+				font-size: 0.9rem;
+			}
+		}
 	</style>
 	
 </head>
 <body>
 	<main>
-		<!-- Landpage 1: Hero com imagem de fundo -->
-		<section class="section section--hero">
+		<!-- Landpage 1: Informações/resumo (formerly second) -->
+		<section id="explorar" class="section section--info">
 			<header>
 				<a href="index.html" class="logo">UPE</a>
 				<div class="nav-buttons">
 					<a href="#explorar" class="nav-button">Explorar</a>
 					<a href="#contato" class="nav-button">Contato</a>
+					<a href="dados-gerais.html" class="nav-button">Dados Gerais</a>
 				</div>
 			</header>
-			<div class="bg"></div>
-			<div class="overlay"></div>
-			<div class="section__inner">
-				<h1>Universidad Privada del Este</h1>
-				<p>Seu futuro começa aqui. Inscreva-se e venha estudar na UPE.</p>
-			</div>
-		</section>
-
-		<!-- Landpage 2: Informações/resumo -->
-		<section id="explorar" class="section section--info">
-			<canvas id="trailCanvas"></canvas>
+			<div class="background-text">Explore mais sobre a UPE</div>
 			<div class="section__inner">
 				<nav class="horizontal-menu-nav">
 					<div class="nav-scroll-container">
@@ -792,7 +1206,7 @@
 
 		</section>
 
-		<!-- Landpage 3: Dinâmica conforme menu -->
+		<!-- Landpage 2: Dinâmica conforme menu (formerly third) -->
 		<section id="contato" class="section section--dynamic">
 			<div class="bg" id="dynamicBg"></div>
 			<div class="overlay"></div>
@@ -802,6 +1216,76 @@
 			</div>
 			<button class="nav-arrow nav-arrow--left" aria-label="Anterior" type="button">‹</button>
 			<button class="nav-arrow nav-arrow--right" aria-label="Próximo" type="button">›</button>
+		</section>
+
+		<!-- Landpage 3: Nova seção minimalista -->
+		<section id="secao3" class="section section--minimal">
+			<div class="bg" style="background-image: url('img/bgb.png');"></div>
+			<div class="overlay"></div>
+			<div class="section__inner">
+				<div class="minimal-content">
+					<div class="minimal-header">
+						<h2>Descubra a UPE</h2>
+						<p>Uma experiência universitária única no coração do Paraguai</p>
+					</div>
+					
+					<div class="minimal-grid">
+						<div class="minimal-card">
+							<div class="card-image" style="background-image: url('img/localizacao.png');"></div>
+							<div class="card-content">
+								<h3>Localização Estratégica</h3>
+								<p>Situada em Ciudad del Este, a UPE oferece fácil acesso e conectividade com o Brasil e Argentina, sendo o centro educacional ideal para estudantes internacionais.</p>
+							</div>
+						</div>
+						
+						<div class="minimal-card">
+							<div class="card-image" style="background-image: url('img/precos.png');"></div>
+							<div class="card-content">
+								<h3>Investimento Acessível</h3>
+								<p>Mensalidades competitivas e opções de financiamento flexíveis, permitindo que você invista no seu futuro sem comprometer suas finanças.</p>
+							</div>
+						</div>
+						
+						<div class="minimal-card">
+							<div class="card-image" style="background-image: url('img/seguranca.png');"></div>
+							<div class="card-content">
+								<h3>Segurança Garantida</h3>
+								<p>Campus monitorado 24h com equipe de segurança dedicada, proporcionando tranquilidade para focar nos seus estudos.</p>
+							</div>
+						</div>
+						
+						<div class="minimal-card">
+							<div class="card-image" style="background-image: url('img/moradia.png');"></div>
+							<div class="card-content">
+								<h3>Hospedagem Prática</h3>
+								<p>Diversas opções de moradia próximas ao campus, desde repúblicas estudantis até apartamentos modernos com preços acessíveis.</p>
+							</div>
+						</div>
+						
+						<div class="minimal-card">
+							<div class="card-image" style="background-image: url('img/lazer.png');"></div>
+							<div class="card-content">
+								<h3>Vida Social Vibrante</h3>
+								<p>Centro comercial dinâmico, restaurantes, bares e atividades culturais que tornam sua experiência universitária ainda mais rica.</p>
+							</div>
+						</div>
+						
+						<div class="minimal-card">
+							<div class="card-image" style="background-image: url('img/diferenciais.png');"></div>
+							<div class="card-content">
+								<h3>Diferenciais Exclusivos</h3>
+								<p>Metodologia inovadora, professores qualificados e infraestrutura moderna que preparam você para o mercado de trabalho global.</p>
+							</div>
+						</div>
+					</div>
+					
+					<div class="minimal-cta">
+						<h3>Pronto para começar sua jornada?</h3>
+						<p>Entre em contato conosco e descubra como a UPE pode transformar seu futuro</p>
+						<button class="cta-button">Fale Conosco</button>
+					</div>
+				</div>
+			</div>
 		</section>
 	</main>
 
@@ -838,8 +1322,8 @@
 				try {
 					const response = await fetch('secao3.json');
 					contentMapping = await response.json();
-					// Inicializar após carregar o conteúdo
-					setActive(activeIndex);
+					// Inicializar após carregar o conteúdo sem navegar automaticamente
+					updateDynamic(items[activeIndex].querySelector('a').textContent.trim());
 				} catch (error) {
 					console.error('Erro ao carregar conteúdo:', error);
 					// Fallback com conteúdo básico
@@ -912,7 +1396,7 @@
 				dynamicText.innerHTML = depoimentosHTML;
 			}
 
-			function setActive(index) {
+			function setActive(index, shouldScroll = true) {
 				const max = items.length - 1;
 				const clamped = Math.max(0, Math.min(index, max));
 				items.forEach((li, i) => {
@@ -926,11 +1410,13 @@
 				updateArrows();
 				updateDynamic(title);
 				
-				// Navegar automaticamente para a seção
-				document.getElementById('contato').scrollIntoView({ 
-					behavior: 'smooth',
-					block: 'start'
-				});
+				// Navegar automaticamente para a seção apenas se solicitado
+				if (shouldScroll) {
+					document.getElementById('contato').scrollIntoView({ 
+						behavior: 'smooth',
+						block: 'start'
+					});
+				}
 			}
 
 			function updateArrows() {
@@ -961,177 +1447,7 @@
 			loadContent();
 		})();
 		
-		// Trail System - Modified for autonomous movement
-		(function() {
-			var SCREEN_WIDTH = window.innerWidth;
-			var SCREEN_HEIGHT = window.innerHeight;
-			
-			var RADIUS = 70;
-			var RADIUS_SCALE = 1;
-			var RADIUS_SCALE_MIN = 1;
-			var RADIUS_SCALE_MAX = 1.5;
-			var QUANTITY = 2;
-			
-			var canvas;
-			var context;
-			var particles;
-			
-			// Autonomous movement variables
-			var centerX = SCREEN_WIDTH * 0.5;
-			var centerY = SCREEN_HEIGHT * 0.5;
-			var time = 0;
-			
-			function initTrail() {
-				canvas = document.getElementById('trailCanvas');
-				
-				if (canvas && canvas.getContext) {
-					context = canvas.getContext('2d');
-					
-					window.addEventListener('resize', windowResizeHandler, false);
-					
-					createParticles();
-					windowResizeHandler();
-					
-					setInterval(loop, 1000 / 60);
-				}
-			}
-			
-			function createParticles() {
-				particles = [];
-				
-				for (var i = 0; i < QUANTITY; i++) {
-					// Avoid center vertical area for initial positions
-					var centerArea = SCREEN_HEIGHT * 0.3;
-					var topArea = centerArea;
-					var bottomArea = SCREEN_HEIGHT - centerArea;
-					
-					var initialY;
-					if (Math.random() < 0.5) {
-						// Start in top area
-						initialY = Math.random() * topArea;
-					} else {
-						// Start in bottom area
-						initialY = bottomArea + Math.random() * centerArea;
-					}
-					
-					var targetY;
-					if (Math.random() < 0.5) {
-						// Target top area
-						targetY = Math.random() * topArea;
-					} else {
-						// Target bottom area
-						targetY = bottomArea + Math.random() * centerArea;
-					}
-					
-					var particle = {
-						size: 1,
-						position: { x: Math.random() * SCREEN_WIDTH, y: initialY },
-						offset: { x: 0, y: 0 },
-						shift: { x: Math.random() * SCREEN_WIDTH, y: initialY },
-						speed: 0.02 + Math.random() * 0.03,
-						targetSize: 1,
-						fillColor: '#0d47a1', // UPE Blue
-						// Random movement properties
-						targetX: Math.random() * SCREEN_WIDTH,
-						targetY: targetY,
-						moveSpeed: 0.005 + Math.random() * 0.01,
-						changeTargetTime: 0,
-						targetChangeInterval: 3 + Math.random() * 4 // Change target every 3-7 seconds
-					};
-					
-					particles.push(particle);
-				}
-			}
-			
-			function windowResizeHandler() {
-				var section = document.querySelector('.section--info');
-				if (section) {
-					SCREEN_WIDTH = section.offsetWidth;
-					SCREEN_HEIGHT = section.offsetHeight;
-					centerX = SCREEN_WIDTH * 0.5;
-					centerY = SCREEN_HEIGHT * 0.5;
-					
-					canvas.width = SCREEN_WIDTH;
-					canvas.height = SCREEN_HEIGHT;
-				}
-			}
-			
-			function loop() {
-				time += 0.01;
-				
-				// Clear with fade effect
-				context.fillStyle = 'rgba(255, 255, 255, 0.05)'; // Very light white fade
-				context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-				
-				for (i = 0, len = particles.length; i < len; i++) {
-					var particle = particles[i];
-					
-					var lp = { x: particle.position.x, y: particle.position.y };
-					
-					// Update change target timer
-					particle.changeTargetTime += 0.016; // Approximately 60fps
-					
-					// Change target position randomly
-					if (particle.changeTargetTime >= particle.targetChangeInterval) {
-						particle.targetX = Math.random() * SCREEN_WIDTH;
-						
-						// Avoid center vertical area (top 30% to bottom 30%)
-						var centerArea = SCREEN_HEIGHT * 0.3;
-						var topArea = centerArea;
-						var bottomArea = SCREEN_HEIGHT - centerArea;
-						
-						if (Math.random() < 0.5) {
-							// Target top area
-							particle.targetY = Math.random() * topArea;
-						} else {
-							// Target bottom area
-							particle.targetY = bottomArea + Math.random() * centerArea;
-						}
-						
-						particle.changeTargetTime = 0;
-						particle.targetChangeInterval = 3 + Math.random() * 4; // New random interval
-					}
-					
-					// Move towards target
-					var dx = particle.targetX - particle.position.x;
-					var dy = particle.targetY - particle.position.y;
-					var distance = Math.sqrt(dx * dx + dy * dy);
-					
-					if (distance > 1) {
-						particle.position.x += (dx / distance) * particle.moveSpeed * 60; // Adjust for frame rate
-						particle.position.y += (dy / distance) * particle.moveSpeed * 60;
-					}
-					
-					// Keep within bounds
-					particle.position.x = Math.max(0, Math.min(particle.position.x, SCREEN_WIDTH));
-					particle.position.y = Math.max(0, Math.min(particle.position.y, SCREEN_HEIGHT));
-					
-					// Dynamic size
-					particle.size += (particle.targetSize - particle.size) * 0.05;
-					
-					if (Math.round(particle.size) == Math.round(particle.targetSize)) {
-						particle.targetSize = 1 + Math.random() * 5;
-					}
-					
-					// Draw trail
-					context.beginPath();
-					context.fillStyle = particle.fillColor;
-					context.strokeStyle = particle.fillColor;
-					context.lineWidth = particle.size;
-					context.moveTo(lp.x, lp.y);
-					context.lineTo(particle.position.x, particle.position.y);
-					context.stroke();
-					
-					// Draw particle
-					context.beginPath();
-					context.arc(particle.position.x, particle.position.y, particle.size/2, 0, Math.PI*2, true);
-					context.fill();
-				}
-			}
-			
-			// Initialize trail when page loads
-			window.addEventListener('load', initTrail);
-		})();
+
 	</script>
 </body>
 </html>
