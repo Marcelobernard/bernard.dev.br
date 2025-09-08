@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - UPE-R</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: linear-gradient(135deg, #000000 0%, #001122 50%, #000033 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .card {
+            background: rgba(0,0,0,0.6);
+            border: 1px solid rgba(74, 144, 226, 0.35);
+            border-radius: 12px;
+            padding: 24px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+        }
+        h1 { font-size: 1.6rem; text-align: center; margin-bottom: 16px; }
+        p { font-size: 0.95rem; text-align: center; margin-bottom: 18px; color: #a0aec0; }
+        label { font-weight: 600; display: block; margin: 10px 0 6px; }
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 8px;
+            border: 1px solid #4a5568;
+            background: #0b1220;
+            color: #e0e0e0;
+            outline: none;
+        }
+        .actions { display: flex; gap: 10px; margin-top: 16px; }
+        .btn {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-primary { background: linear-gradient(135deg, #1e90ff, #4a90e2); color: white; }
+        .btn-secondary { background: linear-gradient(135deg, #4a90e2, #1e90ff); color: white; }
+        .back { display: block; margin-top: 14px; text-align: center; color: #87ceeb; text-decoration: none; }
+
+        @media (max-width: 480px) {
+            .card { padding: 18px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+    <script>
+        function demoLogin(event) {
+            event.preventDefault();
+            alert('Login de demonstração. Integre aqui sua autenticação.');
+            window.location.href = 'index.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="card">
+        <h1>Login</h1>
+        <p>Entre com seu e-mail e senha para continuar</p>
+        <form onsubmit="demoLogin(event)">
+            <label for="email">E-mail</label>
+            <input id="email" type="email" placeholder="seu@email.com" required>
+            <label for="password">Senha</label>
+            <input id="password" type="password" placeholder="••••••••" required>
+            <div class="actions">
+                <button class="btn btn-primary" type="submit">Entrar</button>
+                <button class="btn btn-secondary" type="button" onclick="window.location.href='index.html'">Voltar</button>
+            </div>
+        </form>
+        <a class="back" href="index.html">← Voltar para a página inicial</a>
+    </div>
+</body>
+</html>
+
+

@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resumos Acadêmicos - Venda de Resumos</title>
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -454,7 +457,49 @@
             margin-bottom: 15px;
         }
 
+        /* Header do site */
+        .site-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.45);
+            border-bottom: 1px solid rgba(74, 144, 226, 0.35);
+            backdrop-filter: saturate(140%) blur(6px);
+        }
+
+        .brand {
+            font-weight: 800;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            color: #e0e0e0;
+            text-shadow: 0 0 8px rgba(74, 144, 226, 0.25);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
         @media (max-width: 768px) {
+            .site-header {
+                padding: 10px;
+            }
+
+            .brand {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                gap: 8px;
+            }
             .header h1 {
                 font-size: 2rem;
             }
@@ -525,6 +570,15 @@
         }
 
         @media (max-width: 480px) {
+            .site-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+
+            .nav-links {
+                justify-content: center;
+            }
             .header h1 {
                 font-size: 1.6rem;
             }
@@ -575,6 +629,14 @@
     </style>
 </head>
 <body>
+    <header class="site-header">
+        <div class="brand">UPE-R</div>
+        <nav class="nav-links">
+            <button class="glow-button" onclick="goToSolicitar()">Solicitar</button>
+            <button class="glow-button" onclick="goToProdutos()">Produtos</button>
+            <button class="glow-button" onclick="window.location.href='login.html'">Login</button>
+        </nav>
+    </header>
     <div class="container">
         <div class="header">
             <h1>Seja bem vindo ao <br><span class="highlight">upe-resumos.com.br</span></h1>
@@ -582,7 +644,7 @@
     </div>
 
     <!-- Seção de Solicitações de Resumos - Largura Total -->
-    <div class="full-width-section">
+    <div class="full-width-section" id="sec-solicitar">
         <div class="container">
             <h2 class="section-title">Solicite seu Resumo Personalizado</h2>
         </div>
@@ -652,7 +714,7 @@
     <div class="container">
 
         <!-- Seção de Resumos Prontos -->
-        <div class="section">
+        <div class="section" id="sec-produtos">
             <h2 class="section-title">Resumos Prontos para Compra</h2>
             <div class="resumos-prontos">
                 <div class="resumo-item">
@@ -770,6 +832,18 @@
 
         // Atualizar tempo a cada 30 segundos
         setInterval(atualizarTempoEspera, 30000);
+
+        // Navegação: ir para Solicitar (força 'manual') e Produtos
+        function goToSolicitar() {
+            selecionarTipo('manual');
+            const destino = document.getElementById('sec-solicitar');
+            if (destino) destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function goToProdutos() {
+            const destino = document.getElementById('sec-produtos');
+            if (destino) destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     </script>
 </body>
 </html>
