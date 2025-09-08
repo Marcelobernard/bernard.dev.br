@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumos Acadêmicos - Venda de Resumos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: linear-gradient(135deg, #000000 0%, #001122 50%, #000033 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            display: inline-block;
+        }
+
+        .header h1 .highlight {
+            background: linear-gradient(
+                90deg,
+                #e0e0e0 0%,
+                #e0e0e0 40%,
+                #87ceeb 50%,
+                #4a90e2 60%,
+                #e0e0e0 70%,
+                #e0e0e0 100%
+            );
+            background-size: 200% 100%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 6s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes shine {
+            0% {
+                background-position: -200% 0;
+            }
+            50% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .section {
+            background: none;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #e0e0e0;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid #4a90e2;
+            padding-bottom: 10px;
+        }
+
+        .full-width-section .section-title {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        .full-width-section {
+            width: 100%;
+            padding: 40px 0;
+        }
+
+        .main-content-container {
+            display: flex;
+            flex-direction: column;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 20px;
+            gap: 30px;
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .glow-button {
+          padding: 1em 3em;
+          font-size: 15px;
+          font-weight: bold;
+          border-radius: 1em;
+          outline: none;
+          position: relative;
+          transition: all 0.3s;
+          cursor: pointer;
+          border: .25em solid;
+        }
+
+        .glow-button::after {
+          pointer-events: none;
+          content: "";
+          position: absolute;
+          top: 120%;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          filter: blur(2em);
+          opacity: .7;
+          transform: perspective(1.5em) rotateX(35deg) scale(1, .6);
+        }
+
+        /* Estado NÃO SELECIONADO (X) */
+        .glow-button:not(.active) {
+          color: rgb(175, 175, 175);
+          background-color: rgba(74, 144, 226, 0.4);
+          border-color: rgba(135, 206, 250, 0.4);
+          box-shadow: 0 0 0.5em .15em rgba(135, 206, 250, 0.3),
+                 0 0 2em 0.5em rgba(100, 149, 237, 0.15),
+                 inset 0 0 .5em .15em rgba(135, 206, 250, 0.2);
+          text-shadow: 0 0 .3em rgba(135, 206, 250, 0.4);
+        }
+
+        .glow-button:not(.active)::after {
+          background-color: rgba(100, 149, 237, 0.1);
+        }
+
+        /* Estado SELECIONADO (Y) */
+        .glow-button.active {
+          color: rgb(255, 255, 255);
+          background-color: rgb(135, 206, 250);
+          border-color: rgb(135, 206, 250);
+          box-shadow: 0 0 1em .25em rgb(135, 206, 250),
+                 0 0 4em 1em rgba(100, 149, 237, 0.4),
+                 inset 0 0 .75em .25em rgb(135, 206, 250);
+          text-shadow: 0 0 .5em rgb(135, 206, 250);
+        }
+
+        .glow-button.active::after {
+          background-color: rgba(100, 149, 237, 0.3);
+        }
+
+        .solicitar-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            max-width: 1600px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        .solicitar-container .btn {
+            width: auto;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+        }
+
+        .cards-images-container {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 0 0 400px;
+            height: 500px;
+        }
+
+        .cards-container .container {
+            padding: 0;
+        }
+
+        .images-container {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            flex-shrink: 0;
+        }
+
+        .card {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 15px;
+            gap: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .card.selected {
+            border: 2px solid #4a90e2;
+            box-shadow: 0 0 20px rgba(74, 144, 226, 0.3);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            left: -5px;
+            margin: auto;
+            width: calc(100% + 10px);
+            height: calc(100% + 10px);
+            border-radius: 10px;
+            background: linear-gradient(-45deg, #4a90e2 0%, #87ceeb 100%);
+            z-index: -10;
+            pointer-events: none;
+            transition: all 0.4s ease-in-out;
+            z-index: -999;
+        }
+
+        .card::after {
+            content: "";
+            z-index: -1;
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(-45deg, #1e90ff 0%, #00bfff 100%);
+            transform: translate3d(0, 0, 0) scale(0.95);
+            filter: blur(20px);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .card:hover::after {
+            filter: blur(25px);
+            transform: translate3d(0, 0, 0) scale(1.02);
+        }
+
+        .card:hover::before {
+            transform: rotate(-5deg) scaleX(1) scaleY(1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            text-transform: capitalize;
+        }
+
+        .price {
+            background: transparent;
+            color: #4a90e2;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 2px solid #4a90e2;
+        }
+
+        .features {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .features li {
+            padding: 5px 0;
+            position: relative;
+            padding-left: 20px;
+            color: white;
+            font-size: 13px;
+        }
+
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #87ceeb;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1e90ff, #4a90e2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #4a90e2, #1e90ff);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 20px rgba(30, 144, 255, 0.3);
+        }
+
+        .wait-time {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #87ceeb;
+            border-radius: 8px;
+            padding: 8px;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: bold;
+            color: #87ceeb;
+            font-size: 12px;
+        }
+
+        .resumo-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        /* Estado inicial - rIA ativo */
+        #img-ia {
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            filter: blur(0px);
+            z-index: 2;
+            transform: scale(1);
+        }
+
+        #img-manual {
+            right: 0;
+            top: 0;
+            width: 60%;
+            height: 60%;
+            filter: blur(8px);
+            z-index: 1;
+            transform: scale(0.8);
+        }
+
+        /* Estado quando manual é selecionado */
+        .manual-selected #img-ia {
+            left: 40%;
+            top: 0;
+            width: 60%;
+            height: 60%;
+            filter: blur(8px);
+            z-index: 1;
+            transform: scale(0.8);
+        }
+
+        .manual-selected #img-manual {
+            right: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            filter: blur(0px);
+            z-index: 2;
+            transform: scale(1);
+        }
+
+        .resumos-prontos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .resumo-item {
+            background: #1a202c;
+            border-radius: 10px;
+            padding: 20px;
+            border: 2px solid #4a5568;
+            transition: all 0.3s ease;
+        }
+
+        .resumo-item:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            border-color: #4a90e2;
+        }
+
+        .resumo-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #e0e0e0;
+        }
+
+        .resumo-description {
+            color: #a0aec0;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .resumo-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #4a90e2;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .full-width-section {
+                padding: 20px 0;
+            }
+            
+            .main-content-container {
+                gap: 20px;
+                padding: 0 10px;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .cards-images-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .cards-container {
+                flex: none;
+                width: 100%;
+            }
+            
+            .images-container {
+                width: 100%;
+                height: 300px;
+                order: -1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Seja bem vindo ao <br><span class="highlight">upe-resumos.com.br</span></h1>
+        </div>
+    </div>
+
+    <!-- Seção de Solicitações de Resumos - Largura Total -->
+    <div class="full-width-section">
+        <div class="container">
+            <h2 class="section-title">Solicite seu Resumo Personalizado</h2>
+        </div>
+        <div class="main-content-container">
+            <!-- Botões de Seleção acima dos cards -->
+            <div class="buttons-container">
+                <button class="glow-button" id="btn-ia" onclick="selecionarTipo('ia')">
+                    Resumo por IA
+                </button>
+                <button class="glow-button active" id="btn-manual" onclick="selecionarTipo('manual')">
+                    Resumo Manual
+                </button>
+            </div>
+
+            <div class="cards-images-container">
+                <div class="cards-container">
+                    <div class="container">
+                        <!-- Card Resumo por IA -->
+                        <div class="card" id="card-ia" style="display: none;">
+                            <div class="card-header">
+                                <span class="price">R$ 15</span>
+                            </div>
+                            <ul class="features">
+                                <li>IA especializada para reduzir grandes documentos</li>
+                                <li>Informações diretas e de fácil leitura</li>
+                                <li>Entrega quase imediata após a compra</li>
+                                <li>Resumos únicos para cada solicitação</li>
+                                <li style="visibility: hidden;">+++++++++++++++++++++++++++++++++++</li>
+                            </ul>
+                        </div>
+
+                        <!-- Card Resumo Manual -->
+                        <div class="card" id="card-manual">
+                            <div class="card-header">
+                                <span class="price">R$ 30</span>
+                            </div>
+                            <ul class="features">
+                                <li>Feito manualmente por especialista</li>
+                                <li>Mais completo que o resumo por IA</li>
+                                <li>Análise detalhada e personalizada</li>
+                                <li>Qualidade superior garantida</li>
+                                <li style="visibility: hidden;">+++++++++++++++++++++++++++++++++++</li>
+                            </ul>
+                            <div class="wait-time">
+                                Tempo estimado de espera: 2-6 horas
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Container das Imagens -->
+                <div class="images-container">
+                    <img src="img/IA.png" alt="Resumo por IA" class="resumo-image" id="img-ia">
+                    <img src="img/Manual.png" alt="Resumo Manual" class="resumo-image" id="img-manual">
+                </div>
+            </div>
+        </div>
+
+        <!-- Botão de Solicitar Centralizado -->
+        <div class="solicitar-container">
+            <button class="glow-button" id="btn-solicitar" onclick="solicitarResumo('manual')">
+                Solicitar Resumo Manual
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- Seção de Resumos Prontos -->
+        <div class="section">
+            <h2 class="section-title">Resumos Prontos para Compra</h2>
+            <div class="resumos-prontos">
+                <div class="resumo-item">
+                    <h4 class="resumo-title">Introdução à Psicologia</h4>
+                    <p class="resumo-description">Resumo completo dos principais conceitos e teorias da psicologia moderna</p>
+                    <div class="resumo-price">R$ 12</div>
+                    <button class="btn btn-primary" onclick="comprarResumo('psicologia')">
+                        Comprar Agora
+                    </button>
+                </div>
+
+                <div class="resumo-item">
+                    <h4 class="resumo-title">História do Brasil</h4>
+                    <p class="resumo-description">Linha do tempo dos principais eventos históricos do Brasil</p>
+                    <div class="resumo-price">R$ 10</div>
+                    <button class="btn btn-primary" onclick="comprarResumo('historia')">
+                        Comprar Agora
+                    </button>
+                </div>
+
+                <div class="resumo-item">
+                    <h4 class="resumo-title">Matemática Básica</h4>
+                    <p class="resumo-description">Conceitos fundamentais de álgebra e geometria</p>
+                    <div class="resumo-price">R$ 8</div>
+                    <button class="btn btn-primary" onclick="comprarResumo('matematica')">
+                        Comprar Agora
+                    </button>
+                </div>
+
+                <div class="resumo-item">
+                    <h4 class="resumo-title">Biologia Celular</h4>
+                    <p class="resumo-description">Estrutura e funcionamento das células</p>
+                    <div class="resumo-price">R$ 15</div>
+                    <button class="btn btn-primary" onclick="comprarResumo('biologia')">
+                        Comprar Agora
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cardSelecionado = 'ia'; // Estado inicial
+
+        function selecionarTipo(tipo) {
+            // Atualiza botões de seleção
+            document.querySelectorAll('.glow-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`btn-${tipo}`).classList.add('active');
+            
+            // Mostra/esconde cards
+            document.getElementById('card-ia').style.display = tipo === 'ia' ? 'block' : 'none';
+            document.getElementById('card-manual').style.display = tipo === 'manual' ? 'block' : 'none';
+            
+            // Atualiza o botão de solicitar
+            const btnSolicitar = document.getElementById('btn-solicitar');
+            const texto = tipo === 'ia' ? 'Solicitar Resumo por IA' : 'Solicitar Resumo Manual';
+            btnSolicitar.textContent = texto;
+            btnSolicitar.setAttribute('onclick', `solicitarResumo('${tipo}')`);
+            
+            // Atualiza o estado
+            cardSelecionado = tipo;
+            
+            // Controla as animações das imagens
+            const imagesContainer = document.querySelector('.images-container');
+            
+            if (tipo === 'manual') {
+                imagesContainer.classList.add('manual-selected');
+            } else {
+                imagesContainer.classList.remove('manual-selected');
+            }
+        }
+
+        function solicitarResumo(tipo) {
+            const preco = tipo === 'ia' ? 15 : 30;
+            const tipoTexto = tipo === 'ia' ? 'IA' : 'Manual';
+            
+            if (confirm(`Deseja solicitar um resumo ${tipoTexto} por R$ ${preco}?`)) {
+                // Aqui você pode integrar com um sistema de pagamento
+                alert('Redirecionando para o pagamento...');
+                // window.location.href = 'pagamento.html?tipo=' + tipo;
+            }
+        }
+
+        function comprarResumo(resumo) {
+            const precos = {
+                'psicologia': 12,
+                'historia': 10,
+                'matematica': 8,
+                'biologia': 15
+            };
+            
+            const preco = precos[resumo];
+            
+            if (confirm(`Deseja comprar este resumo por R$ ${preco}?`)) {
+                // Aqui você pode integrar com um sistema de pagamento
+                alert('Redirecionando para o pagamento...');
+                // window.location.href = 'pagamento.html?resumo=' + resumo;
+            }
+        }
+
+        // Atualizar tempo de espera dinamicamente
+        function atualizarTempoEspera() {
+            const tempos = ['2-4 horas', '3-6 horas', '4-8 horas', '1-3 horas'];
+            const tempoAleatorio = tempos[Math.floor(Math.random() * tempos.length)];
+            document.querySelector('.wait-time').innerHTML = `Tempo estimado de espera: ${tempoAleatorio}`;
+        }
+
+        // Inicialização da página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Seleciona o tipo Manual por padrão
+            selecionarTipo('manual');
+        });
+
+        // Atualizar tempo a cada 30 segundos
+        setInterval(atualizarTempoEspera, 30000);
+    </script>
+</body>
+</html>
