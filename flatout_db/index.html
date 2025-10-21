@@ -1132,9 +1132,9 @@
         // Configuração da API
         const API_BASE_URL = 'https://y6lh744wpd.execute-api.sa-east-1.amazonaws.com/prod'; // URL correta da API Gateway
         let exchangeRates = {
-            BRL: 1300.00, // 1 BRL = 1428.57 PYG (aproximadamente)
-            PYG: 1,       // Moeda principal, Guarani
-            USD: 7100.00  // 1 USD = 7428.57 PYG (aproximadamente)
+            BRL: 1300.00, // 1 BRL = 1300 PYG
+            PYG: 1, // Moeda principal
+            USD: 7100.00 // 1 USD = 7100 PYG
         };
 
         // Inicialização
@@ -1153,9 +1153,9 @@
             try {
                 // Taxas fixas para evitar variações a cada reload
                 exchangeRates = {
-                    BRL: 1428.57, // Taxa fixa 1 BRL = 1428.57 PYG
+                    BRL: 1300.00, // 1 BRL = 1300 PYG
                     PYG: 1,       // Moeda base
-                    USD: 7428.57  // Taxa fixa 1 USD = 7428.57 PYG
+                    USD: 7100.00  // 1 USD = 7100 PYG
                 };
                 console.log('Taxas atualizadas:', exchangeRates);
             } catch (error) {
@@ -1165,7 +1165,9 @@
 
         // Converter valor para moeda base (PYG)
         function converterParaMoedaBase(valor, moeda) {
-            return valor * exchangeRates[moeda];
+            const resultado = valor * exchangeRates[moeda];
+            console.log(`Conversão: ${valor} ${moeda} × ${exchangeRates[moeda]} = ${resultado} PYG`);
+            return resultado;
         }
 
         // Funções da API
@@ -1401,10 +1403,10 @@
                 .filter(m => m.categoria === 'Vendido')
                 .reduce((sum, m) => sum + converterParaMoedaBase(m.valor, m.moeda), 0);
 
-            const saldoCaixa = totalVendido - totalGastado;
+            const saldoCaixa = totalVendido;
 
             // Calcular saldo calculado: (Pendente + A ser gasto) - Em caixa
-            const saldoCalculado = (totalPendente + totalGastado) - saldoCaixa;
+            const saldoCalculado = saldoCaixa - (totalPendente + totalGastado);
             
             // Atualizar valores
             document.getElementById('totalGastado').textContent = formatarMoeda(totalGastado);
