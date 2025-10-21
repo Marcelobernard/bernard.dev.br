@@ -57,7 +57,18 @@
     header {
         text-align: center;
         padding: 4rem 0;
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    #headerCanvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
     }
 
     h1 {
@@ -65,12 +76,16 @@
         margin: 0;
         color: var(--text-color);
         text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        position: relative;
+        z-index: 2;
     }
 
     .subtitle {
         font-size: 1.5em;
         margin-top: 1rem;
         color: rgba(255,255,255,0.9);
+        position: relative;
+        z-index: 2;
     }
 
     .section {
@@ -394,6 +409,7 @@
         margin: 2rem 0;
         display: flex;
         justify-content: center;
+        align-items: center;
         gap: 1rem;
         flex-wrap: wrap;
     }
@@ -612,43 +628,626 @@
         margin-right: 5px;
         font-size: 1em;
     }
+
+    .login-button {
+        display: block;
+        margin: 2rem auto 0.1rem;
+        padding: 0.6rem 1.0rem;
+        background-color: var(--secondary-color);
+        color: var(--text-color);
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(63, 231, 60, 0.3);
+        border: 2px solid var(--secondary-color);
+        text-align: center;
+        max-width: 250px;
+    }
+
+    .login-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(13, 165, 5, 0.4);
+        background-color: transparent;
+    }
+
+    .login-button i {
+        margin-right: 5px;
+        font-size: 1em;
+    }
+
+    .buttons-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        max-width: 600px;
+        margin: 3.4rem auto 0.1rem;
+        padding: 0 1rem;
+    }
+
+    .grid-button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        background-color: var(--secondary-color);
+        color: var(--text-color);
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(63, 231, 60, 0.3);
+        border: 2px solid var(--secondary-color);
+        text-align: center;
+        min-height: 120px;
+    }
+
+    .grid-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(13, 165, 5, 0.4);
+        background-color: transparent;
+    }
+
+    .grid-button i {
+        font-size: 2em;
+        margin-bottom: 0.5rem;
+    }
+
+    .grid-button span {
+        font-size: 1.1em;
+    }
+
+    .welcome-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        background-color: var(--secondary-color);
+        color: var(--text-color);
+        border-radius: 10px;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(63, 231, 60, 0.3);
+        border: 2px solid var(--secondary-color);
+        text-align: center;
+        min-height: 120px;
+        gap: 1rem;
+    }
+
+    .welcome-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(13, 165, 5, 0.4);
+        background-color: transparent;
+    }
+
+    .welcome-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .welcome-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .welcome-name {
+        font-size: 1.1em;
+        text-align: left;
+    }
+
+    .welcome-logout {
+        background: none;
+        border: none;
+        color: var(--text-color);
+        cursor: pointer;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        font-size: 0.9em;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .welcome-logout:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    @media only screen and (max-width: 768px) {
+        .buttons-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .language-selector-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    .language-selector-wrapper select {
+        background-color: var(--secondary-color);
+        color: var(--text-color);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1em;
+        font-weight: 500;
+        box-shadow: 0 4px 15px rgba(63, 231, 60, 0.3);
+        outline: none;
+        min-width: 120px;
+        height: 38px;
+        line-height: 1.2;
+        display: inline-block;
+        text-align: center;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        transition: all 0.3s ease;
+    }
+
+    .language-selector-wrapper select:hover,
+    .language-selector-wrapper select:focus {
+        background-color: transparent;
+        color: var(--secondary-color);
+        border: 2px solid var(--secondary-color);
+    }
+
+    @media only screen and (max-width: 768px) {
+        .controls-bar {
+            flex-direction: column;
+            align-items: center;
+        }
+        .language-selector-wrapper {
+            margin-left: 0;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+    }
+    .top-header {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(8px);
+        color: var(--text-color);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1001;
+        height: 72px;
+        box-shadow: 0 4px 16px -4px rgba(0,0,0,0.18);
+        display: flex;
+        align-items: center;
+        padding: 0;
+    }
+    .top-header::after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: 0 auto;
+        width: 90%;
+        max-width: 1100px;
+        height: 2px;
+        background: var(--secondary-color);
+        border-radius: 2px;
+        opacity: 0.5;
+        box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+        z-index: 2;
+    }
+    .header-content {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2.2rem;
+        height: 72px;
+        position: relative;
+    }
+    .header-title {
+        font-size: 1.35rem;
+        font-weight: 500;
+        letter-spacing: 2px;
+        color: #e3eaf2;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        user-select: none;
+    }
+    .header-title::before {
+        content: "\f121";
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        font-size: 1.1em;
+        color: var(--secondary-color);
+        margin-right: 0.2em;
+        opacity: 0.85;
+    }
+    .lang-dropdown {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    .lang-btn {
+        width: 45px;
+        height: 20px;
+        background: rgba(10, 160, 105, 0.92);
+        color: var(--text-color);
+        border: none;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s, box-shadow 0.2s;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        outline: none;
+        user-select: none;
+    }
+    .lang-btn:hover, .lang-btn:focus {
+        background: #00dd88;
+        color: #fff;
+        box-shadow: 0 4px 16px rgba(63, 231, 60, 0.13);
+    }
+    .lang-options {
+        display: none;
+        position: absolute;
+        top: 54px;
+        right: 0;
+        background: var(--secondary-color);
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        min-width: 70px;
+        overflow: hidden;
+        flex-direction: column;
+        z-index: 1002;
+        padding: 0.3rem 0;
+    }
+    .lang-dropdown.open .lang-options {
+        display: flex;
+    }
+    .lang-option {
+        padding: 0.7rem 1.2rem;
+        color: var(--text-color);
+        cursor: pointer;
+        font-size: 1rem;
+        background: none;
+        border: none;
+        text-align: left;
+        transition: background 0.2s, color 0.2s;
+        border-radius: 0;
+        margin: 0 0.2rem;
+    }
+    .lang-option:hover {
+        background: var(--primary-color);
+        color: var(--primary-color);
+        border-radius: 6px;
+    }
+    @media only screen and (max-width: 768px) {
+        .header-content {
+            padding: 0 0.7rem;
+        }
+        .lang-btn {
+            width: 40px;
+            height: 40px;
+            font-size: 0.95rem;
+        }
+        .header-title {
+            font-size: 1.05rem;
+        }
+        .header-nav {
+            display: none !important;
+        }
+        .header-content {
+            justify-content: space-between;
+        }
+    }
+    body {
+        padding-top: 56px;
+    }
+    .header-nav {
+        display: flex;
+        gap: 1.2rem;
+        margin-left: 2.2rem;
+    }
+    .nav-link {
+        color: #e3eaf2;
+        text-decoration: none;
+        font-size: 1.05rem;
+        font-weight: 500;
+        padding: 0.3rem 0.7rem;
+        border-radius: 6px;
+        transition: background 0.18s, color 0.18s;
+        opacity: 0.88;
+        letter-spacing: 1px;
+        position: relative;
+        z-index: 2;
+    }
+    .nav-link:hover, .nav-link.active {
+        background: var(--secondary-color);
+        color: var(--primary-color);
+        opacity: 1;
+    }
+    @media only screen and (max-width: 900px) {
+        .header-nav {
+            gap: 0.5rem;
+            margin-left: 0.7rem;
+        }
+        .nav-link {
+            font-size: 0.97rem;
+            padding: 0.3rem 0.5rem;
+        }
+    }
+    @media only screen and (max-width: 600px) {
+        .header-nav {
+            gap: 0.2rem;
+            margin-left: 0.2rem;
+        }
+        .nav-link {
+            font-size: 0.93rem;
+            padding: 0.2rem 0.3rem;
+        }
+    }
+    html {
+        scroll-behavior: smooth;
+    }
 </style>
 </head>
 <body>
-    <header>
-        <h1>MBernard</h1>
-        <div class="subtitle">Desenvolvedor Full Stack</div>
-    </header>
+    <script>
+        // Bloco de tradução e funções de idioma - agora disponível antes do header
+        const translations = {
+          pt: {
+            changeColor: "Mudar Cor",
+            resetColor: "Resetar Cor",
+            toggleTheme: "Modo Escuro/Claro",
+            shakeSite: "Tremer Site",
+            breakSite: "Quebrar Site",
+            aboutMe: "Sobre Mim",
+            aboutMeText1: "Sempre fui do tipo que, quando não encontra uma solução, cria uma. Antes mesmo de seguir carreira na programação, já desenvolvia scripts e modificações para facilitar meu dia a dia, principalmente em jogos, meu maior hobby.  Tenho prazer em transformar ideias em realidade, seja criando ferramentas web, modificando jogos para expandir possibilidades ou automatizando tarefas com Python e C++. Para mim, a computação é mais do que uma profissão — é um meio de integrar criatividade e tecnologia na rotina.",
+            aboutMeText2: "Trabalhar com o que gosto significa que cada desafio não é tempo perdido, mas uma oportunidade de evolução. Cada aprendizado tem um propósito, e cada conquista alimenta uma nova ambição.",
+            cloudComputing: "Cloud Computing",
+            cloudText1: "Tenho grande interesse e venho desenvolvendo minhas habilidades em Cloud Computing, com foco na plataforma AWS. Minha introdução à AWS foi através de um projeto de integração com EC2, onde criei uma solução para comunicação remota entre dispositivos via terminal, independentemente da rede Wi-Fi. O sucesso dessa implementação me incentivou a explorar mais a AWS e aplicá-la em outros projetos, mesmo quando não era um requisito inicial.",
+            cloudText2: "Posteriormente, tive a oportunidade de aplicar esses conhecimentos em um projeto mobile, desenvolvendo funcionalidades para um e-commerce em tempo real, buscando simular a experiência de aplicativos de delivery. Após completar o curso AWS Cloud Practitioner Essentials, minha visão sobre a arquitetura em nuvem se ampliou, e compreendi melhor o vasto ecossistema além do EC2. Isso me levou a explorar conceitos de otimização de custos, buscando entender como gerenciar recursos de forma eficiente.",
+            cloudText3: "Atualmente, estou me familiarizando e já utilizei serviços como Lambda para computação serverless, S3 para armazenamento, DynamoDB para banco de dados NoSQL e API Gateway para gerenciamento de APIs. Vejo a convergência entre análise, desenvolvimento de software e gestão de dados na cloud como uma área muito promissora e estou animado para continuar aprendendo e aplicando minhas competências de forma integrada.",
+            script: "Script",
+            scriptText1: "A utilização de Scripts tornou-se uma parte fundamental do meu dia a dia, tanto profissional quanto pessoal. Desde que adquiri conhecimento nessa área, aplico scripts não apenas para resolver problemas práticos, mas também como ferramenta de exploração e análise de dados, testando padrões de aleatoriedade e desenvolvendo soluções automatizadas para diversos cenários.",
+            scriptText2: "Um dos projetos mais gratificantes que desenvolvi utilizando Scripts foi a automatização de atualizações de arquivos e pastas para o jogo 'The Elder Scrolls V: Skyrim Anniversary Edition'. O desafio consistia em tornar compatíveis modificações do jogo, o que exigia a alteração de nomes de pastas, atualização de conteúdo em arquivos .txt e criação de arquivos JSON com configurações específicas.",
+            scriptText3: "O projeto envolvia mais de 2.000 pastas, cada uma contendo dezenas de arquivos, tornando a manutenção manual completamente inviável. Ao perceber a magnitude do problema, desenvolvi um script que, em menos de 30 minutos, automatizou todo o processo que anteriormente consumia dias de trabalho manual. Embora tenha sido uma solução desenvolvida para uso pessoal, o impacto foi significativo: compartilhei a solução com outros usuários que enfrentavam o mesmo problema, beneficiando milhares de jogadores da comunidade.",
+            skills: "Habilidades Técnicas",
+            projects: "Projetos",
+            contact: "Contato",
+            contactText: "Fique à vontade para entrar em contato através de qualquer um dos canais disponíveis. Estou sempre aberto a novas oportunidades e parcerias!",
+            channels: "Canais",
+            social: "Redes Sociais",
+            copyright: "&copy; 2024 Marcelo Bernard. Todos os direitos reservados.",
+            progLangs: "Linguagens de Programação",
+            cpp: "C++",
+            python: "Python",
+            java: "Java",
+            javascript: "JavaScript",
+            lua: "Lua",
+            webDev: "Desenvolvimento Web",
+            html5: "HTML5",
+            css3: "CSS3",
+            php: "PHP",
+            otherTechs: "Outras Tecnologias",
+            papyrus: "Papyrus Script",
+            git: "Git",
+            mods: "Addons e Mods",
+            infra: "Infraestrutura e Sistemas",
+            aws: "AWS Cloud",
+            linux: "Linux",
+            talitaTitle: "Talita Cumi's",
+            talitaDesc: "Restaurante e cafeteria com culinária brasileira em Pdte. Franco, Paraguai"
+          },
+          es: {
+            changeColor: "Cambiar Color",
+            resetColor: "Restablecer Color",
+            toggleTheme: "Modo Oscuro/Claro",
+            shakeSite: "Agitar Sitio",
+            breakSite: "Romper Sitio",
+            aboutMe: "Sobre mí",
+            aboutMeText1: "Siempre fui del tipo que, cuando no encuentra una solución, crea una. Antes incluso de seguir una carrera en programación, ya desarrollaba scripts y modificaciones para facilitar mi día a día, principalmente en juegos, mi mayor hobby. Me gusta transformar ideas en realidad, ya sea creando herramientas web, modificando juegos para expandir posibilidades o automatizando tareas con Python y C++. Para mí, la computación es más que una profesión: es una forma de integrar creatividad y tecnología en la rutina.",
+            aboutMeText2: "Trabajar con lo que me gusta significa que cada desafío no es tiempo perdido, sino una oportunidad de evolución. Cada aprendizaje tiene un propósito y cada logro alimenta una nueva ambición.",
+            cloudComputing: "Computación en la Nube",
+            cloudText1: "Tengo gran interés y vengo desarrollando mis habilidades en Cloud Computing, con enfoque en la plataforma AWS. Mi introducción a AWS fue a través de un proyecto de integración con EC2, donde creé una solución para comunicación remota entre dispositivos vía terminal, independientemente de la red Wi-Fi. El éxito de esa implementación me incentivó a explorar más AWS y aplicarla en otros proyectos, incluso cuando no era un requisito inicial.",
+            cloudText2: "Posteriormente, tuve la oportunidad de aplicar esos conocimientos en un proyecto móvil, desarrollando funcionalidades para un e-commerce en tiempo real, buscando simular la experiencia de aplicaciones de delivery. Tras completar el curso AWS Cloud Practitioner Essentials, mi visión sobre la arquitectura en la nube se amplió y comprendí mejor el vasto ecosistema más allá de EC2. Eso me llevó a explorar conceptos de optimización de costos, buscando entender cómo gestionar recursos de forma eficiente.",
+            cloudText3: "Actualmente, me estoy familiarizando y ya utilicé servicios como Lambda para computación serverless, S3 para almacenamiento, DynamoDB para base de datos NoSQL y API Gateway para gestión de APIs. Veo la convergencia entre análisis, desarrollo de software y gestión de datos en la nube como un área muy prometedora y estoy emocionado por seguir aprendiendo y aplicando mis competencias de forma integrada.",
+            script: "Script",
+            scriptText1: "El uso de scripts se ha convertido en una parte fundamental de mi día a día, tanto profesional como personal. Desde que adquirí conocimiento en esta área, aplico scripts no solo para resolver problemas prácticos, sino también como herramienta de exploración y análisis de datos, probando patrones de aleatoriedad y desarrollando soluciones automatizadas para diversos escenarios.",
+            scriptText2: "Uno de los proyectos más gratificantes que desarrollé utilizando scripts fue la automatización de actualizaciones de archivos y carpetas para el juego 'The Elder Scrolls V: Skyrim Anniversary Edition'. El desafío consistía en hacer compatibles modificaciones del juego, lo que requería cambiar nombres de carpetas, actualizar contenido en archivos .txt y crear archivos JSON con configuraciones específicas.",
+            scriptText3: "El proyecto involucraba más de 2.000 carpetas, cada una con docenas de archivos, haciendo el mantenimiento manual completamente inviable. Al percibir la magnitud del problema, desarrollé un script que, en menos de 30 minutos, automatizó el entire proceso que antes consumía días de trabajo manual. Aunque fue una solución desarrollada para uso personal, el impacto fue significativo: compartí la solución con otros usuarios que enfrentaban el mismo problema, beneficiando a miles de jugadores de la comunidad.",
+            skills: "Habilidades Técnicas",
+            projects: "Proyectos",
+            contact: "Contacto",
+            contactText: "No dude en ponerse en contacto a través de cualquiera de los canales disponibles. ¡Siempre estoy abierto a nuevas oportunidades y asociaciones!",
+            channels: "Canales",
+            social: "Redes Sociales",
+            copyright: "&copy; 2024 Marcelo Bernard. Todos los derechos reservados.",
+            progLangs: "Lenguajes de Programación",
+            cpp: "C++",
+            python: "Python",
+            java: "Java",
+            javascript: "JavaScript",
+            lua: "Lua",
+            webDev: "Desarrollo Web",
+            html5: "HTML5",
+            css3: "CSS3",
+            php: "PHP",
+            otherTechs: "Otras Tecnologías",
+            papyrus: "Papyrus Script",
+            git: "Git",
+            mods: "Addons y Mods",
+            infra: "Infraestructura y Sistemas",
+            aws: "AWS Cloud",
+            linux: "Linux",
+            talitaTitle: "Talita Cumi's",
+            talitaDesc: "Restaurante y cafetería con cocina brasileña en Pdte. Franco, Paraguay"
+          },
+          en: {
+            changeColor: "Change Color",
+            resetColor: "Reset Color",
+            toggleTheme: "Dark/Light Mode",
+            shakeSite: "Shake Site",
+            breakSite: "Break Site",
+            aboutMe: "About Me",
+            aboutMeText1: "I've always been the type who, when can't find a solution, creates one. Even before pursuing a career in programming, I was already developing scripts and mods to make my daily life easier, especially in games, my biggest hobby. I enjoy turning ideas into reality, whether by creating web tools, modding games to expand possibilities, or automating tasks with Python and C++. For me, computing is more than a profession—it's a way to integrate creativity and technology into my routine.",
+            aboutMeText2: "Working with what I love means every challenge is not wasted time, but an opportunity for growth. Every learning has a purpose, and every achievement fuels a new ambition.",
+            cloudComputing: "Cloud Computing",
+            cloudText1: "I have a great interest and have been developing my skills in Cloud Computing, focusing on the AWS platform. My introduction to AWS was through an EC2 integration project, where I created a solution for remote communication between devices via terminal, regardless of Wi-Fi network. The success of this implementation encouraged me to explore AWS further and apply it to other projects, even when it wasn't a requirement.",
+            cloudText2: "Later, I had the opportunity to apply this knowledge in a mobile project, developing real-time e-commerce features, aiming to simulate the experience of delivery apps. After completing the AWS Cloud Practitioner Essentials course, my view of cloud architecture broadened, and I better understood the vast ecosystem beyond EC2. This led me to explore cost optimization concepts, seeking to understand how to manage resources efficiently.",
+            cloudText3: "Currently, I am getting familiar and have already used services like Lambda for serverless computing, S3 for storage, DynamoDB for NoSQL database, and API Gateway for API management. I see the convergence between analytics, software development, and data management in the cloud as a very promising area, and I am excited to keep learning and applying my skills in an integrated way.",
+            script: "Script",
+            scriptText1: "The use of scripts has become a fundamental part of my daily life, both professionally and personally. Since I acquired knowledge in this area, I apply scripts not only to solve practical problems but also as a tool for exploration and data analysis, testing randomness patterns and developing automated solutions for various scenarios.",
+            scriptText2: "One of the most rewarding projects I developed using scripts was automating updates of files and folders for the game 'The Elder Scrolls V: Skyrim Anniversary Edition'. The challenge was to make game mods compatible, which required changing folder names, updating content in .txt files, and creating JSON files with specific configurations.",
+            scriptText3: "The project involved more than 2,000 folders, each containing dozens of files, making manual maintenance completely unfeasible. Realizing the magnitude of the problem, I developed a script that, in less than 30 minutes, automated the entire process that previously took days of manual work. Although it was a solution developed for personal use, the impact was significant: I shared the solution with other users facing the same problem, benefiting thousands of players in the community.",
+            skills: "Technical Skills",
+            projects: "Projects",
+            contact: "Contact",
+            contactText: "Feel free to get in touch through any of the available channels. I am always open to new opportunities and partnerships!",
+            channels: "Channels",
+            social: "Social Networks",
+            copyright: "&copy; 2024 Marcelo Bernard. All rights reserved.",
+            progLangs: "Programming Languages",
+            cpp: "C++",
+            python: "Python",
+            java: "Java",
+            javascript: "JavaScript",
+            lua: "Lua",
+            webDev: "Web Development",
+            html5: "HTML5",
+            css3: "CSS3",
+            php: "PHP",
+            otherTechs: "Other Technologies",
+            papyrus: "Papyrus Script",
+            git: "Git",
+            mods: "Addons and Mods",
+            infra: "Infrastructure and Systems",
+            aws: "AWS Cloud",
+            linux: "Linux",
+            talitaTitle: "Talita Cumi's",
+            talitaDesc: "Brazilian cuisine restaurant and café in Pdte. Franco, Paraguay"
+          }
+        };
+
+        function changeLanguage(lang) {
+          localStorage.setItem('siteLang', lang);
+          document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[lang][key] !== undefined) {
+              // Atualiza apenas se o texto for diferente
+              if (el.innerHTML !== translations[lang][key]) {
+                el.innerHTML = translations[lang][key];
+              }
+            }
+          });
+        }
+
+        function toggleLangDropdown() {
+            document.getElementById('langDropdown').classList.toggle('open');
+        }
+        function selectLang(lang) {
+            let label = 'PTBR';
+            if (lang === 'en') label = 'EN';
+            if (lang === 'es') label = 'ES';
+            document.getElementById('langBtn').textContent = label;
+            localStorage.setItem('siteLang', lang);
+            changeLanguage(lang);
+            setTimeout(() => {
+              document.getElementById('langDropdown').classList.remove('open');
+            }, 100);
+        }
+
+        // Atualiza o botão ao carregar a página e aplica o idioma
+        window.addEventListener('DOMContentLoaded', () => {
+            const lang = localStorage.getItem('siteLang') || 'pt';
+            let label = 'PTBR';
+            if (lang === 'en') label = 'EN';
+            if (lang === 'es') label = 'ES';
+            document.getElementById('langBtn').textContent = label;
+            changeLanguage(lang);
+        });
+        // Fecha o dropdown ao clicar fora
+        window.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('langDropdown');
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('open');
+            }
+        });
+    </script>
+    <!-- Novo header retangular fixo no topo -->
+    <div class="top-header">
+        <div class="header-content">
+            <div class="header-title">Marcelo Bernard</div>
+            <nav class="header-nav">
+                <a href="#sobre" class="nav-link" data-i18n="aboutMe">Sobre</a>
+                <a href="#cloud" class="nav-link" data-i18n="cloudComputing">Cloud Computing</a>
+                <a href="#script" class="nav-link" data-i18n="script">Script</a>
+                <a href="#skills" class="nav-link" data-i18n="skills">Skills</a>
+                <a href="#contato" class="nav-link" data-i18n="contact">Contato</a>
+            </nav>
+            <div class="lang-dropdown" id="langDropdown">
+                <button class="lang-btn" id="langBtn" onclick="toggleLangDropdown()">PTBR</button>
+                <div class="lang-options" id="langOptions">
+                    <div class="lang-option" onclick="selectLang('pt')">PTBR</div>
+                    <div class="lang-option" onclick="selectLang('en')">EN</div>
+                    <div class="lang-option" onclick="selectLang('es')">ES</div>
+                </div>
+            </div>
+        </div>
+        <div class="header-divider"></div>
+    </div>
 
     <div class="controls-bar">
         <button class="control-button" onclick="toggleColorPicker()">
             <i class="fas fa-palette"></i>
-            Mudar Cor
+            <span data-i18n="changeColor">Mudar Cor</span>
         </button>
         <input type="color" class="color-picker" id="colorPicker" onchange="changeColor(this.value)">
         <button class="control-button" onclick="resetColor()">
             <i class="fas fa-undo"></i>
-            Resetar Cor
+            <span data-i18n="resetColor">Resetar Cor</span>
         </button>
         <button class="control-button" onclick="toggleTheme()">
             <i class="fas fa-moon"></i>
-            Modo Escuro/Claro
+            <span data-i18n="toggleTheme">Modo Escuro/Claro</span>
         </button>
         <button class="control-button" onclick="shakeSite()">
             <i class="fas fa-bomb"></i>
-            Tremer Site
+            <span data-i18n="shakeSite">Tremer Site</span>
         </button>
         <button class="control-button" onclick="showBreakConfirmation()">
             <i class="fas fa-skull"></i>
-            Quebrar Site
+            <span data-i18n="breakSite">Quebrar Site</span>
         </button>
+        <!-- seletor de idioma antigo removido -->
     </div>
 
-    <a href="postit.html" class="postit-button">
-        <i class="fas fa-sticky-note"></i>
-        Post-it Público
-    </a>
-    <p class="postit-description">Clique aqui para entrar na seção de post-it, onde é possível deixar um comentário público</p>
+    <div class="buttons-grid">
+        <a href="postit.html" class="grid-button">
+            <i class="fas fa-sticky-note"></i>
+            <span data-i18n="postit">Post-it Público</span>
+        </a>
+        <div id="loginSection">
+            <!-- O conteúdo será preenchido dinamicamente pelo JavaScript -->
+        </div>
+    </div>
 
     <div class="modal" id="breakModal">
         <div class="modal-content">
@@ -662,16 +1261,16 @@
     </div>
 
     <main class="container">
-        <section class="section">
-            <h2 class="section-title">Sobre Mim</h2>
+        <section class="section" id="sobre">
+            <h2 class="section-title" data-i18n="aboutMe">Sobre Mim</h2>
             <div class="about-content">
                 <div class="about-text">
                     <p>
-                        Sempre fui do tipo que, quando não encontra uma solução, cria uma. Antes mesmo de seguir carreira na programação, já desenvolvia scripts e modificações para facilitar meu dia a dia, principalmente em jogos, meu maior hobby.  
-                        Tenho prazer em transformar ideias em realidade, seja criando ferramentas web, modificando jogos para expandir possibilidades ou automatizando tarefas com Python e C++. Para mim, a computação é mais do que uma profissão — é um meio de integrar criatividade e tecnologia na rotina.
+                        <span data-i18n="aboutMeText1">Sempre fui do tipo que, quando não encontra uma solução, cria uma. Antes mesmo de seguir carreira na programação, já desenvolvia scripts e modificações para facilitar meu dia a dia, principalmente em jogos, meu maior hobby.  
+                        Tenho prazer em transformar ideias em realidade, seja criando ferramentas web, modificando jogos para expandir possibilidades ou automatizando tarefas com Python e C++. Para mim, a computação é mais do que uma profissão — é um meio de integrar criatividade e tecnologia na rotina.</span>
                     </p>
                     <p>
-                        Trabalhar com o que gosto significa que cada desafio não é tempo perdido, mas uma oportunidade de evolução. Cada aprendizado tem um propósito, e cada conquista alimenta uma nova ambição.
+                        <span data-i18n="aboutMeText2">Trabalhar com o que gosto significa que cada desafio não é tempo perdido, mas uma oportunidade de evolução. Cada aprendizado tem um propósito, e cada conquista alimenta uma nova ambição.</span>
                     </p>
                 </div>
                 <div class="social-links">
@@ -683,18 +1282,18 @@
             </div>
         </section>
 
-        <section class="section">
-            <h2 class="section-title">Cloud Computing</h2>
+        <section class="section" id="cloud">
+            <h2 class="section-title" data-i18n="cloudComputing">Cloud Computing</h2>
             <div class="about-content">
                 <div class="about-text">
                     <p>
-                        Tenho grande interesse e venho desenvolvendo minhas habilidades em Cloud Computing, com foco na plataforma AWS. Minha introdução à AWS foi através de um projeto de integração com EC2, onde criei uma solução para comunicação remota entre dispositivos via terminal, independentemente da rede Wi-Fi. O sucesso dessa implementação me incentivou a explorar mais a AWS e aplicá-la em outros projetos, mesmo quando não era um requisito inicial.
+                        <span data-i18n="cloudText1">Tenho grande interesse e venho desenvolvendo minhas habilidades em Cloud Computing, com foco na plataforma AWS. Minha introdução à AWS foi através de um projeto de integração com EC2, onde criei uma solução para comunicação remota entre dispositivos via terminal, independentemente da rede Wi-Fi. O sucesso dessa implementação me incentivou a explorar mais a AWS e aplicá-la em outros projetos, mesmo quando não era um requisito inicial.</span>
                     </p>
                     <p>
-                        Posteriormente, tive a oportunidade de aplicar esses conhecimentos em um projeto mobile, desenvolvendo funcionalidades para um e-commerce em tempo real, buscando simular a experiência de aplicativos de delivery. Após completar o curso AWS Cloud Practitioner Essentials, minha visão sobre a arquitetura em nuvem se ampliou, e compreendi melhor o vasto ecossistema além do EC2. Isso me levou a explorar conceitos de otimização de custos, buscando entender como gerenciar recursos de forma eficiente.
+                        <span data-i18n="cloudText2">Posteriormente, tive a oportunidade de aplicar esses conhecimentos em um projeto mobile, desenvolvendo funcionalidades para um e-commerce em tempo real, buscando simular a experiência de aplicativos de delivery. Após completar o curso AWS Cloud Practitioner Essentials, minha visão sobre a arquitetura em nuvem se ampliou, e compreendi melhor o vasto ecossistema além do EC2. Isso me levou a explorar conceitos de otimização de custos, buscando entender como gerenciar recursos de forma eficiente.</span>
                     </p>
                     <p>
-                        Atualmente, estou me familiarizando e já utilizei serviços como Lambda para computação serverless, S3 para armazenamento, DynamoDB para banco de dados NoSQL e API Gateway para gerenciamento de APIs. Vejo a convergência entre análise, desenvolvimento de software e gestão de dados na cloud como uma área muito promissora e estou animado para continuar aprendendo e aplicando minhas competências de forma integrada.
+                        <span data-i18n="cloudText3">Atualmente, estou me familiarizando e já utilizei serviços como Lambda para computação serverless, S3 para armazenamento, DynamoDB para banco de dados NoSQL e API Gateway para gerenciamento de APIs. Vejo a convergência entre análise, desenvolvimento de software e gestão de dados na cloud como uma área muito promissora e estou animado para continuar aprendendo e aplicando minhas competências de forma integrada.</span>
                     </p>
                 </div>
                 <div class="social-links">
@@ -706,18 +1305,18 @@
             </div>
         </section>
 
-        <section class="section">
-            <h2 class="section-title">Script</h2>
+        <section class="section" id="script">
+            <h2 class="section-title" data-i18n="script">Script</h2>
             <div class="about-content">
                 <div class="about-text">
                     <p>
-                        A utilização de Scripts tornou-se uma parte fundamental do meu dia a dia, tanto profissional quanto pessoal. Desde que adquiri conhecimento nessa área, aplico scripts não apenas para resolver problemas práticos, mas também como ferramenta de exploração e análise de dados, testando padrões de aleatoriedade e desenvolvendo soluções automatizadas para diversos cenários.
+                        <span data-i18n="scriptText1">A utilização de Scripts tornou-se uma parte fundamental do meu dia a dia, tanto profissional quanto pessoal. Desde que adquiri conhecimento nessa área, aplico scripts não apenas para resolver problemas práticos, mas também como ferramenta de exploração e análise de dados, testando padrões de aleatoriedade e desenvolvendo soluções automatizadas para diversos cenários.</span>
                     </p>
                     <p>
-                        Um dos projetos mais gratificantes que desenvolvi utilizando Scripts foi a automatização de atualizações de arquivos e pastas para o jogo "The Elder Scrolls V: Skyrim Anniversary Edition". O desafio consistia em tornar compatíveis modificações do jogo, o que exigia a alteração de nomes de pastas, atualização de conteúdo em arquivos .txt e criação de arquivos JSON com configurações específicas.
+                        <span data-i18n="scriptText2">Um dos projetos mais gratificantes que desenvolvi utilizando Scripts foi a automatização de atualizações de arquivos e pastas para o jogo "The Elder Scrolls V: Skyrim Anniversary Edition". O desafio consistia em tornar compatíveis modificações do jogo, o que exigia a alteração de nomes de pastas, atualização de conteúdo em arquivos .txt e criação de arquivos JSON com configurações específicas.</span>
                     </p>
                     <p>
-                        O projeto envolvia mais de 2.000 pastas, cada uma contendo dezenas de arquivos, tornando a manutenção manual completamente inviável. Ao perceber a magnitude do problema, desenvolvi um script que, em menos de 30 minutos, automatizou todo o processo que anteriormente consumia dias de trabalho manual. Embora tenha sido uma solução desenvolvida para uso pessoal, o impacto foi significativo: compartilhei a solução com outros usuários que enfrentavam o mesmo problema, beneficiando milhares de jogadores da comunidade.
+                        <span data-i18n="scriptText3">O projeto envolvia mais de 2.000 pastas, cada uma contendo dezenas de arquivos, tornando a manutenção manual completamente inviável. Ao perceber a magnitude do problema, desenvolvi um script que, em menos de 30 minutos, automatizou todo o processo que anteriormente consumia dias de trabalho manual. Embora tenha sido uma solução desenvolvida para uso pessoal, o impacto foi significativo: compartilhei a solução com outros usuários que enfrentavam o mesmo problema, beneficiando milhares de jogadores da comunidade.</span>
                     </p>
                 </div>
                 <div class="social-links">
@@ -729,103 +1328,112 @@
             </div>
         </section>
 
-        <section class="section">
-            <h2 class="section-title">Habilidades Técnicas</h2>
+        <section class="section" id="skills">
+            <h2 class="section-title" data-i18n="skills">Habilidades Técnicas</h2>
             <div class="skills-grid">
                 <div class="skill-card">
                     <div class="skill-header">
                         <i class="fas fa-code skill-icon"></i>
-                        <h3 class="skill-title">Linguagens de Programação</h3>
+                        <h3 class="skill-title" data-i18n="progLangs">Linguagens de Programação</h3>
                     </div>
                     <div class="skill-list">
                         <div class="skill-item">
                             <i class="fas fa-microchip"></i>
-                            <span>C++</span>
+                            <span data-i18n="cpp">C++</span>
                         </div>
                         <div class="skill-item">
                             <i class="fab fa-python"></i>
-                            <span>Python</span>
+                            <span data-i18n="python">Python</span>
                         </div>
                         <div class="skill-item">
                             <i class="fab fa-java"></i>
-                            <span>Java</span>
+                            <span data-i18n="java">Java</span>
                         </div>
                         <div class="skill-item">
                             <i class="fab fa-js"></i>
-                            <span>JavaScript</span>
+                            <span data-i18n="javascript">JavaScript</span>
                         </div>
                         <div class="skill-item">
                             <i class="fas fa-code"></i>
-                            <span>Lua</span>
+                            <span data-i18n="lua">Lua</span>
                         </div>
                     </div>
                 </div>
                 <div class="skill-card">
                     <div class="skill-header">
                         <i class="fas fa-globe skill-icon"></i>
-                        <h3 class="skill-title">Desenvolvimento Web</h3>
+                        <h3 class="skill-title" data-i18n="webDev">Desenvolvimento Web</h3>
                     </div>
                     <div class="skill-list">
                         <div class="skill-item">
                             <i class="fab fa-html5"></i>
-                            <span>HTML5</span>
+                            <span data-i18n="html5">HTML5</span>
                         </div>
                         <div class="skill-item">
                             <i class="fab fa-css3-alt"></i>
-                            <span>CSS3</span>
+                            <span data-i18n="css3">CSS3</span>
                         </div>
                         <div class="skill-item">
                             <i class="fab fa-js"></i>
-                            <span>JavaScript</span>
+                            <span data-i18n="javascript">JavaScript</span>
                         </div>
                         <div class="skill-item">
                             <i class="fab fa-php"></i>
-                            <span>PHP</span>
+                            <span data-i18n="php">PHP</span>
                         </div>
                     </div>
                 </div>
                 <div class="skill-card">
                     <div class="skill-header">
                         <i class="fas fa-tools skill-icon"></i>
-                        <h3 class="skill-title">Outras Tecnologias</h3>
+                        <h3 class="skill-title" data-i18n="otherTechs">Outras Tecnologias</h3>
                     </div>
                     <div class="skill-list">
                         <div class="skill-item">
                             <i class="fas fa-scroll"></i>
-                            <span>Papyrus Script</span>
+                            <span data-i18n="papyrus">Papyrus Script</span>
                         </div>
                         <div class="skill-item">
                             <i class="fab fa-git-alt"></i>
-                            <span>Git</span>
+                            <span data-i18n="git">Git</span>
                         </div>
                         <div class="skill-item">
                             <i class="fas fa-gamepad"></i>
-                            <span>Addons e Mods</span>
+                            <span data-i18n="mods">Addons e Mods</span>
                         </div>
                     </div>
                 </div>
                 <div class="skill-card">
                     <div class="skill-header">
                         <i class="fas fa-server skill-icon"></i>
-                        <h3 class="skill-title">Infraestrutura e Sistemas</h3>
+                        <h3 class="skill-title" data-i18n="infra">Infraestrutura e Sistemas</h3>
                     </div>
                     <div class="skill-list">
                         <div class="skill-item">
                             <i class="fab fa-aws"></i>
-                            <span>AWS Cloud</span>
+                            <span data-i18n="aws">AWS Cloud</span>
                         </div>
                         <div class="skill-item">
                             <i class="fab fa-linux"></i>
-                            <span>Linux</span>
+                            <span data-i18n="linux">Linux</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="section">
-            <h2 class="section-title">Projetos</h2>
+        <section class="section" id="projects">
+            <h2 class="section-title" data-i18n="projects">Projetos</h2>
             <div class="projects-grid">
+                <a href="https://bernard.dev.br/talitacumis/" class="project-card" target="_blank">
+                    <div class="project-content">
+                        <i class="fas fa-utensils project-icon"></i>
+                        <h3 class="project-title" data-i18n="talitaTitle">
+                            <span data-i18n="talitaTitle">Talita Cumi's</span>
+                        </h3>
+                        <p class="project-description" data-i18n="talitaDesc">Restaurante e cafeteria com culinária brasileira em Pdte. Franco, Paraguai</p>
+                    </div>
+                </a>
                 <a href="https://bernard.dev.br/TL.html" class="project-card">
                     <div class="project-content">
                         <i class="fas fa-calculator project-icon"></i>
@@ -858,15 +1466,15 @@
         </section>
     </main>
 
-    <footer>
+    <footer id="contato">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Contato</h3>
-                    <p>Fique à vontade para entrar em contato através de qualquer um dos canais disponíveis. Estou sempre aberto a novas oportunidades e parcerias!</p>
+                    <h3><span data-i18n="contact">Contato</span></h3>
+                    <p><span data-i18n="contactText">Fique à vontade para entrar em contato através de qualquer um dos canais disponíveis. Estou sempre aberto a novas oportunidades e parcerias!</span></p>
                 </div>
                 <div class="footer-section">
-                    <h3>Canais</h3>
+                    <h3><span data-i18n="channels">Canais</span></h3>
                     <div class="footer-contact">
                         <a href="mailto:marcelobernardv@gmail.com">
                             <i class="fas fa-envelope"></i>
@@ -883,7 +1491,7 @@
                     </div>
                 </div>
                 <div class="footer-section">
-                    <h3>Redes Sociais</h3>
+                    <h3><span data-i18n="social">Redes Sociais</span></h3>
                     <div class="footer-social">
                         <a href="https://www.linkedin.com/in/marcelobernard/" target="_blank">
                             <i class="fab fa-linkedin"></i>
@@ -895,7 +1503,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Marcelo Bernard. Todos os direitos reservados.</p>
+                <p><span data-i18n="copyright">&copy; 2024 Marcelo Bernard. Todos os direitos reservados.</span></p>
             </div>
         </div>
     </footer>
@@ -941,7 +1549,6 @@
             document.body.classList.add('broken-site');
             hideBreakConfirmation();
             
-            // Adiciona efeitos aleatórios a cada 100ms
             setInterval(() => {
                 const elements = document.querySelectorAll('.section, .skill-card, .project-card, .footer-section');
                 elements.forEach(el => {
@@ -949,6 +1556,51 @@
                 });
             }, 100);
         }
+
+        // Função para verificar o estado do login
+        function checkLoginState() {
+            const loginSection = document.getElementById('loginSection');
+            const userData = localStorage.getItem('userData');
+            
+            if (userData) {
+                const user = JSON.parse(userData);
+                loginSection.innerHTML = `
+                    <div class="welcome-card">
+                        <div class="welcome-header">
+                            <img src="${user.picture}" alt="Avatar" class="welcome-avatar">
+                            <span class="welcome-name">Bem-vindo, ${user.name}</span>
+                        </div>
+                        <button class="welcome-logout" onclick="handleSignOut()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Sair
+                        </button>
+                    </div>
+                `;
+            } else {
+                loginSection.innerHTML = `
+                    <a href="login.html" class="grid-button">
+                        <i class="fab fa-google"></i>
+                        <span>Entrar com Google</span>
+                    </a>
+                `;
+            }
+        }
+
+        // Função para fazer logout
+        function handleSignOut() {
+            localStorage.removeItem('userData');
+            checkLoginState();
+        }
+
+        // Verifica o estado do login quando a página carrega
+        window.addEventListener('load', checkLoginState);
+
+        // Adiciona um listener para mudanças no localStorage
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'userData') {
+                checkLoginState();
+            }
+        });
     </script>
 </body>
 </html>
