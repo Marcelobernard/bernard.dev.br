@@ -466,12 +466,7 @@
             padding: 12px 20px;
             max-width: 1600px;
             margin: 0 auto;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.45);
-            border-bottom: 1px solid rgba(74, 144, 226, 0.35);
-            backdrop-filter: saturate(140%) blur(6px);
+            margin-bottom: 20px;
         }
 
         .brand {
@@ -479,13 +474,44 @@
             font-size: 1.4rem;
             letter-spacing: 1px;
             color: #e0e0e0;
-            text-shadow: 0 0 8px rgba(74, 144, 226, 0.25);
         }
 
         .nav-links {
             display: flex;
-            gap: 10px;
+            gap: 20px;
             flex-wrap: wrap;
+        }
+
+        .nav-links button {
+            background: none;
+            border: none;
+            color: #e0e0e0;
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            padding: 5px 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links button::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #4a90e2, #87ceeb);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links button:hover::after {
+            width: 100%;
+        }
+
+        .nav-links button:hover {
+            color: #87ceeb;
         }
 
         @media (max-width: 768px) {
@@ -632,9 +658,9 @@
     <header class="site-header">
         <div class="brand">UPE-R</div>
         <nav class="nav-links">
-            <button class="glow-button" onclick="goToSolicitar()">Solicitar</button>
-            <button class="glow-button" onclick="goToProdutos()">Produtos</button>
-            <button class="glow-button" onclick="window.location.href='login.html'">Login</button>
+            <button onclick="goToSolicitar()">Solicitar</button>
+            <button onclick="goToProdutos()">Produtos</button>
+            <button onclick="window.location.href='login.html'">Login</button>
         </nav>
     </header>
     <div class="container">
