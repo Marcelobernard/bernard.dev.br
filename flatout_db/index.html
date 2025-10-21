@@ -78,6 +78,24 @@
         .card-icon.gastado { background: #ff6b6b; color: white; }
         .card-icon.pendente { background: #ffa726; color: white; }
         .card-icon.caixa { background: #4caf50; color: white; }
+        .card-icon.calculator { background: #9c27b0; color: white; }
+
+        /* Estilos para o card de saldo calculado */
+        .balance-calculator .card-value.positive {
+            color: #4caf50;
+        }
+        
+        .balance-calculator .card-value.negative {
+            color: #f44336;
+        }
+        
+        .balance-calculator .card-variation.positive {
+            color: #4caf50;
+        }
+        
+        .balance-calculator .card-variation.negative {
+            color: #f44336;
+        }
 
         .card-title {
             font-size: 1.3rem;
@@ -911,6 +929,19 @@
                     <i class="fas fa-minus"></i> 0% esta semana
                 </div>
             </div>
+
+            <div class="card balance-calculator">
+                <div class="card-header">
+                    <div class="card-icon calculator">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="card-title">Saldo Disponível</div>
+                </div>
+                <div class="card-value" id="saldoCalculado">₲ 0</div>
+                <div class="card-variation" id="variacaoCalculado">
+                    <span id="sinalCalculado">+</span> <span id="valorCalculado">0</span>
+                </div>
+            </div>
         </div>
 
         <!-- Filters -->
@@ -1113,9 +1144,9 @@
         // Configuração da API
         const API_BASE_URL = 'https://y6lh744wpd.execute-api.sa-east-1.amazonaws.com/prod'; // URL correta da API Gateway
         let exchangeRates = {
-            BRL: 1428.57, // 1 BRL = 1428.57 PYG (aproximadamente)
+            BRL: 1300.00, // 1 BRL = 1428.57 PYG (aproximadamente)
             PYG: 1,       // Moeda principal, Guarani
-            USD: 7428.57  // 1 USD = 7428.57 PYG (aproximadamente)
+            USD: 7100.00  // 1 USD = 7428.57 PYG (aproximadamente)
         };
 
         // Inicialização
@@ -1129,14 +1160,14 @@
 
 
 
-        // Atualizar taxas de câmbio (simulado - em produção usar API real)
+        // Atualizar taxas de câmbio (valores fixos para evitar mudanças)
         async function atualizarTaxasCambio() {
             try {
-                // Simulação de API de câmbio - baseado em Guarani
+                // Taxas fixas para evitar variações a cada reload
                 exchangeRates = {
-                    BRL: 1428.57 + (Math.random() - 0.5) * 50, // Variação de ±25 PYG
-                    PYG: 1,
-                    USD: 7428.57 + (Math.random() - 0.5) * 200 // Variação de ±100 PYG
+                    BRL: 1428.57, // Taxa fixa 1 BRL = 1428.57 PYG
+                    PYG: 1,       // Moeda base
+                    USD: 7428.57  // Taxa fixa 1 USD = 7428.57 PYG
                 };
                 console.log('Taxas atualizadas:', exchangeRates);
             } catch (error) {
@@ -1384,15 +1415,40 @@
 
             const saldoCaixa = totalVendido - totalGastado;
 
+            // Calcular saldo calculado: (Pendente + A ser gasto) - Em caixa
+            const saldoCalculado = (totalPendente + totalGastado) - saldoCaixa;
+            
             // Atualizar valores
             document.getElementById('totalGastado').textContent = formatarMoeda(totalGastado);
             document.getElementById('totalPendente').textContent = formatarMoeda(totalPendente);
             document.getElementById('saldoCaixa').textContent = formatarMoeda(saldoCaixa);
+            
+            // Atualizar saldo calculado com cores e sinal
+            const saldoCalculadoElement = document.getElementById('saldoCalculado');
+            const sinalCalculadoElement = document.getElementById('sinalCalculado');
+            const valorCalculadoElement = document.getElementById('valorCalculado');
+            const variacaoCalculadoElement = document.getElementById('variacaoCalculado');
+            
+            saldoCalculadoElement.textContent = formatarMoeda(Math.abs(saldoCalculado));
+            
+            if (saldoCalculado >= 0) {
+                // Positivo - Verde
+                saldoCalculadoElement.className = 'card-value positive';
+                sinalCalculadoElement.textContent = '+';
+                valorCalculadoElement.textContent = formatarMoeda(saldoCalculado);
+                variacaoCalculadoElement.className = 'card-variation positive';
+            } else {
+                // Negativo - Vermelho
+                saldoCalculadoElement.className = 'card-value negative';
+                sinalCalculadoElement.textContent = '-';
+                valorCalculadoElement.textContent = formatarMoeda(Math.abs(saldoCalculado));
+                variacaoCalculadoElement.className = 'card-variation negative';
+            }
 
-            // Calcular variações (simulado)
-            const variacaoGastado = Math.random() * 20 - 10;
-            const variacaoPendente = Math.random() * 15 - 7;
-            const variacaoCaixa = Math.random() * 25 - 12;
+            // Calcular variações (valores fixos para evitar mudanças)
+            const variacaoGastado = 0; // Sem variação para manter consistência
+            const variacaoPendente = 0; // Sem variação para manter consistência
+            const variacaoCaixa = 0; // Sem variação para manter consistência
 
             atualizarVariacao('variacaoGastado', variacaoGastado);
             atualizarVariacao('variacaoPendente', variacaoPendente);
