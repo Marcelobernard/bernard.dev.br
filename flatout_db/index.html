@@ -6,18 +6,19 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Dashboard Financeiro - Oficina Mecânica</title>
+    <title>DB_FO</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: rgba(0, 0, 0, 0.873);
             min-height: 100vh;
             color: #333;
@@ -249,12 +250,12 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #ff0000 0%, #000000 100%);
             color: white;
             border: none;
             font-size: 24px;
             cursor: pointer;
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 20px rgba(234, 102, 102, 0.4);
             transition: all 0.3s ease;
             z-index: 1000;
             display: flex;
@@ -264,7 +265,7 @@
 
         .floating-add-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 6px 25px rgba(234, 102, 102, 0.6);
         }
 
         .floating-add-btn:active {
@@ -366,11 +367,12 @@
         .filter-group input:focus,
         .filter-group select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #ea6666;
         }
 
         .btn {
-            background: #667eea;
+            background: linear-gradient(135deg, #ff0000 0%, #000000 50%);
+            background-size: 200% 200%; /* aumenta para permitir movimento */
             color: white;
             border: none;
             padding: 12px 24px;
@@ -378,23 +380,20 @@
             cursor: pointer;
             font-size: 1rem;
             font-weight: 600;
-            transition: background 0.3s ease;
-            min-height: 44px;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
+            transition: background-position 2s ease;
         }
 
         .btn:hover {
-            background: #5a6fd8;
+            background-position: 100% 100%; /* anima a posição do gradiente */
         }
 
+
         .btn-secondary {
-            background: #6c757d;
+            background: #282828;
         }
 
         .btn-secondary:hover {
-            background: #5a6268;
+            background: #202020;
         }
 
         /* Table */
@@ -462,7 +461,7 @@
 
         .category-comprado { background: #e3f2fd; color: #1976d2; }
         .category-pendente { background: #fff3e0; color: #f57c00; }
-        .category-vendido { background: #e8f5e8; color: #388e3c; }
+        .category-recebido { background: #e8f5e8; color: #388e3c; }
 
         .currency {
             font-weight: 600;
@@ -1109,7 +1108,7 @@
                         <option value="">Todas as categorias</option>
                         <option value="Comprado">Comprado</option>
                         <option value="Pendente">Pendente</option>
-                        <option value="Vendido">Vendido</option>
+                        <option value="Recebido">Recebido</option>
                     </select>
                 </div>
                 <div class="filter-group">
@@ -1214,7 +1213,7 @@
                     <select id="movementCategory" required>
                         <option value="Comprado">Comprado</option>
                         <option value="Pendente">Pendente</option>
-                        <option value="Vendido">Vendido</option>
+                        <option value="Recebido">Recebido</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -1264,8 +1263,8 @@
                     <button class="btn" onclick="selecionarFinalizacao('Comprado')" style="background: #ff6b6b;">
                         <i class="fas fa-shopping-cart"></i> Comprado
                     </button>
-                    <button class="btn" onclick="selecionarFinalizacao('Vendido')" style="background: #4caf50;">
-                        <i class="fas fa-handshake"></i> Vendido
+                    <button class="btn" onclick="selecionarFinalizacao('Recebido')" style="background: #4caf50;">
+                        <i class="fas fa-handshake"></i> Recebido
                     </button>
                 </div>
                 <div id="confirmacaoFinal" style="display: none;">
@@ -1601,11 +1600,11 @@
                 .filter(m => m.categoria === 'Pendente')
                 .reduce((sum, m) => sum + converterParaMoedaBase(m.valor, m.moeda), 0);
 
-            const totalVendido = movements
-                .filter(m => m.categoria === 'Vendido')
+            const totalRecebido = movements
+                .filter(m => m.categoria === 'Recebido')
                 .reduce((sum, m) => sum + converterParaMoedaBase(m.valor, m.moeda), 0);
 
-            const saldoCaixa = totalVendido;
+            const saldoCaixa = totalRecebido;
 
             // Calcular saldo calculado: (Pendente + A ser gasto) - Em caixa
             const saldoCalculado = saldoCaixa - (totalPendente + totalGastado);
@@ -1625,19 +1624,22 @@
             const valorCalculadoElement = document.getElementById('valorCalculado');
             const variacaoCalculadoElement = document.getElementById('variacaoCalculado');
             
-            saldoCalculadoElement.textContent = formatarMoeda(Math.abs(saldoCalculado));
+            // Converter saldo calculado para moeda selecionada
+            const saldoCalculadoConvertido = converterParaMoedaExibicao(Math.abs(saldoCalculado), selectedCurrency);
+            
+            saldoCalculadoElement.textContent = formatarMoedaExibicao(saldoCalculadoConvertido, selectedCurrency);
             
             if (saldoCalculado >= 0) {
                 // Positivo - Verde
                 saldoCalculadoElement.className = 'card-value positive';
                 sinalCalculadoElement.textContent = '+';
-                valorCalculadoElement.textContent = formatarMoeda(saldoCalculado);
+                valorCalculadoElement.textContent = formatarMoedaExibicao(converterParaMoedaExibicao(saldoCalculado, selectedCurrency), selectedCurrency);
                 variacaoCalculadoElement.className = 'card-variation positive';
             } else {
                 // Negativo - Vermelho
                 saldoCalculadoElement.className = 'card-value negative';
                 sinalCalculadoElement.textContent = '-';
-                valorCalculadoElement.textContent = formatarMoeda(Math.abs(saldoCalculado));
+                valorCalculadoElement.textContent = formatarMoedaExibicao(converterParaMoedaExibicao(Math.abs(saldoCalculado), selectedCurrency), selectedCurrency);
                 variacaoCalculadoElement.className = 'card-variation negative';
             }
 
@@ -1936,7 +1938,7 @@
                 categoryChart.destroy();
             }
             
-            const categorias = ['Comprado', 'Pendente', 'Vendido'];
+            const categorias = ['Comprado', 'Pendente', 'Recebido'];
             const valores = categorias.map(cat => 
                 movements
                     .filter(m => m.categoria === cat)
@@ -1999,7 +2001,7 @@
                 // Calcular saldo do dia
                 const movimentosDoDia = movements.filter(m => m.data === data.toISOString().split('T')[0]);
                 movimentosDoDia.forEach(m => {
-                    if (m.categoria === 'Vendido') {
+                    if (m.categoria === 'Recebido') {
                         saldoAtual += converterParaMoedaBase(m.valor, m.moeda);
                     } else if (m.categoria === 'Comprado') {
                         saldoAtual -= converterParaMoedaBase(m.valor, m.moeda);
