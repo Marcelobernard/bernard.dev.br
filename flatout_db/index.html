@@ -97,6 +97,150 @@
             color: #f44336;
         }
 
+        /* Seletor de Moeda Neon */
+        .currency-selector-neon {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            position: relative;
+        }
+
+        .currency-dots {
+            display: flex;
+            justify-content: space-between;
+            width: 220px;
+            position: relative;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .currency-dots::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            right: 10px;
+            height: 3px;
+            background: linear-gradient(
+                90deg,
+                #ff0000 0%,
+                #ff3333 25%,
+                #ffffff 50%,
+                #ff3333 75%,
+                #ff0000 100%
+            );
+            background-size: 200% 100%;
+            animation: reflectionMove 6s ease-in-out infinite;
+            border-radius: 2px;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .currency-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #333;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .currency-dot.active {
+            box-shadow: 
+                0 0 20px rgba(255, 0, 0, 0.8),
+                0 0 40px rgba(255, 0, 0, 0.6),
+                0 0 60px rgba(255, 0, 0, 0.4);
+        }
+
+        .dot-inner {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #666;
+            transition: all 0.3s ease;
+        }
+
+        .currency-dot.active .dot-inner {
+            background: #ff0000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+        }
+
+        .currency-label {
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+            background: linear-gradient(
+                90deg,
+                #ff0000 0%,
+                #ff3333 25%,
+                #ffffff 50%,
+                #ff3333 75%,
+                #ff0000 100%
+            );
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: reflectionMove 6s ease-in-out infinite;
+        }
+
+        /* Responsividade do seletor neon */
+        @media (max-width: 768px) {
+            .currency-dots {
+                width: 170px;
+                gap: 15px;
+            }
+            
+            .currency-dots::before {
+                left: 7px;
+                right: 7px;
+            }
+            
+            .currency-label {
+                font-size: 0.8rem;
+                top: -30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .currency-dots {
+                width: 140px;
+                gap: 10px;
+            }
+            
+            .currency-dots::before {
+                left: 5px;
+                right: 5px;
+            }
+            
+            .currency-dot {
+                width: 18px;
+                height: 18px;
+            }
+            
+            .dot-inner {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .currency-label {
+                font-size: 0.75rem;
+                top: -28px;
+            }
+        }
+
         /* Botão flutuante para adicionar */
         .floating-add-btn {
             position: fixed;
@@ -878,6 +1022,24 @@
         </div>
 
         <!-- Top Cards -->
+        <!-- Seletor de Moeda Neon -->
+        <div class="currency-selector-neon">
+            <div class="currency-dots">
+                <div class="currency-dot active" data-currency="PYG" onclick="selecionarMoeda('PYG')">
+                    <div class="dot-inner"></div>
+                    <span class="currency-label">Guarani</span>
+                </div>
+                <div class="currency-dot" data-currency="BRL" onclick="selecionarMoeda('BRL')">
+                    <div class="dot-inner"></div>
+                    <span class="currency-label">Real</span>
+                </div>
+                <div class="currency-dot" data-currency="USD" onclick="selecionarMoeda('USD')">
+                    <div class="dot-inner"></div>
+                    <span class="currency-label">Dólar</span>
+                </div>
+            </div>
+        </div>
+
         <div class="top-cards">
             <div class="card">
                 <div class="card-header">
@@ -1124,6 +1286,7 @@
         let currentConfirmingId = null;
         let selectedCategory = null;
         let isLoading = false;
+        let selectedCurrency = 'PYG'; // Moeda selecionada para exibição
         
         // Instâncias dos gráficos
         let categoryChart = null;
@@ -1168,6 +1331,45 @@
             const resultado = valor * exchangeRates[moeda];
             console.log(`Conversão: ${valor} ${moeda} × ${exchangeRates[moeda]} = ${resultado} PYG`);
             return resultado;
+        }
+
+        // Selecionar moeda para exibição
+        function selecionarMoeda(moeda) {
+            selectedCurrency = moeda;
+            
+            // Atualizar dots ativos
+            document.querySelectorAll('.currency-dot').forEach(dot => {
+                dot.classList.remove('active');
+            });
+            document.querySelector(`[data-currency="${moeda}"]`).classList.add('active');
+            
+            // Atualizar cards
+            atualizarCards();
+        }
+
+        // Converter valor de PYG para moeda selecionada
+        function converterParaMoedaExibicao(valorPYG, moedaDestino) {
+            if (moedaDestino === 'PYG') {
+                return valorPYG;
+            }
+            return valorPYG / exchangeRates[moedaDestino];
+        }
+
+        // Formatar moeda para exibição
+        function formatarMoedaExibicao(valor, moeda) {
+            const simbolos = {
+                'PYG': '₲',
+                'BRL': 'R$',
+                'USD': '$'
+            };
+            
+            const simbolo = simbolos[moeda];
+            
+            if (moeda === 'PYG') {
+                return `${simbolo} ${valor.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+            } else {
+                return `${simbolo} ${valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            }
         }
 
         // Funções da API
@@ -1408,10 +1610,14 @@
             // Calcular saldo calculado: (Pendente + A ser gasto) - Em caixa
             const saldoCalculado = saldoCaixa - (totalPendente + totalGastado);
             
-            // Atualizar valores
-            document.getElementById('totalGastado').textContent = formatarMoeda(totalGastado);
-            document.getElementById('totalPendente').textContent = formatarMoeda(totalPendente);
-            document.getElementById('saldoCaixa').textContent = formatarMoeda(saldoCaixa);
+            // Atualizar valores com conversão para moeda selecionada
+            const totalGastadoConvertido = converterParaMoedaExibicao(totalGastado, selectedCurrency);
+            const totalPendenteConvertido = converterParaMoedaExibicao(totalPendente, selectedCurrency);
+            const saldoCaixaConvertido = converterParaMoedaExibicao(saldoCaixa, selectedCurrency);
+            
+            document.getElementById('totalGastado').textContent = formatarMoedaExibicao(totalGastadoConvertido, selectedCurrency);
+            document.getElementById('totalPendente').textContent = formatarMoedaExibicao(totalPendenteConvertido, selectedCurrency);
+            document.getElementById('saldoCaixa').textContent = formatarMoedaExibicao(saldoCaixaConvertido, selectedCurrency);
             
             // Atualizar saldo calculado com cores e sinal
             const saldoCalculadoElement = document.getElementById('saldoCalculado');
