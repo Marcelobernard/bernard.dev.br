@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>FlatOut PY</title>
+    <style>
+        .montserrat-global {
+            font-family: "Montserrat", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+        }
+        .section {
+            height: 100vh;
+        }
+        .black {
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .black::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('img/bg1.png');
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%) brightness(0.2);
+            z-index: -1;
+        }
+
+        .gray {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 0;
+        }
+        .white {
+            background-color: rgba(0, 0, 0, 0.92);
+        }
+        .title {
+            text-align: center;
+            color: white;
+            top: 2rem;
+            position: absolute;
+            width: 100%;
+            font-size: 3rem; /* Aumenta o tamanho da fonte */ /* Deixa o texto em negrito */
+            text-transform: uppercase; /* Transforma o texto em maiúsculas */
+            letter-spacing: 0.2rem; /* Adiciona espaçamento entre as letras */
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200%;
+            }
+            100% {
+                background-position: 200%;
+            }
+        }
+
+        .subtitle {
+            text-align: center;
+            color: white;
+            top: 6rem;
+            position: absolute;
+            width: 100%;
+            font-size: 1rem; /* Aumenta o tamanho da fonte */ /* Deixa o texto em negrito */ /* Transforma o texto em maiúsculas */
+            letter-spacing: 0.2rem; /* Adiciona espaçamento entre as letras */
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            flex-basis: 50%; /* Garante que cada quadrado ocupe exatamente metade da largura da linha */
+            overflow: hidden; /* Impede que o conteúdo ultrapasse os limites do quadrado */
+            text-align: center;
+            position: relative; /* Necessário para o overlay */
+        }
+        .container:nth-child(odd) {
+            background-color: black;
+            color: white;
+        }
+        .container:nth-child(even) {
+            background-color: rgb(0, 0, 0);
+            color: black;
+        }
+        .container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .button {
+            z-index: 2; /* Ensure it is above the green square */
+            color: #fff;
+            padding: 0.7em 1.7em;
+            font-size: 0.8rem;
+            border-radius: 0.5em;
+            background: linear-gradient(145deg, #1e1e1e, #252525); /* Gradiente sutil */
+            cursor: pointer;
+            border: 1px solid #212121;
+            transition: all 0.3s ease;
+            box-shadow:
+                4px 4px 8px #868686,
+                -4px -4px 8px #343434; /* Sombra ajustada */
+            font-family: 'Montserrat', sans-serif; /* Mesma fonte do footer */
+            text-transform: uppercase; /* Transforma o texto em maiúsculas */
+            letter-spacing: 0.1rem; /* Adiciona espaçamento entre as letras */
+            position: relative; /* Ensure it is in the same stacking context */
+        }
+
+        .button:hover {
+            background: linear-gradient(145deg, #252525, #1e1e1e); /* Inverte o gradiente */
+            box-shadow:
+                8px 8px 12px #868686,
+                -8px -8px 16px #343434; /* Sombra mais intensa */
+        }
+
+        .button:active {
+            color: #ccc; /* Fundo mais escuro ao clicar */
+            box-shadow:
+                inset 8px 8px 12px #2d2d2d,
+                inset -8px -8px 16px #282828; /* Sombra interna */
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            position: absolute;
+            bottom: 2rem;
+            width: 100%;
+            font-size: 1.5rem; /* Aumenta o tamanho da fonte */ /* Deixa o texto em negrito */
+            text-transform: uppercase; /* Transforma o texto em maiúsculas */
+            letter-spacing: 0.2rem; /* Adiciona espaçamento entre as letras */
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: black;
+            z-index: 2;
+            transition: width 0.5s ease-in-out;
+        }
+        .container-content {
+            position: relative;
+            z-index: 1;
+            opacity: 1;
+            transition: opacity 0.2s ease-in-out;
+        }
+        .container.hidden .container-content {
+            opacity: 0;
+        }
+        .container.hidden .overlay {
+            width: 100%;
+        }
+        #square2, #square6 {
+            background-color: rgba(0, 0, 0, 0.92); /* Mantém o fundo */
+            border: none; /* Remove a borda */
+            box-shadow: none; /* Remove qualquer sombra */
+            margin: 0; /* Remove qualquer margem */
+            padding: 0; /* Remove qualquer padding */
+        }
+
+        #square4 .container-content {
+            width: 90%;
+            height: 80%;
+            padding: 10px;
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+            font-size: 1rem;
+            line-height: 1.5;
+            text-align: left; /* Mantém o alinhamento consistente */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start; /* Garante que o texto fique fixo à esquerda */
+            border-radius: 5px;
+            position: relative; /* Garante que o conteúdo não se mova */
+            letter-spacing: 0.2rem;
+        }
+
+        #square4 ul {
+            list-style: disc;
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .button-container {
+            position: relative;
+        }
+
+        .green-square {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(0, 40, 0);
+            z-index: 1; /* Ensure it is below the button */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            border-radius: 0.5em; /* Matches the button's border radius */
+            transition: transform 1.4s ease, top 1.4s ease;
+        }
+
+        .button-container.active .green-square {
+            z-index: 0;
+            transform: translateY(90%);
+        }
+
+        /* CSS for Landpage 3 */
+        .landpage3 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 0;
+        }
+
+        .landpage3 .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+        }
+
+        .landpage3 .container:nth-child(odd) {
+            background-color: rgba(0, 0, 0, 0); /* Reset odd squares to transparent */
+            color: white;
+        }
+
+        .landpage3 .container:nth-child(even) {
+            background-color: rgb(0, 0, 0);
+            color: black;
+        }
+
+        .landpage3 .info {
+            flex-basis: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            letter-spacing: 0.2rem;
+        }
+
+        .landpage3 .button-container {
+            flex-basis: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .landpage3 .green-square {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(0, 40, 0);
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            border-radius: 0.5em;
+            transition: transform 1.4s ease, top 1.4s ease;
+        }
+
+        .landpage3 .button-container.active .green-square {
+            z-index: 0;
+            transform: translateY(90%);
+        }
+
+        .landpage3 .button {
+            z-index: 2;
+            color: #fff;
+            padding: 0.7em 1.7em;
+            font-size: 0.8rem;
+            border-radius: 0.5em;
+            background: linear-gradient(145deg, #1e1e1e, #252525);
+            cursor: pointer;
+            border: 1px solid #212121;
+            transition: all 0.3s ease;
+            box-shadow: 4px 4px 8px #868686, -4px -4px 8px #343434;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+        }
+
+        .landpage3 .button:hover {
+            background: linear-gradient(145deg, #252525, #1e1e1e);
+            box-shadow: 8px 8px 12px #868686, -8px -8px 16px #343434;
+        }
+
+        .landpage3 .button:active {
+            color: #ccc;
+            line-height: 1.5;
+            text-align: left; /* Mantém o alinhamento consistente */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start; /* Garante que o texto fique fixo à esquerda */
+            border-radius: 5px;
+            position: relative; /* Garante que o conteúdo não se mova */
+            letter-spacing: 0.2rem;
+        }
+
+        /* Add overlay effect for landpage3 */
+        .landpage3 .overlay {
+            position: absolute;
+            top: 0;
+            right: 0; /* Start from the right */
+            width: 0;
+            height: 100%;
+            background-color: black;
+            z-index: 2;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .landpage3 .container-content {
+            position: relative;
+            z-index: 1;
+            opacity: 1;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .landpage3 .container.hidden .container-content {
+            opacity: 0;
+        }
+
+        .landpage3 .container.hidden .overlay {
+            width: 100%; /* Expand to the left */
+        }
+
+        #square03 {
+            background-color: rgba(0, 0, 0, 0.92); /* Mantém o fundo */
+            border: none; /* Remove a borda */
+            box-shadow: none; /* Remove qualquer sombra */
+            margin: 0; /* Remove qualquer margem */
+            padding: 0; /* Remove qualquer padding */
+        }	
+
+        #square03 .container-content {
+            width: 90%;
+            height: 80%;
+            padding: 10px;
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+            font-size: 1rem;
+            line-height: 1.5;
+            text-align: left; /* Mantém o alinhamento consistente */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start; /* Garante que o texto fique fixo à esquerda */
+            border-radius: 5px;
+            position: relative; /* Garante que o conteúdo não se mova */
+            letter-spacing: 0.2rem;
+            background-color: black;
+        }
+
+        #square03 ul {
+            list-style: disc;
+            padding-left: 20px;
+            margin: 0;
+        }
+    </style>
+</head>
+<body class="montserrat-global">
+    <div class="section black">
+        <div class="title">
+            FLATOUT PY
+        </div>
+        <div class="subtitle">
+            MotorSport Club
+        </div>
+        <footer>
+            Escolha seu escape ou sua limpeza estética ideal:
+        </footer>
+    </div>
+    <!-- Landpage 2 -->
+    <div class="section gray">
+        <!-- 1 -->
+        <div class="container">
+            <div class="button-container">
+                <div class="green-square">800.000PYG</div>
+                <input class="button" type="button" value="Escape Básico" onclick="activateSquare(this, 'basico')">
+            </div>
+        </div>
+        <!-- 2 -->
+        <div class="container" id="square2">
+            <div class="overlay"></div>
+            <div class="container-content">
+                <div style="width: 90%; height: 80%; padding: 10px; font-family: 'Montserrat', sans-serif; color: #fff; font-size: 1rem; line-height: 1.5; text-align: center; display: flex; flex-direction: column; justify-content: center;">
+                    FLATOUT PY
+                </div>
+            </div>
+        </div>
+        <!-- 3 -->
+        <div class="container">
+            <div class="button-container">
+                <div class="green-square">2.000.000PYG</div>
+                <input class="button" type="button" value="Escape Avançado" onclick="activateSquare(this, 'avancado')">
+            </div>
+        </div>
+        <!-- 4 -->
+        <div class="container" id="square4">
+            <div class="overlay"></div>
+            <div class="container-content">
+                <div style="width: 90%; height: 80%; padding: 10px; font-family: 'Montserrat', sans-serif; color: #fff; font-size: 1rem; line-height: 1.5; text-align: center; display: flex; flex-direction: column; justify-content: center;">
+                    Escolha uma opção ao lado para consultar valores e detalhes.
+                </div>
+            </div>
+        </div>
+        <!-- 5 -->
+        <div class="container">
+            <div class="button-container">
+                <div class="green-square">3.200.000PYG</div>
+                <input class="button" type="button" value="Escape Premium" onclick="activateSquare(this, 'premium')">
+            </div>
+        </div>
+        <!-- 6 -->
+        <div class="container" id="square6">
+            <div class="overlay"></div>
+            <div class="container-content">
+                <div style="width: 90%; height: 80%; padding: 10px; font-family: 'Montserrat', sans-serif; color: #fff; font-size: 1rem; line-height: 1.5; text-align: center; display: flex; flex-direction: column; justify-content: center;">
+                    FLATOUT PY
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- landpage 3 -->
+    <div class="section white landpage3">
+        <!-- 01 -->
+        <div class="container" id="square01">
+            <div class="overlay"></div>
+            <div class="container-content"> FLATOUT PY</div>
+        </div>
+        <!-- 02 -->
+        <div class="container" id="square02">
+            <div class="button-container">
+                <div class="green-square">300.000PYG</div>
+                <input class="button" type="button" value="Estética Básica" onclick="activateSquareLandpage3(this, 'basico')">
+            </div>
+        </div>
+        <!-- 03 -->
+        <div class="container" id="square03">
+            <div class="overlay"></div>
+            <div class="container-content">
+                <div style="width: 90%; height: 80%; padding: 10px; font-family: 'Montserrat', sans-serif; color: #fff; font-size: 1rem; line-height: 1.5; text-align: center; display: flex; flex-direction: column; justify-content: center;">
+                    Escolha uma opção ao lado para consultar valores e detalhes.
+                </div>
+            </div>
+        </div>
+        <!-- 04 -->
+        <div class="container" id="square04">
+            <div class="button-container">
+                <div class="green-square">600.000PYG</div>
+                <input class="button" type="button" value="Estética Avançada" onclick="activateSquareLandpage3(this, 'avancado')">
+            </div>
+        </div>
+        <!-- 05 -->
+        <div class="container" id="square05">
+            <div class="overlay"></div>
+            <div class="container-content">FLATOUT PY</div>
+        </div>
+        <!-- 06 -->
+        <div class="container" id="square06">
+            <div class="button-container">
+                <div class="green-square">1.000.000PYG</div>
+                <input class="button" type="button" value="Estética Premium" onclick="activateSquareLandpage3(this, 'premium')">
+            </div>
+        </div>
+    </div>
+    <!-- Landpage 4 -->
+    <div class="section black"></div>
+    <script>
+        function updateContent(type) {
+            const square2 = document.getElementById('square2');
+            const square4 = document.getElementById('square4');
+            const square6 = document.getElementById('square6');
+
+            const squares = [square2, square4, square6];
+
+            squares.forEach((square) => {
+                const overlay = square.querySelector('.overlay');
+                const content = square.querySelector('.container-content');
+
+                // Start the transition
+                overlay.style.width = '100%';
+
+                // Wait for the overlay to fully cover the square
+                overlay.addEventListener('transitionend', () => {
+                    // Update the content behind the overlay
+                    if (square === square2) {
+                        content.innerHTML = `
+                            <img src="img/${type === 'basico' ? 'escapebasico2.png' : type === 'avancado' ? 'escapeavancado2.jpg' : 'escapepremium2.jpg'}" alt="Escape ${type}">
+                        `;
+                    } else if (square === square4) {
+                        content.innerHTML = `
+                            <div style="width: 90%; height: 80%; padding: 10px; color: #fff; font-size: 0.9rem; line-height: 1.5; overflow: hidden; text-align: left; border-radius: 5px; display: flex; flex-direction: column; justify-content: center;">
+                                <ul style="list-style: disc; padding-left: 20px; margin: 0;">
+                                    ${type === 'basico' ? `
+                                        <li>Visual esportivo simples</li>
+                                        <li>Som básico e agradável</li>
+                                        <li>Durabilidade padrão</li>
+                                        <li>Instalação rápida</li>
+                                    ` : type === 'avancado' ? `
+                                        <li>Acabamento refinado</li>
+                                        <li>Som ajustado para performance</li>
+                                        <li>Materiais resistentes</li>
+                                        <li>Garantia estendida</li>
+                                    ` : `
+                                        <li>Acabamento de luxo</li>
+                                        <li>Som de alta performance</li>
+                                        <li>Materiais premium</li>
+                                        <li>Ajustes personalizados</li>
+                                        <li>Garantia completa</li>
+                                    `}
+                                </ul>
+                            </div>
+                        `;
+                    } else if (square === square6) {
+                        content.innerHTML = `
+                            <img src="img/${type === 'basico' ? 'escapebasico6.png' : type === 'avancado' ? 'escapeavancado6.jpg' : 'escapepremium6.jpg'}" alt="Escape ${type}">
+                        `;
+                    }
+
+                    // Reset the overlay to slide back
+                    setTimeout(() => {
+                        overlay.style.width = '0';
+                    }, 50);
+                }, { once: true });
+            });
+        }
+
+        function activateSquare(button, type) {
+            const buttonContainer = button.parentElement;
+            const allContainers = document.querySelectorAll('.button-container');
+
+            allContainers.forEach(container => container.classList.remove('active'));
+            buttonContainer.classList.add('active');
+
+            updateContent(type);
+        }
+
+        function updateContentLandpage3(type) {
+            const square01 = document.getElementById('square01');
+            const square03 = document.getElementById('square03');
+            const square05 = document.getElementById('square05');
+
+            const squares = [square01, square03, square05];
+
+            squares.forEach((square) => {
+                const overlay = square.querySelector('.overlay');
+                const content = square.querySelector('.container-content');
+
+                // Start the transition
+                overlay.style.width = '100%';
+
+                // Wait for the overlay to fully cover the square
+                overlay.addEventListener('transitionend', () => {
+                    // Update the content behind the overlay
+                    if (square === square01) {
+                        content.innerHTML = `
+                            <img src="img/${type === 'basico' ? 'esteticabasico1.png' : type === 'avancado' ? 'esteticaavancado1.jpg' : 'esteticapremium1.jpg'}" alt="Estética ${type}">
+                        `;
+                    } else if (square === square03) {
+                        content.innerHTML = `
+                            <div style="width: 90%; height: 80%; padding: 10px; color: #fff; font-size: 0.9rem; line-height: 1.5; overflow: hidden; text-align: left; border-radius: 5px; display: flex; flex-direction: column; justify-content: center;">
+                                <ul style="list-style: disc; padding-left: 20px; margin: 0;">
+                                    ${type === 'basico' ? `
+                                        <li>Lavagem simples</li>
+                                        <li>Produtos básicos</li>
+                                        <li>Tempo reduzido</li>
+                                    ` : type === 'avancado' ? `
+                                        <li>Lavagem detalhada</li>
+                                        <li>Produtos de qualidade</li>
+                                        <li>Acabamento refinado</li>
+                                    ` : `
+                                        <li>Lavagem premium</li>
+                                        <li>Produtos de alta performance</li>
+                                        <li>Detalhamento completo</li>
+                                    `}
+                                </ul>
+                            </div>
+                        `;
+                    } else if (square === square05) {
+                        content.innerHTML = `
+                            <img src="img/${type === 'basico' ? 'esteticabasico5.png' : type === 'avancado' ? 'esteticaavancado5.jpg' : 'esteticapremium5.jpg'}" alt="Estética ${type}">
+                        `;
+                    }
+
+                    // Reset the overlay to slide back
+                    setTimeout(() => {
+                        overlay.style.width = '0';
+                    }, 50);
+                }, { once: true });
+            });
+        }
+
+        function activateSquareLandpage3(button, type) {
+            const buttonContainer = button.parentElement;
+            const allContainers = document.querySelectorAll('.landpage3 .button-container');
+
+            allContainers.forEach(container => container.classList.remove('active'));
+            buttonContainer.classList.add('active');
+
+            updateContentLandpage3(type);
+        }
+    </script>
+</body>
+</html>
