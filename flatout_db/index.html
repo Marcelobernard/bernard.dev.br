@@ -1278,6 +1278,23 @@
         </div>
     </div>
 
+    <!-- Modal de Confirmação de Exclusão -->
+    <div id="deleteConfirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Confirmar Exclusão</h2>
+                <span class="close" onclick="fecharModalExclusao()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir esta movimentação?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="fecharModalExclusao()">Cancelar</button>
+                <button class="btn" onclick="confirmarExclusao()">Excluir</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Estrutura de dados
         let movements = [];
@@ -1710,7 +1727,7 @@
                                 <i class="fas fa-edit"></i>
                                 <span class="btn-text">Editar</span>
                             </button>
-                            <button class="btn btn-secondary btn-action" onclick="excluirMovimentacao('${movement.id}')">
+                            <button class="btn btn-secondary btn-action" onclick="abrirModalExclusao('${movement.id}')">
                                 <i class="fas fa-trash"></i>
                                 <span class="btn-text">Excluir</span>
                             </button>
@@ -1903,7 +1920,7 @@
                                 <i class="fas fa-edit"></i>
                                 <span class="btn-text">Editar</span>
                             </button>
-                            <button class="btn btn-secondary btn-action" onclick="excluirMovimentacao('${movement.id}')">
+                            <button class="btn btn-secondary btn-action" onclick="abrirModalExclusao('${movement.id}')">
                                 <i class="fas fa-trash"></i>
                                 <span class="btn-text">Excluir</span>
                             </button>
@@ -1938,12 +1955,21 @@
                 categoryChart.destroy();
             }
             
-            const categorias = ['Comprado', 'Pendente', 'Recebido'];
-            const valores = categorias.map(cat => 
+            const categorias = ['Comprado', 'Pendente', 'Saldo Disponível'];
+            const valores = [
                 movements
-                    .filter(m => m.categoria === cat)
+                    .filter(m => m.categoria === 'Comprado')
+                    .reduce((sum, m) => sum + converterParaMoedaBase(m.valor, m.moeda), 0),
+                movements
+                    .filter(m => m.categoria === 'Pendente')
+                    .reduce((sum, m) => sum + converterParaMoedaBase(m.valor, m.moeda), 0),
+                movements
+                    .filter(m => m.categoria === 'Recebido')
+                    .reduce((sum, m) => sum + converterParaMoedaBase(m.valor, m.moeda), 0) -
+                movements
+                    .filter(m => m.categoria === 'Comprado')
                     .reduce((sum, m) => sum + converterParaMoedaBase(m.valor, m.moeda), 0)
-            );
+            ];
 
             categoryChart = new Chart(ctx, {
                 type: 'doughnut',
@@ -1989,14 +2015,14 @@
             }
             
             // Simular histórico de caixa dos últimos 30 dias
-            const ultimos30Dias = [];
+            const ultimos14Dias = [];
             const valoresCaixa = [];
             let saldoAtual = 0;
 
-            for (let i = 29; i >= 0; i--) {
+            for (let i = 13; i >= 0; i--) {
                 const data = new Date();
                 data.setDate(data.getDate() - i);
-                ultimos30Dias.push(data.toLocaleDateString('pt-BR', { month: 'short', day: 'numeric' }));
+                ultimos14Dias.push(data.toLocaleDateString('pt-BR', { month: 'short', day: 'numeric' }));
                 
                 // Calcular saldo do dia
                 const movimentosDoDia = movements.filter(m => m.data === data.toISOString().split('T')[0]);
@@ -2013,7 +2039,7 @@
             cashHistoryChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ultimos30Dias,
+                    labels: ultimos14Dias,
                     datasets: [{
                         label: 'Saldo do Caixa',
                         data: valoresCaixa,
@@ -2174,6 +2200,81 @@
         }
 
         // Dados de exemplo removidos - agora carregados via API
+
+        let currentDeletingId = null;
+
+        // Abrir modal de confirmação de exclusão
+        function abrirModalExclusao(id) {
+            currentDeletingId = id;
+            document.getElementById('deleteConfirmModal').style.display = 'block';
+        }
+
+        // Fechar modal de exclusão
+        function fecharModalExclusao() {
+            currentDeletingId = null;
+            document.getElementById('deleteConfirmModal').style.display = 'none';
+        }
+
+        // Confirmar exclusão
+        async function confirmarExclusao() {
+            if (!currentDeletingId) return;
+
+            try {
+                showLoading(true);
+                await excluirMovimentacaoAPI(currentDeletingId);
+
+                // Remover da lista local
+                movements = movements.filter(m => m.id !== currentDeletingId);
+                atualizarCards();
+                atualizarTabela();
+                atualizarGraficos();
+                atualizarItensFrequentes();
+            } catch (error) {
+                showError(`Erro ao excluir movimentação: ${error.message}`);
+            } finally {
+                fecharModalExclusao();
+                showLoading(false);
+            }
+        }
+
+        // Atualizar botão de exclusão para usar o modal
+        function atualizarTabela() {
+            const tbody = document.getElementById('movementsTableBody');
+            tbody.innerHTML = '';
+
+            movements.forEach(movement => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${new Date(movement.data).toLocaleDateString('pt-BR')}</td>
+                    <td><span class="category-badge category-${movement.categoria.toLowerCase()}">${movement.categoria}</span></td>
+                    <td>${movement.nome}</td>
+                    <td class="currency">${movement.moeda}</td>
+                    <td class="currency">${formatarMoedaOriginal(movement.valor, movement.moeda)}</td>
+                    <td>${movement.observacao || '-'}</td>
+                    <td>
+                        ${movement.categoria === 'Pendente' ? 
+                            `<button class="btn btn-sm" onclick="abrirModalConfirmacao('${movement.id}')" style="padding: 5px 10px; font-size: 0.8rem; background: #28a745;">
+                                <i class="fas fa-check"></i> Finalizar
+                            </button>` : 
+                            '<span style="color: #999;">-</span>'
+                        }
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn btn-action" onclick="editarMovimentacao('${movement.id}')">
+                                <i class="fas fa-edit"></i>
+                                <span class="btn-text">Editar</span>
+                            </button>
+                            <button class="btn btn-secondary btn-action" onclick="abrirModalExclusao('${movement.id}')">
+                                <i class="fas fa-trash"></i>
+                                <span class="btn-text">Excluir</span>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
     </script>
 </body>
 </html>
