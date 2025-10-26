@@ -99,18 +99,18 @@
             position: relative;
         }
         .landpage3 {
-            background-color: rgb(68, 68, 68);
+            background-color: rgb(0, 0, 0);
         }
         .radial {
             display: flex;
             justify-content: center;
             align-items: center;
             margin-top: 2rem;
-            gap: 2rem;
+            gap: 1rem; /* Adjust spacing for separator */
         }
         .radial-option {
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.2rem; /* Reduced font size */
             text-transform: uppercase;
             letter-spacing: 0.2rem;
             cursor: pointer;
@@ -122,12 +122,18 @@
         .radial-option.selected {
             color: #007bff; /* Blue color for selected option */
         }
+        .radial-separator {
+            color: white;
+            font-size: 1.2rem; /* Match font size of options */
+            margin: 0 0.5rem; /* Add spacing to ensure alignment */
+        }
         .button-group {
             display: none;
-            flex-direction: column;
+            flex-direction: column; /* Align buttons vertically */
             align-items: center;
-            margin-top: 2rem;
+            margin-top: 8rem;
             gap: 1rem;
+            width: 100%; /* Ensure alignment */
         }
         .button-group.active {
             display: flex;
@@ -135,13 +141,16 @@
         .button {
             background-color: #42424200;
             color: white;
-            border: 1px 1px 1px solid white;
+            border: 1px solid white;
             padding: 0.8rem 1.5rem;
             font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 0.1rem;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            width: 20rem; /* Uniform button size */
+            text-align: center; /* Center text */
+            white-space: nowrap; /* Prevent line breaks */
         }
         .button:hover {
             background-color: #00060c;
@@ -150,8 +159,58 @@
             color: white;
             font-size: 0.8rem; /* Smaller size */
             text-transform: lowercase;
-            margin: 0.5rem 0;
+            margin: 0.5rem 0; /* Adjust spacing for vertical alignment */
             letter-spacing: 0.1rem; /* Consistent spacing */
+        }
+        .questionnaire {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: white;
+            font-size: 0.9rem; /* Smaller font size */
+            text-align: left; /* Align text to the left */
+            font-family: "Montserrat", sans-serif; /* Match site font */
+            padding: 0 2rem; /* Add padding for better centering */
+        }
+        .questionnaire.active {
+            display: flex;
+        }
+        .questionnaire h3 {
+            margin-bottom: 1rem;
+            text-align: center; /* Keep question title centered */
+            font-size: 1.2rem; /* Smaller font size */
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+            font-weight: normal; /* Remove bold */
+        }
+        .questionnaire ul {
+            list-style: none;
+            padding: 0;
+            margin: 1rem auto; /* Center the list */
+            width: 80%; /* Adjust width for centering */
+        }
+        .questionnaire ul li {
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            font-size: 1rem; /* Match footer font size */
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+        }
+        .questionnaire ul li label {
+            margin-left: 0.5rem;
+            cursor: pointer;
+        }
+        .questionnaire-buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 20rem;
+            margin-top: 2rem;
+        }
+        .questionnaire-buttons .button {
+            width: 9rem; /* Adjust button width */
         }
     </style>
 </head>
@@ -171,6 +230,7 @@
     <div class="section landpage2">
         <div class="radial">
             <div class="radial-option">Escape</div>
+            <div class="radial-separator">|</div>
             <div class="radial-option">Limpeza Estética</div>
         </div>
         <div class="button-group escape-buttons">
@@ -181,16 +241,145 @@
             <button class="button">Monte seu Escape</button>
         </div>
         <div class="button-group limpeza-buttons">
-            <!-- Placeholder for future buttons related to "Limpeza Estética" -->
+            <button class="button">Monte sua Limpeza Estética</button>
         </div>
     </div>
     <!-- Landpage 3 -->
-    <div class="section landpage3"></div>
+    <div class="section landpage3">
+        <div class="questionnaire">
+            <h3 id="question-title">1. Material (obrigatório)</h3>
+            <ul id="question-options">
+                <li>
+                    <input type="radio" name="question" id="option1">
+                    <label for="option1">Aço comum</label>
+                </li>
+                <li>
+                    <input type="radio" name="question" id="option2">
+                    <label for="option2">Inox 201</label>
+                </li>
+                <li>
+                    <input type="radio" name="question" id="option3">
+                    <label for="option3">Inox 304 (premium)</label>
+                </li>
+            </ul>
+            <div class="questionnaire-buttons">
+                <button class="button" id="prev-question" disabled>Anterior</button>
+                <button class="button" id="next-question">Próximo</button>
+            </div>
+        </div>
+        <div class="questionnaire limpeza-questionnaire">
+            <h3 id="limpeza-question-title">1. Áreas que deseja limpar (obrigatório)</h3>
+            <ul id="limpeza-question-options">
+                <li>
+                    <input type="checkbox" name="limpeza-question" id="area-externa">
+                    <label for="area-externa">Externa (lataria, rodas, vidros)</label>
+                </li>
+                <li>
+                    <input type="checkbox" name="limpeza-question" id="area-interior">
+                    <label for="area-interior">Interior (bancos, chão, painel)</label>
+                </li>
+                <li>
+                    <input type="checkbox" name="limpeza-question" id="area-tecnicas">
+                    <label for="area-tecnicas">Técnicas / difíceis (motor, suspensão, ar-condicionado)</label>
+                </li>
+            </ul>
+            <div class="questionnaire-buttons">
+                <button class="button" id="limpeza-prev-question" disabled>Anterior</button>
+                <button class="button" id="limpeza-next-question">Próximo</button>
+            </div>
+        </div>
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const radialOptions = document.querySelectorAll('.radial-option');
             const escapeButtons = document.querySelector('.escape-buttons');
             const limpezaButtons = document.querySelector('.limpeza-buttons');
+            const questionnaire = document.querySelector('.questionnaire');
+            const landpage3 = document.querySelector('.landpage3');
+            const questionTitle = document.getElementById('question-title');
+            const questionOptions = document.getElementById('question-options');
+            const prevButton = document.getElementById('prev-question');
+            const nextButton = document.getElementById('next-question');
+
+            const questions = [
+                {
+                    title: "1. Material",
+                    options: ["Aço comum", "Inox 201", "Inox 304 (premium)"]
+                },
+                {
+                    title: "2. Acabamento",
+                    options: ["Simples (escovado)", "Bom (polido padrão)", "Premium (polimento espelhado)"]
+                },
+                {
+                    title: "3. Saída",
+                    options: [
+                        "Simples", "Dupla", "Dupla (Y)", "Corte reto", "Corte chanfrado",
+                        "Corte em V", "Corte em U", "Boca de peixe (“fish tail”)",
+                        "Boca de canhão (“canhão esportivo”)", "Carbon Style (fibra de carbono)"
+                    ]
+                },
+                {
+                    title: "4. Espessura do tubo",
+                    options: ["1.5”", "2.0”", "2.5”", "3.0”"]
+                },
+                {
+                    title: "5. Som desejado",
+                    options: [
+                        "Original", "Levemente esportivo", "Esportivo",
+                        "Estourador (pop & bang / estrala mais)", "Silencioso porém encorpado (premium)"
+                    ]
+                },
+                {
+                    title: "6. Adicionais",
+                    options: [
+                        "Defletor interno (controla “ronco”)", "Válvula elétrica (abre/fecha som)",
+                        "Isolamento térmico (heat wrap / manta)", "Logo gravado a laser",
+                        "Ponteira removível", "Anti-chamas (estético)"
+                    ]
+                },
+                {
+                    title: "7. Pintura térmica",
+                    options: ["Sem pintura", "Preto fosco", "Preto brilhante", "Cores especiais (vermelho, dourado, azul)"]
+                },
+                {
+                    title: "8. Garantia",
+                    options: ["3 meses", "6 meses", "12 meses (premium)"]
+                }
+            ];
+
+            let currentQuestion = 0;
+
+            function updateQuestionnaire() {
+                const question = questions[currentQuestion];
+                questionTitle.textContent = question.title;
+                questionOptions.innerHTML = question.options
+                    .map((option, index) => `
+                        <li>
+                            <input type="radio" name="question" id="option${index}">
+                            <label for="option${index}">${option}</label>
+                        </li>
+                    `)
+                    .join("");
+                prevButton.disabled = currentQuestion === 0;
+                nextButton.textContent = currentQuestion === questions.length - 1 ? "Finalizar" : "Próximo";
+            }
+
+            nextButton.addEventListener('click', () => {
+                if (currentQuestion < questions.length - 1) {
+                    currentQuestion++;
+                    updateQuestionnaire();
+                } else {
+                    alert("Questionário finalizado!");
+                    questionnaire.classList.remove('active');
+                }
+            });
+
+            prevButton.addEventListener('click', () => {
+                if (currentQuestion > 0) {
+                    currentQuestion--;
+                    updateQuestionnaire();
+                }
+            });
 
             radialOptions.forEach(option => {
                 option.addEventListener('click', () => {
@@ -201,11 +390,163 @@
                     if (option.textContent === 'Escape') {
                         escapeButtons.classList.add('active');
                         limpezaButtons.classList.remove('active');
+                        questionnaire.classList.remove('active');
                     } else if (option.textContent === 'Limpeza Estética') {
                         limpezaButtons.classList.add('active');
                         escapeButtons.classList.remove('active');
+                        questionnaire.classList.remove('active');
                     }
                 });
+            });
+
+            document.querySelector('.button-group .button:last-child').addEventListener('click', () => {
+                landpage3.scrollIntoView({ behavior: 'smooth' });
+                questionnaire.classList.add('active');
+                updateQuestionnaire();
+            });
+
+            // Pre-select "Escape" on page load
+            const defaultOption = document.querySelector('.radial-option:nth-child(1)');
+            defaultOption.classList.add('selected');
+            escapeButtons.classList.add('active');
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const limpezaButton = document.querySelector('.limpeza-buttons .button');
+            const limpezaQuestionnaire = document.querySelector('.limpeza-questionnaire');
+            const landpage3 = document.querySelector('.landpage3'); // Ensure this is correctly selected
+
+            limpezaButton.addEventListener('click', () => {
+                landpage3.scrollIntoView({ behavior: 'smooth' }); // Scroll to Landpage 3
+                limpezaQuestionnaire.classList.add('active'); // Activate the limpeza questionnaire
+                limpezaCurrentQuestion = 0; // Reset to the first question
+                updateLimpezaQuestionnaire(); // Update the questionnaire content
+            });
+
+            const limpezaQuestionTitle = document.getElementById('limpeza-question-title');
+            const limpezaQuestionOptions = document.getElementById('limpeza-question-options');
+            const limpezaPrevButton = document.getElementById('limpeza-prev-question');
+            const limpezaNextButton = document.getElementById('limpeza-next-question');
+
+            const limpezaQuestions = [
+                {
+                    title: "1. Áreas que deseja limpar",
+                    options: [
+                        { id: "externa", label: "Externa (lataria, rodas, vidros)" },
+                        { id: "interior", label: "Interior (bancos, chão, painel)" },
+                        { id: "tecnicas", label: "Técnicas / difíceis (motor, suspensão, ar-condicionado)" }
+                    ],
+                    type: "checkbox"
+                },
+                {
+                    title: "2. Detalhes de cada área selecionada",
+                    options: {
+                        externa: [
+                            "Lavagem completa da lataria",
+                            "Lavagem rápida (só enxágue + shampoo)",
+                            "Roda / pneus / para-lamas",
+                            "Vidros externos",
+                            "Impermeabilização dos vidros",
+                            "Impermeabilização total do veículo"
+                        ],
+                        interior: [
+                            "Limpeza geral (chão, bancos, painel, porta-malas)",
+                            "Limpeza de bancos de tecido",
+                            "Limpeza de bancos de couro + hidratação",
+                            "Limpeza de carpetes e tapetes",
+                            "Limpeza de painel / plásticos / porta-luvas",
+                            "Limpeza de teto interno"
+                        ],
+                        tecnicas: [
+                            "Limpeza do motor / embaixo do capô",
+                            "Limpeza da suspensão / embaixo do veículo",
+                            "Limpeza do ar-condicionado / sistema de ventilação"
+                        ]
+                    },
+                    type: "dynamic"
+                },
+                {
+                    title: "3. Extras e proteção (opcional)",
+                    options: [
+                        "Polimento rápido",
+                        "Polimento completo + cera",
+                        "Cristalização de pintura",
+                        "Hidratação de plásticos internos",
+                        "Proteção de bancos (impermeabilizante)",
+                        "Higienização de ar-condicionado com ozônio"
+                    ],
+                    type: "checkbox"
+                }
+            ];
+
+            let limpezaCurrentQuestion = 0;
+            let selectedAreas = [];
+
+            function updateLimpezaQuestionnaire() {
+                const question = limpezaQuestions[limpezaCurrentQuestion];
+                limpezaQuestionTitle.textContent = question.title;
+
+                if (question.type === "dynamic") {
+                    const dynamicOptions = [];
+                    if (selectedAreas.includes("externa")) {
+                        dynamicOptions.push(...question.options.externa);
+                    }
+                    if (selectedAreas.includes("interior")) {
+                        dynamicOptions.push(...question.options.interior);
+                    }
+                    if (selectedAreas.includes("tecnicas")) {
+                        dynamicOptions.push(...question.options.tecnicas);
+                    }
+                    limpezaQuestionOptions.innerHTML = dynamicOptions
+                        .map((option, index) => `
+                            <li>
+                                <input type="checkbox" name="limpeza-question" id="limpeza-option${index}">
+                                <label for="limpeza-option${index}">${option}</label>
+                            </li>
+                        `)
+                        .join("");
+                } else {
+                    limpezaQuestionOptions.innerHTML = question.options
+                        .map(option => `
+                            <li>
+                                <input type="${question.type}" name="limpeza-question" id="area-${option.id}">
+                                <label for="area-${option.id}">${option.label}</label>
+                            </li>
+                        `)
+                        .join("");
+                }
+
+                limpezaPrevButton.disabled = limpezaCurrentQuestion === 0;
+                limpezaNextButton.textContent = limpezaCurrentQuestion === limpezaQuestions.length - 1 ? "Finalizar" : "Próximo";
+            }
+
+            limpezaNextButton.addEventListener('click', () => {
+                if (limpezaCurrentQuestion === 0) {
+                    selectedAreas = Array.from(document.querySelectorAll('#limpeza-question-options input:checked'))
+                        .map(input => input.id.replace('area-', ''));
+                }
+
+                if (limpezaCurrentQuestion < limpezaQuestions.length - 1) {
+                    limpezaCurrentQuestion++;
+                    updateLimpezaQuestionnaire();
+                } else {
+                    alert("Configuração de Limpeza Estética finalizada!");
+                    limpezaQuestionnaire.classList.remove('active');
+                }
+            });
+
+            limpezaPrevButton.addEventListener('click', () => {
+                if (limpezaCurrentQuestion > 0) {
+                    limpezaCurrentQuestion--;
+                    updateLimpezaQuestionnaire();
+                }
+            });
+
+            limpezaButton.addEventListener('click', () => {
+                landpage3.scrollIntoView({ behavior: 'smooth' });
+                limpezaQuestionnaire.classList.add('active');
+                limpezaCurrentQuestion = 0; // Reset to the first question
+                updateLimpezaQuestionnaire();
             });
         });
     </script>
