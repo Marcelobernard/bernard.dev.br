@@ -434,6 +434,9 @@
     <div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Ensure the page starts at landpage1
+            document.querySelector('.landpage1').scrollIntoView({ behavior: 'smooth' });
+
             const radialOptions = document.querySelectorAll('.radial-option');
             const escapeButtons = document.querySelector('.escape-buttons');
             const limpezaButtons = document.querySelector('.limpeza-buttons');
