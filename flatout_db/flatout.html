@@ -212,6 +212,96 @@
         .questionnaire-buttons .button {
             width: 9rem; /* Adjust button width */
         }
+        .grid-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .grid-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem; /* Adjust font size for consistency */
+            color: white;
+            text-align: center; /* Center text alignment */
+            padding: 1rem; /* Add padding for better spacing */
+            box-sizing: border-box; /* Ensure padding doesn't affect size */
+            position: relative; /* Enable positioning for child elements */
+        }
+
+        .grid-item h2 {
+            position: absolute;
+            top: 1rem; /* Consistent distance from the top */
+            left: 50%;
+            transform: translateX(-50%); /* Center horizontally */
+            margin: 0; /* Remove default margin */
+            text-align: center; /* Ensure text alignment is centered */
+            font-weight: 400; /* Ensure consistent font weight */
+            font-size: 1rem; /* Reset to default font size */
+            white-space: nowrap; /* Prevent line breaks */
+        }
+
+        .grid-item p, .grid-item ul {
+            text-align: left; /* Align text to the left */
+        }
+
+        .grid-item ul li {
+            margin: 0.3rem 0; /* Add spacing between list items */
+            position: relative; /* Enable positioning for the marker */
+            padding-left: 0.6rem; /* Reduce space for the marker */
+        }
+
+        .grid-item ul li::before {
+            content: ""; /* Remove any default marker */
+        }
+
+        .grid-item ul {
+            list-style: none; /* Disable default list markers */
+        }
+
+        .grid-item li {
+            font-size: 0.8em;
+        }
+
+        .grid-item ul li::before {
+            content: "•"; /* Add a single bullet point */
+            position: absolute; /* Position the marker */
+            left: 0; /* Align marker to the left */
+            color: white; /* Match text color */
+            font-size: 1rem; /* Adjust marker size */
+        }
+
+        .grid-item:nth-child(1) {
+            background-color: #000000; /* Example color */
+        }
+
+        .grid-item:nth-child(2) {
+            background-color: #242424; /* Example color */
+        }
+
+        .grid-item:nth-child(3) {
+            background-color: #242424; /* Example color */
+        }
+
+        .grid-item:nth-child(4) {
+            background-color: #000000; /* Example color */
+        }
+        #popup div {
+            display: flex; /* Align buttons horizontally */
+            justify-content: center; /* Center the buttons */
+            gap: 1rem; /* Add spacing between buttons */
+        }
+        #popup h3 {
+            font-weight: normal; /* Remove bold from the title */
+        }
+
+        #popup ul li {
+            margin-bottom: 0.5rem; /* Add vertical spacing between items */
+        }
     </style>
 </head>
 <body class="montserrat-global">
@@ -234,18 +324,25 @@
             <div class="radial-option">Limpeza Estética</div>
         </div>
         <div class="button-group escape-buttons">
-            <button class="button">Escape Básico</button>
-            <button class="button">Escape Gold</button>
-            <button class="button">Escape Premium</button>
+            <button class="button">Pacote Básico</button>
+            <button class="button">Pacote Gold</button>
+            <button class="button">Pacote Premium</button>
             <div class="or">ou</div>
             <button class="button">Monte seu Escape</button>
         </div>
         <div class="button-group limpeza-buttons">
-            <button class="button">Monte sua Limpeza Estética</button>
+            <button class="button">Externa Simples</button>
+            <button class="button">Interna Simples</button>
+            <button class="button">Simples Completa</button>
+            <div class="or">ou serviços avançados</div>
+            <button class="button">personalização premium</button>
         </div>
     </div>
     <!-- Landpage 3 -->
     <div class="section landpage3">
+        <!-- Add this div to display the selected text -->
+        <div id="selected-service" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; text-align: center; display: none;">
+        </div>
         <div class="questionnaire">
             <h3 id="question-title">1. Material (obrigatório)</h3>
             <ul id="question-options">
@@ -289,6 +386,52 @@
             </div>
         </div>
     </div>
+    <!-- Rename grid-section to landpage4 -->
+    <div class="section landpage4">
+    </div>
+    <div id="popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #000; color: white; padding: 2rem; border: 1px solid white; z-index: 1000; text-align: center; width: 80%; max-width: 400px;">
+        <h3>Externa Simples</h3>
+        <ul style="list-style: none; padding: 0; text-align: left;">
+            <li>• Lavagem completa da lataria</li>
+            <li>• Limpeza de rodas, pneus e para-lamas</li>
+            <li>• Limpeza de vidros externos</li>
+        </ul>
+        <p>Preço: 150.000PYG</p>
+        <div style="margin-top: 1rem;">
+            <button id="confirm-button" class="button" style="margin-right: 1rem;">Confirmar</button>
+            <button id="close-popup" class="button">Voltar</button>
+        </div>
+    </div>
+    <div id="popup-interna" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #000; color: white; padding: 2rem; border: 1px solid white; z-index: 1000; text-align: center; width: 80%; max-width: 400px;">
+        <h3 style="font-weight: normal;">Interna Simples</h3>
+        <ul style="list-style: none; padding: 0; text-align: left;">
+            <li style="margin-bottom: 0.5rem;">• Limpeza geral do interior (chão, bancos, painel, porta-malas)</li>
+            <li style="margin-bottom: 0.5rem;">• Limpeza de carpetes e tapetes</li>
+            <li style="margin-bottom: 0.5rem;">• Limpeza de painel e plásticos (porta-luvas, console, portas)</li>
+        </ul>
+        <p>Preço: 200.000PYG</p>
+        <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem;">
+            <button id="confirm-button-interna" class="button">Confirmar</button>
+            <button id="close-popup-interna" class="button">Voltar</button>
+        </div>
+    </div>
+    <div id="popup-completa" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #000; color: white; padding: 2rem; border: 1px solid white; z-index: 1000; text-align: center; width: 80%; max-width: 400px;">
+        <h3 style="font-weight: normal;">Simples Completa</h3>
+        <ul style="list-style: none; padding: 0; text-align: left;">
+            <li style="margin-bottom: 0.5rem;">• Lavagem completa da lataria</li>
+            <li style="margin-bottom: 0.5rem;">• Limpeza de rodas, pneus e para-lamas</li>
+            <li style="margin-bottom: 0.5rem;">• Limpeza de vidros externos</li>
+            <li style="margin-bottom: 0.5rem;">• Limpeza geral do interior (chão, bancos, painel, porta-malas)</li>
+            <li style="margin-bottom: 0.5rem;">• Limpeza de carpetes e tapetes</li>
+            <li style="margin-bottom: 0.5rem;">• Limpeza de painel e plásticos (porta-luvas, console, portas)</li>
+        </ul>
+        <p>Preço: 300.000PYG</p>
+        <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem;">
+            <button id="confirm-button-completa" class="button">Confirmar</button>
+            <button id="close-popup-completa" class="button">Voltar</button>
+        </div>
+    </div>
+    <div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const radialOptions = document.querySelectorAll('.radial-option');
@@ -412,16 +555,8 @@
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            const limpezaButton = document.querySelector('.limpeza-buttons .button');
             const limpezaQuestionnaire = document.querySelector('.limpeza-questionnaire');
             const landpage3 = document.querySelector('.landpage3'); // Ensure this is correctly selected
-
-            limpezaButton.addEventListener('click', () => {
-                landpage3.scrollIntoView({ behavior: 'smooth' }); // Scroll to Landpage 3
-                limpezaQuestionnaire.classList.add('active'); // Activate the limpeza questionnaire
-                limpezaCurrentQuestion = 0; // Reset to the first question
-                updateLimpezaQuestionnaire(); // Update the questionnaire content
-            });
 
             const limpezaQuestionTitle = document.getElementById('limpeza-question-title');
             const limpezaQuestionOptions = document.getElementById('limpeza-question-options');
@@ -542,11 +677,82 @@
                 }
             });
 
-            limpezaButton.addEventListener('click', () => {
-                landpage3.scrollIntoView({ behavior: 'smooth' });
-                limpezaQuestionnaire.classList.add('active');
+            document.querySelector('.limpeza-buttons .button:last-child').addEventListener('click', () => {
+                landpage3.scrollIntoView({ behavior: 'smooth' }); // Scroll to Landpage 3
+                limpezaQuestionnaire.classList.add('active'); // Activate the limpeza questionnaire
                 limpezaCurrentQuestion = 0; // Reset to the first question
-                updateLimpezaQuestionnaire();
+                updateLimpezaQuestionnaire(); // Update the questionnaire content
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const externaSimplesButton = document.querySelector('.limpeza-buttons .button:nth-child(1)');
+            const internaSimplesButton = document.querySelector('.limpeza-buttons .button:nth-child(2)');
+            const simplesCompletaButton = document.querySelector('.limpeza-buttons .button:nth-child(3)');
+            const popup = document.getElementById('popup');
+            const popupInterna = document.getElementById('popup-interna');
+            const popupCompleta = document.getElementById('popup-completa');
+            const overlay = document.getElementById('overlay');
+            const closePopupButton = document.getElementById('close-popup');
+            const closePopupInternaButton = document.getElementById('close-popup-interna');
+            const closePopupCompletaButton = document.getElementById('close-popup-completa');
+            const confirmButton = document.getElementById('confirm-button');
+            const confirmButtonInterna = document.getElementById('confirm-button-interna');
+            const confirmButtonCompleta = document.getElementById('confirm-button-completa');
+
+            externaSimplesButton.addEventListener('click', () => {
+                popup.style.display = 'block';
+                overlay.style.display = 'block';
+            });
+
+            internaSimplesButton.addEventListener('click', () => {
+                popupInterna.style.display = 'block';
+                overlay.style.display = 'block';
+            });
+
+            simplesCompletaButton.addEventListener('click', () => {
+                popupCompleta.style.display = 'block';
+                overlay.style.display = 'block';
+            });
+
+            closePopupButton.addEventListener('click', () => {
+                popup.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+
+            closePopupInternaButton.addEventListener('click', () => {
+                popupInterna.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+
+            closePopupCompletaButton.addEventListener('click', () => {
+                popupCompleta.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+
+            overlay.addEventListener('click', () => {
+                popup.style.display = 'none';
+                popupInterna.style.display = 'none';
+                popupCompleta.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+
+            confirmButton.addEventListener('click', () => {
+                alert('Serviço confirmado!');
+                popup.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+
+            confirmButtonInterna.addEventListener('click', () => {
+                alert('Serviço Interna Simples confirmado!');
+                popupInterna.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+
+            confirmButtonCompleta.addEventListener('click', () => {
+                alert('Serviço Simples Completa confirmado!');
+                popupCompleta.style.display = 'none';
+                overlay.style.display = 'none';
             });
         });
     </script>
