@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>FlatOut PY</title>
+    <style>
+        .montserrat-global {
+            font-family: "Montserrat", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+        }
+        .section {
+            height: 100vh;
+        }
+        .landpage1 {
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        .landpage1::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('img/bg1.png');
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%) brightness(0.2);
+            z-index: -1;
+        }
+        .title {
+            text-align: center;
+            color: white;
+            top: 2rem;
+            position: absolute;
+            width: 100%;
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+        }
+        .subtitle {
+            text-align: center;
+            color: white;
+            top: 6rem;
+            position: absolute;
+            width: 100%;
+            font-size: 1rem;
+            letter-spacing: 0.2rem;
+        }
+        .blinking-cursor {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: white;
+            animation: blink 1s step-start infinite;
+        }
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+        .welcome-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 2rem;
+            color: white;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .option-button {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #040404;
+            border-color: white;
+            color: white;
+            transition: background-color 0.3s;
+            font-family: "Montserrat", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .option-button:hover {
+            background-color: #666;
+        }
+    </style>
+</head>
+<body class="montserrat-global">
+    <div class="section landpage1">
+        <div class="title">
+            FLATOUT PY
+        </div>
+        <div class="subtitle">
+            MotorSport Club
+        </div>
+        <div class="welcome-text">
+            <span id="typing-text"></span><span class="blinking-cursor">_</span>
+        </div>
+    </div>
+    <script>
+        const typingTextElement = document.getElementById("typing-text");
+        const textSequence = [
+            "Bem vindo(a)!",
+            "\nPoderia nos dizer seu nome?"
+        ];
+        let index = 0;
+        let charIndex = 0;
+        let currentText = "";
+        let userName = "";
+
+        function typeLetter() {
+            if (charIndex < textSequence[index].length) {
+                currentText += textSequence[index][charIndex] === "\n" ? "<br>" : textSequence[index][charIndex];
+                typingTextElement.innerHTML = currentText;
+                charIndex++;
+                setTimeout(typeLetter, 50);
+            } else if (index < textSequence.length - 1) {
+                index++;
+                charIndex = 0;
+                setTimeout(typeLetter, 250); // Pause before starting the next text
+            } else if (index === 1) {
+                setTimeout(askForName, 250);
+            }
+        }
+
+        function askForName() {
+            const blinkingCursor = document.querySelector(".blinking-cursor");
+            if (blinkingCursor) blinkingCursor.remove(); // Remove o cursor piscante
+
+            const input = document.createElement("input");
+            input.type = "text";
+            input.placeholder = "Digite seu nome";
+            input.style.fontSize = "1.5rem"; // Mesma fonte do texto acima
+            input.style.fontFamily = "'Montserrat', sans-serif";
+            input.style.fontWeight = "400";
+            input.style.color = "white";
+            input.style.backgroundColor = "transparent";
+            input.style.border = "none";
+            input.style.outline = "none";
+            input.style.width = "auto";
+            input.style.textAlign = "center";
+
+            input.addEventListener("keypress", (e) => {
+                if (e.key === "Enter" && input.value.trim() !== "") {
+                    userName = input.value.trim();
+                    input.remove();
+                    showServiceOptions();
+                }
+            });
+
+            typingTextElement.appendChild(input);
+            input.focus();
+        }
+
+        function showServiceOptions() {
+            const blinkingCursor = document.querySelector(".blinking-cursor");
+            if (blinkingCursor) blinkingCursor.remove(); // Remove o cursor piscante
+
+            const message = `Obrigado por vir nos conhecer, ${userName}, por qual serviço você se interessa?`;
+            let messageIndex = 0;
+            typingTextElement.innerHTML = ""; // Limpa o texto anterior
+
+            function typeMessage() {
+                if (messageIndex < message.length) {
+                    typingTextElement.innerHTML += message[messageIndex];
+                    messageIndex++;
+                    setTimeout(typeMessage, 50);
+                } else {
+                    displayButtons(); // Exibe os botões após a mensagem ser digitada
+                }
+            }
+
+            function displayButtons() {
+                const buttonContainer = document.createElement("div");
+                buttonContainer.className = "button-container";
+
+                const options = ["Escape", "Limpeza Estética", "Ambos"];
+                options.forEach(option => {
+                    const button = document.createElement("button");
+                    button.className = "option-button";
+                    button.textContent = option;
+                    button.addEventListener("click", () => {
+                        alert(`Você escolheu: ${option}`);
+                    });
+                    buttonContainer.appendChild(button);
+                });
+
+                typingTextElement.appendChild(buttonContainer);
+            }
+
+            typeMessage(); // Inicia o efeito de digitação
+        }
+
+        typeLetter();
+    </script>
+</body>
+</html>
