@@ -76,18 +76,19 @@
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: white;
+            letter-spacing: 0.2rem;
         }
         .button-container {
             display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1rem;
+            flex-direction: column; /* Stack buttons vertically */
+            gap: 0.2rem; /* Add spacing between buttons */
+            margin-top: 2rem;
         }
         .option-button {
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
+            padding: 0.5rem 1rem; /* Reduce vertical padding */
+            font-size: 0.8rem; /* Slightly larger font size */
             cursor: pointer;
             border-radius: 5px;
             background-color: #040404;
@@ -98,9 +99,98 @@
             font-optical-sizing: auto;
             font-weight: 400;
             font-style: normal;
+            flex: 1 1 100%; /* Make each button take the full width of its container */
+            max-width: 100%; /* Ensure consistent width */
+            box-sizing: border-box; /* Include padding and border in width */
+            text-align: center;
         }
         .option-button:hover {
             background-color: #666;
+        }
+        .footer-button {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%; /* Ocupa toda a largura do rodapé */
+            padding: 1rem 0;
+            font-size: 1rem;
+            cursor: pointer;
+            background-color: #040404;
+            border: none;
+            color: white;
+            text-align: center;
+            display: none; /* Inicialmente oculto */
+            transition: background-color 0.3s;
+            font-family: "Montserrat", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            letter-spacing: 0.2rem;
+        }
+        .footer-button:hover {
+            background-color: #666;
+        }
+        .checklist-container {
+            display: flex;
+            justify-content: center; /* Center all buttons horizontally */
+            gap: 1rem; /* Add spacing between buttons */
+            margin-top: 2rem;
+        }
+
+        .checklist-container label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: auto; /* Adjust width to fit content */
+            max-width: 150px; /* Limit the size of the circles */
+        }
+
+        .checklist-container label input {
+            display: none; /* Hide the checkbox */
+        }
+
+        .checklist-container label span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%; /* Make it circular */
+            background-color: #040404;
+            border: 2px solid white;
+            color: white;
+            font-size: 0.8rem;
+            font-family: "Montserrat", sans-serif;
+            font-weight: 400;
+            text-align: center;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .checklist-container label span:hover {
+            background-color: #666;
+        }
+
+        .checklist-container label input:checked + span {
+            box-shadow: 0 0 10px 5px red; /* Red shadow when selected */
+        }
+
+        .timer-bar {
+            width: 100%;
+            height: 4px;
+            background-color: rgb(255, 255, 255);
+            margin-top: 1rem;
+            animation: shrink 3s linear forwards;
+        }
+
+        @keyframes shrink {
+            from {
+                width: 100%;
+            }
+            to {
+                width: 0;
+            }
         }
     </style>
 </head>
@@ -116,11 +206,11 @@
             <span id="typing-text"></span><span class="blinking-cursor">_</span>
         </div>
     </div>
+    <button id="footer-button" class="footer-button">Confirmar e continuar</button>
     <script>
         const typingTextElement = document.getElementById("typing-text");
         const textSequence = [
-            "Bem vindo(a)!",
-            "\nPoderia nos dizer seu nome?"
+            "Bem vindo(a)!<br>Poderia nos<br>dizer seu nome?"
         ];
         let index = 0;
         let charIndex = 0;
@@ -129,7 +219,7 @@
 
         function typeLetter() {
             if (charIndex < textSequence[index].length) {
-                currentText += textSequence[index][charIndex] === "\n" ? "<br>" : textSequence[index][charIndex];
+                currentText += textSequence[index][charIndex];
                 typingTextElement.innerHTML = currentText;
                 charIndex++;
                 setTimeout(typeLetter, 50);
@@ -137,7 +227,7 @@
                 index++;
                 charIndex = 0;
                 setTimeout(typeLetter, 250); // Pause before starting the next text
-            } else if (index === 1) {
+            } else if (index === 0) {
                 setTimeout(askForName, 250);
             }
         }
@@ -145,6 +235,9 @@
         function askForName() {
             const blinkingCursor = document.querySelector(".blinking-cursor");
             if (blinkingCursor) blinkingCursor.remove(); // Remove o cursor piscante
+
+            const inputContainer = document.createElement("div");
+            inputContainer.style.textAlign = "center"; // Centraliza o input
 
             const input = document.createElement("input");
             input.type = "text";
@@ -159,15 +252,31 @@
             input.style.width = "auto";
             input.style.textAlign = "center";
 
+            const footerButton = document.getElementById("footer-button");
+            footerButton.style.display = "block"; // Exibe o botão
+            footerButton.onclick = () => {
+                if (input.value.trim() !== "") {
+                    userName = input.value.trim();
+                    inputContainer.remove();
+                    footerButton.style.display = "none"; // Oculta o botão
+                    showServiceOptions();
+                }
+            };
+            input.addEventListener("input", () => {
+                footerButton.disabled = input.value.trim() === ""; // Habilita/desabilita o botão
+            });
+
             input.addEventListener("keypress", (e) => {
                 if (e.key === "Enter" && input.value.trim() !== "") {
                     userName = input.value.trim();
-                    input.remove();
+                    inputContainer.remove();
+                    footerButton.style.display = "none"; // Oculta o botão
                     showServiceOptions();
                 }
             });
 
-            typingTextElement.appendChild(input);
+            inputContainer.appendChild(input);
+            typingTextElement.appendChild(inputContainer);
             input.focus();
         }
 
@@ -175,7 +284,7 @@
             const blinkingCursor = document.querySelector(".blinking-cursor");
             if (blinkingCursor) blinkingCursor.remove(); // Remove o cursor piscante
 
-            const message = `Obrigado por vir nos conhecer, ${userName}, por qual serviço você se interessa?`;
+            const message = `Obrigado, ${userName}! Que serviço te chama atenção?`;
             let messageIndex = 0;
             typingTextElement.innerHTML = ""; // Limpa o texto anterior
 
@@ -190,22 +299,126 @@
             }
 
             function displayButtons() {
-                const buttonContainer = document.createElement("div");
-                buttonContainer.className = "button-container";
+                const checklistContainer = document.createElement("div");
+                checklistContainer.className = "checklist-container";
 
-                const options = ["Escape", "Limpeza Estética", "Ambos"];
-                options.forEach(option => {
-                    const button = document.createElement("button");
-                    button.className = "option-button";
-                    button.textContent = option;
-                    button.addEventListener("click", () => {
-                        alert(`Você escolheu: ${option}`);
-                    });
-                    buttonContainer.appendChild(button);
+                const checklistOptions = ["Escape", "Pintura de roda", "Limpeza Estética"];
+                checklistOptions.forEach(option => {
+                    const label = document.createElement("label");
+
+                    const checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.value = option;
+
+                    const span = document.createElement("span");
+                    span.textContent = option;
+
+                    label.appendChild(checkbox);
+                    label.appendChild(span);
+                    checklistContainer.appendChild(label);
                 });
 
-                typingTextElement.appendChild(buttonContainer);
+                typingTextElement.appendChild(checklistContainer);
             }
+
+            const footerButton = document.getElementById("footer-button");
+            footerButton.style.display = "block"; // Exibe o botão
+            footerButton.onclick = () => {
+                const selectedOptions = Array.from(
+                    document.querySelectorAll(".checklist-container input:checked")
+                ).map(input => input.value);
+
+                let message = "";
+                if (selectedOptions.length === 1) {
+                    if (selectedOptions[0] === "Escape") {
+                        message = "Show! Você escolheu Escape — quer potência, ronco e estilo no ponto certo. Trabalhamos com personalização, substituição e ajustes finos no sistema de escape para entregar o som e o desempenho que você busca.";
+                    } else if (selectedOptions[0] === "Pintura de roda") {
+                        message = "Excelente escolha! A pintura de roda transforma o visual do carro em poucos detalhes. Fazemos pintura automotiva de alta durabilidade, com acabamento premium e opções de personalização sob medida.";
+                    } else if (selectedOptions[0] === "Limpeza Estética") {
+                        message = "Perfeito! A limpeza estética é o toque final para deixar o carro impecável. Cuidamos de cada detalhe com produtos profissionais, garantindo brilho e proteção de verdade.";
+                    }
+                } else if (selectedOptions.length === 2) {
+                    message = "Boa! Dá pra ver que você valoriza estilo e desempenho. Com esses serviços combinados, seu carro vai sair daqui com presença e performance de destaque.";
+                } else if (selectedOptions.length === 3) {
+                    message = "Você quer o pacote completo — e a gente entrega. Do ronco do escape ao brilho das rodas e acabamento interno impecável, oferecemos uma transformação completa com padrão de oficina premium.";
+                } else {
+                    message = "Por favor, selecione pelo menos uma opção.";
+                }
+
+                typingTextElement.innerHTML = ""; // Limpa o texto anterior
+                footerButton.style.display = "none"; // Oculta o botão
+
+                let messageIndex = 0;
+                function typeMessage() {
+                    if (messageIndex < message.length) {
+                        typingTextElement.innerHTML += `<span style="font-size: 1rem;">${message[messageIndex]}</span>`;
+                        messageIndex++;
+                        setTimeout(typeMessage, 50);
+                    } else {
+                        displayTimerBar(); // Exibe o contador após o texto
+                    }
+                }
+
+                function displayTimerBar() {
+                    const timerBar = document.createElement("div");
+                    timerBar.className = "timer-bar";
+                    typingTextElement.appendChild(timerBar);
+
+                    setTimeout(() => {
+                        typingTextElement.innerHTML = ""; // Apaga o texto após 3 segundos
+                        displayFinalOptions(); // Exibe a mensagem e os botões
+                    }, 3000);
+                }
+
+                function displayFinalOptions() {
+                    const message = `Aqui estão nossos valores, caso queira um serviço mais personalizado, posso lhe enviar para um cardápio digital que irá permitir escolher, detalhe por detalhe, com uma calculadora automática que irá exibir o valor final do orçamento.`;
+                    typingTextElement.innerHTML = ""; // Limpa o texto anterior
+
+                    const messageElement = document.createElement("div");
+                    messageElement.style.fontSize = "1rem";
+                    messageElement.style.marginBottom = "1rem";
+                    typingTextElement.appendChild(messageElement);
+
+                    const buttonContainer = document.createElement("div");
+                    buttonContainer.className = "button-container";
+                    buttonContainer.style.display = "none"; // Oculta os botões inicialmente
+
+                    const readyPackagesButton = document.createElement("button");
+                    readyPackagesButton.className = "option-button";
+                    readyPackagesButton.textContent = "Quero ver os pacotes prontos";
+                    readyPackagesButton.onclick = () => {
+                        // Adicione aqui a lógica para exibir os pacotes prontos
+                        typingTextElement.innerHTML = "Você escolheu ver os pacotes prontos. (Lógica futura)";
+                    };
+
+                    const customizeOrderButton = document.createElement("button");
+                    customizeOrderButton.className = "option-button";
+                    customizeOrderButton.textContent = "Quero personalizar meu pedido";
+                    customizeOrderButton.onclick = () => {
+                        // Adicione aqui a lógica para personalizar o pedido
+                        typingTextElement.innerHTML = "Você escolheu personalizar seu pedido. (Lógica futura)";
+                    };
+
+                    buttonContainer.appendChild(readyPackagesButton);
+                    buttonContainer.appendChild(customizeOrderButton);
+                    typingTextElement.appendChild(buttonContainer);
+
+                    let messageIndex = 0;
+                    function typeMessage() {
+                        if (messageIndex < message.length) {
+                            messageElement.innerHTML += message[messageIndex];
+                            messageIndex++;
+                            setTimeout(typeMessage, 50);
+                        } else {
+                            buttonContainer.style.display = "flex"; // Exibe os botões após o texto ser digitado
+                        }
+                    }
+
+                    typeMessage(); // Inicia o efeito de digitação
+                }
+
+                typeMessage(); // Inicia o efeito de digitação
+            };
 
             typeMessage(); // Inicia o efeito de digitação
         }
