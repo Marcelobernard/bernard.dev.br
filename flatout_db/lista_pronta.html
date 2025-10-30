@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>FlatOut PY</title>
+    <style>
+        .montserrat-global {
+            font-family: "Montserrat", sans-serif;
+        }
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+        }
+        .section {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        .section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('img/bg1.png');
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%) brightness(0.2);
+            z-index: -1;
+        }
+        .title {
+            text-align: center;
+            color: white;
+            top: 2rem;
+            position: absolute;
+            width: 100%;
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+        }
+        .subtitle {
+            text-align: center;
+            color: white;
+            top: 6rem;
+            position: absolute;
+            width: 100%;
+            font-size: 1rem;
+            letter-spacing: 0.2rem;
+        }
+        .glass-radio-group {
+            --bg: rgba(255, 255, 255, 0.06);
+            --text: #e5e5e5;
+
+            display: flex;
+            position: absolute;
+            top: 15rem;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg);
+            border-radius: 1rem;
+            backdrop-filter: blur(12px);
+            box-shadow:
+                inset 1px 1px 4px rgba(255, 255, 255, 0.2),
+                inset -1px -1px 6px rgba(0, 0, 0, 0.3),
+                0 4px 12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            width: fit-content;
+        }
+
+        .glass-radio-group input {
+            display: none;
+        }
+
+        .glass-radio-group label {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 60px;
+            font-size: 12px;
+            padding: 0.6rem 1.2rem;
+            cursor: pointer;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: var(--text);
+            position: relative;
+            z-index: 2;
+            transition: color 0.3s ease-in-out;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+        }
+
+        .glass-radio-group label:hover {
+        color: white;
+        }
+
+        .glass-radio-group input:checked + label {
+        color: #fff;
+        }
+
+        .glass-glider {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: calc(100% / 3);
+        border-radius: 1rem;
+        z-index: 1;
+        transition:
+            transform 0.5s cubic-bezier(0.37, 1.95, 0.66, 0.56),
+            background 0.4s ease-in-out,
+            box-shadow 0.4s ease-in-out;
+        }
+
+        #glass-silver:checked ~ .glass-glider {
+        transform: translateX(0%);
+        background: linear-gradient(135deg, #c0c0c055, #e0e0e0);
+        box-shadow:
+            0 0 18px rgba(192, 192, 192, 0.5),
+            0 0 10px rgba(255, 255, 255, 0.4) inset;
+        }
+
+        #glass-gold:checked ~ .glass-glider {
+        transform: translateX(100%);
+        background: linear-gradient(135deg, #ffd70055, #ffcc00);
+        box-shadow:
+            0 0 18px rgba(255, 215, 0, 0.5),
+            0 0 10px rgba(255, 235, 150, 0.4) inset;
+        }
+
+        #glass-platinum:checked ~ .glass-glider {
+        transform: translateX(200%);
+        background: linear-gradient(135deg, #d0e7ff55, #a0d8ff);
+        box-shadow:
+            0 0 18px rgba(160, 216, 255, 0.5),
+            0 0 10px rgba(200, 240, 255, 0.4) inset;
+        }
+
+        #plan-details {
+            text-align: left;
+            margin-top: 1rem;
+            color: white;
+            position: absolute;
+            top: calc(15rem + 4rem);
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        #plan-details ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #plan-details li {
+            margin: 0.5rem 0;
+            font-size: 1rem;
+            text-align: left;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        #plan-details li::before {
+            content: "•";
+            color: #ffffff;
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+        }
+
+        #plan-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            bottom: 0;
+            margin: 1rem 2rem;
+            position: absolute;
+            width: calc(100% - 4rem);
+            color: white;
+            background: transparent;
+        }
+
+        #plan-footer .price {
+            font-size: 1rem;
+        }
+
+        #plan-footer button {
+            padding: 0.5rem 1rem;
+            background-color: #000000;
+            border: white;
+            border-radius: 5px;
+            border-style: dotted;
+            color: white;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+        }
+    </style>
+</head>
+<body class="montserrat-global">
+    <div class="section">
+        <div class="title">
+            FLATOUT PY
+        </div>
+        <div class="subtitle">
+            MotorSport Club
+        </div>
+        <div class="subtitle" style="top: 12rem;">
+            Escolha seu pacote de Escape
+        </div>
+        <div class="glass-radio-group">
+            <input type="radio" name="plan" id="glass-silver" checked="" />
+            <label for="glass-silver">Básico</label>
+        
+            <input type="radio" name="plan" id="glass-gold" />
+            <label for="glass-gold">Completo</label>
+        
+            <input type="radio" name="plan" id="glass-platinum" />
+            <label for="glass-platinum">Premium</label>
+        
+            <div class="glass-glider"></div>
+        </div>
+        <div id="plan-details">
+            <!-- Dynamic content will be inserted here -->
+        </div>
+        <footer id="plan-footer">
+            <span class="price"></span>
+            <button>Quero esse</button>
+        </footer>
+    </div>
+    <script>
+        const planDetails = {
+            "glass-silver": {
+                items: ["Item 1", "Item 2", "Item 3"],
+                price: "R$ 100"
+            },
+            "glass-gold": {
+                items: ["Item A", "Item B", "Item C", "Item D"],
+                price: "R$ 200"
+            },
+            "glass-platinum": {
+                items: ["Feature X", "Feature Y", "Feature Z", "Feature W", "Feature V"],
+                price: "R$ 300"
+            }
+        };
+
+        const planDetailsDiv = document.getElementById("plan-details");
+        const planFooter = document.getElementById("plan-footer");
+        const priceSpan = planFooter.querySelector(".price");
+        const button = planFooter.querySelector("button");
+
+        document.querySelectorAll(".glass-radio-group input").forEach(input => {
+            input.addEventListener("change", () => {
+                const selectedPlan = input.id;
+                const details = planDetails[selectedPlan];
+
+                // Update the details section
+                planDetailsDiv.innerHTML = `
+                    <ul>
+                        ${details.items.map(item => `<li>${item}</li>`).join("")}
+                    </ul>
+                `;
+
+                // Update the footer
+                priceSpan.textContent = `Preço: ${details.price}`;
+            });
+        });
+
+        // Trigger the default selection
+        document.getElementById("glass-silver").dispatchEvent(new Event("change"));
+    </script>
+</body>
+</html>
