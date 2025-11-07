@@ -14,6 +14,10 @@
             font-weight: 400;
             font-style: normal;
         }
+        * {
+            cursor: crosshair !important;
+        }
+
         body {
             margin: 0;
             font-family: 'Montserrat', sans-serif;
@@ -51,6 +55,7 @@
             font-size: 3rem;
             text-transform: uppercase;
             letter-spacing: 0.2rem;
+            user-select: none;
         }
 
         .subtitle {
@@ -61,6 +66,7 @@
             width: 100%;
             font-size: 1rem;
             letter-spacing: 0.2rem;
+            user-select: none;
         }
 
         footer {
@@ -91,6 +97,14 @@
             filter: grayscale(100%) brightness(0.2);
             z-index: -1;
         }
+        .dust-particle {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(1px);
+            z-index: 1;
+        }
         .landpage2 {
             background-color: rgb(13, 13, 13);
             display: flex;
@@ -99,7 +113,21 @@
             position: relative;
         }
         .landpage3 {
-            background-color: rgb(0, 0, 0);
+            position: relative;
+            overflow: hidden;
+        }
+        .landpage3::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse 150% 50% at bottom left, rgb(64, 0, 0) 0%, rgba(64, 0, 0, 0.5) 10%, transparent 100%),
+                radial-gradient(ellipse 150% 50% at bottom right, rgb(0, 50, 0) 0%, rgba(0, 50, 0, 0.5) 10%, transparent 100%),
+                linear-gradient(to bottom, rgb(0, 0, 0) 0%, rgb(20, 20, 20) 70%, rgb(40, 40, 40) 100%);
+            z-index: -1;
         }
         .radial {
             display: flex;
@@ -117,10 +145,10 @@
             transition: color 0.3s ease;
         }
         .radial-option:hover {
-            color: #007bff; /* Blue color on hover */
+            color: #7c0000; /* Blue color on hover */
         }
         .radial-option.selected {
-            color: #007bff; /* Blue color for selected option */
+            color: #ff0000; /* Blue color for selected option */
         }
         .radial-separator {
             color: white;
@@ -324,9 +352,9 @@
             <div class="radial-option">Limpeza Estética</div>
         </div>
         <div class="button-group escape-buttons">
-            <button class="button">Pacote Básico</button>
-            <button class="button">Pacote Gold</button>
-            <button class="button">Pacote Premium</button>
+            <button class="button">Street (básico)</button>
+            <button class="button">Track (intermediário)</button>
+            <button class="button">ProLine (avançado)</button>
             <div class="or">ou</div>
             <button class="button">Monte seu Escape</button>
         </div>
@@ -387,7 +415,50 @@
         </div>
     </div>
     <!-- Rename grid-section to landpage4 -->
-    <div class="section landpage4">
+    <div class="section landpage4" style="position: relative; overflow: hidden;">
+        <div style="position: absolute; top: 0; left: 4rem; width: calc(100% - 8rem); height: 2px; background-color: white; z-index: 2;"></div>
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('img/brpy.png'); background-size: cover; background-position: center; filter: grayscale(0%) brightness(50%); z-index: 0;"></div>
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 1;">
+            <!-- Instagram Icon -->
+            <a href="https://www.instagram.com/flatoutpy/" target="_blank" style="display: inline-block; margin-bottom: 2rem;">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));">
+                    <rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="2" fill="none"/>
+                    <circle cx="12" cy="12" r="4" stroke="white" stroke-width="2" fill="none"/>
+                    <circle cx="18" cy="6" r="1.5" fill="white"/>
+                </svg>
+            </a>
+            <!-- Social Media Text -->
+            <h2 style="color: white; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 0.2rem; margin-bottom: 1.5rem; font-weight: 400;">Siga-nos nas redes sociais</h2>
+            <!-- Social Media Buttons -->
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="https://www.instagram.com/flatoutpy/" target="_blank" class="button" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem; background-color: rgba(66, 66, 66, 0.3); backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(10px);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="2"/>
+                        <circle cx="12" cy="12" r="4" stroke="white" stroke-width="2"/>
+                        <circle cx="18" cy="6" r="1.5" fill="white"/>
+                    </svg>
+                    Instagram
+                </a>
+                <a href="https://www.facebook.com/flatoutpy/" target="_blank" class="button" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem; background-color: rgba(66, 66, 66, 0.3); backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(10px);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 17.9895 4.3882 22.954 10.125 23.8542V15.4688H7.07812V12H10.125V9.35625C10.125 6.34875 11.9166 4.6875 14.6576 4.6875C15.9701 4.6875 17.3438 4.92188 17.3438 4.92188V7.875H15.8306C14.34 7.875 13.875 8.80008 13.875 9.75V12H17.2031L16.6711 15.4688H13.875V23.8542C19.6118 22.954 24 17.9895 24 12Z" fill="white"/>
+                    </svg>
+                    Facebook
+                </a>
+                <a href="https://www.tiktok.com/@flatoutpy" target="_blank" class="button" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem; background-color: rgba(66, 66, 66, 0.3); backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(10px);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" fill="white"/>
+                    </svg>
+                    TikTok
+                </a>
+                <a href="https://wa.me/595981234567" target="_blank" class="button" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem; background-color: rgba(66, 66, 66, 0.3); backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(10px);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="white"/>
+                    </svg>
+                    WhatsApp
+                </a>
+            </div>
+        </div>
     </div>
     <div id="popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #000; color: white; padding: 2rem; border: 1px solid white; z-index: 1000; text-align: center; width: 80%; max-width: 400px;">
         <h3>Externa Simples</h3>
@@ -757,6 +828,68 @@
                 popupCompleta.style.display = 'none';
                 overlay.style.display = 'none';
             });
+        });
+
+        // Efeito de poeira na landpage1
+        document.addEventListener('DOMContentLoaded', () => {
+            const landpage1 = document.querySelector('.landpage1');
+            
+            function createDustParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'dust-particle';
+                
+                // Tamanho aleatório entre 2px e 6px
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Posição vertical aleatória
+                particle.style.top = Math.random() * 100 + '%';
+                
+                // Começa fora da tela à esquerda
+                particle.style.left = '-10px';
+                
+                // Opacidade aleatória
+                particle.style.opacity = Math.random() * 0.3 + 0.1;
+                
+                landpage1.appendChild(particle);
+                
+                // Duração da animação entre 40s e 80s (bem lento)
+                const duration = Math.random() * 40000 + 40000;
+                const startTime = Date.now();
+                
+                function animateParticle() {
+                    const elapsed = Date.now() - startTime;
+                    const progress = elapsed / duration;
+                    
+                    if (progress < 1) {
+                        // Move da esquerda para a direita
+                        const leftPosition = -10 + (progress * 110);
+                        particle.style.left = leftPosition + '%';
+                        
+                        // Pequeno movimento vertical suave
+                        const verticalOffset = Math.sin(progress * Math.PI * 2) * 20;
+                        const baseTop = parseFloat(particle.style.top);
+                        particle.style.transform = `translateY(${verticalOffset}px)`;
+                        
+                        requestAnimationFrame(animateParticle);
+                    } else {
+                        particle.remove();
+                    }
+                }
+                
+                requestAnimationFrame(animateParticle);
+            }
+            
+            // Criar partículas iniciais
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => createDustParticle(), i * 2000);
+            }
+            
+            // Continuar criando partículas a cada 3-5 segundos
+            setInterval(() => {
+                createDustParticle();
+            }, Math.random() * 2000 + 3000);
         });
     </script>
 </body>
