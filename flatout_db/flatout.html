@@ -52,26 +52,28 @@
             top: 2rem;
             position: absolute;
             width: 100%;
-            font-size: 3rem;
+            font-size: 5rem;
             text-transform: uppercase;
-            letter-spacing: 0.2rem;
+            letter-spacing: 0.5rem;
             user-select: none;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .subtitle {
             text-align: center;
             color: white;
-            top: 6rem;
+            top: 4.6rem;
             position: absolute;
             width: 100%;
             font-size: 1rem;
-            letter-spacing: 0.2rem;
+            letter-spacing: 0.3rem;
             user-select: none;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .hamburger-menu {
             position: absolute;
-            top: 8rem;
+            top: 6.5rem;
             left: 50%;
             transform: translateX(-50%);
             width: 2rem;
@@ -148,6 +150,7 @@
             transform: translateY(-10px);
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .dropdown-menu.active .dropdown-item {
@@ -168,8 +171,9 @@
         }
 
         .dropdown-item:hover {
-            background: rgba(255, 0, 0, 0.1);
+            background: rgba(255, 0, 0, 0.15);
             transform: translateX(8px);
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.3);
         }
 
         .dropdown-icon {
@@ -218,6 +222,19 @@
             font-size: 1.5rem;
             text-transform: uppercase;
             letter-spacing: 0.2rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .landpage1 {
@@ -279,17 +296,39 @@
         }
         .radial-option {
             color: white;
-            font-size: 1.2rem; /* Reduced font size */
+            font-size: 1.2rem;
             text-transform: uppercase;
             letter-spacing: 0.2rem;
             cursor: pointer;
-            transition: color 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            position: relative;
+        }
+        .radial-option::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .radial-option:hover {
-            color: #7c0000; /* Blue color on hover */
+            color: #ff6666;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+        .radial-option:hover::after {
+            transform: translateX(-50%) scaleX(1);
         }
         .radial-option.selected {
-            color: #ff0000; /* Blue color for selected option */
+            color: #ff0000;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+        }
+        .radial-option.selected::after {
+            transform: translateX(-50%) scaleX(1);
         }
         .radial-separator {
             color: white;
@@ -316,13 +355,32 @@
             text-transform: uppercase;
             letter-spacing: 0.1rem;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             width: 20rem; /* Uniform button size */
             text-align: center; /* Center text */
             white-space: nowrap; /* Prevent line breaks */
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        .button:hover::before {
+            left: 100%;
         }
         .button:hover {
             background-color: #00060c;
+            border-color: #ff0000;
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.3);
+            transform: translateY(-2px);
         }
         .or {
             color: white;
@@ -371,6 +429,14 @@
         .questionnaire ul li label {
             margin-left: 0.5rem;
             cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .questionnaire ul li:hover label {
+            color: #ff6666;
+        }
+        .questionnaire ul li input[type="radio"] {
+            cursor: pointer;
+            accent-color: #ff0000;
         }
         .questionnaire-buttons {
             display: flex;
@@ -444,32 +510,331 @@
             font-size: 1rem; /* Adjust marker size */
         }
 
+        .grid-item {
+            transition: all 0.3s ease;
+        }
+
+        .grid-item:hover {
+            transform: scale(1.02);
+        }
+
         .grid-item:nth-child(1) {
-            background-color: #000000; /* Example color */
+            background: linear-gradient(135deg, #000000 0%, #1a0000 100%);
         }
 
         .grid-item:nth-child(2) {
-            background-color: #242424; /* Example color */
+            background: linear-gradient(135deg, #242424 0%, #1a1a1a 100%);
         }
 
         .grid-item:nth-child(3) {
-            background-color: #242424; /* Example color */
+            background: linear-gradient(135deg, #242424 0%, #1a1a1a 100%);
         }
 
         .grid-item:nth-child(4) {
-            background-color: #000000; /* Example color */
+            background: linear-gradient(135deg, #000000 0%, #1a0000 100%);
         }
-        #popup div {
-            display: flex; /* Align buttons horizontally */
-            justify-content: center; /* Center the buttons */
-            gap: 1rem; /* Add spacing between buttons */
+            #popup div {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
         }
-        #popup h3 {
-            font-weight: normal; /* Remove bold from the title */
+        #popup h3, 
+        #popup-interna h3, 
+        #popup-completa h3,
+        #popup-street h3,
+        #popup-track h3,
+        #popup-proline h3 {
+            font-weight: normal;
+            text-shadow: 0 2px 10px rgba(255, 0, 0, 0.3);
         }
 
-        #popup ul li {
-            margin-bottom: 0.5rem; /* Add vertical spacing between items */
+        #popup ul li,
+        #popup-interna ul li,
+        #popup-completa ul li,
+        #popup-street ul li,
+        #popup-track ul li,
+        #popup-proline ul li {
+            margin-bottom: 0.5rem;
+            transition: transform 0.2s ease;
+        }
+        
+        #popup ul li:hover,
+        #popup-interna ul li:hover,
+        #popup-completa ul li:hover,
+        #popup-street ul li:hover,
+        #popup-track ul li:hover,
+        #popup-proline ul li:hover {
+            transform: translateX(5px);
+        }
+        
+        #popup,
+        #popup-interna,
+        #popup-completa,
+        #popup-street,
+        #popup-track,
+        #popup-proline {
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: popupFadeIn 0.3s ease-out;
+        }
+        
+        @keyframes popupFadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* Gradientes permanentes para botões de redes sociais */
+        .button[href*="instagram"] {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(90deg, transparent, rgba(193, 53, 132, 0.6), rgba(225, 48, 108, 0.8)) !important;
+        }
+
+        .button[href*="instagram"]:hover {
+            background: linear-gradient(90deg, transparent, rgba(193, 53, 132, 0.8), rgba(225, 48, 108, 1)) !important;
+        }
+
+        .button[href*="facebook"] {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(90deg, transparent, rgba(24, 119, 242, 0.6), rgba(66, 133, 244, 0.8)) !important;
+        }
+
+        .button[href*="facebook"]:hover {
+            background: linear-gradient(90deg, transparent, rgba(24, 119, 242, 0.8), rgba(66, 133, 244, 1)) !important;
+        }
+
+        .button[href*="tiktok"] {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.6), rgba(20, 20, 20, 0.8)) !important;
+        }
+
+        .button[href*="tiktok"]:hover {
+            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.8), rgba(20, 20, 20, 1)) !important;
+        }
+
+        .button[href*="wa.me"] {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(90deg, transparent, rgba(37, 211, 102, 0.6), rgba(34, 190, 92, 0.8)) !important;
+        }
+
+        .button[href*="wa.me"]:hover {
+            background: linear-gradient(90deg, transparent, rgba(37, 211, 102, 0.8), rgba(34, 190, 92, 1)) !important;
+        }
+
+        /* Garantir que o texto e ícones fiquem acima do gradiente */
+        .button svg,
+        .button {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Scroll suave entre seções */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Melhorias no overlay */
+        #overlay {
+            backdrop-filter: blur(5px);
+            animation: overlayFadeIn 0.3s ease-out;
+        }
+        
+        @keyframes overlayFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Adicionar efeito de hover nos ícones sociais */
+        .landpage4 a svg {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .landpage4 a:hover svg {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.7));
+        }
+
+        /* Melhorar transição do help-form */
+        #help-form {
+            animation: fadeInScale 0.4s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        #help-input {
+            transition: all 0.3s ease;
+        }
+
+        #help-input:focus {
+            outline: none;
+            border-color: #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Animação para os botões do questionário */
+        .questionnaire-buttons .button {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes popupFadeOut {
+            from {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.9);
+            }
+        }
+
+        @keyframes overlayFadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        /* Melhorar a aparência do textarea */
+        #help-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Adicionar efeito parallax sutil nas landpages */
+        .landpage1::before,
+        .landpage3::before {
+            transition: transform 0.5s ease-out;
+        }
+
+        /* Efeito de hover no "or" */
+        .or {
+            transition: all 0.3s ease;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Melhorar responsividade e legibilidade */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+            }
+            
+            .button {
+                width: 90%;
+                max-width: 20rem;
+            }
+            
+            .radial-option {
+                font-size: 1rem;
+            }
+        }
+
+        /* Adicionar cursor personalizado para elementos interativos */
+        .button, .radial-option, .dropdown-item, .questionnaire ul li label {
+            cursor: pointer !important;
+        }
+
+        /* Melhorar o visual do radial separator */
+        .radial-separator {
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Adicionar fade-in inicial para o body */
+        body {
+            animation: bodyFadeIn 0.8s ease-out;
+        }
+
+        @keyframes bodyFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Efeito de brilho nos links sociais */
+        .landpage4 a.button {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .landpage4 a.button:hover {
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        /* Adicionar borda com gradiente nos popups */
+        #popup, #popup-interna, #popup-completa, 
+        #popup-street, #popup-track, #popup-proline {
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+
+        #popup::before, #popup-interna::before, #popup-completa::before,
+        #popup-street::before, #popup-track::before, #popup-proline::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff0000, #ffffff, #ff0000);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0.3;
+            animation: borderGlow 3s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+            100% {
+                filter: hue-rotate(360deg);
+            }
         }
     </style>
 </head>
@@ -590,7 +955,7 @@
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('img/brpy.png'); background-size: cover; background-position: center; filter: grayscale(0%) brightness(50%); z-index: 0;"></div>
         <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 1;">
             <!-- Instagram Icon -->
-            <a href="https://www.instagram.com/flatoutpy/" target="_blank" style="display: inline-block; margin-bottom: 2rem;">
+            <a href="https://www.instagram.com/flatout_py/" target="_blank" style="display: inline-block; margin-bottom: 2rem;">
                 <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));">
                     <rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="2" fill="none"/>
                     <circle cx="12" cy="12" r="4" stroke="white" stroke-width="2" fill="none"/>
@@ -598,10 +963,10 @@
                 </svg>
             </a>
             <!-- Social Media Text -->
-            <h2 style="color: white; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 0.2rem; margin-bottom: 1.5rem; font-weight: 400;">Siga-nos nas redes sociais</h2>
+            <h2 style="color: white; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 0.2rem; margin-bottom: 1.5rem; font-weight: 400;">Nossas redes sociais</h2>
             <!-- Social Media Buttons -->
             <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <a href="https://www.instagram.com/flatoutpy/" target="_blank" class="button" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem; background-color: rgba(66, 66, 66, 0.3); backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(10px);">
+                <a href="https://www.instagram.com/flatout_py/" target="_blank" class="button" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem; background-color: rgba(66, 66, 66, 0.3); backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(10px);">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="2"/>
                         <circle cx="12" cy="12" r="4" stroke="white" stroke-width="2"/>
@@ -721,6 +1086,19 @@
             // Ensure the page starts at landpage1
             document.querySelector('.landpage1').scrollIntoView({ behavior: 'smooth' });
 
+            // Adicionar animação de entrada aos elementos
+            const animateOnScroll = () => {
+                const sections = document.querySelectorAll('.section');
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
+                        section.style.opacity = '1';
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', animateOnScroll);
+
             const radialOptions = document.querySelectorAll('.radial-option');
             const escapeButtons = document.querySelector('.escape-buttons');
             const limpezaButtons = document.querySelector('.limpeza-buttons');
@@ -833,17 +1211,21 @@
             const monteEscapeButton = document.querySelectorAll('.escape-buttons .button')[3];
             monteEscapeButton.addEventListener('click', () => {
                 landpage3.scrollIntoView({ behavior: 'smooth' });
-                questionnaire.classList.add('active');
-                document.getElementById('help-form').style.display = 'none';
-                updateQuestionnaire();
+                setTimeout(() => {
+                    questionnaire.classList.add('active');
+                    document.getElementById('help-form').style.display = 'none';
+                    updateQuestionnaire();
+                }, 300);
             });
 
             // Event for "personalização premium" button (Limpeza section)
             const premiumButton = document.querySelectorAll('.limpeza-buttons .button')[3];
             premiumButton.addEventListener('click', () => {
                 landpage3.scrollIntoView({ behavior: 'smooth' });
-                questionnaire.classList.remove('active');
-                document.getElementById('help-form').style.display = 'flex';
+                setTimeout(() => {
+                    questionnaire.classList.remove('active');
+                    document.getElementById('help-form').style.display = 'flex';
+                }, 300);
             });
 
             // Submit button for help form
@@ -975,16 +1357,26 @@
                 overlay.style.display = 'none';
             });
 
-            // Fechar ao clicar no overlay
-            overlay.addEventListener('click', () => {
-                popup.style.display = 'none';
-                popupInterna.style.display = 'none';
-                popupCompleta.style.display = 'none';
-                popupStreet.style.display = 'none';
-                popupTrack.style.display = 'none';
-                popupProline.style.display = 'none';
-                overlay.style.display = 'none';
-            });
+            // Fechar ao clicar no overlay (com animação)
+            const closeAllPopups = () => {
+                const popups = [popup, popupInterna, popupCompleta, popupStreet, popupTrack, popupProline];
+                popups.forEach(p => {
+                    if (p.style.display === 'block') {
+                        p.style.animation = 'popupFadeOut 0.3s ease-out';
+                        setTimeout(() => {
+                            p.style.display = 'none';
+                            p.style.animation = '';
+                        }, 300);
+                    }
+                });
+                overlay.style.animation = 'overlayFadeOut 0.3s ease-out';
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    overlay.style.animation = '';
+                }, 300);
+            };
+
+            overlay.addEventListener('click', closeAllPopups);
 
             // Event listeners para confirmar - Limpeza
             confirmButton.addEventListener('click', () => {
@@ -1086,6 +1478,45 @@
                 createDustParticle();
             }, Math.random() * 2000 + 3000);
         });
+
+        // Adicionar efeito parallax suave ao mover o mouse
+        document.addEventListener('mousemove', (e) => {
+            const landpage1 = document.querySelector('.landpage1::before');
+            const landpage3 = document.querySelector('.landpage3::before');
+            
+            const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
+            const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
+            
+            document.querySelectorAll('.landpage1, .landpage3').forEach(section => {
+                const before = window.getComputedStyle(section, '::before');
+                section.style.setProperty('--mouse-x', moveX + 'px');
+                section.style.setProperty('--mouse-y', moveY + 'px');
+            });
+        });
+
+        // Adicionar efeito de pulso suave nos botões ao carregar
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.button');
+            buttons.forEach((button, index) => {
+                setTimeout(() => {
+                    button.style.animation = 'pulse 0.5s ease-out';
+                    setTimeout(() => {
+                        button.style.animation = '';
+                    }, 500);
+                }, index * 100);
+            });
+        });
+
+        // Criar efeito de brilho no título ao passar o mouse
+        const title = document.querySelector('.title');
+        if (title) {
+            title.addEventListener('mouseenter', () => {
+                title.style.animation = 'none';
+                setTimeout(() => {
+                    title.style.animation = 'titleGlow 1s ease-in-out';
+                }, 10);
+            });
+        }
     </script>
 </body>
 </html>
