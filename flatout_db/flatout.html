@@ -79,6 +79,65 @@
             text-transform: uppercase;
             letter-spacing: 0.2rem;
         }
+
+        .center-buttons {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-button-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: -1.5rem;
+        }
+
+        .icon-button {
+            background: transparent;
+            border: 2px solid white;
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .icon-description {
+            color: white;
+            font-size: 0.6rem;
+            text-align: center;
+            letter-spacing: 0.05rem;
+            max-width: 8rem;
+            user-select: none;
+        }
+
+        .icon-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
+            border-color: #ff0000;
+        }
+
+        .icon-button svg {
+            width: 4rem;
+            height: 4rem;
+            stroke: white;
+            fill: none;
+            transition: stroke 0.3s ease;
+        }
+
+        .icon-button:hover svg {
+            stroke: #ff0000;
+        }
         .landpage1 {
             position: relative;
             overflow: hidden;
@@ -340,6 +399,42 @@
         <div class="subtitle">
             MotorSport Club
         </div>
+        <div class="center-buttons">
+            <!-- Botão de Localização (Esquerda) -->
+            <div class="icon-button-wrapper">
+                <button class="icon-button" id="location-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                </button>
+                <span class="icon-description">Localização</span>
+            </div>
+            
+            <!-- Botão Central (Tradução/Idioma) -->
+            <div class="icon-button-wrapper">
+                <button class="icon-button" id="menu-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M2 12h20"></path>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                </button>
+                <span class="icon-description">Idioma</span>
+            </div>
+            
+            <!-- Botão Sobre (Direita) -->
+            <div class="icon-button-wrapper">
+                <button class="icon-button" id="about-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                </button>
+                <span class="icon-description">Sobre nós</span>
+            </div>
+        </div>
         <footer>
             Escolha seu escape ou sua limpeza estética ideal:
         </footer>
@@ -371,6 +466,12 @@
         <!-- Add this div to display the selected text -->
         <div id="selected-service" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; text-align: center; display: none;">
         </div>
+        <!-- Help Form for Premium Customization -->
+        <div id="help-form" style="display: none; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: white;">
+            <h2 style="font-size: 2rem; text-transform: uppercase; letter-spacing: 0.2rem; margin-bottom: 2rem; font-weight: 400; text-align: center; width: 100%;">Como podemos o ajudar?</h2>
+            <textarea id="help-input" style="width: 60%; max-width: 600px; height: 200px; padding: 1rem; font-family: 'Montserrat', sans-serif; font-size: 1rem; background-color: rgba(255, 255, 255, 0.1); color: white; border: 1px solid white; resize: none;" placeholder="Digite sua mensagem aqui..."></textarea>
+            <button class="button" id="submit-help" style="margin-top: 1.5rem;">Enviar</button>
+        </div>
         <div class="questionnaire">
             <h3 id="question-title">1. Material (obrigatório)</h3>
             <ul id="question-options">
@@ -392,27 +493,7 @@
                 <button class="button" id="next-question">Próximo</button>
             </div>
         </div>
-        <div class="questionnaire limpeza-questionnaire">
-            <h3 id="limpeza-question-title">1. Áreas que deseja limpar (obrigatório)</h3>
-            <ul id="limpeza-question-options">
-                <li>
-                    <input type="checkbox" name="limpeza-question" id="area-externa">
-                    <label for="area-externa">Externa (lataria, rodas, vidros)</label>
-                </li>
-                <li>
-                    <input type="checkbox" name="limpeza-question" id="area-interior">
-                    <label for="area-interior">Interior (bancos, chão, painel)</label>
-                </li>
-                <li>
-                    <input type="checkbox" name="limpeza-question" id="area-tecnicas">
-                    <label for="area-tecnicas">Técnicas / difíceis (motor, suspensão, ar-condicionado)</label>
-                </li>
-            </ul>
-            <div class="questionnaire-buttons">
-                <button class="button" id="limpeza-prev-question" disabled>Anterior</button>
-                <button class="button" id="limpeza-next-question">Próximo</button>
-            </div>
-        </div>
+
     </div>
     <!-- Rename grid-section to landpage4 -->
     <div class="section landpage4" style="position: relative; overflow: hidden;">
@@ -500,6 +581,39 @@
         <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem;">
             <button id="confirm-button-completa" class="button">Confirmar</button>
             <button id="close-popup-completa" class="button">Voltar</button>
+        </div>
+    </div>
+    <div id="popup-street" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #000; color: white; padding: 2rem; border: 1px solid white; z-index: 1000; text-align: center; width: 80%; max-width: 400px;">
+        <h3 style="font-weight: normal;">Street (básico)</h3>
+        <ul style="list-style: none; padding: 0; text-align: left;">
+            <li style="margin-bottom: 0.5rem;">• [Coloque o conteúdo aqui]</li>
+        </ul>
+        <p>Preço: [Preço aqui]</p>
+        <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem;">
+            <button id="confirm-button-street" class="button">Confirmar</button>
+            <button id="close-popup-street" class="button">Voltar</button>
+        </div>
+    </div>
+    <div id="popup-track" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #000; color: white; padding: 2rem; border: 1px solid white; z-index: 1000; text-align: center; width: 80%; max-width: 400px;">
+        <h3 style="font-weight: normal;">Track (intermediário)</h3>
+        <ul style="list-style: none; padding: 0; text-align: left;">
+            <li style="margin-bottom: 0.5rem;">• [Coloque o conteúdo aqui]</li>
+        </ul>
+        <p>Preço: [Preço aqui]</p>
+        <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem;">
+            <button id="confirm-button-track" class="button">Confirmar</button>
+            <button id="close-popup-track" class="button">Voltar</button>
+        </div>
+    </div>
+    <div id="popup-proline" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #000; color: white; padding: 2rem; border: 1px solid white; z-index: 1000; text-align: center; width: 80%; max-width: 400px;">
+        <h3 style="font-weight: normal;">ProLine (avançado)</h3>
+        <ul style="list-style: none; padding: 0; text-align: left;">
+            <li style="margin-bottom: 0.5rem;">• [Coloque o conteúdo aqui]</li>
+        </ul>
+        <p>Preço: [Preço aqui]</p>
+        <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem;">
+            <button id="confirm-button-proline" class="button">Confirmar</button>
+            <button id="close-popup-proline" class="button">Voltar</button>
         </div>
     </div>
     <div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
@@ -616,10 +730,35 @@
                 });
             });
 
-            document.querySelector('.button-group .button:last-child').addEventListener('click', () => {
+            // Event for "Monte seu Escape" button (Escape section)
+            const monteEscapeButton = document.querySelectorAll('.escape-buttons .button')[3];
+            monteEscapeButton.addEventListener('click', () => {
                 landpage3.scrollIntoView({ behavior: 'smooth' });
                 questionnaire.classList.add('active');
+                document.getElementById('help-form').style.display = 'none';
                 updateQuestionnaire();
+            });
+
+            // Event for "personalização premium" button (Limpeza section)
+            const premiumButton = document.querySelectorAll('.limpeza-buttons .button')[3];
+            premiumButton.addEventListener('click', () => {
+                landpage3.scrollIntoView({ behavior: 'smooth' });
+                questionnaire.classList.remove('active');
+                document.getElementById('help-form').style.display = 'flex';
+            });
+
+            // Submit button for help form
+            document.getElementById('submit-help').addEventListener('click', () => {
+                const helpInput = document.getElementById('help-input');
+                const message = helpInput.value.trim();
+                
+                if (message) {
+                    alert('Mensagem enviada: ' + message);
+                    helpInput.value = '';
+                    document.getElementById('help-form').style.display = 'none';
+                } else {
+                    alert('Por favor, digite uma mensagem antes de enviar.');
+                }
             });
 
             // Pre-select "Escape" on page load
@@ -628,152 +767,52 @@
             escapeButtons.classList.add('active');
         });
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const limpezaQuestionnaire = document.querySelector('.limpeza-questionnaire');
-            const landpage3 = document.querySelector('.landpage3'); // Ensure this is correctly selected
 
-            const limpezaQuestionTitle = document.getElementById('limpeza-question-title');
-            const limpezaQuestionOptions = document.getElementById('limpeza-question-options');
-            const limpezaPrevButton = document.getElementById('limpeza-prev-question');
-            const limpezaNextButton = document.getElementById('limpeza-next-question');
-
-            const limpezaQuestions = [
-                {
-                    title: "1. Áreas que deseja limpar",
-                    options: [
-                        { id: "externa", label: "Externa (lataria, rodas, vidros)" },
-                        { id: "interior", label: "Interior (bancos, chão, painel)" },
-                        { id: "tecnicas", label: "Técnicas / difíceis (motor, suspensão, ar-condicionado)" }
-                    ],
-                    type: "checkbox"
-                },
-                {
-                    title: "2. Detalhes de cada área selecionada",
-                    options: {
-                        externa: [
-                            "Lavagem completa da lataria",
-                            "Lavagem rápida (só enxágue + shampoo)",
-                            "Roda / pneus / para-lamas",
-                            "Vidros externos",
-                            "Impermeabilização dos vidros",
-                            "Impermeabilização total do veículo"
-                        ],
-                        interior: [
-                            "Limpeza geral (chão, bancos, painel, porta-malas)",
-                            "Limpeza de bancos de tecido",
-                            "Limpeza de bancos de couro + hidratação",
-                            "Limpeza de carpetes e tapetes",
-                            "Limpeza de painel / plásticos / porta-luvas",
-                            "Limpeza de teto interno"
-                        ],
-                        tecnicas: [
-                            "Limpeza do motor / embaixo do capô",
-                            "Limpeza da suspensão / embaixo do veículo",
-                            "Limpeza do ar-condicionado / sistema de ventilação"
-                        ]
-                    },
-                    type: "dynamic"
-                },
-                {
-                    title: "3. Extras e proteção (opcional)",
-                    options: [
-                        "Polimento rápido",
-                        "Polimento completo + cera",
-                        "Cristalização de pintura",
-                        "Hidratação de plásticos internos",
-                        "Proteção de bancos (impermeabilizante)",
-                        "Higienização de ar-condicionado com ozônio"
-                    ],
-                    type: "checkbox"
-                }
-            ];
-
-            let limpezaCurrentQuestion = 0;
-            let selectedAreas = [];
-
-            function updateLimpezaQuestionnaire() {
-                const question = limpezaQuestions[limpezaCurrentQuestion];
-                limpezaQuestionTitle.textContent = question.title;
-
-                if (question.type === "dynamic") {
-                    const dynamicOptions = [];
-                    if (selectedAreas.includes("externa")) {
-                        dynamicOptions.push(...question.options.externa);
-                    }
-                    if (selectedAreas.includes("interior")) {
-                        dynamicOptions.push(...question.options.interior);
-                    }
-                    if (selectedAreas.includes("tecnicas")) {
-                        dynamicOptions.push(...question.options.tecnicas);
-                    }
-                    limpezaQuestionOptions.innerHTML = dynamicOptions
-                        .map((option, index) => `
-                            <li>
-                                <input type="checkbox" name="limpeza-question" id="limpeza-option${index}">
-                                <label for="limpeza-option${index}">${option}</label>
-                            </li>
-                        `)
-                        .join("");
-                } else {
-                    limpezaQuestionOptions.innerHTML = question.options
-                        .map(option => `
-                            <li>
-                                <input type="${question.type}" name="limpeza-question" id="area-${option.id}">
-                                <label for="area-${option.id}">${option.label}</label>
-                            </li>
-                        `)
-                        .join("");
-                }
-
-                limpezaPrevButton.disabled = limpezaCurrentQuestion === 0;
-                limpezaNextButton.textContent = limpezaCurrentQuestion === limpezaQuestions.length - 1 ? "Finalizar" : "Próximo";
-            }
-
-            limpezaNextButton.addEventListener('click', () => {
-                if (limpezaCurrentQuestion === 0) {
-                    selectedAreas = Array.from(document.querySelectorAll('#limpeza-question-options input:checked'))
-                        .map(input => input.id.replace('area-', ''));
-                }
-
-                if (limpezaCurrentQuestion < limpezaQuestions.length - 1) {
-                    limpezaCurrentQuestion++;
-                    updateLimpezaQuestionnaire();
-                } else {
-                    alert("Configuração de Limpeza Estética finalizada!");
-                    limpezaQuestionnaire.classList.remove('active');
-                }
-            });
-
-            limpezaPrevButton.addEventListener('click', () => {
-                if (limpezaCurrentQuestion > 0) {
-                    limpezaCurrentQuestion--;
-                    updateLimpezaQuestionnaire();
-                }
-            });
-
-            document.querySelector('.limpeza-buttons .button:last-child').addEventListener('click', () => {
-                landpage3.scrollIntoView({ behavior: 'smooth' }); // Scroll to Landpage 3
-                limpezaQuestionnaire.classList.add('active'); // Activate the limpeza questionnaire
-                limpezaCurrentQuestion = 0; // Reset to the first question
-                updateLimpezaQuestionnaire(); // Update the questionnaire content
-            });
-        });
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Botões de Limpeza
             const externaSimplesButton = document.querySelector('.limpeza-buttons .button:nth-child(1)');
             const internaSimplesButton = document.querySelector('.limpeza-buttons .button:nth-child(2)');
             const simplesCompletaButton = document.querySelector('.limpeza-buttons .button:nth-child(3)');
+            
+            // Botões de Escape
+            const streetButton = document.querySelector('.escape-buttons .button:nth-child(1)');
+            const trackButton = document.querySelector('.escape-buttons .button:nth-child(2)');
+            const prolineButton = document.querySelector('.escape-buttons .button:nth-child(3)');
+            
+            // Popups de Limpeza
             const popup = document.getElementById('popup');
             const popupInterna = document.getElementById('popup-interna');
             const popupCompleta = document.getElementById('popup-completa');
+            
+            // Popups de Escape
+            const popupStreet = document.getElementById('popup-street');
+            const popupTrack = document.getElementById('popup-track');
+            const popupProline = document.getElementById('popup-proline');
+            
             const overlay = document.getElementById('overlay');
+            
+            // Botões de fechar - Limpeza
             const closePopupButton = document.getElementById('close-popup');
             const closePopupInternaButton = document.getElementById('close-popup-interna');
             const closePopupCompletaButton = document.getElementById('close-popup-completa');
+            
+            // Botões de fechar - Escape
+            const closePopupStreetButton = document.getElementById('close-popup-street');
+            const closePopupTrackButton = document.getElementById('close-popup-track');
+            const closePopupProlineButton = document.getElementById('close-popup-proline');
+            
+            // Botões de confirmar - Limpeza
             const confirmButton = document.getElementById('confirm-button');
             const confirmButtonInterna = document.getElementById('confirm-button-interna');
             const confirmButtonCompleta = document.getElementById('confirm-button-completa');
+            
+            // Botões de confirmar - Escape
+            const confirmButtonStreet = document.getElementById('confirm-button-street');
+            const confirmButtonTrack = document.getElementById('confirm-button-track');
+            const confirmButtonProline = document.getElementById('confirm-button-proline');
 
+            // Event listeners - Limpeza
             externaSimplesButton.addEventListener('click', () => {
                 popup.style.display = 'block';
                 overlay.style.display = 'block';
@@ -789,6 +828,23 @@
                 overlay.style.display = 'block';
             });
 
+            // Event listeners - Escape
+            streetButton.addEventListener('click', () => {
+                popupStreet.style.display = 'block';
+                overlay.style.display = 'block';
+            });
+
+            trackButton.addEventListener('click', () => {
+                popupTrack.style.display = 'block';
+                overlay.style.display = 'block';
+            });
+
+            prolineButton.addEventListener('click', () => {
+                popupProline.style.display = 'block';
+                overlay.style.display = 'block';
+            });
+
+            // Event listeners para fechar - Limpeza
             closePopupButton.addEventListener('click', () => {
                 popup.style.display = 'none';
                 overlay.style.display = 'none';
@@ -804,13 +860,34 @@
                 overlay.style.display = 'none';
             });
 
+            // Event listeners para fechar - Escape
+            closePopupStreetButton.addEventListener('click', () => {
+                popupStreet.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+
+            closePopupTrackButton.addEventListener('click', () => {
+                popupTrack.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+
+            closePopupProlineButton.addEventListener('click', () => {
+                popupProline.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+
+            // Fechar ao clicar no overlay
             overlay.addEventListener('click', () => {
                 popup.style.display = 'none';
                 popupInterna.style.display = 'none';
                 popupCompleta.style.display = 'none';
+                popupStreet.style.display = 'none';
+                popupTrack.style.display = 'none';
+                popupProline.style.display = 'none';
                 overlay.style.display = 'none';
             });
 
+            // Event listeners para confirmar - Limpeza
             confirmButton.addEventListener('click', () => {
                 alert('Serviço confirmado!');
                 popup.style.display = 'none';
@@ -826,6 +903,25 @@
             confirmButtonCompleta.addEventListener('click', () => {
                 alert('Serviço Simples Completa confirmado!');
                 popupCompleta.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+
+            // Event listeners para confirmar - Escape
+            confirmButtonStreet.addEventListener('click', () => {
+                alert('Escape Street confirmado!');
+                popupStreet.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+
+            confirmButtonTrack.addEventListener('click', () => {
+                alert('Escape Track confirmado!');
+                popupTrack.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+
+            confirmButtonProline.addEventListener('click', () => {
+                alert('Escape ProLine confirmado!');
+                popupProline.style.display = 'none';
                 overlay.style.display = 'none';
             });
         });
@@ -882,7 +978,7 @@
             }
             
             // Criar partículas iniciais
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 50; i++) {
                 setTimeout(() => createDustParticle(), i * 2000);
             }
             
