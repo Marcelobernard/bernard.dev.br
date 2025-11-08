@@ -69,6 +69,146 @@
             user-select: none;
         }
 
+        .hamburger-menu {
+            position: absolute;
+            top: 8rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2rem;
+            height: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0.4rem;
+            z-index: 100;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hamburger-line {
+            width: 100%;
+            height: 2px;
+            background-color: white;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+
+        .hamburger-menu.active {
+            gap: 0;
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg);
+            background-color: #ff0000;
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg);
+            background-color: #ff0000;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 10rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 99;
+        }
+
+        .dropdown-menu.active {
+            max-height: 300px;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            gap: 1.2rem;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: white;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .dropdown-menu.active .dropdown-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu.active .dropdown-item:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .dropdown-menu.active .dropdown-item:nth-child(2) {
+            transition-delay: 0.15s;
+        }
+
+        .dropdown-menu.active .dropdown-item:nth-child(3) {
+            transition-delay: 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 0, 0, 0.1);
+            transform: translateX(8px);
+        }
+
+        .dropdown-icon {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 2.2rem;
+            height: 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dropdown-item:hover .dropdown-icon {
+            background: rgba(255, 0, 0, 0.2);
+            border-color: rgba(255, 0, 0, 0.4);
+            transform: scale(1.1);
+        }
+
+        .dropdown-icon svg {
+            width: 1.3rem;
+            height: 1.3rem;
+            stroke: white;
+            fill: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dropdown-item:hover .dropdown-icon svg {
+            stroke: #ff0000;
+        }
+
+        .dropdown-text {
+            font-size: 0.9rem;
+            letter-spacing: 0.08rem;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
         footer {
             text-align: center;
             color: white;
@@ -80,64 +220,6 @@
             letter-spacing: 0.2rem;
         }
 
-        .center-buttons {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            gap: 3rem;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .icon-button-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: -1.5rem;
-        }
-
-        .icon-button {
-            background: transparent;
-            border: 2px solid white;
-            border-radius: 50%;
-            width: 3rem;
-            height: 3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .icon-description {
-            color: white;
-            font-size: 0.6rem;
-            text-align: center;
-            letter-spacing: 0.05rem;
-            max-width: 8rem;
-            user-select: none;
-        }
-
-        .icon-button:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: scale(1.1);
-            border-color: #ff0000;
-        }
-
-        .icon-button svg {
-            width: 4rem;
-            height: 4rem;
-            stroke: white;
-            fill: none;
-            transition: stroke 0.3s ease;
-        }
-
-        .icon-button:hover svg {
-            stroke: #ff0000;
-        }
         .landpage1 {
             position: relative;
             overflow: hidden;
@@ -399,42 +481,49 @@
         <div class="subtitle">
             MotorSport Club
         </div>
-        <div class="center-buttons">
-            <!-- Botão de Localização (Esquerda) -->
-            <div class="icon-button-wrapper">
-                <button class="icon-button" id="location-btn">
+        
+        <!-- Hamburger Menu -->
+        <div class="hamburger-menu" id="hamburger">
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+        </div>
+
+        <!-- Dropdown Menu -->
+        <div class="dropdown-menu" id="dropdown">
+            <div class="dropdown-item" id="dropdown-location">
+                <div class="dropdown-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                         <circle cx="12" cy="10" r="3"></circle>
                     </svg>
-                </button>
-                <span class="icon-description">Localização</span>
+                </div>
+                <span class="dropdown-text">Localização</span>
             </div>
             
-            <!-- Botão Central (Tradução/Idioma) -->
-            <div class="icon-button-wrapper">
-                <button class="icon-button" id="menu-btn">
+            <div class="dropdown-item" id="dropdown-language">
+                <div class="dropdown-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"></circle>
                         <path d="M2 12h20"></path>
                         <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                     </svg>
-                </button>
-                <span class="icon-description">Idioma</span>
+                </div>
+                <span class="dropdown-text">Idioma</span>
             </div>
             
-            <!-- Botão Sobre (Direita) -->
-            <div class="icon-button-wrapper">
-                <button class="icon-button" id="about-btn">
+            <div class="dropdown-item" id="dropdown-about">
+                <div class="dropdown-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"></circle>
                         <line x1="12" y1="16" x2="12" y2="12"></line>
                         <line x1="12" y1="8" x2="12.01" y2="8"></line>
                     </svg>
-                </button>
-                <span class="icon-description">Sobre nós</span>
+                </div>
+                <span class="dropdown-text">Sobre nós</span>
             </div>
         </div>
+
         <footer>
             Escolha seu escape ou sua limpeza estética ideal:
         </footer>
@@ -469,7 +558,7 @@
         <!-- Help Form for Premium Customization -->
         <div id="help-form" style="display: none; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: white;">
             <h2 style="font-size: 2rem; text-transform: uppercase; letter-spacing: 0.2rem; margin-bottom: 2rem; font-weight: 400; text-align: center; width: 100%;">Como podemos o ajudar?</h2>
-            <textarea id="help-input" style="width: 60%; max-width: 600px; height: 200px; padding: 1rem; font-family: 'Montserrat', sans-serif; font-size: 1rem; background-color: rgba(255, 255, 255, 0.1); color: white; border: 1px solid white; resize: none;" placeholder="Digite sua mensagem aqui..."></textarea>
+            <textarea id="help-input" style="width: 60%; max-width: 600px; height: 200px; padding: 1rem; font-family: 'Montserrat', sans-serif; font-size: 1rem; background-color: rgba(255, 255, 255, 0.1); color: white; border: 1px solid white; resize: none;" placeholder="Digite sobre o que precisa aqui..."></textarea>
             <button class="button" id="submit-help" style="margin-top: 1.5rem;">Enviar</button>
         </div>
         <div class="questionnaire">
@@ -539,6 +628,7 @@
                     WhatsApp
                 </a>
             </div>
+            
         </div>
     </div>
     <div id="popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #000; color: white; padding: 2rem; border: 1px solid white; z-index: 1000; text-align: center; width: 80%; max-width: 400px;">
@@ -619,6 +709,15 @@
     <div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Hamburger Menu Toggle
+            const hamburger = document.getElementById('hamburger');
+            const dropdown = document.getElementById('dropdown');
+
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                dropdown.classList.toggle('active');
+            });
+
             // Ensure the page starts at landpage1
             document.querySelector('.landpage1').scrollIntoView({ behavior: 'smooth' });
 
