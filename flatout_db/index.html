@@ -2035,7 +2035,7 @@
                 categoryChart.destroy();
             }
             
-            const categorias = ['Comprado', 'A ser recebido', 'Saldo Disponível'];
+            const categorias = ['Comprado', 'A ser recebido', 'Em Caixa'];
             const valores = [
                 movements
                     .filter(m => m.categoria === 'Comprado')
@@ -2043,11 +2043,9 @@
                 movements
                     .filter(m => m.categoria === 'Pendente')
                     .reduce((sum, m) => sum + converterParaMoedaBase(m.valor, m.moeda), 0),
+                // Em Caixa representa o total já recebido
                 movements
-                    .filter(m => m.categoria === 'Recebido' || m.categoria === 'Pendente')
-                    .reduce((sum, m) => sum + converterParaMoedaBase(m.valor, m.moeda), 0) -
-                movements
-                    .filter(m => m.categoria === 'Comprado')
+                    .filter(m => m.categoria === 'Recebido')
                     .reduce((sum, m) => sum + converterParaMoedaBase(m.valor, m.moeda), 0)
             ];
 
