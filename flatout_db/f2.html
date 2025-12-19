@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>FlatOut PY</title>
+    <style>
+        .montserrat-global {
+            font-family: "Montserrat", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+        * {
+            cursor: crosshair !important;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+        }
+        .section {
+            height: 100vh;
+        }
+        .black {
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .black::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('img/bg1.png');
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%) brightness(0.2);
+            z-index: -1;
+        }
+
+        .title {
+            text-align: center;
+            color: white;
+            top: 2rem;
+            position: absolute;
+            width: 100%;
+            font-size: 5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5rem;
+            user-select: none;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: white;
+            top: 4.6rem;
+            position: absolute;
+            width: 100%;
+            font-size: 1rem;
+            letter-spacing: 0.3rem;
+            user-select: none;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-menu-container {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 0.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out 0.3s both;
+            overflow: hidden;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -30px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: white;
+            cursor: pointer;
+            padding: 0.8rem 1.5rem;
+            border-radius: 35px;
+            transition: all 0.3s ease;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .nav-item::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 0, 0, 0.15);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 35px;
+            z-index: 0;
+        }
+
+        .nav-item:hover::before {
+            opacity: 1;
+        }
+
+        .nav-item:active {
+            transform: scale(0.95);
+        }
+
+        .nav-icon {
+            width: 1.3rem;
+            height: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-item:hover .nav-icon {
+            transform: translateY(-2px);
+        }
+
+        .nav-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover .nav-icon svg {
+            stroke: #ff4444;
+        }
+
+        .nav-text {
+            font-size: 0.85rem;
+            letter-spacing: 0.08rem;
+            text-transform: uppercase;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-item:hover .nav-text {
+            color: #ff4444;
+        }
+
+        .nav-separator {
+            width: 1px;
+            height: 1.5rem;
+            background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            margin: 0 0.3rem;
+        }
+
+        /* Animações de entrada escalonadas */
+        .nav-item:nth-child(1) {
+            animation: fadeInItem 0.6s ease-out 0.1s both;
+        }
+
+        .nav-separator:nth-child(2) {
+            animation: fadeInItem 0.6s ease-out 0.15s both;
+        }
+
+        .nav-item:nth-child(3) {
+            animation: fadeInItem 0.6s ease-out 0.2s both;
+        }
+
+        .nav-separator:nth-child(4) {
+            animation: fadeInItem 0.6s ease-out 0.25s both;
+        }
+
+        .nav-item:nth-child(5) {
+            animation: fadeInItem 0.6s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInItem {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            position: absolute;
+            bottom: 2rem;
+            width: 100%;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .landpage1 {
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        .landpage1::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('img/bg1.png');
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%) brightness(0.2);
+            z-index: -1;
+        }
+        .dust-particle {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(1px);
+            z-index: 1;
+        }
+        .landpage2 {
+            background-color: rgb(13, 13, 13);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        .landpage3 {
+            position: relative;
+            overflow: hidden;
+        }
+        .landpage3::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse 150% 50% at bottom left, rgb(64, 0, 0) 0%, rgba(64, 0, 0, 0.5) 10%, transparent 100%),
+                radial-gradient(ellipse 150% 50% at bottom right, rgb(0, 50, 0) 0%, rgba(0, 50, 0, 0.5) 10%, transparent 100%),
+                linear-gradient(to bottom, rgb(0, 0, 0) 0%, rgb(20, 20, 20) 70%, rgb(40, 40, 40) 100%);
+            z-index: -1;
+        }
+        .button {
+            background-color: #42424200;
+            color: white;
+            border: 1px solid white;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 20rem;
+            text-align: center;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        .button:hover::before {
+            left: 100%;
+        }
+        .button:hover {
+            background-color: #00060c;
+            border-color: #ff0000;
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+        .grid-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .grid-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem; /* Adjust font size for consistency */
+            color: white;
+            text-align: center; /* Center text alignment */
+            padding: 1rem; /* Add padding for better spacing */
+            box-sizing: border-box; /* Ensure padding doesn't affect size */
+            position: relative; /* Enable positioning for child elements */
+        }
+
+        .grid-item h2 {
+            position: absolute;
+            top: 1rem; /* Consistent distance from the top */
+            left: 50%;
+            transform: translateX(-50%); /* Center horizontally */
+            margin: 0; /* Remove default margin */
+            text-align: center; /* Ensure text alignment is centered */
+            font-weight: 400; /* Ensure consistent font weight */
+            font-size: 1rem; /* Reset to default font size */
+            white-space: nowrap; /* Prevent line breaks */
+        }
+
+        .grid-item p, .grid-item ul {
+            text-align: left; /* Align text to the left */
+        }
+
+        .grid-item ul li {
+            margin: 0.3rem 0; /* Add spacing between list items */
+            position: relative; /* Enable positioning for the marker */
+            padding-left: 0.6rem; /* Reduce space for the marker */
+        }
+
+        .grid-item ul li::before {
+            content: ""; /* Remove any default marker */
+        }
+
+        .grid-item ul {
+            list-style: none; /* Disable default list markers */
+        }
+
+        .grid-item li {
+            font-size: 0.8em;
+        }
+
+        .grid-item ul li::before {
+            content: "•"; /* Add a single bullet point */
+            position: absolute; /* Position the marker */
+            left: 0; /* Align marker to the left */
+            color: white; /* Match text color */
+            font-size: 1rem; /* Adjust marker size */
+        }
+
+        .grid-item {
+            transition: all 0.3s ease;
+        }
+
+        .grid-item:hover {
+            transform: scale(1.02);
+        }
+
+        .grid-item:nth-child(1) {
+            background: linear-gradient(135deg, #000000 0%, #1a0000 100%);
+        }
+
+        .grid-item:nth-child(2) {
+            background: linear-gradient(135deg, #242424 0%, #1a1a1a 100%);
+        }
+
+        .grid-item:nth-child(3) {
+            background: linear-gradient(135deg, #242424 0%, #1a1a1a 100%);
+        }
+
+        .grid-item:nth-child(4) {
+            background: linear-gradient(135deg, #000000 0%, #1a0000 100%);
+        }
+
+        /* Gradientes permanentes para botões de redes sociais */
+        .button[href*="instagram"] {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(90deg, transparent, rgba(193, 53, 132, 0.6), rgba(225, 48, 108, 0.8)) !important;
+        }
+
+        .button[href*="instagram"]:hover {
+            background: linear-gradient(90deg, transparent, rgba(193, 53, 132, 0.8), rgba(225, 48, 108, 1)) !important;
+        }
+
+        .button[href*="facebook"] {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(90deg, transparent, rgba(24, 119, 242, 0.6), rgba(66, 133, 244, 0.8)) !important;
+        }
+
+        .button[href*="facebook"]:hover {
+            background: linear-gradient(90deg, transparent, rgba(24, 119, 242, 0.8), rgba(66, 133, 244, 1)) !important;
+        }
+
+        .button[href*="tiktok"] {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.6), rgba(20, 20, 20, 0.8)) !important;
+        }
+
+        .button[href*="tiktok"]:hover {
+            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.8), rgba(20, 20, 20, 1)) !important;
+        }
+
+        .button[href*="wa.me"] {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(90deg, transparent, rgba(37, 211, 102, 0.6), rgba(34, 190, 92, 0.8)) !important;
+        }
+
+        .button[href*="wa.me"]:hover {
+            background: linear-gradient(90deg, transparent, rgba(37, 211, 102, 0.8), rgba(34, 190, 92, 1)) !important;
+        }
+
+        /* Garantir que o texto e ícones fiquem acima do gradiente */
+        .button svg,
+        .button {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Scroll suave entre seções */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Melhorias no overlay */
+        #overlay {
+            backdrop-filter: blur(5px);
+            animation: overlayFadeIn 0.3s ease-out;
+        }
+        
+        @keyframes overlayFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Adicionar efeito de hover nos ícones sociais */
+        .landpage4 a svg {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .landpage4 a:hover svg {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.7));
+        }
+
+        /* Adicionar efeito parallax sutil nas landpages */
+        .landpage1::before,
+        .landpage3::before {
+            transition: transform 0.5s ease-out;
+        }
+
+        /* Melhorar responsividade e legibilidade */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+            }
+            
+            .button {
+                width: 90%;
+                max-width: 20rem;
+            }
+
+            .nav-menu-container {
+                flex-direction: column;
+                border-radius: 20px;
+                padding: 0.3rem;
+                top: 6rem;
+            }
+
+            .nav-item {
+                padding: 0.6rem 1.2rem;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .nav-separator {
+                width: 80%;
+                height: 1px;
+                margin: 0.2rem auto;
+            }
+
+            .nav-icon {
+                width: 1.1rem;
+                height: 1.1rem;
+            }
+
+            .nav-text {
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Adicionar cursor personalizado para elementos interativos */
+        .button {
+            cursor: pointer !important;
+        }
+
+        /* Adicionar fade-in inicial para o body */
+        body {
+            animation: bodyFadeIn 0.8s ease-out;
+        }
+
+        @keyframes bodyFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Efeito de brilho nos links sociais */
+        .landpage4 a.button {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .landpage4 a.button:hover {
+            transform: translateY(-2px) scale(1.05);
+        }
+    </style>
+</head>
+<body class="montserrat-global">
+    <div class="section landpage1">
+        <div class="title">
+            FLATOUT PY
+        </div>
+        <div class="subtitle">
+            MotorSport Club
+        </div>
+
+        <footer>
+            <div style="font-size: 1.5rem; text-transform: uppercase; letter-spacing: 0.2rem; margin-bottom: 1.5rem;">
+                Escolha seu escape ou sua limpeza estética ideal:
+            </div>
+            
+            <!-- Navigation Menu -->
+            <nav class="nav-menu-container" style="position: relative; top: auto; left: auto; transform: none; margin: 0 auto;">
+                <div class="nav-item" id="nav-location">
+                    <div class="nav-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                    </div>
+                    <span class="nav-text">Localização</span>
+                </div>
+                
+                <div class="nav-separator"></div>
+                
+                <div class="nav-item" id="nav-language">
+                    <div class="nav-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M2 12h20"></path>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                    </div>
+                    <span class="nav-text">Idioma</span>
+                </div>
+                
+                <div class="nav-separator"></div>
+                
+                <div class="nav-item" id="nav-about">
+                    <div class="nav-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                    </div>
+                    <span class="nav-text">Sobre nós</span>
+                </div>
+            </nav>
+        </footer>
+    </div>
+    <!-- Landpage 2 -->
+    <div class="section landpage2">
+    </div>
+    <!-- Landpage 3 -->
+    <div class="section landpage3">
+    </div>
+    <!-- Rename grid-section to landpage4 -->
+    <div class="section landpage4" style="position: relative; overflow: hidden;">
+        <div style="position: absolute; top: 0; left: 4rem; width: calc(100% - 8rem); height: 2px; background-color: white; z-index: 2;"></div>
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('img/brpy.png'); background-size: cover; background-position: center; filter: grayscale(0%) brightness(50%); z-index: 0;"></div>
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 1;">
+            <!-- Instagram Icon -->
+            <a href="https://www.instagram.com/flatout_py/" target="_blank" style="display: inline-block; margin-bottom: 2rem;">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));">
+                    <rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="2" fill="none"/>
+                    <circle cx="12" cy="12" r="4" stroke="white" stroke-width="2" fill="none"/>
+                    <circle cx="18" cy="6" r="1.5" fill="white"/>
+                </svg>
+            </a>
+            <!-- Social Media Text -->
+            <h2 style="color: white; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 0.2rem; margin-bottom: 1.5rem; font-weight: 400;">Nossas redes sociais</h2>
+            <!-- Social Media Buttons -->
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="https://www.instagram.com/flatout_py/" target="_blank" class="button" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem; background-color: rgba(66, 66, 66, 0.3); backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(10px);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="2"/>
+                        <circle cx="12" cy="12" r="4" stroke="white" stroke-width="2"/>
+                        <circle cx="18" cy="6" r="1.5" fill="white"/>
+                    </svg>
+                    Instagram
+                </a>
+                <a href="https://www.facebook.com/flatoutpy/" target="_blank" class="button" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem; background-color: rgba(66, 66, 66, 0.3); backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(10px);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 17.9895 4.3882 22.954 10.125 23.8542V15.4688H7.07812V12H10.125V9.35625C10.125 6.34875 11.9166 4.6875 14.6576 4.6875C15.9701 4.6875 17.3438 4.92188 17.3438 4.92188V7.875H15.8306C14.34 7.875 13.875 8.80008 13.875 9.75V12H17.2031L16.6711 15.4688H13.875V23.8542C19.6118 22.954 24 17.9895 24 12Z" fill="white"/>
+                    </svg>
+                    Facebook
+                </a>
+                <a href="https://www.tiktok.com/@flatoutpy" target="_blank" class="button" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem; background-color: rgba(66, 66, 66, 0.3); backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(10px);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" fill="white"/>
+                    </svg>
+                    TikTok
+                </a>
+                <a href="https://wa.me/595981234567" target="_blank" class="button" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem; background-color: rgba(66, 66, 66, 0.3); backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(10px);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="white"/>
+                    </svg>
+                    WhatsApp
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    </div>
+    <div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
+    <script>
+        
+    </script>
+</body>
+</html>

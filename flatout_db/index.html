@@ -1058,7 +1058,7 @@
                     <div class="card-icon pendente">
                         <i class="fas fa-clock"></i>
                     </div>
-                    <div class="card-title">A ser gasto</div>
+                    <div class="card-title">A ser recebido</div>
                 </div>
                 <div class="card-value" id="totalPendente">₲ 0</div>
                 <div class="card-variation" id="variacaoPendente">
@@ -1107,7 +1107,7 @@
                     <select id="filterCategoria">
                         <option value="">Todas as categorias</option>
                         <option value="Comprado">Comprado</option>
-                        <option value="Pendente">Pendente</option>
+                        <option value="Pendente">A ser recebido</option>
                         <option value="Recebido">Recebido</option>
                     </select>
                 </div>
@@ -1155,11 +1155,11 @@
             <table id="movementsTable">
                 <thead>
                     <tr>
-                        <th>Data</th>
+                        <th onclick="setSort('data')" style="cursor: pointer;">Data <span id="sortIndicatorData"></span></th>
                         <th>Categoria</th>
                         <th>Nome do Produto/Serviço</th>
                         <th>Moeda</th>
-                        <th>Valor</th>
+                        <th onclick="setSort('valor')" style="cursor: pointer;">Valor <span id="sortIndicatorValor"></span></th>
                         <th>Observação</th>
                         <th>Lembrar</th>
                         <th>Ações</th>
@@ -1212,7 +1212,7 @@
                     <label for="movementCategory">Categoria</label>
                     <select id="movementCategory" required>
                         <option value="Comprado">Comprado</option>
-                        <option value="Pendente">Pendente</option>
+                        <option value="Pendente">A ser recebido</option>
                         <option value="Recebido">Recebido</option>
                     </select>
                 </div>
@@ -1303,6 +1303,8 @@
         let selectedCategory = null;
         let isLoading = false;
         let selectedCurrency = 'PYG'; // Moeda selecionada para exibição
+        // Ordenação da tabela
+        let sortState = { field: 'data', asc: true };
         
         // Instâncias dos gráficos
         let categoryChart = null;
@@ -1323,6 +1325,8 @@
             
             // Definir data atual como padrão
             document.getElementById('movementDate').value = new Date().toISOString().split('T')[0];
+            // Atualizar indicadores de ordenação iniciais
+            if (typeof atualizarSortIndicators === 'function') atualizarSortIndicators();
         });
 
 
@@ -1623,8 +1627,8 @@
 
             const saldoCaixa = totalRecebido;
 
-            // Calcular saldo calculado: (Pendente + A ser gasto) - Em caixa
-            const saldoCalculado = saldoCaixa - (totalPendente + totalGastado);
+            // Calcular saldo calculado: Em caixa + A ser recebido - Gastado
+            const saldoCalculado = saldoCaixa + totalPendente - totalGastado;
             
             // Atualizar valores com conversão para moeda selecionada
             const totalGastadoConvertido = converterParaMoedaExibicao(totalGastado, selectedCurrency);
@@ -1704,11 +1708,39 @@
             const tbody = document.getElementById('movementsTableBody');
             tbody.innerHTML = '';
 
-            movements.forEach(movement => {
+            // Ordenar cópia dos movimentos conforme sortState
+            const lista = [...movements];
+            if (sortState.field === 'data') {
+                lista.sort((a, b) => {
+                    const [ay, am, ad] = a.data.split('-');
+                    const [by, bm, bd] = b.data.split('-');
+                    const da = new Date(ay, am - 1, ad);
+                    const db = new Date(by, bm - 1, bd);
+                    return sortState.asc ? da - db : db - da;
+                });
+            } else if (sortState.field === 'valor') {
+                lista.sort((a, b) => {
+                    const va = converterParaMoedaBase(a.valor, a.moeda);
+                    const vb = converterParaMoedaBase(b.valor, b.moeda);
+                    return sortState.asc ? va - vb : vb - va;
+                });
+            }
+
+            lista.forEach(movement => {
                 const row = document.createElement('tr');
+                // Construir data local para evitar problema de fuso horário
+                let displayDate = movement.data;
+                if (movement.data && typeof movement.data === 'string') {
+                    const [y, m, d] = movement.data.split('-');
+                    const localDate = new Date(y, m - 1, d);
+                    displayDate = localDate.toLocaleDateString('pt-BR');
+                }
+
+                const displayCategoria = movement.categoria === 'Pendente' ? 'A ser recebido' : movement.categoria;
+
                 row.innerHTML = `
-                    <td>${new Date(movement.data).toLocaleDateString('pt-BR')}</td>
-                    <td><span class="category-badge category-${movement.categoria.toLowerCase()}">${movement.categoria}</span></td>
+                    <td>${displayDate}</td>
+                    <td><span class="category-badge category-${movement.categoria.toLowerCase()}">${displayCategoria}</span></td>
                     <td>${movement.nome}</td>
                     <td class="currency">${movement.moeda}</td>
                     <td class="currency">${formatarMoedaOriginal(movement.valor, movement.moeda)}</td>
@@ -1736,6 +1768,28 @@
                 `;
                 tbody.appendChild(row);
             });
+        }
+
+        // Definir ordenação (campo: 'data' | 'valor')
+        function setSort(field) {
+            if (sortState.field === field) {
+                sortState.asc = !sortState.asc;
+            } else {
+                sortState.field = field;
+                sortState.asc = true;
+            }
+            atualizarTabela();
+            atualizarSortIndicators();
+        }
+
+        function atualizarSortIndicators() {
+            const dataInd = document.getElementById('sortIndicatorData');
+            const valorInd = document.getElementById('sortIndicatorValor');
+            dataInd.textContent = '';
+            valorInd.textContent = '';
+            const arrow = sortState.asc ? '↑' : '↓';
+            if (sortState.field === 'data') dataInd.textContent = arrow;
+            if (sortState.field === 'valor') valorInd.textContent = arrow;
         }
 
         // Abrir modal para adicionar
@@ -1896,12 +1950,38 @@
             // Atualizar tabela com dados filtrados
             const tbody = document.getElementById('movementsTableBody');
             tbody.innerHTML = '';
+            // Ordenar filtros conforme estado atual de ordenação
+            if (sortState.field === 'data') {
+                movimentosFiltrados.sort((a, b) => {
+                    const [ay, am, ad] = a.data.split('-');
+                    const [by, bm, bd] = b.data.split('-');
+                    const da = new Date(ay, am - 1, ad);
+                    const db = new Date(by, bm - 1, bd);
+                    return sortState.asc ? da - db : db - da;
+                });
+            } else if (sortState.field === 'valor') {
+                movimentosFiltrados.sort((a, b) => {
+                    const va = converterParaMoedaBase(a.valor, a.moeda);
+                    const vb = converterParaMoedaBase(b.valor, b.moeda);
+                    return sortState.asc ? va - vb : vb - va;
+                });
+            }
 
             movimentosFiltrados.forEach(movement => {
                 const row = document.createElement('tr');
+                // Construir data local
+                let displayDate = movement.data;
+                if (movement.data && typeof movement.data === 'string') {
+                    const [y, m, d] = movement.data.split('-');
+                    const localDate = new Date(y, m - 1, d);
+                    displayDate = localDate.toLocaleDateString('pt-BR');
+                }
+
+                const displayCategoria = movement.categoria === 'Pendente' ? 'A ser recebido' : movement.categoria;
+
                 row.innerHTML = `
-                    <td>${new Date(movement.data).toLocaleDateString('pt-BR')}</td>
-                    <td><span class="category-badge category-${movement.categoria.toLowerCase()}">${movement.categoria}</span></td>
+                    <td>${displayDate}</td>
+                    <td><span class="category-badge category-${movement.categoria.toLowerCase()}">${displayCategoria}</span></td>
                     <td>${movement.nome}</td>
                     <td class="currency">${movement.moeda}</td>
                     <td class="currency">${formatarMoedaOriginal(movement.valor, movement.moeda)}</td>
@@ -1955,7 +2035,7 @@
                 categoryChart.destroy();
             }
             
-            const categorias = ['Comprado', 'Pendente', 'Saldo Disponível'];
+            const categorias = ['Comprado', 'A ser recebido', 'Saldo Disponível'];
             const valores = [
                 movements
                     .filter(m => m.categoria === 'Comprado')
@@ -1964,7 +2044,7 @@
                     .filter(m => m.categoria === 'Pendente')
                     .reduce((sum, m) => sum + converterParaMoedaBase(m.valor, m.moeda), 0),
                 movements
-                    .filter(m => m.categoria === 'Recebido')
+                    .filter(m => m.categoria === 'Recebido' || m.categoria === 'Pendente')
                     .reduce((sum, m) => sum + converterParaMoedaBase(m.valor, m.moeda), 0) -
                 movements
                     .filter(m => m.categoria === 'Comprado')
@@ -2237,44 +2317,7 @@
             }
         }
 
-        // Atualizar botão de exclusão para usar o modal
-        function atualizarTabela() {
-            const tbody = document.getElementById('movementsTableBody');
-            tbody.innerHTML = '';
-
-            movements.forEach(movement => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${new Date(movement.data).toLocaleDateString('pt-BR')}</td>
-                    <td><span class="category-badge category-${movement.categoria.toLowerCase()}">${movement.categoria}</span></td>
-                    <td>${movement.nome}</td>
-                    <td class="currency">${movement.moeda}</td>
-                    <td class="currency">${formatarMoedaOriginal(movement.valor, movement.moeda)}</td>
-                    <td>${movement.observacao || '-'}</td>
-                    <td>
-                        ${movement.categoria === 'Pendente' ? 
-                            `<button class="btn btn-sm" onclick="abrirModalConfirmacao('${movement.id}')" style="padding: 5px 10px; font-size: 0.8rem; background: #28a745;">
-                                <i class="fas fa-check"></i> Finalizar
-                            </button>` : 
-                            '<span style="color: #999;">-</span>'
-                        }
-                    </td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="btn btn-action" onclick="editarMovimentacao('${movement.id}')">
-                                <i class="fas fa-edit"></i>
-                                <span class="btn-text">Editar</span>
-                            </button>
-                            <button class="btn btn-secondary btn-action" onclick="abrirModalExclusao('${movement.id}')">
-                                <i class="fas fa-trash"></i>
-                                <span class="btn-text">Excluir</span>
-                            </button>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
+        // Função `atualizarTabela` consolidada acima: usa sortState e exibição correta de datas/categorias
     </script>
 </body>
 </html>
