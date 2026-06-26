@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KFutVolei — Torneios e Rankings de Futevôlei</title>
+  <meta name="description" content="Plataforma de gerenciamento de torneios, rankings e atletas de Futevôlei no Rio de Janeiro.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ═══════════ HEADER ═══════════ -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="header-logo">K<span>Fut</span>Volei</a>
+
+      <nav class="header-nav">
+        <a href="#torneios"  class="nav-link">Torneios</a>
+        <a href="#categorias" class="nav-link">Categorias</a>
+        <a href="#ranking"   class="nav-link">Ranking</a>
+        <a href="#contato"   class="nav-link">Contato</a>
+      </nav>
+
+      <div id="header-usuario">
+        <!-- renderizado pelo JS -->
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <p class="hero-eyebrow">Futevôlei profissional • Rio de Janeiro</p>
+      <h1 class="hero-title">Onde o esporte<br>encontra <span>a praia</span></h1>
+      <p class="hero-sub">A plataforma completa para atletas, organizadores e fãs de futevôlei. Encontre torneios, acompanhe rankings e inscreva-se em segundos.</p>
+      <a href="#torneios" class="btn-primary">Ver torneios ↓</a>
+    </div>
+  </section>
+
+  <!-- ═══════════ STATS ═══════════ -->
+  <div class="stats-bar">
+    <div id="stats-container" class="container">
+      <!-- renderizado pelo JS -->
+    </div>
+  </div>
+
+  <!-- ═══════════ DESTAQUES ═══════════ -->
+  <section class="section" id="destaques">
+    <div class="container">
+      <h2 class="section-title">Torneios em destaque</h2>
+      <div class="destaques-grid" id="destaques-container">
+        <!-- renderizado pelo JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CATEGORIAS ═══════════ -->
+  <section class="section" id="categorias">
+    <div class="container">
+
+      <!-- Profissional -->
+      <div class="section-cat-pro" style="margin-bottom: 3rem;">
+        <h2 class="section-title" style="color: var(--ciano);">
+          ◆ Profissional
+        </h2>
+        <div class="torneios-grid" id="cat-profissional">
+          <!-- renderizado pelo JS -->
+        </div>
+      </div>
+
+      <!-- Intermediário -->
+      <div class="section-cat-int" style="margin-bottom: 3rem;">
+        <h2 class="section-title" style="color: var(--dourado);">
+          ◈ Intermediário
+        </h2>
+        <div class="torneios-grid" id="cat-intermediario">
+          <!-- renderizado pelo JS -->
+        </div>
+      </div>
+
+      <!-- Amador -->
+      <div class="section-cat-ama">
+        <h2 class="section-title" style="color: var(--prata);">
+          ◇ Amador
+        </h2>
+        <div class="torneios-grid" id="cat-amador">
+          <!-- renderizado pelo JS -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════ RANKING ═══════════ -->
+  <section class="section" id="ranking" style="background: var(--bg-surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <h2 class="section-title">Ranking atualizado</h2>
+      <div class="ranking-lista" id="ranking-container">
+        <!-- renderizado pelo JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FILTROS ═══════════ -->
+  <div class="filtros-section" id="torneios">
+    <div class="container">
+      <form id="form-filtros" onsubmit="return false">
+        <div class="filtros-grid">
+
+          <!-- Categorias -->
+          <div class="filtros-cats">
+            <button type="button" class="btn-cat-filtro ativo" data-cat="Todas">Todas</button>
+            <button type="button" class="btn-cat-filtro" data-cat="Profissional">Profissional</button>
+            <button type="button" class="btn-cat-filtro" data-cat="Intermediário">Intermediário</button>
+            <button type="button" class="btn-cat-filtro" data-cat="Amador">Amador</button>
+          </div>
+
+          <!-- Busca por nome -->
+          <input type="text" id="inp-nome" class="filtro-input" placeholder="🔍 Buscar torneio...">
+
+          <!-- Busca por cidade/bairro -->
+          <input type="text" id="inp-cidade" class="filtro-input" placeholder="📍 Bairro ou cidade...">
+
+          <!-- Checkboxes -->
+          <div class="filtros-checks">
+            <label class="check-label">
+              <input type="checkbox" id="chk-gratuitos"> Gratuitos
+            </label>
+            <label class="check-label">
+              <input type="checkbox" id="chk-abertos"> Inscrições abertas
+            </label>
+          </div>
+
+          <!-- Ordenação -->
+          <select id="sel-ordem" class="filtro-select">
+            <option value="data">Ordenar: Data</option>
+            <option value="premiacao">Ordenar: Premiação</option>
+            <option value="vagas">Ordenar: Vagas</option>
+          </select>
+
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══════════ LISTAGEM PRINCIPAL ═══════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="listagem-header">
+        <h2 class="section-title" style="margin-bottom: 0;">Todos os torneios</h2>
+        <span id="contador-resultados"></span>
+      </div>
+
+      <div class="torneios-grid" id="torneios-lista">
+        <!-- renderizado pelo JS -->
+      </div>
+
+      <button class="btn-carregar-mais" id="btn-carregar-mais" style="display: none;">
+        Carregar mais torneios
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="footer" id="contato">
+    <div class="container">
+      <div class="footer-grid">
+
+        <div>
+          <div class="footer-logo">K<span>Fut</span>Volei</div>
+          <p class="footer-desc">A plataforma líder em gerenciamento de torneios, rankings e atletas de futevôlei no Brasil.</p>
+          <div class="footer-socials">
+            <a href="#" class="social-link" title="Instagram">ig</a>
+            <a href="#" class="social-link" title="YouTube">yt</a>
+            <a href="#" class="social-link" title="TikTok">tt</a>
+            <a href="#" class="social-link" title="WhatsApp">wa</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Plataforma</h5>
+          <div class="footer-links">
+            <a href="#">Torneios</a>
+            <a href="#">Ranking</a>
+            <a href="#">Atletas</a>
+            <a href="#">Categorias</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Organizadores</h5>
+          <div class="footer-links">
+            <a href="#">Criar evento</a>
+            <a href="#">Gerenciar inscrições</a>
+            <a href="#">Regulamento</a>
+            <a href="#">Suporte</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Contato</h5>
+          <div class="footer-links">
+            <a href="#">contato@kfutvolei.com.br</a>
+            <a href="#">Rio de Janeiro, RJ</a>
+            <a href="#">Termos de uso</a>
+            <a href="#">Privacidade</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2025 KFutVolei. Todos os direitos reservados.</span>
+        <span>Feito com ♥ para os apaixonados pela praia</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════ MODAL DETALHE ═══════════ -->
+  <div class="modal-overlay" id="modal-detalhe">
+    <div class="modal-box">
+      <button class="btn-fechar-modal" id="btn-fechar-modal" title="Fechar">✕</button>
+      <div id="modal-corpo">
+        <!-- renderizado pelo JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="dados.js"></script>
+  <script src="api.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
