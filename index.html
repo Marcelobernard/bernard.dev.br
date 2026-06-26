@@ -1,1800 +1,1278 @@
 <!DOCTYPE html>
-<html lang="ptbr">
+<html lang="pt-br">
 <head>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6939953032536749"
-     crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MBernard</title>
+<title>Marcelo Bernard — Dev</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-    :root {
-        --primary-color: #2c3e50;
-        --secondary-color: #0aa069;
-        --accent-color: #e74c3c;
-        --text-color: #ecf0f1;
-        --background-color: #1a1a1a;
-    }
-
-    * {
-        font-family: 'Poppins', sans-serif;
-    }
-
-    body {
-        margin: 0;
-        padding: 0;
-        background-color: var(--background-color);
-        color: var(--text-color);
-        line-height: 1.6;
-        font-weight: 300;
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-        font-weight: 600;
-    }
-
-    .section-title {
-        font-weight: 500;
-    }
-
-    .project-title {
-        font-weight: 500;
-    }
-
-    .skill-card h3 {
-        font-weight: 500;
-    }
-
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem;
-    }
-
-    header {
-        text-align: center;
-        padding: 4rem 0;
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-    }
-
-    #headerCanvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-    }
-
-    h1 {
-        font-size: 3.5em;
-        margin: 0;
-        color: var(--text-color);
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        position: relative;
-        z-index: 2;
-    }
-
-    .subtitle {
-        font-size: 1.5em;
-        margin-top: 1rem;
-        color: rgba(255,255,255,0.9);
-        position: relative;
-        z-index: 2;
-    }
-
-    .section {
-        background-color: rgba(255,255,255,0.05);
-        border-radius: 10px;
-        padding: 2rem;
-        margin: 2rem 0;
-    }
-
-    .section-title {
-        color: var(--secondary-color);
-        font-size: 1.8em;
-        margin-bottom: 1.5rem;
-        border-bottom: 2px solid var(--secondary-color);
-        padding-bottom: 0.5rem;
-    }
-
-    .skills-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-    }
-
-    .projects-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        margin-top: 2rem;
-    }
-
-    .project-card {
-        background-color: rgba(255,255,255,0.1);
-        border-radius: 10px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        color: var(--text-color);
-        max-width: 500px;
-        margin: 0 auto;
-        width: 100%;
-        border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .project-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        border-color: var(--secondary-color);
-    }
-
-    .project-content {
-        padding: 2rem;
-        text-align: center;
-    }
-
-    .project-icon {
-        font-size: 2.5rem;
-        color: var(--secondary-color);
-        margin-bottom: 1rem;
-    }
-
-    .project-title {
-        font-size: 1.2em;
-        margin: 0.5rem 0;
-        color: var(--text-color);
-    }
-
-    .project-description {
-        font-size: 0.9em;
-        color: rgba(255,255,255,0.7);
-        margin: 0;
-    }
-
-    body.light-mode .project-description {
-        color: rgba(0,0,0,0.7);
-    }
-
-    @media only screen and (max-width: 768px) {
-        .project-content {
-            padding: 1.5rem;
-        }
-        
-        .project-icon {
-            font-size: 2rem;
-        }
-    }
-
-    .skill-card {
-        background-color: rgba(255,255,255,0.1);
-        padding: 1.5rem;
-        border-radius: 10px;
-        transition: transform 0.3s ease;
-    }
-
-    .skill-card:hover {
-        transform: translateY(-5px);
-    }
-
-    .skill-header {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .skill-icon {
-        font-size: 2rem;
-        color: var(--secondary-color);
-    }
-
-    .skill-title {
-        margin: 0;
-        font-size: 1.4em;
-        color: var(--secondary-color);
-    }
-
-    .skill-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-
-    .skill-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        background-color: rgba(255,255,255,0.05);
-        border-radius: 20px;
-        transition: all 0.3s ease;
-    }
-
-    .skill-item:hover {
-        background-color: rgba(255,255,255,0.1);
-        transform: translateY(-2px);
-    }
-
-    .skill-item i {
-        color: var(--secondary-color);
-    }
-
-    .skill-item span {
-        font-size: 0.9em;
-    }
-
-    .contact-info {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-        margin-top: 2rem;
-    }
-
-    .contact-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .contact-item a {
-        color: var(--text-color);
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
-
-    .contact-item a:hover {
-        color: var(--secondary-color);
-    }
-
-    .social-links {
-        display: flex;
-        justify-content: center;
-        gap: 1.5rem;
-        margin-top: 2rem;
-    }
-
-    .social-link {
-        color: var(--text-color);
-        font-size: 1.5rem;
-        transition: color 0.3s ease;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .social-link:hover {
-        color: var(--secondary-color);
-    }
-
-    .social-link span {
-        font-size: 1rem;
-    }
-
-    .about-content {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-    }
-
-    .about-text {
-        margin-bottom: 10px;
-    }
-
-    @media only screen and (max-width: 768px) {
-        .container {
-            padding: 1rem;
-        }
-
-        h1 {
-            font-size: 2.5em;
-        }
-
-        .subtitle {
-            font-size: 1.2em;
-        }
-
-        .contact-info {
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .project-image-container {
-            height: 195px;
-        }
-    }
-
-    footer {
-        background-color: rgba(255,255,255,0.05);
-        border-radius: 10px;
-        padding: 2rem 0;
-        margin-top: 4rem;
-    }
-
-    .footer-content {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2rem;
-        align-items: start;
-    }
-
-    .footer-section {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .footer-section h3 {
-        color: var(--secondary-color);
-        font-size: 1.2em;
-        margin-bottom: 0.5rem;
-    }
-
-    .footer-section p {
-        margin: 0;
-        font-size: 0.9em;
-        color: rgba(255,255,255,0.8);
-    }
-
-    .footer-contact {
-        display: flex;
-        flex-direction: column;
-        gap: 0.8rem;
-    }
-
-    .footer-contact a {
-        color: var(--text-color);
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        transition: color 0.3s ease;
-    }
-
-    .footer-contact a:hover {
-        color: var(--secondary-color);
-    }
-
-    .footer-social {
-        display: flex;
-        gap: 1rem;
-    }
-
-    .footer-social a {
-        color: var(--text-color);
-        font-size: 1.5rem;
-        transition: color 0.3s ease;
-    }
-
-    .footer-social a:hover {
-        color: var(--secondary-color);
-    }
-
-    .footer-bottom {
-        text-align: center;
-        margin-top: 2rem;
-        padding-top: 1rem;
-        border-top: 1px solid rgba(255,255,255,0.1);
-        font-size: 0.9em;
-        color: rgba(255,255,255,0.6);
-    }
-
-    @media only screen and (max-width: 768px) {
-        .footer-content {
-            grid-template-columns: 1fr;
-            text-align: center;
-        }
-
-        .footer-contact a {
-            justify-content: center;
-        }
-
-        .footer-social {
-            justify-content: center;
-        }
-    }
-
-    .controls-bar {
-        background-color: rgba(255,255,255,0.05);
-        border-radius: 10px;
-        padding: 1rem;
-        margin: 2rem 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-        flex-wrap: wrap;
-    }
-
-    .control-button {
-        background-color: var(--secondary-color);
-        color: var(--text-color);
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 5px;
-        cursor: pointer;
-        font-family: 'Poppins', sans-serif;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .control-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-
-    .control-button i {
-        font-size: 1.2em;
-    }
-
-    .color-picker {
-        display: none;
-    }
-
-    .shake {
-        animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
-    }
-
-    @keyframes shake {
-        10%, 90% { transform: translate3d(-1px, 0, 0); }
-        20%, 80% { transform: translate3d(2px, 0, 0); }
-        30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-        40%, 60% { transform: translate3d(4px, 0, 0); }
-    }
-
-    body.light-mode {
-        --primary-color: #3498db;
-        --secondary-color: #2ecc71;
-        --accent-color: #e74c3c;
-        --text-color: #2c3e50;
-        --background-color: #f5f6fa;
-    }
-
-    body.light-mode .section,
-    body.light-mode .skill-card,
-    body.light-mode .project-card,
-    body.light-mode .skill-item,
-    body.light-mode footer {
-        background-color: rgba(0,0,0,0.05);
-    }
-
-    body.light-mode .skill-item {
-        background-color: rgba(0,0,0,0.1);
-    }
-
-    body.light-mode .footer-section p,
-    body.light-mode .footer-contact a,
-    body.light-mode .footer-social a {
-        color: var(--text-color);
-    }
-
-    body.light-mode .footer-bottom {
-        color: var(--text-color);
-    }
-
-    body.light-mode .footer-bottom p {
-        color: var(--text-color);
-    }
-
-    .broken-site {
-        animation: glitch 0.3s infinite;
-    }
-
-    .broken-site * {
-        position: relative;
-    }
-
-    .broken-site *:nth-child(odd) {
-        transform: translate(-2px, 2px);
-    }
-
-    .broken-site *:nth-child(even) {
-        transform: translate(2px, -2px);
-    }
-
-    .broken-site .section {
-        transform: rotate(random(-5deg, 5deg));
-    }
-
-    .broken-site .skill-card {
-        transform: scale(0.9) rotate(random(-10deg, 10deg));
-    }
-
-    .broken-site .project-card {
-        transform: translate(random(-20px, 20px), random(-20px, 20px));
-    }
-
-    .broken-site .footer-section {
-        transform: translateX(random(-50px, 50px));
-    }
-
-    @keyframes glitch {
-        0% {
-            transform: translate(0);
-        }
-        20% {
-            transform: translate(-2px, 2px);
-        }
-        40% {
-            transform: translate(-2px, -2px);
-        }
-        60% {
-            transform: translate(2px, 2px);
-        }
-        80% {
-            transform: translate(2px, -2px);
-        }
-        100% {
-            transform: translate(0);
-        }
-    }
-
-    .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0,0,0,0.8);
-        z-index: 1000;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .modal-content {
-        background-color: var(--background-color);
-        padding: 2rem;
-        border-radius: 10px;
-        text-align: center;
-        max-width: 400px;
-        width: 90%;
-    }
-
-    .modal-buttons {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        margin-top: 1.5rem;
-    }
-
-    .modal-button {
-        padding: 0.5rem 1rem;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-family: 'Poppins', sans-serif;
-        transition: all 0.3s ease;
-    }
-
-    .modal-button.confirm {
-        background-color: var(--accent-color);
-        color: var(--text-color);
-    }
-
-    .modal-button.cancel {
-        background-color: var(--secondary-color);
-        color: var(--text-color);
-    }
-
-    .modal-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-
-    .postit-button {
-        display: block;
-        margin: 3.4rem auto 0.1rem;
-        padding: 0.6rem 1.0rem;
-        background-color: var(--secondary-color);
-        color: var(--text-color);
-        text-decoration: none;
-        border-radius: 50px;
-        font-weight: 500;
-        font-size: 0.95rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(63, 231, 60, 0.3);
-        border: 2px solid var(--secondary-color);
-        text-align: center;
-        max-width: 250px;
-    }
-
-    .postit-description {
-        text-align: center;
-        color: var(--secondary-color);
-        font-size: 0.9rem;
-        margin: 0.5rem auto 0.1rem;
-        opacity: 0.8;
-        max-width: 400px;
-    }
-
-    .postit-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(13, 165, 5, 0.4);
-        background-color: transparent;
-    }
-
-    .postit-button i {
-        margin-right: 5px;
-        font-size: 1em;
-    }
-
-    .login-button {
-        display: block;
-        margin: 2rem auto 0.1rem;
-        padding: 0.6rem 1.0rem;
-        background-color: var(--secondary-color);
-        color: var(--text-color);
-        text-decoration: none;
-        border-radius: 50px;
-        font-weight: 500;
-        font-size: 0.95rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(63, 231, 60, 0.3);
-        border: 2px solid var(--secondary-color);
-        text-align: center;
-        max-width: 250px;
-    }
-
-    .login-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(13, 165, 5, 0.4);
-        background-color: transparent;
-    }
-
-    .login-button i {
-        margin-right: 5px;
-        font-size: 1em;
-    }
-
-    .buttons-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-        max-width: 600px;
-        margin: 3.4rem auto 0.1rem;
-        padding: 0 1rem;
-    }
-
-    .grid-button {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 1.5rem;
-        background-color: var(--secondary-color);
-        color: var(--text-color);
-        text-decoration: none;
-        border-radius: 10px;
-        font-weight: 500;
-        font-size: 0.95rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(63, 231, 60, 0.3);
-        border: 2px solid var(--secondary-color);
-        text-align: center;
-        min-height: 120px;
-    }
-
-    .grid-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(13, 165, 5, 0.4);
-        background-color: transparent;
-    }
-
-    .grid-button i {
-        font-size: 2em;
-        margin-bottom: 0.5rem;
-    }
-
-    .grid-button span {
-        font-size: 1.1em;
-    }
-
-    .welcome-card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 1.5rem;
-        background-color: var(--secondary-color);
-        color: var(--text-color);
-        border-radius: 10px;
-        font-weight: 500;
-        font-size: 0.95rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(63, 231, 60, 0.3);
-        border: 2px solid var(--secondary-color);
-        text-align: center;
-        min-height: 120px;
-        gap: 1rem;
-    }
-
-    .welcome-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(13, 165, 5, 0.4);
-        background-color: transparent;
-    }
-
-    .welcome-header {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .welcome-avatar {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-
-    .welcome-name {
-        font-size: 1.1em;
-        text-align: left;
-    }
-
-    .welcome-logout {
-        background: none;
-        border: none;
-        color: var(--text-color);
-        cursor: pointer;
-        padding: 0.5rem 1rem;
-        border-radius: 5px;
-        transition: all 0.3s ease;
-        font-size: 0.9em;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .welcome-logout:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    @media only screen and (max-width: 768px) {
-        .welcome-card {
-            padding: 1rem;
-            font-size: 0.85rem;
-            min-height: 80px;
-            gap: 0.8rem;
-        }
-        
-        .welcome-header {
-            gap: 0.8rem;
-        }
-        
-        .welcome-avatar {
-            width: 40px;
-            height: 40px;
-        }
-        
-        .welcome-name {
-            font-size: 1em;
-        }
-        
-        .welcome-logout {
-            font-size: 0.8em;
-            padding: 0.4rem 0.8rem;
-        }
-    }
-    
-    @media only screen and (max-width: 480px) {
-        .welcome-card {
-            padding: 0.8rem;
-            font-size: 0.8rem;
-            min-height: 70px;
-            gap: 0.6rem;
-        }
-        
-        .welcome-header {
-            gap: 0.6rem;
-        }
-        
-        .welcome-avatar {
-            width: 36px;
-            height: 36px;
-        }
-        
-        .welcome-name {
-            font-size: 0.9em;
-        }
-        
-        .welcome-logout {
-            font-size: 0.75em;
-            padding: 0.3rem 0.6rem;
-        }
-    }
-
-    @media only screen and (max-width: 768px) {
-        .buttons-grid {
-            grid-template-columns: 1fr 1fr;
-            gap: 0.8rem;
-            max-width: 500px;
-            margin: 2rem auto 0.1rem;
-        }
-        
-        .grid-button {
-            padding: 1rem;
-            font-size: 0.85rem;
-            min-height: 80px;
-        }
-        
-        .grid-button i {
-            font-size: 1.5em;
-            margin-bottom: 0.3rem;
-        }
-        
-        .grid-button span {
-            font-size: 0.9em;
-        }
-    }
-    
-    @media only screen and (max-width: 480px) {
-        .buttons-grid {
-            gap: 0.6rem;
-            max-width: 400px;
-            margin: 1.5rem auto 0.1rem;
-        }
-        
-        .grid-button {
-            padding: 0.8rem;
-            font-size: 0.8rem;
-            min-height: 70px;
-        }
-        
-        .grid-button i {
-            font-size: 1.3em;
-            margin-bottom: 0.2rem;
-        }
-        
-        .grid-button span {
-            font-size: 0.85em;
-        }
-    }
-
-    .language-selector-wrapper {
-        display: flex;
-        align-items: center;
-    }
-
-    .language-selector-wrapper select {
-        background-color: var(--secondary-color);
-        color: var(--text-color);
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 5px;
-        cursor: pointer;
-        font-family: 'Poppins', sans-serif;
-        font-size: 1em;
-        font-weight: 500;
-        box-shadow: 0 4px 15px rgba(63, 231, 60, 0.3);
-        outline: none;
-        min-width: 120px;
-        height: 38px;
-        line-height: 1.2;
-        display: inline-block;
-        text-align: center;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        transition: all 0.3s ease;
-    }
-
-    .language-selector-wrapper select:hover,
-    .language-selector-wrapper select:focus {
-        background-color: transparent;
-        color: var(--secondary-color);
-        border: 2px solid var(--secondary-color);
-    }
-
-    @media only screen and (max-width: 768px) {
-        .controls-bar {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(3, auto);
-            gap: 0.6rem;
-            padding: 1rem;
-            max-width: 400px;
-            margin: 2rem auto 0 auto;
-        }
-        
-        .control-button {
-            padding: 0.5rem 0.8rem;
-            font-size: 0.8rem;
-            min-width: auto;
-            justify-content: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.3rem;
-            text-align: center;
-        }
-        
-        .control-button i {
-            font-size: 1.1rem;
-            margin-bottom: 0.2rem;
-        }
-        
-        .control-button span {
-            font-size: 0.75rem;
-            line-height: 1.1;
-        }
-        
-        .language-selector-wrapper {
-            margin-left: 0;
-            margin-top: 0.5rem;
-            justify-content: center;
-            grid-column: 1 / -1;
-        }
-        
-        /* Ocultar botão "Quebrar Site" em mobile */
-        .control-button:last-of-type {
-            display: none;
-        }
-    }
-    
-    @media only screen and (max-width: 480px) {
-        .controls-bar {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.4rem;
-            padding: 0.6rem;
-            max-width: 100%;
-            margin: 1.5rem auto 0 auto;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .control-button {
-            padding: 0.4rem 0.5rem;
-            font-size: 0.7rem;
-            gap: 0.1rem;
-            min-width: 80px;
-            flex-shrink: 0;
-        }
-        
-        .control-button i {
-            font-size: 0.9rem;
-        }
-        
-        .control-button span {
-            font-size: 0.65rem;
-            white-space: nowrap;
-        }
-        
-        .language-selector-wrapper {
-            order: -1;
-            flex-basis: 100%;
-            margin: 0.5rem 0 0 0;
-        }
-        
-        /* Ocultar botão "Quebrar Site" em mobile */
-        .control-button:last-of-type {
-            display: none;
-        }
-    }
-    
-    @media only screen and (max-width: 360px) {
-        .controls-bar {
-            gap: 0.3rem;
-            padding: 0.5rem;
-            margin: 1.2rem auto 0 auto;
-        }
-        
-        .control-button {
-            padding: 0.3rem 0.4rem;
-            font-size: 0.65rem;
-            min-width: 70px;
-        }
-        
-        .control-button i {
-            font-size: 0.8rem;
-        }
-        
-        .control-button span {
-            font-size: 0.6rem;
-        }
-    }
-    .top-header {
-        width: 100%;
-        background: rgba(0, 0, 0, 0.2);
-        backdrop-filter: blur(8px);
-        color: var(--text-color);
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1001;
-        height: 72px;
-        box-shadow: 0 4px 16px -4px rgba(0,0,0,0.18);
-        display: flex;
-        align-items: center;
-        padding: 0;
-    }
-    .top-header::after {
-        content: "";
-        display: block;
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        margin: 0 auto;
-        width: 90%;
-        max-width: 1100px;
-        height: 2px;
-        background: var(--secondary-color);
-        border-radius: 2px;
-        opacity: 0.5;
-        box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-        z-index: 2;
-    }
-    .header-content {
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 2.2rem;
-        height: 72px;
-        position: relative;
-    }
-    .header-title {
-        font-size: 1.35rem;
-        font-weight: 500;
-        letter-spacing: 2px;
-        color: #e3eaf2;
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-        user-select: none;
-    }
-    .header-title::before {
-        content: "\f121";
-        font-family: 'Font Awesome 5 Free';
-        font-weight: 900;
-        font-size: 1.1em;
-        color: var(--secondary-color);
-        margin-right: 0.2em;
-        opacity: 0.85;
-    }
-    .lang-dropdown {
-        position: relative;
-        display: flex;
-        align-items: center;
-    }
-    .lang-btn {
-        width: 45px;
-        height: 20px;
-        background: rgba(10, 160, 105, 0.92);
-        color: var(--text-color);
-        border: none;
-        border-radius: 15px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background 0.2s, box-shadow 0.2s;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        outline: none;
-        user-select: none;
-    }
-    .lang-btn:hover, .lang-btn:focus {
-        background: #00dd88;
-        color: #fff;
-        box-shadow: 0 4px 16px rgba(63, 231, 60, 0.13);
-    }
-    .lang-options {
-        display: none;
-        position: absolute;
-        top: 54px;
-        right: 0;
-        background: var(--secondary-color);
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        min-width: 70px;
-        overflow: hidden;
-        flex-direction: column;
-        z-index: 1002;
-        padding: 0.3rem 0;
-    }
-    .lang-dropdown.open .lang-options {
-        display: flex;
-    }
-    .lang-option {
-        padding: 0.7rem 1.2rem;
-        color: var(--text-color);
-        cursor: pointer;
-        font-size: 1rem;
-        background: none;
-        border: none;
-        text-align: left;
-        transition: background 0.2s, color 0.2s;
-        border-radius: 0;
-        margin: 0 0.2rem;
-    }
-    .lang-option:hover {
-        background: var(--primary-color);
-        color: var(--primary-color);
-        border-radius: 6px;
-    }
-    @media only screen and (max-width: 768px) {
-        .header-content {
-            padding: 0 0.7rem;
-        }
-        .lang-btn {
-            width: 40px;
-            height: 40px;
-            font-size: 0.95rem;
-        }
-        .header-title {
-            font-size: 1.05rem;
-        }
-        .header-nav {
-            display: none !important;
-        }
-        .header-content {
-            justify-content: space-between;
-        }
-    }
-    body {
-        padding-top: 56px;
-    }
-    .header-nav {
-        display: flex;
-        gap: 1.2rem;
-        margin-left: 2.2rem;
-    }
-    .nav-link {
-        color: #e3eaf2;
-        text-decoration: none;
-        font-size: 1.05rem;
-        font-weight: 500;
-        padding: 0.3rem 0.7rem;
-        border-radius: 6px;
-        transition: background 0.18s, color 0.18s;
-        opacity: 0.88;
-        letter-spacing: 1px;
-        position: relative;
-        z-index: 2;
-    }
-    .nav-link:hover, .nav-link.active {
-        background: var(--secondary-color);
-        color: var(--primary-color);
-        opacity: 1;
-    }
-    @media only screen and (max-width: 900px) {
-        .header-nav {
-            gap: 0.5rem;
-            margin-left: 0.7rem;
-        }
-        .nav-link {
-            font-size: 0.97rem;
-            padding: 0.3rem 0.5rem;
-        }
-    }
-    @media only screen and (max-width: 600px) {
-        .header-nav {
-            gap: 0.2rem;
-            margin-left: 0.2rem;
-        }
-        .nav-link {
-            font-size: 0.93rem;
-            padding: 0.2rem 0.3rem;
-        }
-    }
-    html {
-        scroll-behavior: smooth;
-    }
+/* ─── TOKENS ─────────────────────────────────────────────────────────── */
+:root {
+  --accent:       #0aa069;
+  --accent-dim:   #07784d;
+  --accent-glow:  rgba(10,160,105,.18);
+  --bg:           #0f1117;
+  --surface:      #161b27;
+  --surface-2:    #1d2536;
+  --border:       rgba(255,255,255,.07);
+  --text:         #e8edf5;
+  --text-muted:   rgba(232,237,245,.55);
+  --danger:       #e74c3c;
+  --header-h:     64px;
+  --radius:       12px;
+  --radius-sm:    8px;
+  --transition:   .22s cubic-bezier(.4,0,.2,1);
+}
+[data-theme="light"] {
+  --bg:         #f0f2f5;
+  --surface:    #ffffff;
+  --surface-2:  #e8edf5;
+  --border:     rgba(0,0,0,.08);
+  --text:       #1a2030;
+  --text-muted: rgba(26,32,48,.55);
+  --accent-glow: rgba(10,160,105,.12);
+}
+
+/* ─── RESET ──────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-weight: 400;
+  padding-top: var(--header-h);
+  transition: background var(--transition), color var(--transition);
+  min-height: 100vh;
+}
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; font-family: inherit; }
+img { display: block; max-width: 100%; }
+
+/* ─── SCROLLBAR ──────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent-dim); border-radius: 3px; }
+
+/* ─── HEADER ─────────────────────────────────────────────────────────── */
+.top-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: var(--header-h);
+  background: rgba(15,17,23,.85);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+[data-theme="light"] .top-header {
+  background: rgba(240,242,245,.9);
+}
+.header-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.header-brand {
+  font-family: 'Fira Code', monospace;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.header-brand .blink {
+  color: var(--accent);
+  animation: blink 1.1s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+.header-nav {
+  display: flex;
+  gap: .25rem;
+  flex: 1;
+}
+.nav-link {
+  font-size: .88rem;
+  font-weight: 500;
+  padding: .35rem .75rem;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  letter-spacing: .3px;
+  transition: color var(--transition), background var(--transition);
+}
+.nav-link:hover, .nav-link.active {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+/* Lang dropdown */
+.lang-wrap {
+  position: relative;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+.lang-btn {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: .35rem .8rem;
+  border-radius: var(--radius-sm);
+  font-size: .82rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  transition: border-color var(--transition), background var(--transition);
+}
+.lang-btn:hover { border-color: var(--accent); }
+.lang-btn i { font-size: .75rem; color: var(--text-muted); }
+.lang-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  min-width: 90px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.25);
+  z-index: 1010;
+}
+.lang-wrap.open .lang-menu { display: block; }
+.lang-opt {
+  display: block;
+  width: 100%;
+  padding: .6rem 1rem;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: .85rem;
+  font-weight: 500;
+  text-align: left;
+  transition: background var(--transition), color var(--transition);
+}
+.lang-opt:hover { background: var(--surface-2); color: var(--text); }
+
+/* Theme toggle */
+.theme-btn {
+  width: 36px; height: 36px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .95rem;
+  transition: border-color var(--transition), color var(--transition);
+}
+.theme-btn:hover { border-color: var(--accent); color: var(--text); }
+
+/* ─── HERO ───────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: min(420px, 55vw);
+  text-align: center;
+  padding: 5rem 2rem 4rem;
+}
+#heroCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-eyebrow {
+  font-family: 'Fira Code', monospace;
+  font-size: .85rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: .75rem;
+  opacity: .9;
+}
+.hero-name {
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: .75rem;
+}
+.hero-name span { color: var(--accent); }
+.hero-sub {
+  font-size: clamp(.95rem, 2vw, 1.2rem);
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+/* ─── CONTROLS BAR ───────────────────────────────────────────────────── */
+.controls-bar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  flex-wrap: wrap;
+}
+.ctrl-btn {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .45rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: border-color var(--transition), color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+.ctrl-btn i { font-size: .9rem; }
+.ctrl-btn:hover {
+  border-color: var(--accent);
+  color: var(--text);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--accent-glow);
+}
+.ctrl-btn.danger:hover { border-color: var(--danger); box-shadow: 0 4px 12px rgba(231,76,60,.15); }
+input[type="color"].hidden { display: none; }
+
+/* ─── QUICK LINKS GRID ───────────────────────────────────────────────── */
+.quick-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.quick-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .6rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: .9rem;
+  text-align: center;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition), color var(--transition);
+}
+.quick-card i { font-size: 1.6rem; color: var(--accent); }
+.quick-card:hover {
+  border-color: var(--accent);
+  color: var(--text);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px var(--accent-glow);
+}
+/* welcome variant */
+.quick-card.welcome {
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .75rem;
+}
+.welcome-info { display: flex; align-items: center; gap: .75rem; }
+.welcome-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+}
+.welcome-name { font-size: .9rem; font-weight: 600; color: var(--text); text-align: left; }
+.logout-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  padding: .3rem .75rem;
+  font-size: .8rem;
+  display: flex; align-items: center; gap: .4rem;
+  transition: border-color var(--transition), color var(--transition);
+}
+.logout-btn:hover { border-color: var(--danger); color: var(--danger); }
+
+/* ─── LAYOUT ─────────────────────────────────────────────────────────── */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ─── SECTION CARD ───────────────────────────────────────────────────── */
+.section-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  transition: border-color var(--transition);
+}
+.section-card:hover { border-color: rgba(10,160,105,.25); }
+
+.section-label {
+  font-family: 'Fira Code', monospace;
+  font-size: .75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: .5rem;
+  opacity: .8;
+}
+.section-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -.5px;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ─── ABOUT ──────────────────────────────────────────────────────────── */
+.about-body p {
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  font-size: .97rem;
+}
+.about-body p:last-child { margin-bottom: 0; }
+.social-row {
+  display: flex;
+  gap: .75rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+.social-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .45rem 1rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  font-size: .85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: border-color var(--transition), color var(--transition), transform var(--transition);
+}
+.social-chip i { color: var(--accent); }
+.social-chip:hover {
+  border-color: var(--accent);
+  color: var(--text);
+  transform: translateY(-2px);
+}
+
+/* ─── SKILLS ─────────────────────────────────────────────────────────── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.skill-group {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1.5rem;
+}
+.skill-group-header {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: 1.1rem;
+}
+.skill-group-header i { font-size: 1.15rem; color: var(--accent); }
+.skill-group-header h3 {
+  font-size: .92rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .3rem .75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  font-size: .8rem;
+  color: var(--text-muted);
+  transition: border-color var(--transition), color var(--transition);
+}
+.skill-tag i { color: var(--accent); font-size: .75rem; }
+.skill-tag:hover { border-color: var(--accent); color: var(--text); }
+
+/* ─── PROJECTS ───────────────────────────────────────────────────────── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.project-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+.project-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px var(--accent-glow);
+}
+.project-icon {
+  width: 44px; height: 44px;
+  background: var(--accent-glow);
+  border: 1px solid rgba(10,160,105,.3);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: .25rem;
+}
+.project-icon i { font-size: 1.2rem; color: var(--accent); }
+.project-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.project-desc {
+  font-size: .85rem;
+  color: var(--text-muted);
+  flex: 1;
+}
+.project-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .8rem;
+  color: var(--accent);
+  font-weight: 500;
+  margin-top: .25rem;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity var(--transition), transform var(--transition);
+}
+.project-card:hover .project-arrow { opacity: 1; transform: translateX(0); }
+
+/* ─── FOOTER ─────────────────────────────────────────────────────────── */
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 3rem 0 1.5rem;
+  margin-top: 2rem;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+.footer-brand { font-family: 'Fira Code', monospace; font-size: .95rem; font-weight: 500; color: var(--text); margin-bottom: .6rem; }
+.footer-tagline { font-size: .85rem; color: var(--text-muted); }
+.footer-heading { font-size: .78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: .9rem; }
+.footer-link {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .88rem;
+  color: var(--text-muted);
+  padding: .3rem 0;
+  transition: color var(--transition);
+}
+.footer-link i { width: 16px; text-align: center; }
+.footer-link:hover { color: var(--text); }
+.footer-social-row { display: flex; gap: .75rem; }
+.footer-social-btn {
+  width: 38px; height: 38px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  transition: border-color var(--transition), color var(--transition), transform var(--transition);
+}
+.footer-social-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+.footer-bottom {
+  max-width: 1200px;
+  margin: 2rem auto 0;
+  padding: 1.25rem 2rem 0;
+  border-top: 1px solid var(--border);
+  font-size: .82rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.footer-made { display: flex; align-items: center; gap: .35rem; }
+.footer-made i { color: var(--accent); font-size: .8rem; }
+
+/* ─── MODAL ──────────────────────────────────────────────────────────── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.65);
+  backdrop-filter: blur(6px);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  width: min(400px, 90vw);
+  text-align: center;
+}
+.modal-box h3 { font-size: 1.2rem; margin-bottom: .75rem; }
+.modal-box p { color: var(--text-muted); font-size: .9rem; margin-bottom: 1.5rem; }
+.modal-actions { display: flex; gap: .75rem; justify-content: center; }
+.btn {
+  padding: .55rem 1.25rem;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-size: .88rem;
+  font-weight: 600;
+  transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.2); }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-cancel { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+
+/* ─── ANIMATIONS ─────────────────────────────────────────────────────── */
+@keyframes shake {
+  10%,90% { transform:translate3d(-1px,0,0) }
+  20%,80% { transform:translate3d(2px,0,0) }
+  30%,50%,70% { transform:translate3d(-4px,0,0) }
+  40%,60% { transform:translate3d(4px,0,0) }
+}
+.shake { animation: shake .5s cubic-bezier(.36,.07,.19,.97) both; }
+
+@keyframes glitch {
+  0%,100% { transform:translate(0) }
+  20% { transform:translate(-2px,2px) }
+  40% { transform:translate(-2px,-2px) }
+  60% { transform:translate(2px,2px) }
+  80% { transform:translate(2px,-2px) }
+}
+.broken { animation: glitch .25s infinite; }
+.broken .section-card,
+.broken .skill-group,
+.broken .project-card {
+  animation: glitch .3s infinite;
+  animation-delay: calc(var(--i,.05) * .07s);
+}
+
+/* scroll-reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .header-nav { display: none; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .footer-inner > :first-child { grid-column: 1/-1; }
+}
+@media (max-width: 600px) {
+  .header-inner { padding: 0 1rem; }
+  .hero { padding: 3.5rem 1rem 2.5rem; }
+  .controls-bar { padding: 1rem; }
+  .quick-grid { padding: 0 1rem 1.5rem; }
+  .container { padding: 0 1rem 3rem; }
+  .section-card { padding: 1.5rem; }
+  .footer-inner { grid-template-columns: 1fr; gap: 1.5rem; padding: 0 1rem; }
+  .footer-bottom { padding: 1rem 1rem 0; }
+  .ctrl-btn span { display: none; }
+  .ctrl-btn { padding: .45rem .75rem; }
+  .ctrl-btn i { font-size: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .blink { animation: none; }
+}
 </style>
 </head>
 <body>
-    <script>
-        // Bloco de tradução e funções de idioma - agora disponível antes do header
-        const translations = {
-          pt: {
-            changeColor: "Mudar Cor",
-            resetColor: "Resetar Cor",
-            toggleTheme: "Modo Escuro/Claro",
-            shakeSite: "Tremer Site",
-            breakSite: "Quebrar Site",
-            aboutMe: "Sobre Mim",
-            aboutMeText1: "Sempre fui do tipo que, quando não encontra uma solução, cria uma. Antes mesmo de seguir carreira na programação, já desenvolvia scripts e modificações para facilitar meu dia a dia, principalmente em jogos, meu maior hobby.  Tenho prazer em transformar ideias em realidade, seja criando ferramentas web, modificando jogos para expandir possibilidades ou automatizando tarefas com Python e C++. Para mim, a computação é mais do que uma profissão — é um meio de integrar criatividade e tecnologia na rotina.",
-            aboutMeText2: "Trabalhar com o que gosto significa que cada desafio não é tempo perdido, mas uma oportunidade de evolução. Cada aprendizado tem um propósito, e cada conquista alimenta uma nova ambição.",
-            cloudComputing: "Cloud Computing",
-            cloudText1: "Tenho grande interesse e venho desenvolvendo minhas habilidades em Cloud Computing, com foco na plataforma AWS. Minha introdução à AWS foi através de um projeto de integração com EC2, onde criei uma solução para comunicação remota entre dispositivos via terminal, independentemente da rede Wi-Fi. O sucesso dessa implementação me incentivou a explorar mais a AWS e aplicá-la em outros projetos, mesmo quando não era um requisito inicial.",
-            cloudText2: "Posteriormente, tive a oportunidade de aplicar esses conhecimentos em um projeto mobile, desenvolvendo funcionalidades para um e-commerce em tempo real, buscando simular a experiência de aplicativos de delivery. Após completar o curso AWS Cloud Practitioner Essentials, minha visão sobre a arquitetura em nuvem se ampliou, e compreendi melhor o vasto ecossistema além do EC2. Isso me levou a explorar conceitos de otimização de custos, buscando entender como gerenciar recursos de forma eficiente.",
-            cloudText3: "Atualmente, estou me familiarizando e já utilizei serviços como Lambda para computação serverless, S3 para armazenamento, DynamoDB para banco de dados NoSQL e API Gateway para gerenciamento de APIs. Vejo a convergência entre análise, desenvolvimento de software e gestão de dados na cloud como uma área muito promissora e estou animado para continuar aprendendo e aplicando minhas competências de forma integrada.",
-            script: "Script",
-            scriptText1: "A utilização de Scripts tornou-se uma parte fundamental do meu dia a dia, tanto profissional quanto pessoal. Desde que adquiri conhecimento nessa área, aplico scripts não apenas para resolver problemas práticos, mas também como ferramenta de exploração e análise de dados, testando padrões de aleatoriedade e desenvolvendo soluções automatizadas para diversos cenários.",
-            scriptText2: "Um dos projetos mais gratificantes que desenvolvi utilizando Scripts foi a automatização de atualizações de arquivos e pastas para o jogo 'The Elder Scrolls V: Skyrim Anniversary Edition'. O desafio consistia em tornar compatíveis modificações do jogo, o que exigia a alteração de nomes de pastas, atualização de conteúdo em arquivos .txt e criação de arquivos JSON com configurações específicas.",
-            scriptText3: "O projeto envolvia mais de 2.000 pastas, cada uma contendo dezenas de arquivos, tornando a manutenção manual completamente inviável. Ao perceber a magnitude do problema, desenvolvi um script que, em menos de 30 minutos, automatizou todo o processo que anteriormente consumia dias de trabalho manual. Embora tenha sido uma solução desenvolvida para uso pessoal, o impacto foi significativo: compartilhei a solução com outros usuários que enfrentavam o mesmo problema, beneficiando milhares de jogadores da comunidade.",
-            skills: "Habilidades Técnicas",
-            projects: "Projetos",
-            contact: "Contato",
-            contactText: "Fique à vontade para entrar em contato através de qualquer um dos canais disponíveis. Estou sempre aberto a novas oportunidades e parcerias!",
-            channels: "Canais",
-            social: "Redes Sociais",
-            copyright: "&copy; 2024 Marcelo Bernard. Todos os direitos reservados.",
-            progLangs: "Linguagens de Programação",
-            cpp: "C++",
-            python: "Python",
-            java: "Java",
-            javascript: "JavaScript",
-            lua: "Lua",
-            webDev: "Desenvolvimento Web",
-            html5: "HTML5",
-            css3: "CSS3",
-            php: "PHP",
-            otherTechs: "Outras Tecnologias",
-            papyrus: "Papyrus Script",
-            git: "Git",
-            mods: "Addons e Mods",
-            infra: "Infraestrutura e Sistemas",
-            aws: "AWS Cloud",
-            linux: "Linux",
-            talitaTitle: "Talita Cumi's",
-            talitaDesc: "Restaurante e cafeteria com culinária brasileira em Pdte. Franco, Paraguai"
-          },
-          es: {
-            changeColor: "Cambiar Color",
-            resetColor: "Restablecer Color",
-            toggleTheme: "Modo Oscuro/Claro",
-            shakeSite: "Agitar Sitio",
-            breakSite: "Romper Sitio",
-            aboutMe: "Sobre mí",
-            aboutMeText1: "Siempre fui del tipo que, cuando no encuentra una solución, crea una. Antes incluso de seguir una carrera en programación, ya desarrollaba scripts y modificaciones para facilitar mi día a día, principalmente en juegos, mi mayor hobby. Me gusta transformar ideas en realidad, ya sea creando herramientas web, modificando juegos para expandir posibilidades o automatizando tareas con Python y C++. Para mí, la computación es más que una profesión: es una forma de integrar creatividad y tecnología en la rutina.",
-            aboutMeText2: "Trabajar con lo que me gusta significa que cada desafío no es tiempo perdido, sino una oportunidad de evolución. Cada aprendizaje tiene un propósito y cada logro alimenta una nueva ambición.",
-            cloudComputing: "Computación en la Nube",
-            cloudText1: "Tengo gran interés y vengo desarrollando mis habilidades en Cloud Computing, con enfoque en la plataforma AWS. Mi introducción a AWS fue a través de un proyecto de integración con EC2, donde creé una solución para comunicación remota entre dispositivos vía terminal, independientemente de la red Wi-Fi. El éxito de esa implementación me incentivó a explorar más AWS y aplicarla en otros proyectos, incluso cuando no era un requisito inicial.",
-            cloudText2: "Posteriormente, tuve la oportunidad de aplicar esos conocimientos en un proyecto móvil, desarrollando funcionalidades para un e-commerce en tiempo real, buscando simular la experiencia de aplicaciones de delivery. Tras completar el curso AWS Cloud Practitioner Essentials, mi visión sobre la arquitectura en la nube se amplió y comprendí mejor el vasto ecosistema más allá de EC2. Eso me llevó a explorar conceptos de optimización de costos, buscando entender cómo gestionar recursos de forma eficiente.",
-            cloudText3: "Actualmente, me estoy familiarizando y ya utilicé servicios como Lambda para computación serverless, S3 para almacenamiento, DynamoDB para base de datos NoSQL y API Gateway para gestión de APIs. Veo la convergencia entre análisis, desarrollo de software y gestión de datos en la nube como un área muy prometedora y estoy emocionado por seguir aprendiendo y aplicando mis competencias de forma integrada.",
-            script: "Script",
-            scriptText1: "El uso de scripts se ha convertido en una parte fundamental de mi día a día, tanto profesional como personal. Desde que adquirí conocimiento en esta área, aplico scripts no solo para resolver problemas prácticos, sino también como herramienta de exploración y análisis de datos, probando patrones de aleatoriedad y desarrollando soluciones automatizadas para diversos escenarios.",
-            scriptText2: "Uno de los proyectos más gratificantes que desarrollé utilizando scripts fue la automatización de actualizaciones de archivos y carpetas para el juego 'The Elder Scrolls V: Skyrim Anniversary Edition'. El desafío consistía en hacer compatibles modificaciones del juego, lo que requería cambiar nombres de carpetas, actualizar contenido en archivos .txt y crear archivos JSON con configuraciones específicas.",
-            scriptText3: "El proyecto involucraba más de 2.000 carpetas, cada una con docenas de archivos, haciendo el mantenimiento manual completamente inviable. Al percibir la magnitud del problema, desarrollé un script que, en menos de 30 minutos, automatizó el entire proceso que antes consumía días de trabajo manual. Aunque fue una solución desarrollada para uso personal, el impacto fue significativo: compartí la solución con otros usuarios que enfrentaban el mismo problema, beneficiando a miles de jugadores de la comunidad.",
-            skills: "Habilidades Técnicas",
-            projects: "Proyectos",
-            contact: "Contacto",
-            contactText: "No dude en ponerse en contacto a través de cualquiera de los canales disponibles. ¡Siempre estoy abierto a nuevas oportunidades y asociaciones!",
-            channels: "Canales",
-            social: "Redes Sociales",
-            copyright: "&copy; 2024 Marcelo Bernard. Todos los derechos reservados.",
-            progLangs: "Lenguajes de Programación",
-            cpp: "C++",
-            python: "Python",
-            java: "Java",
-            javascript: "JavaScript",
-            lua: "Lua",
-            webDev: "Desarrollo Web",
-            html5: "HTML5",
-            css3: "CSS3",
-            php: "PHP",
-            otherTechs: "Otras Tecnologías",
-            papyrus: "Papyrus Script",
-            git: "Git",
-            mods: "Addons y Mods",
-            infra: "Infraestructura y Sistemas",
-            aws: "AWS Cloud",
-            linux: "Linux",
-            talitaTitle: "Talita Cumi's",
-            talitaDesc: "Restaurante y cafetería con cocina brasileña en Pdte. Franco, Paraguay"
-          },
-          en: {
-            changeColor: "Change Color",
-            resetColor: "Reset Color",
-            toggleTheme: "Dark/Light Mode",
-            shakeSite: "Shake Site",
-            breakSite: "Break Site",
-            aboutMe: "About Me",
-            aboutMeText1: "I've always been the type who, when can't find a solution, creates one. Even before pursuing a career in programming, I was already developing scripts and mods to make my daily life easier, especially in games, my biggest hobby. I enjoy turning ideas into reality, whether by creating web tools, modding games to expand possibilities, or automating tasks with Python and C++. For me, computing is more than a profession—it's a way to integrate creativity and technology into my routine.",
-            aboutMeText2: "Working with what I love means every challenge is not wasted time, but an opportunity for growth. Every learning has a purpose, and every achievement fuels a new ambition.",
-            cloudComputing: "Cloud Computing",
-            cloudText1: "I have a great interest and have been developing my skills in Cloud Computing, focusing on the AWS platform. My introduction to AWS was through an EC2 integration project, where I created a solution for remote communication between devices via terminal, regardless of Wi-Fi network. The success of this implementation encouraged me to explore AWS further and apply it to other projects, even when it wasn't a requirement.",
-            cloudText2: "Later, I had the opportunity to apply this knowledge in a mobile project, developing real-time e-commerce features, aiming to simulate the experience of delivery apps. After completing the AWS Cloud Practitioner Essentials course, my view of cloud architecture broadened, and I better understood the vast ecosystem beyond EC2. This led me to explore cost optimization concepts, seeking to understand how to manage resources efficiently.",
-            cloudText3: "Currently, I am getting familiar and have already used services like Lambda for serverless computing, S3 for storage, DynamoDB for NoSQL database, and API Gateway for API management. I see the convergence between analytics, software development, and data management in the cloud as a very promising area, and I am excited to keep learning and applying my skills in an integrated way.",
-            script: "Script",
-            scriptText1: "The use of scripts has become a fundamental part of my daily life, both professionally and personally. Since I acquired knowledge in this area, I apply scripts not only to solve practical problems but also as a tool for exploration and data analysis, testing randomness patterns and developing automated solutions for various scenarios.",
-            scriptText2: "One of the most rewarding projects I developed using scripts was automating updates of files and folders for the game 'The Elder Scrolls V: Skyrim Anniversary Edition'. The challenge was to make game mods compatible, which required changing folder names, updating content in .txt files, and creating JSON files with specific configurations.",
-            scriptText3: "The project involved more than 2,000 folders, each containing dozens of files, making manual maintenance completely unfeasible. Realizing the magnitude of the problem, I developed a script that, in less than 30 minutes, automated the entire process that previously took days of manual work. Although it was a solution developed for personal use, the impact was significant: I shared the solution with other users facing the same problem, benefiting thousands of players in the community.",
-            skills: "Technical Skills",
-            projects: "Projects",
-            contact: "Contact",
-            contactText: "Feel free to get in touch through any of the available channels. I am always open to new opportunities and partnerships!",
-            channels: "Channels",
-            social: "Social Networks",
-            copyright: "&copy; 2024 Marcelo Bernard. All rights reserved.",
-            progLangs: "Programming Languages",
-            cpp: "C++",
-            python: "Python",
-            java: "Java",
-            javascript: "JavaScript",
-            lua: "Lua",
-            webDev: "Web Development",
-            html5: "HTML5",
-            css3: "CSS3",
-            php: "PHP",
-            otherTechs: "Other Technologies",
-            papyrus: "Papyrus Script",
-            git: "Git",
-            mods: "Addons and Mods",
-            infra: "Infrastructure and Systems",
-            aws: "AWS Cloud",
-            linux: "Linux",
-            talitaTitle: "Talita Cumi's",
-            talitaDesc: "Brazilian cuisine restaurant and café in Pdte. Franco, Paraguay"
-          }
-        };
 
-        function changeLanguage(lang) {
-          localStorage.setItem('siteLang', lang);
-          document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (translations[lang][key] !== undefined) {
-              // Atualiza apenas se o texto for diferente
-              if (el.innerHTML !== translations[lang][key]) {
-                el.innerHTML = translations[lang][key];
-              }
-            }
-          });
-        }
+<!-- ══ HEADER ════════════════════════════════════════════════════════════ -->
+<header class="top-header" role="banner">
+  <div class="header-inner">
+    <div class="header-brand">
+      <span>&gt; marcelo_bernard</span><span class="blink">_</span>
+    </div>
 
-        function toggleLangDropdown() {
-            document.getElementById('langDropdown').classList.toggle('open');
-        }
-        function selectLang(lang) {
-            let label = 'PTBR';
-            if (lang === 'en') label = 'EN';
-            if (lang === 'es') label = 'ES';
-            document.getElementById('langBtn').textContent = label;
-            localStorage.setItem('siteLang', lang);
-            changeLanguage(lang);
-            setTimeout(() => {
-              document.getElementById('langDropdown').classList.remove('open');
-            }, 100);
-        }
+    <nav class="header-nav" aria-label="Navegação principal">
+      <a href="#sobre"  class="nav-link" data-i18n="nav_about">Sobre</a>
+      <a href="#cloud"  class="nav-link" data-i18n="nav_cloud">Cloud</a>
+      <a href="#script" class="nav-link" data-i18n="nav_script">Script</a>
+      <a href="#skills" class="nav-link" data-i18n="nav_skills">Skills</a>
+      <a href="#projects" class="nav-link" data-i18n="nav_projects">Projetos</a>
+      <a href="#contato" class="nav-link" data-i18n="nav_contact">Contato</a>
+    </nav>
 
-        // Atualiza o botão ao carregar a página e aplica o idioma
-        window.addEventListener('DOMContentLoaded', () => {
-            const lang = localStorage.getItem('siteLang') || 'pt';
-            let label = 'PTBR';
-            if (lang === 'en') label = 'EN';
-            if (lang === 'es') label = 'ES';
-            document.getElementById('langBtn').textContent = label;
-            changeLanguage(lang);
-        });
-        // Fecha o dropdown ao clicar fora
-        window.addEventListener('click', function(e) {
-            const dropdown = document.getElementById('langDropdown');
-            if (!dropdown.contains(e.target)) {
-                dropdown.classList.remove('open');
-            }
-        });
-    </script>
-    <!-- Novo header retangular fixo no topo -->
-    <div class="top-header">
-        <div class="header-content">
-            <div class="header-title">Marcelo Bernard</div>
-            <nav class="header-nav">
-                <a href="#sobre" class="nav-link" data-i18n="aboutMe">Sobre</a>
-                <a href="#cloud" class="nav-link" data-i18n="cloudComputing">Cloud Computing</a>
-                <a href="#script" class="nav-link" data-i18n="script">Script</a>
-                <a href="#skills" class="nav-link" data-i18n="skills">Skills</a>
-                <a href="#contato" class="nav-link" data-i18n="contact">Contato</a>
-            </nav>
-            <div class="lang-dropdown" id="langDropdown">
-                <button class="lang-btn" id="langBtn" onclick="toggleLangDropdown()">PTBR</button>
-                <div class="lang-options" id="langOptions">
-                    <div class="lang-option" onclick="selectLang('pt')">PTBR</div>
-                    <div class="lang-option" onclick="selectLang('en')">EN</div>
-                    <div class="lang-option" onclick="selectLang('es')">ES</div>
-                </div>
-            </div>
+    <div class="lang-wrap" id="langWrap">
+      <button class="theme-btn" id="themeBtn" aria-label="Alternar tema" title="Alternar tema">
+        <i class="fas fa-moon" id="themeIcon"></i>
+      </button>
+      <button class="lang-btn" id="langBtn" onclick="toggleLang()" aria-haspopup="listbox">
+        <span id="langLabel">PTBR</span><i class="fas fa-chevron-down"></i>
+      </button>
+      <div class="lang-menu" role="listbox">
+        <button class="lang-opt" onclick="setLang('pt')">🇧🇷 PTBR</button>
+        <button class="lang-opt" onclick="setLang('en')">🇺🇸 EN</button>
+        <button class="lang-opt" onclick="setLang('es')">🇪🇸 ES</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ══ HERO ══════════════════════════════════════════════════════════════ -->
+<section class="hero" aria-label="Apresentação">
+  <canvas id="heroCanvas" aria-hidden="true"></canvas>
+  <div class="hero-content">
+    <p class="hero-eyebrow" data-i18n="hero_eyebrow">Desenvolvedor Full-Stack & Cloud</p>
+    <h1 class="hero-name">Marcelo <span>Bernard</span></h1>
+    <p class="hero-sub" data-i18n="hero_sub">Python · C++ · AWS · JavaScript · Modding</p>
+  </div>
+</section>
+
+<!-- ══ CONTROLS BAR ════════════════════════════════════════════════════ -->
+<div class="controls-bar" role="toolbar" aria-label="Controles do site">
+  <button class="ctrl-btn" onclick="openColorPicker()" aria-label="Mudar cor de destaque">
+    <i class="fas fa-palette"></i>
+    <span data-i18n="ctrl_color">Mudar Cor</span>
+  </button>
+  <input type="color" class="hidden" id="colorPicker" value="#0aa069" onchange="applyColor(this.value)">
+
+  <button class="ctrl-btn" onclick="resetColor()" aria-label="Resetar cor">
+    <i class="fas fa-undo"></i>
+    <span data-i18n="ctrl_reset">Resetar Cor</span>
+  </button>
+
+  <button class="ctrl-btn" onclick="shakeSite()" aria-label="Tremer site">
+    <i class="fas fa-bomb"></i>
+    <span data-i18n="ctrl_shake">Tremer Site</span>
+  </button>
+
+  <button class="ctrl-btn danger" onclick="openBreakModal()" aria-label="Quebrar site">
+    <i class="fas fa-skull"></i>
+    <span data-i18n="ctrl_break">Quebrar Site</span>
+  </button>
+</div>
+
+<!-- ══ QUICK LINKS ════════════════════════════════════════════════════ -->
+<div class="quick-grid">
+  <a href="postit.html" class="quick-card">
+    <i class="fas fa-sticky-note"></i>
+    <span data-i18n="quick_postit">Post-it Público</span>
+  </a>
+  <div id="loginSection"></div>
+</div>
+
+<!-- ══ MAIN ═══════════════════════════════════════════════════════════ -->
+<main class="container">
+
+  <!-- SOBRE -->
+  <article class="section-card reveal" id="sobre">
+    <p class="section-label" data-i18n="label_about">Quem sou</p>
+    <h2 class="section-title" data-i18n="title_about">Sobre Mim</h2>
+    <div class="about-body">
+      <p data-i18n="about_p1">Sempre fui do tipo que, quando não encontra uma solução, cria uma. Antes mesmo de seguir carreira na programação, já desenvolvia scripts e modificações para facilitar meu dia a dia, principalmente em jogos, meu maior hobby. Tenho prazer em transformar ideias em realidade, seja criando ferramentas web, modificando jogos para expandir possibilidades ou automatizando tarefas com Python e C++. Para mim, a computação é mais do que uma profissão — é um meio de integrar criatividade e tecnologia na rotina.</p>
+      <p data-i18n="about_p2">Trabalhar com o que gosto significa que cada desafio não é tempo perdido, mas uma oportunidade de evolução. Cada aprendizado tem um propósito, e cada conquista alimenta uma nova ambição.</p>
+    </div>
+    <div class="social-row">
+      <a href="https://github.com/Marcelobernard" target="_blank" rel="noopener" class="social-chip">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/marcelobernard/" target="_blank" rel="noopener" class="social-chip">
+        <i class="fab fa-linkedin"></i> LinkedIn
+      </a>
+    </div>
+  </article>
+
+  <!-- CLOUD -->
+  <article class="section-card reveal" id="cloud">
+    <p class="section-label" data-i18n="label_cloud">Infraestrutura</p>
+    <h2 class="section-title" data-i18n="title_cloud">Cloud Computing</h2>
+    <div class="about-body">
+      <p data-i18n="cloud_p1">Tenho grande interesse e venho desenvolvendo minhas habilidades em Cloud Computing, com foco na plataforma AWS. Minha introdução à AWS foi através de um projeto de integração com EC2, onde criei uma solução para comunicação remota entre dispositivos via terminal, independentemente da rede Wi-Fi. O sucesso dessa implementação me incentivou a explorar mais a AWS e aplicá-la em outros projetos, mesmo quando não era um requisito inicial.</p>
+      <p data-i18n="cloud_p2">Posteriormente, apliquei esses conhecimentos em um projeto mobile de e-commerce em tempo real. Após o AWS Cloud Practitioner Essentials, minha visão sobre arquitetura em nuvem se ampliou — aprendi a gerenciar recursos com eficiência e explorar conceitos de otimização de custos.</p>
+      <p data-i18n="cloud_p3">Atualmente utilizo Lambda (serverless), S3, DynamoDB (NoSQL) e API Gateway. Vejo a convergência entre análise, desenvolvimento e gestão de dados na nuvem como uma área extremamente promissora.</p>
+    </div>
+    <div class="social-row">
+      <a href="https://aws.amazon.com/pt/" target="_blank" rel="noopener" class="social-chip">
+        <i class="fab fa-aws"></i> AWS
+      </a>
+    </div>
+  </article>
+
+  <!-- SCRIPT -->
+  <article class="section-card reveal" id="script">
+    <p class="section-label" data-i18n="label_script">Automação</p>
+    <h2 class="section-title" data-i18n="title_script">Script</h2>
+    <div class="about-body">
+      <p data-i18n="script_p1">Scripts tornaram-se parte fundamental da minha rotina. Aplico-os para resolver problemas práticos, explorar padrões de dados e desenvolver soluções automatizadas em diversos cenários — profissionais e pessoais.</p>
+      <p data-i18n="script_p2">Um dos projetos mais impactantes foi automatizar atualizações de arquivos e pastas para <em>The Elder Scrolls V: Skyrim Anniversary Edition</em>: renomear pastas, atualizar arquivos .txt e gerar JSONs com configurações específicas — tudo para compatibilizar mods.</p>
+      <p data-i18n="script_p3">O projeto envolvia mais de 2.000 pastas com dezenas de arquivos cada. Em menos de 30 minutos, o script automatizou o que levaria dias manualmente. Compartilhei a solução com a comunidade e beneficiei milhares de jogadores.</p>
+    </div>
+    <div class="social-row">
+      <a href="https://www.python.org/" target="_blank" rel="noopener" class="social-chip">
+        <i class="fab fa-python"></i> Python
+      </a>
+    </div>
+  </article>
+
+  <!-- SKILLS -->
+  <article class="section-card reveal" id="skills">
+    <p class="section-label" data-i18n="label_skills">Competências</p>
+    <h2 class="section-title" data-i18n="title_skills">Habilidades Técnicas</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-header">
+          <i class="fas fa-code"></i>
+          <h3 data-i18n="sg_langs">Linguagens</h3>
         </div>
-        <div class="header-divider"></div>
+        <div class="skill-tags">
+          <span class="skill-tag"><i class="fas fa-microchip"></i> C++</span>
+          <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
+          <span class="skill-tag"><i class="fab fa-java"></i> Java</span>
+          <span class="skill-tag"><i class="fab fa-js"></i> JavaScript</span>
+          <span class="skill-tag"><i class="fas fa-code"></i> Lua</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-header">
+          <i class="fas fa-globe"></i>
+          <h3 data-i18n="sg_web">Web</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag"><i class="fab fa-html5"></i> HTML5</span>
+          <span class="skill-tag"><i class="fab fa-css3-alt"></i> CSS3</span>
+          <span class="skill-tag"><i class="fab fa-js"></i> JavaScript</span>
+          <span class="skill-tag"><i class="fab fa-php"></i> PHP</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-header">
+          <i class="fas fa-server"></i>
+          <h3 data-i18n="sg_cloud">Cloud & Infra</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag"><i class="fab fa-aws"></i> AWS</span>
+          <span class="skill-tag"><i class="fab fa-linux"></i> Linux</span>
+          <span class="skill-tag"><i class="fab fa-git-alt"></i> Git</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-header">
+          <i class="fas fa-gamepad"></i>
+          <h3 data-i18n="sg_other">Outros</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag"><i class="fas fa-scroll"></i> Papyrus Script</span>
+          <span class="skill-tag"><i class="fas fa-gamepad"></i> Modding</span>
+          <span class="skill-tag"><i class="fas fa-robot"></i> Automation</span>
+        </div>
+      </div>
     </div>
+  </article>
 
-    <div class="controls-bar">
-        <button class="control-button" onclick="toggleColorPicker()">
-            <i class="fas fa-palette"></i>
-            <span data-i18n="changeColor">Mudar Cor</span>
-        </button>
-        <input type="color" class="color-picker" id="colorPicker" onchange="changeColor(this.value)">
-        <button class="control-button" onclick="resetColor()">
-            <i class="fas fa-undo"></i>
-            <span data-i18n="resetColor">Resetar Cor</span>
-        </button>
-        <button class="control-button" onclick="toggleTheme()">
-            <i class="fas fa-moon"></i>
-            <span data-i18n="toggleTheme">Modo Escuro/Claro</span>
-        </button>
-        <button class="control-button" onclick="shakeSite()">
-            <i class="fas fa-bomb"></i>
-            <span data-i18n="shakeSite">Tremer Site</span>
-        </button>
-        <button class="control-button" onclick="showBreakConfirmation()">
-            <i class="fas fa-skull"></i>
-            <span data-i18n="breakSite">Quebrar Site</span>
-        </button>
-        <!-- seletor de idioma antigo removido -->
+  <!-- PROJECTS -->
+  <article class="section-card reveal" id="projects">
+    <p class="section-label" data-i18n="label_projects">Portfólio</p>
+    <h2 class="section-title" data-i18n="title_projects">Projetos</h2>
+    <div class="projects-grid">
+      <a href="https://bernard.dev.br/talitacumis/" target="_blank" rel="noopener" class="project-card">
+        <div class="project-icon"><i class="fas fa-utensils"></i></div>
+        <p class="project-name" data-i18n="proj_talita_title">Talita Cumi's</p>
+        <p class="project-desc" data-i18n="proj_talita_desc">Restaurante e cafeteria com culinária brasileira em Pdte. Franco, Paraguai</p>
+        <span class="project-arrow"><i class="fas fa-arrow-right"></i> Ver projeto</span>
+      </a>
+      <a href="https://bernard.dev.br/TL.html" target="_blank" rel="noopener" class="project-card">
+        <div class="project-icon"><i class="fas fa-calculator"></i></div>
+        <p class="project-name">Throne &amp; Liberty Stats Calc</p>
+        <p class="project-desc" data-i18n="proj_tl_desc">Calculadora de estatísticas para o MMORPG Throne and Liberty</p>
+        <span class="project-arrow"><i class="fas fa-arrow-right"></i> Ver projeto</span>
+      </a>
+      <a href="https://bernard.dev.br/poe2/home.html" target="_blank" rel="noopener" class="project-card">
+        <div class="project-icon"><i class="fas fa-coins"></i></div>
+        <p class="project-name">PoE 2 Currency Drop Rating</p>
+        <p class="project-desc" data-i18n="proj_poe_desc">Sistema de avaliação de drops de moedas para Path of Exile 2</p>
+        <span class="project-arrow"><i class="fas fa-arrow-right"></i> Ver projeto</span>
+      </a>
+      <a href="https://github.com/Marcelobernard/JogoDaForca" target="_blank" rel="noopener" class="project-card">
+        <div class="project-icon"><i class="fas fa-gamepad"></i></div>
+        <p class="project-name" data-i18n="proj_forca_title">Jogo da Forca — Java</p>
+        <p class="project-desc" data-i18n="proj_forca_desc">Jogo da forca desenvolvido em Java com interface gráfica</p>
+        <span class="project-arrow"><i class="fas fa-arrow-right"></i> GitHub</span>
+      </a>
+      <a href="https://github.com/Marcelobernard/app-mobile" target="_blank" rel="noopener" class="project-card">
+        <div class="project-icon"><i class="fas fa-mobile-alt"></i></div>
+        <p class="project-name" data-i18n="proj_app_title">App Mobile — React Native</p>
+        <p class="project-desc" data-i18n="proj_app_desc">Aplicativo mobile com React Native e Expo integrado à AWS</p>
+        <span class="project-arrow"><i class="fas fa-arrow-right"></i> GitHub</span>
+      </a>
     </div>
+  </article>
 
-    <div class="buttons-grid">
-        <a href="postit.html" class="grid-button">
-            <i class="fas fa-sticky-note"></i>
-            <span data-i18n="postit">Post-it Público</span>
+</main>
+
+<!-- ══ FOOTER ════════════════════════════════════════════════════════════ -->
+<footer id="contato">
+  <div class="footer-inner">
+    <div>
+      <p class="footer-brand">&gt; marcelo_bernard_</p>
+    </div>
+    <div>
+      <p class="footer-heading" data-i18n="footer_contact">Contato</p>
+      <a href="mailto:marcelobernardv@gmail.com" class="footer-link">
+        <i class="fas fa-envelope"></i> marcelobernardv@gmail.com
+      </a>
+      <a href="tel:+5521993345401" class="footer-link">
+        <i class="fas fa-phone"></i> (21) 99334-5401
+      </a>
+      <a href="https://wa.me/5521993345401" target="_blank" rel="noopener" class="footer-link">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+      </a>
+    </div>
+    <div>
+      <p class="footer-heading" data-i18n="footer_social">Redes Sociais</p>
+      <div class="footer-social-row">
+        <a href="https://www.linkedin.com/in/marcelobernard/" target="_blank" rel="noopener" class="footer-social-btn" aria-label="LinkedIn">
+          <i class="fab fa-linkedin"></i>
         </a>
-        <div id="loginSection">
-            <!-- O conteúdo será preenchido dinamicamente pelo JavaScript -->
-        </div>
+        <a href="https://github.com/Marcelobernard" target="_blank" rel="noopener" class="footer-social-btn" aria-label="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://instagram.com/marcelobernardv" target="_blank" rel="noopener" class="footer-social-btn" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
     </div>
+  </div>
+  <div class="footer-bottom">
+    <span data-i18n="footer_copy">&copy; 2024 Marcelo Bernard. Todos os direitos reservados.</span>
+  </div>
+</footer>
 
-    <div class="modal" id="breakModal">
-        <div class="modal-content">
-            <h3>⚠️ Aviso ⚠️</h3>
-            <p>Você tem certeza que deseja prosseguir? Será necessário dar reload no site para voltar ao normal.</p>
-            <div class="modal-buttons">
-                <button class="modal-button confirm" onclick="breakSite()">Sim, quebrar!</button>
-                <button class="modal-button cancel" onclick="hideBreakConfirmation()">Cancelar</button>
-            </div>
-        </div>
+<!-- ══ BREAK MODAL ═══════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="breakModal" role="dialog" aria-modal="true" aria-labelledby="breakTitle">
+  <div class="modal-box">
+    <h3 id="breakTitle">⚠️ Atenção</h3>
+    <p data-i18n="modal_break_msg">Isso vai bagunçar o site. Você precisará recarregar a página para voltar ao normal.</p>
+    <div class="modal-actions">
+      <button class="btn btn-danger" onclick="breakSite()" data-i18n="modal_break_confirm">Quebrar!</button>
+      <button class="btn btn-cancel" onclick="closeBreakModal()" data-i18n="modal_break_cancel">Cancelar</button>
     </div>
+  </div>
+</div>
 
-    <main class="container">
-        <section class="section" id="sobre">
-            <h2 class="section-title" data-i18n="aboutMe">Sobre Mim</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>
-                        <span data-i18n="aboutMeText1">Sempre fui do tipo que, quando não encontra uma solução, cria uma. Antes mesmo de seguir carreira na programação, já desenvolvia scripts e modificações para facilitar meu dia a dia, principalmente em jogos, meu maior hobby.  
-                        Tenho prazer em transformar ideias em realidade, seja criando ferramentas web, modificando jogos para expandir possibilidades ou automatizando tarefas com Python e C++. Para mim, a computação é mais do que uma profissão — é um meio de integrar criatividade e tecnologia na rotina.</span>
-                    </p>
-                    <p>
-                        <span data-i18n="aboutMeText2">Trabalhar com o que gosto significa que cada desafio não é tempo perdido, mas uma oportunidade de evolução. Cada aprendizado tem um propósito, e cada conquista alimenta uma nova ambição.</span>
-                    </p>
-                </div>
-                <div class="social-links">
-                    <a href="https://github.com/Marcelobernard" target="_blank" class="social-link">
-                        <i class="fab fa-github"></i>
-                        <span>GitHub</span>
-                    </a>
-                </div>
-            </div>
-        </section>
+<!-- ══ SCRIPTS ════════════════════════════════════════════════════════ -->
+<script>
+/* ─── i18n ────────────────────────────────────────────────────────── */
+const T = {
+  pt: {
+    nav_about:"Sobre", nav_cloud:"Cloud", nav_script:"Script",
+    nav_skills:"Skills", nav_projects:"Projetos", nav_contact:"Contato",
+    hero_eyebrow:"Desenvolvedor Full-Stack & Cloud",
+    hero_sub:"Python · C++ · AWS · JavaScript · Modding",
+    ctrl_color:"Mudar Cor", ctrl_reset:"Resetar Cor",
+    ctrl_shake:"Tremer Site", ctrl_break:"Quebrar Site",
+    quick_postit:"Post-it Público",
+    label_about:"Quem sou", title_about:"Sobre Mim",
+    about_p1:"Sempre fui do tipo que, quando não encontra uma solução, cria uma. Antes mesmo de seguir carreira na programação, já desenvolvia scripts e modificações para facilitar meu dia a dia, principalmente em jogos, meu maior hobby. Tenho prazer em transformar ideias em realidade, seja criando ferramentas web, modificando jogos para expandir possibilidades ou automatizando tarefas com Python e C++. Para mim, a computação é mais do que uma profissão — é um meio de integrar criatividade e tecnologia na rotina.",
+    about_p2:"Trabalhar com o que gosto significa que cada desafio não é tempo perdido, mas uma oportunidade de evolução. Cada aprendizado tem um propósito, e cada conquista alimenta uma nova ambição.",
+    label_cloud:"Infraestrutura", title_cloud:"Cloud Computing",
+    cloud_p1:"Tenho grande interesse e venho desenvolvendo minhas habilidades em Cloud Computing, com foco na plataforma AWS. Minha introdução à AWS foi através de um projeto de integração com EC2, onde criei uma solução para comunicação remota entre dispositivos via terminal, independentemente da rede Wi-Fi.",
+    cloud_p2:"Posteriormente, apliquei esses conhecimentos em um projeto mobile de e-commerce em tempo real. Após o AWS Cloud Practitioner Essentials, minha visão sobre arquitetura em nuvem se ampliou — aprendi a gerenciar recursos com eficiência e explorar conceitos de otimização de custos.",
+    cloud_p3:"Atualmente utilizo Lambda (serverless), S3, DynamoDB (NoSQL) e API Gateway. Vejo a convergência entre análise, desenvolvimento e gestão de dados na nuvem como uma área extremamente promissora.",
+    label_script:"Automação", title_script:"Script",
+    script_p1:"Scripts tornaram-se parte fundamental da minha rotina. Aplico-os para resolver problemas práticos, explorar padrões de dados e desenvolver soluções automatizadas em diversos cenários.",
+    script_p2:"Um dos projetos mais impactantes foi automatizar atualizações para The Elder Scrolls V: Skyrim Anniversary Edition: renomear pastas, atualizar .txt e gerar JSONs — tudo para compatibilizar mods.",
+    script_p3:"O projeto envolvia mais de 2.000 pastas. Em menos de 30 minutos, o script automatizou o que levaria dias manualmente. Compartilhei com a comunidade e beneficiei milhares de jogadores.",
+    label_skills:"Competências", title_skills:"Habilidades Técnicas",
+    sg_langs:"Linguagens", sg_web:"Web", sg_cloud:"Cloud & Infra", sg_other:"Outros",
+    label_projects:"Portfólio", title_projects:"Projetos",
+    proj_talita_title:"Talita Cumi's",
+    proj_talita_desc:"Restaurante e cafeteria com culinária brasileira em Pdte. Franco, Paraguai",
+    proj_tl_desc:"Calculadora de estatísticas para o MMORPG Throne and Liberty",
+    proj_poe_desc:"Sistema de avaliação de drops de moedas para Path of Exile 2",
+    proj_forca_title:"Jogo da Forca — Java",
+    proj_forca_desc:"Jogo da forca desenvolvido em Java com interface gráfica",
+    proj_app_title:"App Mobile — React Native",
+    proj_app_desc:"Aplicativo mobile com React Native e Expo integrado à AWS",
+    footer_contact:"Contato", footer_social:"Redes Sociais",
+    footer_copy:"© 2024 Marcelo Bernard. Todos os direitos reservados.",
+    footer_made:"Feito com código e café",
+    modal_break_msg:"Isso vai bagunçar o site. Você precisará recarregar a página para voltar ao normal.",
+    modal_break_confirm:"Quebrar!", modal_break_cancel:"Cancelar",
+  },
+  en: {
+    nav_about:"About", nav_cloud:"Cloud", nav_script:"Script",
+    nav_skills:"Skills", nav_projects:"Projects", nav_contact:"Contact",
+    hero_eyebrow:"Full-Stack Developer & Cloud",
+    hero_sub:"Python · C++ · AWS · JavaScript · Modding",
+    ctrl_color:"Change Color", ctrl_reset:"Reset Color",
+    ctrl_shake:"Shake Site", ctrl_break:"Break Site",
+    quick_postit:"Public Post-it",
+    label_about:"Who I am", title_about:"About Me",
+    about_p1:"I've always been the type who, when can't find a solution, creates one. Even before pursuing a career in programming, I was already developing scripts and mods to make my daily life easier, especially in games, my biggest hobby. I enjoy turning ideas into reality, whether by creating web tools, modding games or automating tasks with Python and C++. For me, computing is more than a profession — it's a way to integrate creativity and technology into my routine.",
+    about_p2:"Working with what I love means every challenge is not wasted time, but an opportunity for growth. Every learning has a purpose, and every achievement fuels a new ambition.",
+    label_cloud:"Infrastructure", title_cloud:"Cloud Computing",
+    cloud_p1:"I have a great interest and have been developing my skills in Cloud Computing, focusing on AWS. My introduction was through an EC2 integration project where I built a solution for remote terminal communication between devices, independent of Wi-Fi network.",
+    cloud_p2:"I later applied this knowledge in a real-time mobile e-commerce project. After completing AWS Cloud Practitioner Essentials, my understanding of cloud architecture broadened — I learned to manage resources efficiently and explore cost optimisation.",
+    cloud_p3:"I currently work with Lambda (serverless), S3, DynamoDB and API Gateway. I see the convergence of analytics, software development and cloud data management as a very promising space.",
+    label_script:"Automation", title_script:"Scripting",
+    script_p1:"Scripts have become a core part of my daily routine — both professionally and personally. I use them to solve practical problems, explore data patterns and build automated solutions.",
+    script_p2:"One of my most impactful projects was automating file and folder updates for The Elder Scrolls V: Skyrim Anniversary Edition: renaming folders, updating .txt files and generating JSON configs to make mods compatible.",
+    script_p3:"The project spanned more than 2,000 folders. In under 30 minutes, my script automated what would have taken days manually. I shared it with the community and helped thousands of players.",
+    label_skills:"Competencies", title_skills:"Technical Skills",
+    sg_langs:"Languages", sg_web:"Web", sg_cloud:"Cloud & Infra", sg_other:"Other",
+    label_projects:"Portfolio", title_projects:"Projects",
+    proj_talita_title:"Talita Cumi's",
+    proj_talita_desc:"Brazilian cuisine restaurant and café in Pdte. Franco, Paraguay",
+    proj_tl_desc:"Stats calculator for the MMORPG Throne and Liberty",
+    proj_poe_desc:"Currency drop rating system for Path of Exile 2",
+    proj_forca_title:"Hangman Game — Java",
+    proj_forca_desc:"Hangman game built in Java with a graphical interface",
+    proj_app_title:"Mobile App — React Native",
+    proj_app_desc:"Mobile app with React Native and Expo integrated with AWS",
+    footer_tag:"Developer passionate about creating solutions that matter.",
+    footer_contact:"Contact", footer_social:"Social Networks",
+    footer_copy:"© 2024 Marcelo Bernard. All rights reserved.",
+    footer_made:"Built with code and coffee",
+    modal_break_msg:"This will mess up the site. You'll need to reload the page to get back to normal.",
+    modal_break_confirm:"Break it!", modal_break_cancel:"Cancel",
+  },
+  es: {
+    nav_about:"Sobre mí", nav_cloud:"Cloud", nav_script:"Script",
+    nav_skills:"Skills", nav_projects:"Proyectos", nav_contact:"Contacto",
+    hero_eyebrow:"Desarrollador Full-Stack & Cloud",
+    hero_sub:"Python · C++ · AWS · JavaScript · Modding",
+    ctrl_color:"Cambiar Color", ctrl_reset:"Restablecer Color",
+    ctrl_shake:"Agitar Sitio", ctrl_break:"Romper Sitio",
+    quick_postit:"Post-it Público",
+    label_about:"Quién soy", title_about:"Sobre Mí",
+    about_p1:"Siempre fui del tipo que, cuando no encuentra una solución, crea una. Antes incluso de seguir una carrera en programación, ya desarrollaba scripts y mods para facilitar mi día a día, principalmente en juegos. Disfruto transformar ideas en realidad: herramientas web, mods de juegos o automatización con Python y C++. Para mí, la computación es más que una profesión — es una forma de integrar creatividad y tecnología.",
+    about_p2:"Trabajar con lo que me apasiona significa que cada desafío no es tiempo perdido, sino una oportunidad de evolución. Cada aprendizaje tiene un propósito y cada logro alimenta una nueva ambición.",
+    label_cloud:"Infraestructura", title_cloud:"Computación en la Nube",
+    cloud_p1:"Tengo gran interés y vengo desarrollando mis habilidades en Cloud Computing, con foco en AWS. Mi introducción fue a través de un proyecto con EC2 para comunicación remota entre dispositivos vía terminal, independientemente de la red Wi-Fi.",
+    cloud_p2:"Posteriormente apliqué ese conocimiento en un proyecto móvil de e-commerce en tiempo real. Tras el AWS Cloud Practitioner Essentials, mi visión de arquitectura en nube se amplió — aprendí a gestionar recursos y optimizar costos.",
+    cloud_p3:"Actualmente uso Lambda, S3, DynamoDB y API Gateway. Veo la convergencia entre análisis, desarrollo y gestión de datos en la nube como un área muy prometedora.",
+    label_script:"Automatización", title_script:"Scripts",
+    script_p1:"Los scripts se han convertido en una parte fundamental de mi rutina — tanto profesional como personal. Los uso para resolver problemas, explorar patrones de datos y desarrollar soluciones automatizadas.",
+    script_p2:"Uno de mis proyectos más impactantes fue automatizar actualizaciones para The Elder Scrolls V: Skyrim Anniversary Edition: renombrar carpetas, actualizar .txt y generar JSONs para compatibilizar mods.",
+    script_p3:"El proyecto involucraba más de 2.000 carpetas. En menos de 30 minutos, el script automatizó lo que habría tomado días. Lo compartí con la comunidad y beneficié a miles de jugadores.",
+    label_skills:"Competencias", title_skills:"Habilidades Técnicas",
+    sg_langs:"Lenguajes", sg_web:"Web", sg_cloud:"Cloud & Infra", sg_other:"Otros",
+    label_projects:"Portafolio", title_projects:"Proyectos",
+    proj_talita_title:"Talita Cumi's",
+    proj_talita_desc:"Restaurante y cafetería con cocina brasileña en Pdte. Franco, Paraguay",
+    proj_tl_desc:"Calculadora de estadísticas para el MMORPG Throne and Liberty",
+    proj_poe_desc:"Sistema de evaluación de drops de monedas para Path of Exile 2",
+    proj_forca_title:"Juego del Ahorcado — Java",
+    proj_forca_desc:"Juego del ahorcado desarrollado en Java con interfaz gráfica",
+    proj_app_title:"App Móvil — React Native",
+    proj_app_desc:"Aplicación móvil con React Native y Expo integrada con AWS",
+    footer_tag:"Desarrollador apasionado por crear soluciones que marcan la diferencia.",
+    footer_contact:"Contacto", footer_social:"Redes Sociales",
+    footer_copy:"© 2024 Marcelo Bernard. Todos los derechos reservados.",
+    footer_made:"Hecho con código y café",
+    modal_break_msg:"Esto desorganizará el sitio. Necesitarás recargar la página para volver a la normalidad.",
+    modal_break_confirm:"¡Romper!", modal_break_cancel:"Cancelar",
+  }
+};
 
-        <section class="section" id="cloud">
-            <h2 class="section-title" data-i18n="cloudComputing">Cloud Computing</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>
-                        <span data-i18n="cloudText1">Tenho grande interesse e venho desenvolvendo minhas habilidades em Cloud Computing, com foco na plataforma AWS. Minha introdução à AWS foi através de um projeto de integração com EC2, onde criei uma solução para comunicação remota entre dispositivos via terminal, independentemente da rede Wi-Fi. O sucesso dessa implementação me incentivou a explorar mais a AWS e aplicá-la em outros projetos, mesmo quando não era um requisito inicial.</span>
-                    </p>
-                    <p>
-                        <span data-i18n="cloudText2">Posteriormente, tive a oportunidade de aplicar esses conhecimentos em um projeto mobile, desenvolvendo funcionalidades para um e-commerce em tempo real, buscando simular a experiência de aplicativos de delivery. Após completar o curso AWS Cloud Practitioner Essentials, minha visão sobre a arquitetura em nuvem se ampliou, e compreendi melhor o vasto ecossistema além do EC2. Isso me levou a explorar conceitos de otimização de custos, buscando entender como gerenciar recursos de forma eficiente.</span>
-                    </p>
-                    <p>
-                        <span data-i18n="cloudText3">Atualmente, estou me familiarizando e já utilizei serviços como Lambda para computação serverless, S3 para armazenamento, DynamoDB para banco de dados NoSQL e API Gateway para gerenciamento de APIs. Vejo a convergência entre análise, desenvolvimento de software e gestão de dados na cloud como uma área muito promissora e estou animado para continuar aprendendo e aplicando minhas competências de forma integrada.</span>
-                    </p>
-                </div>
-                <div class="social-links">
-                    <a href="https://aws.amazon.com/pt/" target="_blank" class="social-link">
-                        <i class="fab fa-aws"></i>
-                        <span>AWS</span>
-                    </a>
-                </div>
-            </div>
-        </section>
+let currentLang = localStorage.getItem('siteLang') || 'pt';
 
-        <section class="section" id="script">
-            <h2 class="section-title" data-i18n="script">Script</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>
-                        <span data-i18n="scriptText1">A utilização de Scripts tornou-se uma parte fundamental do meu dia a dia, tanto profissional quanto pessoal. Desde que adquiri conhecimento nessa área, aplico scripts não apenas para resolver problemas práticos, mas também como ferramenta de exploração e análise de dados, testando padrões de aleatoriedade e desenvolvendo soluções automatizadas para diversos cenários.</span>
-                    </p>
-                    <p>
-                        <span data-i18n="scriptText2">Um dos projetos mais gratificantes que desenvolvi utilizando Scripts foi a automatização de atualizações de arquivos e pastas para o jogo "The Elder Scrolls V: Skyrim Anniversary Edition". O desafio consistia em tornar compatíveis modificações do jogo, o que exigia a alteração de nomes de pastas, atualização de conteúdo em arquivos .txt e criação de arquivos JSON com configurações específicas.</span>
-                    </p>
-                    <p>
-                        <span data-i18n="scriptText3">O projeto envolvia mais de 2.000 pastas, cada uma contendo dezenas de arquivos, tornando a manutenção manual completamente inviável. Ao perceber a magnitude do problema, desenvolvi um script que, em menos de 30 minutos, automatizou todo o processo que anteriormente consumia dias de trabalho manual. Embora tenha sido uma solução desenvolvida para uso pessoal, o impacto foi significativo: compartilhei a solução com outros usuários que enfrentavam o mesmo problema, beneficiando milhares de jogadores da comunidade.</span>
-                    </p>
-                </div>
-                <div class="social-links">
-                    <a href="https://www.python.org/" target="_blank" class="social-link">
-                        <i class="fab fa-python"></i>
-                        <span>Python</span>
-                    </a>
-                </div>
-            </div>
-        </section>
+function applyTranslations(lang) {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (T[lang] && T[lang][key] !== undefined) {
+      el.innerHTML = T[lang][key];
+    }
+  });
+}
 
-        <section class="section" id="skills">
-            <h2 class="section-title" data-i18n="skills">Habilidades Técnicas</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-header">
-                        <i class="fas fa-code skill-icon"></i>
-                        <h3 class="skill-title" data-i18n="progLangs">Linguagens de Programação</h3>
-                    </div>
-                    <div class="skill-list">
-                        <div class="skill-item">
-                            <i class="fas fa-microchip"></i>
-                            <span data-i18n="cpp">C++</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-python"></i>
-                            <span data-i18n="python">Python</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-java"></i>
-                            <span data-i18n="java">Java</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-js"></i>
-                            <span data-i18n="javascript">JavaScript</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-code"></i>
-                            <span data-i18n="lua">Lua</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-header">
-                        <i class="fas fa-globe skill-icon"></i>
-                        <h3 class="skill-title" data-i18n="webDev">Desenvolvimento Web</h3>
-                    </div>
-                    <div class="skill-list">
-                        <div class="skill-item">
-                            <i class="fab fa-html5"></i>
-                            <span data-i18n="html5">HTML5</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-css3-alt"></i>
-                            <span data-i18n="css3">CSS3</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-js"></i>
-                            <span data-i18n="javascript">JavaScript</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-php"></i>
-                            <span data-i18n="php">PHP</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-header">
-                        <i class="fas fa-tools skill-icon"></i>
-                        <h3 class="skill-title" data-i18n="otherTechs">Outras Tecnologias</h3>
-                    </div>
-                    <div class="skill-list">
-                        <div class="skill-item">
-                            <i class="fas fa-scroll"></i>
-                            <span data-i18n="papyrus">Papyrus Script</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-git-alt"></i>
-                            <span data-i18n="git">Git</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-gamepad"></i>
-                            <span data-i18n="mods">Addons e Mods</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-header">
-                        <i class="fas fa-server skill-icon"></i>
-                        <h3 class="skill-title" data-i18n="infra">Infraestrutura e Sistemas</h3>
-                    </div>
-                    <div class="skill-list">
-                        <div class="skill-item">
-                            <i class="fab fa-aws"></i>
-                            <span data-i18n="aws">AWS Cloud</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-linux"></i>
-                            <span data-i18n="linux">Linux</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('siteLang', lang);
+  const labels = { pt:'PTBR', en:'EN', es:'ES' };
+  document.getElementById('langLabel').textContent = labels[lang];
+  applyTranslations(lang);
+  document.getElementById('langWrap').classList.remove('open');
+}
 
-        <section class="section" id="projects">
-            <h2 class="section-title" data-i18n="projects">Projetos</h2>
-            <div class="projects-grid">
-                <a href="https://bernard.dev.br/talitacumis/" class="project-card" target="_blank">
-                    <div class="project-content">
-                        <i class="fas fa-utensils project-icon"></i>
-                        <h3 class="project-title" data-i18n="talitaTitle">
-                            <span data-i18n="talitaTitle">Talita Cumi's</span>
-                        </h3>
-                        <p class="project-description" data-i18n="talitaDesc">Restaurante e cafeteria com culinária brasileira em Pdte. Franco, Paraguai</p>
-                    </div>
-                </a>
-                <a href="https://bernard.dev.br/TL.html" class="project-card">
-                    <div class="project-content">
-                        <i class="fas fa-calculator project-icon"></i>
-                        <h3 class="project-title">Throne and Liberty Stats Calculator</h3>
-                        <p class="project-description">Calculadora de estatísticas para o jogo Throne and Liberty</p>
-                    </div>
-                </a>
-                <a href="https://bernard.dev.br/poe2/home.html" class="project-card">
-                    <div class="project-content">
-                        <i class="fas fa-coins project-icon"></i>
-                        <h3 class="project-title">Path of Exile 2 Currency Drop Rating</h3>
-                        <p class="project-description">Sistema de avaliação de drops de moedas para Path of Exile 2</p>
-                    </div>
-                </a>
-                <a href="https://github.com/Marcelobernard/JogoDaForca" class="project-card">
-                    <div class="project-content">
-                        <i class="fas fa-gamepad project-icon"></i>
-                        <h3 class="project-title">Jogo da Forca em Java</h3>
-                        <p class="project-description">Jogo da forca desenvolvido em Java com interface gráfica</p>
-                    </div>
-                </a>
-                <a href="https://github.com/Marcelobernard/app-mobile" class="project-card">
-                    <div class="project-content">
-                        <i class="fas fa-mobile-alt project-icon"></i>
-                        <h3 class="project-title">App Mobile em React Native</h3>
-                        <p class="project-description">Aplicativo mobile desenvolvido com React Native e Expo</p>
-                    </div>
-                </a>
-            </div>
-        </section>
-    </main>
+function toggleLang() {
+  document.getElementById('langWrap').classList.toggle('open');
+}
 
-    <footer id="contato">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3><span data-i18n="contact">Contato</span></h3>
-                    <p><span data-i18n="contactText">Fique à vontade para entrar em contato através de qualquer um dos canais disponíveis. Estou sempre aberto a novas oportunidades e parcerias!</span></p>
-                </div>
-                <div class="footer-section">
-                    <h3><span data-i18n="channels">Canais</span></h3>
-                    <div class="footer-contact">
-                        <a href="mailto:marcelobernardv@gmail.com">
-                            <i class="fas fa-envelope"></i>
-                            marcelobernardv@gmail.com
-                        </a>
-                        <a href="tel:+5521993345401">
-                            <i class="fas fa-mobile-alt"></i>
-                            (21) 99334-5401
-                        </a>
-                        <a href="https://wa.me/5521993345401" target="_blank">
-                            <i class="fab fa-whatsapp"></i>
-                            WhatsApp
-                        </a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h3><span data-i18n="social">Redes Sociais</span></h3>
-                    <div class="footer-social">
-                        <a href="https://www.linkedin.com/in/marcelobernard/" target="_blank">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://instagram.com/marcelobernardv" target="_blank">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p><span data-i18n="copyright">&copy; 2024 Marcelo Bernard. Todos os direitos reservados.</span></p>
-            </div>
+/* close lang on outside click */
+document.addEventListener('click', e => {
+  const wrap = document.getElementById('langWrap');
+  if (!wrap.contains(e.target)) wrap.classList.remove('open');
+});
+
+/* ─── THEME ───────────────────────────────────────────────────────── */
+let darkMode = localStorage.getItem('theme') !== 'light';
+
+function applyTheme() {
+  const icon = document.getElementById('themeIcon');
+  if (darkMode) {
+    document.documentElement.removeAttribute('data-theme');
+    icon.className = 'fas fa-moon';
+  } else {
+    document.documentElement.setAttribute('data-theme', 'light');
+    icon.className = 'fas fa-sun';
+  }
+  localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+}
+
+document.getElementById('themeBtn').addEventListener('click', () => {
+  darkMode = !darkMode;
+  applyTheme();
+});
+
+/* ─── COLOR PICKER ────────────────────────────────────────────────── */
+function openColorPicker() {
+  document.getElementById('colorPicker').click();
+}
+function applyColor(val) {
+  document.documentElement.style.setProperty('--accent', val);
+  // derive dim version (darken ~15%)
+  document.documentElement.style.setProperty('--accent-dim', val);
+  document.documentElement.style.setProperty('--accent-glow', hexToRgba(val, .18));
+}
+function resetColor() {
+  document.documentElement.style.removeProperty('--accent');
+  document.documentElement.style.removeProperty('--accent-dim');
+  document.documentElement.style.removeProperty('--accent-glow');
+  document.getElementById('colorPicker').value = '#0aa069';
+}
+function hexToRgba(hex, a) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+/* ─── FUN BUTTONS ─────────────────────────────────────────────────── */
+function shakeSite() {
+  document.body.classList.add('shake');
+  setTimeout(() => document.body.classList.remove('shake'), 500);
+}
+
+function openBreakModal() {
+  document.getElementById('breakModal').classList.add('open');
+}
+function closeBreakModal() {
+  document.getElementById('breakModal').classList.remove('open');
+}
+
+let breakInterval = null;
+function breakSite() {
+  closeBreakModal();
+  document.body.classList.add('broken');
+  if (breakInterval) clearInterval(breakInterval);
+  breakInterval = setInterval(() => {
+    document.querySelectorAll('.section-card, .skill-group, .project-card, .quick-card').forEach(el => {
+      el.style.transform = `translate(${rand(-18,18)}px,${rand(-12,12)}px) rotate(${rand(-8,8)}deg)`;
+    });
+  }, 120);
+}
+function rand(a,b) { return Math.random()*(b-a)+a; }
+
+/* close modal on overlay click */
+document.getElementById('breakModal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeBreakModal();
+});
+
+/* ─── HERO CANVAS ─────────────────────────────────────────────────── */
+(function initCanvas() {
+  const canvas = document.getElementById('heroCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, dots = [];
+  const N = 60;
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+
+  function mkDot() {
+    return {
+      x: Math.random()*W, y: Math.random()*H,
+      r: Math.random()*2+.5,
+      vx: (Math.random()-.5)*.35,
+      vy: (Math.random()-.5)*.35,
+      o: Math.random()*.6+.1
+    };
+  }
+
+  function getAccent() {
+    return getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#0aa069';
+  }
+
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    const accent = getAccent();
+    dots.forEach(d => {
+      d.x += d.vx; d.y += d.vy;
+      if (d.x<0||d.x>W) d.vx*=-1;
+      if (d.y<0||d.y>H) d.vy*=-1;
+      ctx.beginPath();
+      ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
+      ctx.fillStyle = accent;
+      ctx.globalAlpha = d.o;
+      ctx.fill();
+    });
+    // draw connecting lines
+    ctx.globalAlpha = 1;
+    for (let i=0;i<dots.length;i++) {
+      for (let j=i+1;j<dots.length;j++) {
+        const dx=dots[i].x-dots[j].x, dy=dots[i].y-dots[j].y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if (dist<120) {
+          ctx.beginPath();
+          ctx.moveTo(dots[i].x,dots[i].y);
+          ctx.lineTo(dots[j].x,dots[j].y);
+          ctx.strokeStyle = accent;
+          ctx.globalAlpha = (1-dist/120)*.18;
+          ctx.lineWidth = .6;
+          ctx.stroke();
+        }
+      }
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', () => { resize(); dots=[]; for(let i=0;i<N;i++) dots.push(mkDot()); });
+  resize();
+  for (let i=0;i<N;i++) dots.push(mkDot());
+  draw();
+})();
+
+/* ─── SCROLL REVEAL ───────────────────────────────────────────────── */
+(function initReveal() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+})();
+
+/* ─── ACTIVE NAV ──────────────────────────────────────────────────── */
+(function initActiveNav() {
+  const sections = document.querySelectorAll('article[id], footer[id]');
+  const links = document.querySelectorAll('.nav-link');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+  sections.forEach(s => obs.observe(s));
+})();
+
+/* ─── LOGIN STATE ─────────────────────────────────────────────────── */
+function renderLogin() {
+  const sec = document.getElementById('loginSection');
+  const raw = localStorage.getItem('userData');
+  if (raw) {
+    const u = JSON.parse(raw);
+    sec.innerHTML = `
+      <div class="quick-card welcome">
+        <div class="welcome-info">
+          <img src="${u.picture}" alt="Avatar" class="welcome-avatar">
+          <span class="welcome-name">Olá, ${u.name.split(' ')[0]}</span>
         </div>
-    </footer>
+        <button class="logout-btn" onclick="doLogout()">
+          <i class="fas fa-sign-out-alt"></i> Sair
+        </button>
+      </div>`;
+  } else {
+    sec.innerHTML = `
+      <a href="login.html" class="quick-card">
+        <i class="fab fa-google"></i>
+        <span>Entrar com Google</span>
+      </a>`;
+  }
+}
 
-    <script>
-        function toggleColorPicker() {
-            const colorPicker = document.getElementById('colorPicker');
-            colorPicker.style.display = colorPicker.style.display === 'block' ? 'none' : 'block';
-        }
+function doLogout() {
+  localStorage.removeItem('userData');
+  renderLogin();
+}
 
-        function changeColor(color) {
-            document.documentElement.style.setProperty('--secondary-color', color);
-            document.getElementById('colorPicker').style.display = 'none';
-        }
+window.addEventListener('storage', e => { if (e.key==='userData') renderLogin(); });
 
-        function resetColor() {
-            document.documentElement.style.setProperty('--secondary-color', '#0aa069');
-        }
-
-        function toggleTheme() {
-            document.body.classList.toggle('light-mode');
-            const themeButton = document.querySelector('.control-button:nth-child(4) i');
-            themeButton.classList.toggle('fa-moon');
-            themeButton.classList.toggle('fa-sun');
-        }
-
-        function shakeSite() {
-            document.body.classList.add('shake');
-            setTimeout(() => {
-                document.body.classList.remove('shake');
-            }, 500);
-        }
-
-        function showBreakConfirmation() {
-            document.getElementById('breakModal').style.display = 'flex';
-        }
-
-        function hideBreakConfirmation() {
-            document.getElementById('breakModal').style.display = 'none';
-        }
-
-        function breakSite() {
-            document.body.classList.add('broken-site');
-            hideBreakConfirmation();
-            
-            setInterval(() => {
-                const elements = document.querySelectorAll('.section, .skill-card, .project-card, .footer-section');
-                elements.forEach(el => {
-                    el.style.transform = `translate(${Math.random() * 40 - 20}px, ${Math.random() * 40 - 20}px) rotate(${Math.random() * 20 - 10}deg)`;
-                });
-            }, 100);
-        }
-
-        // Função para verificar o estado do login
-        function checkLoginState() {
-            const loginSection = document.getElementById('loginSection');
-            const userData = localStorage.getItem('userData');
-            
-            if (userData) {
-                const user = JSON.parse(userData);
-                loginSection.innerHTML = `
-                    <div class="welcome-card">
-                        <div class="welcome-header">
-                            <img src="${user.picture}" alt="Avatar" class="welcome-avatar">
-                            <span class="welcome-name">Bem-vindo, ${user.name}</span>
-                        </div>
-                        <button class="welcome-logout" onclick="handleSignOut()">
-                            <i class="fas fa-sign-out-alt"></i>
-                            Sair
-                        </button>
-                    </div>
-                `;
-            } else {
-                loginSection.innerHTML = `
-                    <a href="login.html" class="grid-button">
-                        <i class="fab fa-google"></i>
-                        <span>Entrar com Google</span>
-                    </a>
-                `;
-            }
-        }
-
-        // Função para fazer logout
-        function handleSignOut() {
-            localStorage.removeItem('userData');
-            checkLoginState();
-        }
-
-        // Verifica o estado do login quando a página carrega
-        window.addEventListener('load', checkLoginState);
-
-        // Adiciona um listener para mudanças no localStorage
-        window.addEventListener('storage', function(e) {
-            if (e.key === 'userData') {
-                checkLoginState();
-            }
-        });
-    </script>
+/* ─── INIT ────────────────────────────────────────────────────────── */
+(function init() {
+  applyTheme();
+  const labels = { pt:'PTBR', en:'EN', es:'ES' };
+  document.getElementById('langLabel').textContent = labels[currentLang];
+  applyTranslations(currentLang);
+  renderLogin();
+})();
+</script>
 </body>
 </html>
